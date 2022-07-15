@@ -71,10 +71,17 @@ def menu():
 def choose_character():
 
     eligible_characters_images = [pygame.image.load(r'./resources/Barbarian.png'),
-                                  pygame.image.load(r'./resources/Dwarf.png'),
-                                  pygame.image.load(r'./resources/Wizard.png'),
-                                  pygame.image.load(r'./resources/Elf.png'),
+                                  pygame.image.load(r'./resources/Dwarf2.PNG'),
+                                  pygame.image.load(r'./resources/Wizard2.PNG'),
+                                  pygame.image.load(r'./resources/Elf2.PNG'),
                                   pygame.image.load(r'./resources/Faerie.png')]
+
+    eligible_small_images = [pygame.image.load(r'./resources/Barbarian.png'),
+                                  pygame.image.load(r'./resources/Dwarf_small.png'),
+                                  pygame.image.load(r'./resources/Wizard_small.png'),
+                                  pygame.image.load(r'./resources/Elf_small.png'),
+                                  pygame.image.load(r'./resources/Faerie.png')]
+
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0
     pressed = False
@@ -87,7 +94,8 @@ def choose_character():
 
     while True:
         screen.fill(BLACK)
-        screen.blit(eligible_characters_images[index], (400, 150))
+        # screen.blit(eligible_characters_images[index], (400, 150))
+        screen.blit(eligible_characters_images[index], (250, 0))
 
         draw_text("Character selection", 200, 50, 40, WHITE)
 
@@ -149,7 +157,8 @@ def choose_character():
                         final_side = "evil"
 
                     # pygame.quit()
-                    return final_name, final_type, final_side, eligible_characters_images[index]
+                    # return final_name, final_type, final_side, eligible_characters_images[index]
+                    return final_name, final_type, final_side, eligible_characters_images[index], eligible_small_images[index]
                     # break
             elif 250 < y < 350 and 650 < x <= 700:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
@@ -186,8 +195,12 @@ def choose_character():
                     letters_numbers = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
                                        'r', 's', 't', 'u', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
                                        '8', '9']
+
                     if pygame.key.name(event.key) in letters_numbers:
-                        char_name += pygame.key.name(event.key)
+                        if len(char_name) == 0:
+                            char_name += pygame.key.name(event.key).upper()
+                        else:
+                            char_name += pygame.key.name(event.key)
                     elif event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                         char_name = char_name[:-1]
 
@@ -226,7 +239,7 @@ def character_info(name, ch_type, side, image):
         pygame.draw.rect(screen, WHITE, button_play)
         draw_text("Play", 350, 500, 40, BLACK)
 
-        screen.blit(image, (550, 150))
+        screen.blit(image, (350, 0))
         text_y = 100
         for sentence in array_text:
             draw_text(sentence, 50, text_y, 20, WHITE)
@@ -262,6 +275,6 @@ def character_info(name, ch_type, side, image):
 
 
 menu()
-chosen_name, chosen_type, chosen_side, image = choose_character()
+chosen_name, chosen_type, chosen_side, image, image_small = choose_character()
 character_info(chosen_name, chosen_type, chosen_side, image)
-game()
+game(chosen_name, chosen_type, chosen_side, image_small)

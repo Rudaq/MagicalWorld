@@ -81,10 +81,10 @@ import re
 #
 # trainer.train()
 # trainer.save_model()
-
-sequence = "You are Orindell. A good elf"
-# output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')
-# final_text = output(sequence)[0]['generated_text']
+#
+# sequence = "You are Orindell. A good elf"
+# # output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')
+# # final_text = output(sequence)[0]['generated_text']
 
 def end_sentence_on_the_dot(text):
     splitted = text.split(" ")
