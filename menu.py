@@ -80,7 +80,7 @@ def choose_character():
                                   pygame.image.load(r'./resources/Dwarf_small.png'),
                                   pygame.image.load(r'./resources/Wizard_small.png'),
                                   pygame.image.load(r'./resources/Elf_small.png'),
-                                  pygame.image.load(r'./resources/Faerie.png')]
+                                  pygame.image.load(r'./resources/Faerie_small.png')]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0

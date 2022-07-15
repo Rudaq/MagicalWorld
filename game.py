@@ -9,6 +9,7 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
+from npc.DarkWizard import DarkWizard
 from npc.Druid import Druid
 
 WIDTH_GAME = 1500
@@ -27,6 +28,7 @@ image_dwarf = pygame.image.load(os.path.join(path, "resources", "Dwarf.png"))
 image_wizard = pygame.image.load(os.path.join(path, "resources", "Wizard.png"))
 image_barbarian = pygame.image.load(os.path.join(path, "resources", "Barbarian.png"))
 image_druid = pygame.image.load(os.path.join(path, "resources", "Druid.png"))
+image_dark_wizard = pygame.image.load(os.path.join(path, "resources", "Wizard_dark.png"))
 
 
 def game(chosen_name, chosen_type, chosen_side, image):
@@ -49,10 +51,13 @@ def game(chosen_name, chosen_type, chosen_side, image):
 
     druid = Druid("Leaf", "good", 300, 600, image_druid, image_druid, image_druid, "Druid", None, None, 700, 300)
     npcs.append(druid)
+    dark_wizard = DarkWizard("Sarus", "evil", 200, 400, image_dark_wizard, image_dark_wizard, image_dark_wizard, "Wizard", None, None, 400, 500)
+    npcs.append(dark_wizard)
 
     all_sprites_group = pygame.sprite.Group()
     all_sprites_group.add(hero)
     all_sprites_group.add(druid)
+    all_sprites_group.add(dark_wizard)
 
     dx = 0
     dy = 0
