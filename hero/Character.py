@@ -28,6 +28,9 @@ class Character(pygame.sprite.Sprite):
         self.left = image_left
 
         self.active_quest = active_quest
+        self.my_text = ''
+        self.hero_turn = False
+        self.in_dialog = False
 
     def move(self, direction, dx, dy):
         self.direction = direction

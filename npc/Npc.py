@@ -12,19 +12,21 @@ class Npc(Character):
         self.is_talking = False
         self.is_fighting = False
         self.quests_to_give = quests
-        self.movement = [0, 0]
+        self.movement = [0, 0, 0]
+        self.text = ">> "
 
     def talk(self):
         print("I'm NPC")
 
     def move(self, direction="R", dx=0, dy=0):
         step = 2
-        if self.movement[0] == 0:
+        if self.movement[0] == 0 and self.movement[2] == 0:
             distance = random.randint(-100, 100)
             axis = random.randint(0, 1)
-            self.movement = [distance, axis]
+            wait = random.randint(0, 30)
+            self.movement = [distance, axis, wait ]
         else:
-            if self.movement[0] >= 0:
+            if self.movement[0] > 0:
                 self.movement[0] -= 1
                 if self.movement[1] == 0:
                     self.rect.x += step
@@ -32,7 +34,7 @@ class Npc(Character):
                 else:
                     self.rect.y += step
                     self.direction = "D"
-            else:
+            elif self.movement[0] < 0:
                 self.movement[0] += 1
                 if self.movement[1] == 0:
                     self.rect.x -= step
@@ -40,4 +42,6 @@ class Npc(Character):
                 else:
                     self.rect.y -= step
                     self.direction = "U"
+            elif self.movement[0] == 0:
+                self.movement[2] -= 1
 

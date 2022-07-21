@@ -19,6 +19,8 @@ pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
+# Menu for choosing character race and other characteristics and starting the game
+
 
 def draw_text(text, x, w, size, color):
     font = pygame.font.SysFont('Verdana', size)
@@ -32,8 +34,8 @@ def menu():
         button_start = pygame.Rect(250, 300, 300, 50)
         button_quit = pygame.Rect(250, 400, 300, 50)
 
-        pygame.draw.rect(screen, BLACK, button_start)
-        pygame.draw.rect(screen, BLACK, button_quit)
+        pygame.draw.rect(screen, BLACK, button_start, 0, 3)
+        pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
         draw_text("Start", 350, 300, 40, WHITE)
         draw_text("Quit", 350, 400, 40, WHITE)
         draw_text("Battle of the Realm", 200, 100, 40, WHITE)
@@ -99,24 +101,24 @@ def choose_character():
 
         draw_text("Character selection", 200, 50, 40, WHITE)
 
-        pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)])
-        pygame.draw.polygon(screen, WHITE, [(SCREEN_WIDTH - 150, 250), (SCREEN_WIDTH - 150, 350), (SCREEN_WIDTH - 100, 300)])
+        pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)], 5)
+        pygame.draw.polygon(screen, WHITE, [(SCREEN_WIDTH - 150, 250), (SCREEN_WIDTH - 150, 350), (SCREEN_WIDTH - 100, 300)], 5)
 
         draw_text("Name: ", 75, 175, 20, WHITE)
         name = pygame.Rect(100, 200, 150, 40)
-        pygame.draw.rect(screen, WHITE, name)
+        pygame.draw.rect(screen, WHITE, name, 0, 3)
         draw_text(char_name, 100, 200, 20, BLACK)
 
         draw_text("Type: ", 75, 275, 20, WHITE)
         c_type = pygame.Rect(100, 300, 150, 40)
-        pygame.draw.rect(screen, WHITE, c_type)
+        pygame.draw.rect(screen, WHITE, c_type, 0, 3)
         draw_text(names[index], 100, 300, 20, BLACK)
 
         draw_text("Side: ", 75, 375, 20, WHITE)
         side = pygame.Rect(100, 400, 150, 40)
-        pygame.draw.rect(screen, WHITE, side)
-        pygame.draw.polygon(screen, WHITE, [(90, 410), (90, 430), (70, 420)])
-        pygame.draw.polygon(screen, WHITE, [(260, 410), (260, 430), (280, 420)])
+        pygame.draw.rect(screen, WHITE, side, 0, 3)
+        pygame.draw.polygon(screen, WHITE, [(90, 410), (90, 430), (70, 420)], 2)
+        pygame.draw.polygon(screen, WHITE, [(260, 410), (260, 430), (280, 420)], 2)
 
         if good:
             draw_text("Good", 100, 400, 20, BLACK)
@@ -124,7 +126,7 @@ def choose_character():
             draw_text("Evil", 100, 400, 20, BLACK)
 
         button_next = pygame.Rect(600, 500, 200, 50)
-        pygame.draw.rect(screen, WHITE, button_next)
+        pygame.draw.rect(screen, WHITE, button_next, 0, 3)
         draw_text("Next", 650, 500, 40, BLACK)
 
         left, middle, right = pygame.mouse.get_pressed()
@@ -236,7 +238,7 @@ def character_info(name, ch_type, side, image):
         screen.fill(BLACK)
 
         button_play = pygame.Rect(250, 500, 300, 50)
-        pygame.draw.rect(screen, WHITE, button_play)
+        pygame.draw.rect(screen, WHITE, button_play, 0, 3)
         draw_text("Play", 350, 500, 40, BLACK)
 
         screen.blit(image, (350, 0))
