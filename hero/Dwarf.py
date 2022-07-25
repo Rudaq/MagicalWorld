@@ -4,6 +4,7 @@ from hero.Character import Character
 SPRITE_SIZE = 50
 
 
+# Class for a hero of race Dwarf, inherits from Character class
 class Dwarf(Character):
-    def __init__(self, name, side, mana, life, image, image_left, image_right, race, active_quest):
-        super().__init__(name, side, mana, life, image, image_left, image_right, race, active_quest)
+    def __init__(self, name, side, mana, life, images, race, active_quest):
+        super().__init__(name, side, mana, life, images, race, active_quest)

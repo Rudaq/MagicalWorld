@@ -12,6 +12,7 @@ model = GPT2LMHeadModel.from_pretrained("gpt2")
 
 text_list = []
 
+# Using data gathered in the csv file (change to the merged file)
 with open("stories2.csv", "r") as my_input_file:
     for line in my_input_file:
         line = line.split(" ")
@@ -21,6 +22,7 @@ with open("stories2.csv", "r") as my_input_file:
 train, test = train_test_split(text_list, test_size=0.2)
 
 
+# Method to build text files for train and text data
 def build_text_files(data, dest_path):
     f = open(dest_path, 'w')
     end_data = ''
@@ -38,6 +40,7 @@ train_path = 'train_dataset.txt'
 test_path = 'test_dataset.txt'
 
 
+# Loading data to test and train
 def load_data(train_path, test_path, tokenizer):
     train_dataset = TextDataset(
         tokenizer=tokenizer,

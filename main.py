@@ -3,6 +3,7 @@ from transformers import pipeline
 # Generating character description after given input text and ensuring it ends with the end of a sentence.
 
 
+# Method to format the generated text. Clipping text after the last sentence - last dot.
 def end_sentence_on_the_dot(text):
     splitted = text.split(" ")
     reversed_text = list(reversed(splitted))
@@ -33,6 +34,7 @@ def end_sentence_on_the_dot(text):
     return joined
 
 
+# Method to generate the text about the character using saved model and input sequence
 def generate_text_about_character(sequence):
     output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')
     final_text = output(sequence)[0]['generated_text']
