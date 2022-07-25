@@ -256,7 +256,7 @@ def game(chosen_name, chosen_type, chosen_side, image):
                         hero.in_dialog = True
                         hero.hero_turn = False
                         hero.my_text = ">> "
-                        npc_dialog_thread.set_npc(npc)
+                        # npc_dialog_thread.set_npc(npc)
                         npc_dialog_thread = NpcDialogThread(hero, screen, npc)
                         npc_dialog_thread.start()
                         print("START TALKING!!")
