@@ -1,9 +1,13 @@
 import os
 import sys
+from copy import copy
 
 import pygame
 from pygame.locals import *
+from sklearn import clone
 
+from dialog.ButtonClass import ButtonClass
+from dialog.DialogLine import DialogLine
 from dialog.GenerateNpcDialog import draw_text, wrap_text
 from dialog.NpcDialogThread import NpcDialogThread
 from hero.Barbarian import Barbarian
@@ -116,11 +120,13 @@ def game(chosen_name, chosen_type, chosen_side, image):
     pressed = False
     prev = False
     npc_dialog_thread = None
-    # npc_dialog_thread = NpcDialogThread(hero, screen, None)
-    # npc_dialog_thread.start()
+    npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
+    npc_dialog_thread.start()
+    # dialog_moved = False
 
     s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
-    text_list = []
+    arrow_up = ButtonClass(25, 25)
+    arrow_down = ButtonClass(25, 25)
 
     # Main game loop
     while True:
@@ -129,24 +135,6 @@ def game(chosen_name, chosen_type, chosen_side, image):
         all_sprites_group.update()
         hero.update()
         all_sprites_group.draw(screen)
-        # Drawing dialog elements if there is a dialog
-        if hero.in_dialog:
-            s.fill(BLACK)
-            s.set_alpha(192) # 0 - 255
-            screen.blit(s, (0, 0))
-            border = pygame.Rect(0, 0, WIDTH_GAME, 150)
-            pygame.draw.rect(screen, WHITE, border, 2, 3)
-
-            check_text_length(hero.my_text, screen, 100, WHITE)
-
-            for npc in npcs:
-                if npc.is_talking:
-                    check_text_length(npc.text, screen, 25, YELLOW)
-                    break
-
-        pygame.display.update()
-
-        join_thread = False
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -192,33 +180,37 @@ def game(chosen_name, chosen_type, chosen_side, image):
                     # Checking if hero is now talking - possibility of keyboard interaction
                     # letters, digits, signs and space accepted (lists at the top)
                     if hero.hero_turn:
-                        print("Event: ", pygame.key.name(event.key))
                         if pygame.key.name(event.key) in letters:
                             if keys_pressed[K_LSHIFT] or keys_pressed[K_RSHIFT]:
                                 hero.my_text += pygame.key.name(event.key).upper()
                             else:
                                 hero.my_text += pygame.key.name(event.key)
+                            hero.text_history[len(hero.text_history)-1].text = hero.my_text
+
                         elif pygame.key.name(event.key) in digits:
                             if pygame.key.name(event.key) == '1' and (keys_pressed[K_LSHIFT] or keys_pressed[K_RSHIFT]):
                                 hero.my_text += '!'
                             else:
                                 hero.my_text += pygame.key.name(event.key)
+                            hero.text_history[len(hero.text_history)-1].text = hero.my_text
                         elif pygame.key.name(event.key) == 'space':
-                            print("SPACE")
+                            # print("SPACE")
                             hero.my_text += ' '
+                            hero.text_history[len(hero.text_history)-1].text = hero.my_text
                         elif pygame.key.name(event.key) in signs:
                             if pygame.key.name(event.key) == '/' and (keys_pressed[K_LSHIFT] or keys_pressed[K_RSHIFT]):
                                 hero.my_text += '?'
                             else:
                                 hero.my_text += pygame.key.name(event.key)
+                            hero.text_history[len(hero.text_history)-1].text = hero.my_text
                         # Deleting the last written letter
                         elif event.key == pygame.K_BACKSPACE or event.key == pygame.K_DELETE:
                             hero.my_text = hero.my_text[:-1]
+                            hero.text_history[len(hero.text_history)-1].text = hero.my_text
                         # Detecting enter, finishing the input, turn is changed to npc
                         elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                             hero.hero_turn = False
-
-                        print(hero.my_text)
+                            update_positions_and_transparency(hero.text_history)
 
         # Moving hero
         if moving:
@@ -256,9 +248,6 @@ def game(chosen_name, chosen_type, chosen_side, image):
                         hero.in_dialog = True
                         hero.hero_turn = False
                         hero.my_text = ">> "
-                        # npc_dialog_thread.set_npc(npc)
-                        npc_dialog_thread = NpcDialogThread(hero, screen, npc)
-                        npc_dialog_thread.start()
                         print("START TALKING!!")
                         break
                     # if yes - stop the dialog
@@ -267,16 +256,83 @@ def game(chosen_name, chosen_type, chosen_side, image):
                         hero.in_dialog = False
                         hero.hero_turn = False
                         hero.my_text = ">> "
+                        hero.text_history = []
+                        npc.text_history = []
                         npc.text = ">> "
-                        join_thread = True
                         print("STOP TALKING!!")
                         break
+
+            if arrow_up.rect.collidepoint(mouse_point):
+                move_dialog_up(hero.text_history)
+            elif arrow_down.rect.collidepoint(mouse_point):
+                move_dialog_down(hero.text_history)
 
         # Set previous state of left mouse button
         prev = left
 
-        # Join the thread
-        if join_thread:
-            npc_dialog_thread.join()
+        if hero.in_dialog:
+            s.fill(BLACK)
+            s.set_alpha(192)  # 0 - 255
+            screen.blit(s, (0, 0))
 
+            arrows = pygame.sprite.Group()
+            arrow_up.rect.x = WIDTH_GAME - 50
+            arrow_up.rect.y = 25
+            arrow_down.rect.x = WIDTH_GAME - 50
+            arrow_down.rect.y = 100
+
+            arrows.add(arrow_up)
+            arrows.add(arrow_down)
+
+            for text in hero.text_history:
+                check_transparency(text)
+                if text.transparent:
+                    check_text_length(text.text, screen, text.position, text.color)
+
+            arrows.update()
+            arrows.draw(screen)
+            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 40), (WIDTH_GAME - 38, 30), (WIDTH_GAME - 30, 40)], 2)
+            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 110), (WIDTH_GAME - 38, 120), (WIDTH_GAME - 30, 110)],
+                                2)
+
+            border = pygame.Rect(0, 0, WIDTH_GAME, 150)
+            pygame.draw.rect(screen, WHITE, border, 2, 3)
+        pygame.display.update()
         clock.tick(60)
+
+
+def check_transparency(text):
+    if text.position == 25 or text.position == 100:
+        text.transparent = True
+    else:
+        text.transparent = False
+
+
+def update_positions_and_transparency(text_history):
+    for text in text_history:
+        text.position -= 150
+        if text.position == 25 or text.position == 100:
+            text.transparent = True
+        else:
+            text.transparent = False
+
+
+def move_dialog_up(text_history):
+    i = 0
+
+    for text in text_history:
+        check_transparency(text)
+        if i == 0 and text.position == 25:
+            break
+        text.position += 75
+        i += 1
+
+
+def move_dialog_down(text_history):
+    reversed_text = text_history[::-1]
+    for i in range(len(reversed_text)):
+        check_transparency(reversed_text[i])
+        if i == 0 and reversed_text[i].position == 100 and reversed_text[i+1].position == 25:
+            print("HERE")
+            break
+        reversed_text[i].position -= 75

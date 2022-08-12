@@ -29,6 +29,8 @@ class Character(pygame.sprite.Sprite):
 
         self.active_quest = active_quest
         self.my_text = ''
+        self.text_history = []
+        self.last_position = 175
 
         # dialog variables
         self.hero_turn = False
