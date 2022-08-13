@@ -19,7 +19,7 @@ def generate_text():
 
 # Function to limit the length of text input in the dialog and its formatting (moves text to the next line after 220
 # characters and cutting it all together after 440)
-def wrap_text(text):
+def wrap_text(text, length, stop):
     text_splitted = text.split(" ")
     text_list = []
     length_sum = 3
@@ -27,7 +27,7 @@ def wrap_text(text):
     joined_string = ""
 
     for word in text_splitted:
-        if length_sum + len(word) <= 220:
+        if length_sum + len(word) <= length:
             length_sum += len(word) + 1
             joined_string += word + " "
         else:
@@ -36,7 +36,10 @@ def wrap_text(text):
             length_sum = len(word) + 1
 
     text_list.append(joined_string)
-    if len(text_list) > 2:
-        return text_list[:2]
+    if stop:
+        if len(text_list) > 2:
+            return text_list[:2]
+        else:
+            return text_list
     else:
         return text_list

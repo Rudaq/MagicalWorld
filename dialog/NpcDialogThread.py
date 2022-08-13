@@ -5,6 +5,8 @@ from dialog.DialogLine import DialogLine
 from dialog.GenerateNpcDialog import generate_text, draw_text, wrap_text
 from main import generate_text_about_character
 
+DIALOG_START = 100
+
 YELLOW = (255, 234, 0)
 WHITE = (255, 255, 255)
 
@@ -33,7 +35,7 @@ class NpcDialogThread(threading.Thread):
                                 reversed_text = self.hero.text_history[::-1]
                                 pos = reversed_text[0].position
                             else:
-                                pos = -50
+                                pos = 50
                             npc_dialog_line = DialogLine(npc.text, pos + 75, YELLOW)
                             npc_dialog_line.transparent = True
                             self.hero.text_history.append(npc_dialog_line)

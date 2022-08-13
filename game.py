@@ -22,15 +22,21 @@ from npc.Mermaid import Mermaid
 from npc.Orc import Orc
 
 # Main game loop
+from quest.Quest import Quest
 
 WIDTH_GAME = 1500
 HEIGHT_GAME = 800
+DIALOG_START = 100
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 GREEN = (24, 165, 88)
+LIGHT_GREEN = (127, 255, 0)
 YELLOW = (255, 234, 0)
+HUD_YELLOW = (245, 245, 220)
+ALMOND = (234, 221, 202)
+CORAL = (248, 131, 121)
 
 # Possible characters to be used as input
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -45,6 +51,8 @@ image_dark_wizard = pygame.image.load(os.path.join(path, "resources", "Wizard_da
 image_mermaid = pygame.image.load(os.path.join(path, "resources", "Mermaid.PNG"))
 image_ice_monster = pygame.image.load(os.path.join(path, "resources", "IceMonster.PNG"))
 image_orc = pygame.image.load(os.path.join(path, "resources", "Orc.png"))
+scroll_small = pygame.image.load(os.path.join(path, "resources", "scroll_small.png"))
+scroll = pygame.image.load(os.path.join(path, "resources", "scroll.png"))
 
 
 # Function to limit the length of text input in the dialog and its formatting (moves text to the next line after 220
@@ -54,11 +62,86 @@ def check_text_length(text, screen, text_height_position, color):
     if len(text) <= 220:
         text_list.append(text)
     else:
-        text_list = wrap_text(text)
+        text_list = wrap_text(text, 220, True)
 
     for i in range(len(text_list)):
         draw_text(text_list[i], 50, text_height_position, 12, color, screen)
         text_height_position += 20
+
+
+# Function that checks if the text is in available position to be displayed
+def check_transparency(text):
+    if text.position == DIALOG_START + 25 or text.position == DIALOG_START + 100:
+        text.transparent = True
+    else:
+        text.transparent = False
+
+
+# Move text to make place for another
+def update_positions_and_transparency(text_history):
+    for text in text_history:
+        text.position -= 150
+        if text.position == DIALOG_START + 25 or text.position == DIALOG_START + 100:
+            text.transparent = True
+        else:
+            text.transparent = False
+
+
+# Function to move dialog up to see previous messages
+def move_dialog_up(text_history):
+    i = 0
+
+    for text in text_history:
+        check_transparency(text)
+        if i == 0 and text.position == DIALOG_START + 25:
+            break
+        text.position += 75
+        i += 1
+
+
+# Function to move dialog down to see next messages
+def move_dialog_down(text_history):
+    reversed_text = text_history[::-1]
+    for i in range(len(reversed_text)):
+        check_transparency(reversed_text[i])
+        if i == 0 and reversed_text[i].position == DIALOG_START + 100 and reversed_text[i+1].position == DIALOG_START + 25:
+            print("HERE")
+            break
+        reversed_text[i].position -= 75
+
+
+# Function to update hud and displayed there components
+def update_hud(screen, hero, scroll_button):
+    hud = pygame.Rect(0, 0, WIDTH_GAME, 100)
+    pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
+
+    border = pygame.Rect(0, 0, WIDTH_GAME, 100)
+    pygame.draw.rect(screen, ALMOND, border, 5, 2)
+
+    draw_text("Life ", 100, 25, 12, BLACK, screen)
+
+    life = pygame.Rect(150, 50, hero.life, 25)
+    pygame.draw.rect(screen, LIGHT_GREEN, life, 0, 2)
+    border = pygame.Rect(150, 50, 100, 25)
+    pygame.draw.rect(screen, BLACK, border, 2, 2)
+
+    draw_text("Mana ", 400, 25, 12, BLACK, screen)
+
+    mana = pygame.Rect(450, 50, hero.mana, 25)
+    pygame.draw.rect(screen, BLUE, mana, 0, 2)
+    border = pygame.Rect(450, 50, 100, 25)
+    pygame.draw.rect(screen, BLACK, border, 2, 2)
+
+    draw_text("Points ", 1100, 25, 12, BLACK, screen)
+    draw_text(str(hero.points), 1150, 50, 12, BLACK, screen)
+    scroll_surface = pygame.Surface((30, 30))
+
+    draw_text("Quest ", 1300, 25, 12, BLACK, screen)
+    screen.blit(scroll_small, (1350, 50))
+    scroll_button.image = scroll_small
+    scroll_button.rect.x = 1350
+    scroll_button.rect.y = 50
+    scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
 
 
 # Main game function
@@ -73,15 +156,19 @@ def game(chosen_name, chosen_type, chosen_side, image):
     # Creating hero of a class corresponding to a chosen race
     images = [image]
     if chosen_type == "Elf":
-        hero = Elf(chosen_name, chosen_side, 300, 500, images, None, chosen_type)
+        hero = Elf(chosen_name, chosen_side, 100, 100, images, None, chosen_type)
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 400, 300, images, None, chosen_type)
+        hero = Faerie(chosen_name, chosen_side, 100, 100, images, None, chosen_type)
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 500, 300, images, None, chosen_type)
+        hero = Wizard(chosen_name, chosen_side, 100, 100, images, None, chosen_type)
     elif chosen_type == "Dwarf":
-        hero = Dwarf(chosen_name, chosen_side, 200, 300, images, None, chosen_type)
+        hero = Dwarf(chosen_name, chosen_side, 100, 100, images, None, chosen_type)
     else:
-        hero = Barbarian(chosen_name, chosen_side, 200, 400, images, None, chosen_type)
+        hero = Barbarian(chosen_name, chosen_side, 100, 100, images, None, chosen_type)
+
+    # Test quest
+    quest = Quest("Go to the place where you found the stone, pour raven blood over it, burn the sage in the sacred fire, release mermaid’s voice and say the incantation to summon the god.", 50, [], [])
+    hero.active_quest = quest
 
     # Creating npcs
     images_druid = [image_druid]
@@ -122,11 +209,12 @@ def game(chosen_name, chosen_type, chosen_side, image):
     npc_dialog_thread = None
     npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
     npc_dialog_thread.start()
-    # dialog_moved = False
+    show_quest = False
 
     s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25)
     arrow_down = ButtonClass(25, 25)
+    scroll_button = ButtonClass(30, 40)
 
     # Main game loop
     while True:
@@ -266,6 +354,8 @@ def game(chosen_name, chosen_type, chosen_side, image):
                 move_dialog_up(hero.text_history)
             elif arrow_down.rect.collidepoint(mouse_point):
                 move_dialog_down(hero.text_history)
+            elif scroll_button.rect.collidepoint(mouse_point):
+                show_quest = not show_quest
 
         # Set previous state of left mouse button
         prev = left
@@ -273,13 +363,13 @@ def game(chosen_name, chosen_type, chosen_side, image):
         if hero.in_dialog:
             s.fill(BLACK)
             s.set_alpha(192)  # 0 - 255
-            screen.blit(s, (0, 0))
+            screen.blit(s, (0, DIALOG_START))
 
             arrows = pygame.sprite.Group()
             arrow_up.rect.x = WIDTH_GAME - 50
-            arrow_up.rect.y = 25
+            arrow_up.rect.y = DIALOG_START + 25
             arrow_down.rect.x = WIDTH_GAME - 50
-            arrow_down.rect.y = 100
+            arrow_down.rect.y = DIALOG_START + 100
 
             arrows.add(arrow_up)
             arrows.add(arrow_down)
@@ -291,48 +381,27 @@ def game(chosen_name, chosen_type, chosen_side, image):
 
             arrows.update()
             arrows.draw(screen)
-            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 40), (WIDTH_GAME - 38, 30), (WIDTH_GAME - 30, 40)], 2)
-            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 110), (WIDTH_GAME - 38, 120), (WIDTH_GAME - 30, 110)],
+            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 140), (WIDTH_GAME - 38, 130), (WIDTH_GAME - 30, 140)], 2)
+            pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 210), (WIDTH_GAME - 38, 220), (WIDTH_GAME - 30, 210)],
                                 2)
 
-            border = pygame.Rect(0, 0, WIDTH_GAME, 150)
+            border = pygame.Rect(0, DIALOG_START, WIDTH_GAME, 150)
             pygame.draw.rect(screen, WHITE, border, 2, 3)
+
+        update_hud(screen, hero, scroll_button)
+        if show_quest:
+            screen.blit(scroll, (1100, 100))
+            text_list = wrap_text(hero.active_quest.description, 25, False)
+            w = 200
+            h = 1200
+            for text in text_list:
+                draw_text(text, h, w, 14, BLACK, screen)
+                w += 20
+                if h == 1170:
+                    h += 5
+                else:
+                    h -= 5
+
         pygame.display.update()
         clock.tick(60)
 
-
-def check_transparency(text):
-    if text.position == 25 or text.position == 100:
-        text.transparent = True
-    else:
-        text.transparent = False
-
-
-def update_positions_and_transparency(text_history):
-    for text in text_history:
-        text.position -= 150
-        if text.position == 25 or text.position == 100:
-            text.transparent = True
-        else:
-            text.transparent = False
-
-
-def move_dialog_up(text_history):
-    i = 0
-
-    for text in text_history:
-        check_transparency(text)
-        if i == 0 and text.position == 25:
-            break
-        text.position += 75
-        i += 1
-
-
-def move_dialog_down(text_history):
-    reversed_text = text_history[::-1]
-    for i in range(len(reversed_text)):
-        check_transparency(reversed_text[i])
-        if i == 0 and reversed_text[i].position == 100 and reversed_text[i+1].position == 25:
-            print("HERE")
-            break
-        reversed_text[i].position -= 75
