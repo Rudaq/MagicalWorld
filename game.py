@@ -1,6 +1,7 @@
 import os
 import sys
 from copy import copy
+from datetime import datetime, time
 
 import pygame
 from pygame.locals import *
@@ -110,8 +111,27 @@ def move_dialog_down(text_history):
         reversed_text[i].position -= 75
 
 
+def time_to_restore(screen, restore_life_time_passed, x):
+    time_diff = datetime.now() - restore_life_time_passed
+    time_sec = time_diff.total_seconds()
+    # print("time_start", restore_life_time_passed)
+
+    time_to_display = 120 - time_sec
+    minutes = int(time_to_display / 60)
+    seconds = int(time_to_display % 60)
+    draw_text(str(minutes) + ':', x, 50, 12, BLACK, screen)
+    if seconds < 10:
+        draw_text('0' + str(seconds), x + 20, 50, 12, BLACK, screen)
+    else:
+        draw_text(str(seconds), x + 20, 50, 12, BLACK, screen)
+    if time_to_display <= 0:
+        return 0
+    else:
+        return 1
+
+
 # Function to update hud and displayed there components
-def update_hud(screen, hero, scroll_button):
+def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed, restore_life_time_passed):
     hud = pygame.Rect(0, 0, WIDTH_GAME, 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
@@ -142,6 +162,33 @@ def update_hud(screen, hero, scroll_button):
     scroll_button.rect.x = 1350
     scroll_button.rect.y = 50
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
+
+    if restore_life:
+        time_left = time_to_restore(screen, restore_life_time_passed, 300)
+        if time_left == 0:
+            hero.life = 100
+
+    if restore_mana:
+        time_left = time_to_restore(screen, restore_mana_time_passed, 600)
+        if time_left == 0:
+            hero.mana = 100
+
+
+def set_fight_parameters(hero, use_spell):
+    if hero.in_fight:
+        use_spell = not use_spell
+        if hero.casting_spell:
+            hero.casting_spell = not hero.casting_spell
+            hero.chosen_spell = None
+        else:
+            hero.chosen_spell = None
+            hero.casting_spell = False
+        if hero.mana == 0:
+            use_spell = False
+            hero.chosen_spell = None
+            hero.casting_spell = False
+
+    return use_spell
 
 
 # Main game function
@@ -210,6 +257,12 @@ def game(chosen_name, chosen_type, chosen_side, image):
     npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
     npc_dialog_thread.start()
     show_quest = False
+    use_spell = False
+    restore_life = False
+    restore_mana = False
+    restore_life_time_passed = None
+    restore_mana_time_passed = None
+    option = 1
 
     s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25)
@@ -261,6 +314,20 @@ def game(chosen_name, chosen_type, chosen_side, image):
                     dx = -5
                     dy = 0
                     moving = True
+                elif event.key == pygame.K_0:
+                    hero.in_fight = not hero.in_fight
+                    hero.casting_spell = False
+                    use_spell = False
+                    hero.chosen_spell = None
+                elif event.key == pygame.K_1:
+                    option = 1
+                    use_spell = set_fight_parameters(hero, use_spell)
+                elif event.key == pygame.K_2:
+                    option = 2
+                    use_spell = set_fight_parameters(hero, use_spell)
+                elif event.key == pygame.K_3:
+                    option = 3
+                    use_spell = set_fight_parameters(hero, use_spell)
 
                 # Event support for dialog
                 if hero.in_dialog:
@@ -303,6 +370,9 @@ def game(chosen_name, chosen_type, chosen_side, image):
         # Moving hero
         if moving:
             hero.move(direct, dx, dy)
+
+        if use_spell:
+            hero.fight(screen, option)
 
         # Random movement of npcs if not in dialog
         for npc in npcs:
@@ -388,7 +458,7 @@ def game(chosen_name, chosen_type, chosen_side, image):
             border = pygame.Rect(0, DIALOG_START, WIDTH_GAME, 150)
             pygame.draw.rect(screen, WHITE, border, 2, 3)
 
-        update_hud(screen, hero, scroll_button)
+        update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed, restore_life_time_passed)
         if show_quest:
             screen.blit(scroll, (1100, 100))
             text_list = wrap_text(hero.active_quest.description, 25, False)
@@ -401,6 +471,19 @@ def game(chosen_name, chosen_type, chosen_side, image):
                     h += 5
                 else:
                     h -= 5
+
+        if hero.mana == 0 and not restore_mana:
+            restore_mana = True
+            # print("TEST")
+            restore_mana_time_passed = datetime.now()
+        elif hero.mana > 0:
+            restore_mana = False
+
+        if hero.life == 0 and not restore_life:
+            restore_life = True
+            restore_life_time_passed = datetime.now()
+        elif hero.mana > 0:
+            restore_life = False
 
         pygame.display.update()
         clock.tick(60)
