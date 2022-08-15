@@ -1,8 +1,5 @@
 import random
-
 from game.hero.Character import Character
-
-SPRITE_SIZE = 50
 
 
 # Class with characteristics common to all npcs, from which npc classes inherit

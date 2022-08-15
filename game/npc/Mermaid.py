@@ -1,7 +1,5 @@
 from game.npc.Npc import Npc
 
-SPRITE_SIZE = 50
-
 
 # Class for a npc of type Mermaid, inherits from Npc class inheriting from Character class
 class Mermaid(Npc):

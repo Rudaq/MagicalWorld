@@ -20,7 +20,7 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, name=None):
             name, parameters = random.choice(list(npc_dict_entry['dict'].items()))  # "DRUIDS
         else:
             # specific entity
-            chosen_entity = npc_dict_entry['dict'][name]
+            parameters = npc_dict_entry['dict'][name]
 
         # creating npc object with its parameters
         entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
