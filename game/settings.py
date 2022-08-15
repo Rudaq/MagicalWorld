@@ -114,6 +114,10 @@ GUI_IMAGES = {
 DRUIDS = {
     'Leaf': ["good", None, None, 700, 300]
 }
+DRUID_QUESTS = {
+    'quest1': ["bnlablabla"]
+}
+
 DARK_WIZARDS = {
     'Sarus': ["evil", None, None, 400, 500]
 }
@@ -127,6 +131,7 @@ ORCS = {
     'Stinker': ["evil", None, None, 800, 50]
 }
 
+
 # constants -> name, mana, life, images[]
 NPCs = {
     'druid': {
@@ -134,7 +139,8 @@ NPCs = {
         'mana': 300,
         'life': 600,
         'images': NPC_IMAGES['image_druid'],
-        'dict': DRUIDS
+        'dict': DRUIDS,
+        'quests': DRUID_QUESTS
     },
     'dark_wizard': {
         'class_name': DarkWizard,
