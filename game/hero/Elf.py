@@ -3,23 +3,23 @@ import os
 
 from game.artifacts.SpellClass import SpellClass
 from game.hero.Character import Character
-
-SPRITE_SIZE = 50
-path = os.getcwd()
-earth = pygame.image.load(os.path.join(path, "resources/graphics/particles", "earth2.PNG"))
-healing = pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG"))
-arrow = pygame.image.load(os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
+from game.settings import ELF_SPELLS
 
 
-# Class for a hero of race Elf, inherits from Character class
+'''
+Class for a hero of race Elf, inherits from Character class
+'''
+
+
 class Elf(Character):
     def __init__(self, name, side, mana, life, images, active_quest):
         super().__init__(name, side, mana, life, images, active_quest)
-        self.earth_spell = SpellClass(earth, 25)
-        self.heal_spell = SpellClass(healing, -15)
-        self.shoot_arrow = SpellClass(arrow, 20)
+        self.earth_spell = SpellClass(ELF_SPELLS['earth'], 25)
+        self.heal_spell = SpellClass(ELF_SPELLS['healing'], -15)
+        self.shoot_arrow = SpellClass(ELF_SPELLS['arrow'], 20)
         self.chosen_spell = None
         self.spell_direction = 0
+        self.race = "Elf"
 
     # load images
     # create class to manage spell objects
@@ -88,6 +88,7 @@ class Elf(Character):
             else:
                 self.chosen_spell = self.shoot_arrow
                 mana = 10
+
             if self.direction == 'U':
                 self.spell_direction = 0
                 self.chosen_spell.rect.x = self.rect.x

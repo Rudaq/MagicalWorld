@@ -1,7 +1,5 @@
 from game.hero.Character import Character
 
-SPRITE_SIZE = 50
-
 
 # Class for a hero of race Faerie, inherits from Character class
 class Faerie(Character):

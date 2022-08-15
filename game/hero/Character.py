@@ -1,8 +1,5 @@
 import random
-
 import pygame
-
-SPRITE_SIZE = 50
 
 
 # Class with characteristics common to all races, from which race classes inherit
@@ -14,7 +11,7 @@ class Character(pygame.sprite.Sprite):
         self.width = width
         self.height = height
         self.images = images
-        self.image = self.images[0]
+        self.image = self.images['down']
         self.rect = self.image.get_rect()
 
         self.name = name

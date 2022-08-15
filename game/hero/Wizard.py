@@ -1,7 +1,5 @@
 from game.hero.Character import Character
 
-SPRITE_SIZE = 50
-
 
 # Class for a hero of race Wizard, inherits from Character class
 class Wizard(Character):

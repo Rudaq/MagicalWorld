@@ -3,25 +3,20 @@ import sys
 import pygame
 from pygame.locals import *
 
+from game.game_support import create_character
+from game.menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
-from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT
-
+from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS
 
 pygame.init()
 pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT))
 clock = pygame.time.Clock()
 
-
-# Menu for choosing character race and other characteristics and starting the game
-
-
-# Method to draw text on the screen given its position, color and size
-def draw_text(text, x, w, size, color):
-    font = pygame.font.SysFont('Verdana', size)
-    img = font.render(text, True, color)
-    screen.blit(img, (x, w))
+'''
+Menu for choosing character race and other characteristics and starting the game
+'''
 
 
 # Method displaying the start menu with options "Start" and "Quit"
@@ -34,9 +29,9 @@ def menu():
         button_quit = pygame.Rect(250, 400, 300, 50)
         pygame.draw.rect(screen, BLACK, button_start, 0, 3)
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
-        draw_text("Start", 350, 300, 40, WHITE)
-        draw_text("Quit", 350, 400, 40, WHITE)
-        draw_text("Battle of the Realm", 200, 100, 40, WHITE)
+        draw_text_on_menu("Start", 350, 300, 40, WHITE, screen)
+        draw_text_on_menu("Quit", 350, 400, 40, WHITE, screen)
+        draw_text_on_menu("Battle of the Realm", 200, 100, 40, WHITE, screen)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -76,19 +71,17 @@ def menu():
 
 # Method displaying the menu for choosing the character race
 def choose_character():
-    # images to be displayed in the menu - big
-    eligible_characters_images = [pygame.image.load(r'resources/graphics/characters/barbarian.png'),
-                                  pygame.image.load(r'resources/graphics/characters/Dwarf2.png'),
-                                  pygame.image.load(r'resources/graphics/characters/Wizard2.png'),
-                                  pygame.image.load(r'resources/graphics/characters/Elf2.png'),
-                                  pygame.image.load(r'resources/graphics/characters/Faerie.png')]
-
-    # images for the game - small
-    eligible_small_images = [pygame.image.load(r'resources/graphics/characters/barbarian.png'),
-                             pygame.image.load(r'resources/graphics/characters/Dwarf_small.png'),
-                             pygame.image.load(r'resources/graphics/characters/Wizard_small.png'),
-                             pygame.image.load(r'resources/graphics/characters/Elf_small.png'),
-                             pygame.image.load(r'resources/graphics/characters/Faerie_small.png')]
+    # images to be displayed in the menu - (big, small)
+    eligible_characters_images = [(pygame.image.load(r'resources/graphics/characters/barbarian.png'),
+                                   pygame.image.load(r'resources/graphics/characters/barbarian.png')),
+                                  (pygame.image.load(r'resources/graphics/characters/Dwarf2.png'),
+                                   pygame.image.load(r'resources/graphics/characters/Dwarf_small.png')),
+                                  (pygame.image.load(r'resources/graphics/characters/Wizard2.png'),
+                                   pygame.image.load(r'resources/graphics/characters/Wizard_small.png')),
+                                  (pygame.image.load(r'resources/graphics/characters/Elf2.png'),
+                                   pygame.image.load(r'resources/graphics/characters/Elf_small.png')),
+                                  (pygame.image.load(r'resources/graphics/characters/Faerie.png'),
+                                   pygame.image.load(r'resources/graphics/characters/Faerie_small.png'))]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0
@@ -104,9 +97,9 @@ def choose_character():
     while True:
         screen.fill(BLACK)
         # screen.blit(eligible_characters_images[index], (400, 150))
-        screen.blit(eligible_characters_images[index], (250, 0))
+        screen.blit(eligible_characters_images[index][0], (250, 0))
 
-        draw_text("Character selection", 200, 50, 40, WHITE)
+        draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
 
         # Drawing arrows for character selection
         pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)], 5)
@@ -114,33 +107,33 @@ def choose_character():
                             [(MENU_WIDTH - 150, 250), (MENU_WIDTH - 150, 350), (MENU_WIDTH - 100, 300)], 5)
 
         # Field for entering name
-        draw_text("Name: ", 75, 175, 20, WHITE)
+        draw_text_on_menu("Name: ", 75, 175, 20, WHITE, screen)
         name = pygame.Rect(100, 200, 150, 40)
         pygame.draw.rect(screen, WHITE, name, 0, 3)
-        draw_text(char_name, 100, 200, 20, BLACK)
+        draw_text_on_menu(char_name, 100, 200, 20, BLACK, screen)
 
         # Field for displaying race
-        draw_text("Type: ", 75, 275, 20, WHITE)
+        draw_text_on_menu("Type: ", 75, 275, 20, WHITE, screen)
         c_type = pygame.Rect(100, 300, 150, 40)
         pygame.draw.rect(screen, WHITE, c_type, 0, 3)
-        draw_text(names[index], 100, 300, 20, BLACK)
+        draw_text_on_menu(names[index], 100, 300, 20, BLACK, screen)
 
         # Field for choosing side - good or evil
-        draw_text("Side: ", 75, 375, 20, WHITE)
+        draw_text_on_menu("Side: ", 75, 375, 20, WHITE, screen)
         side = pygame.Rect(100, 400, 150, 40)
         pygame.draw.rect(screen, WHITE, side, 0, 3)
         pygame.draw.polygon(screen, WHITE, [(90, 410), (90, 430), (70, 420)], 2)
         pygame.draw.polygon(screen, WHITE, [(260, 410), (260, 430), (280, 420)], 2)
 
         if good:
-            draw_text("Good", 100, 400, 20, BLACK)
+            draw_text_on_menu("Good", 100, 400, 20, BLACK, screen)
         else:
-            draw_text("Evil", 100, 400, 20, BLACK)
+            draw_text_on_menu("Evil", 100, 400, 20, BLACK, screen)
 
         # Button for the next menu screen - "Next"
         button_next = pygame.Rect(600, 500, 200, 50)
         pygame.draw.rect(screen, WHITE, button_next, 0, 3)
-        draw_text("Next", 650, 500, 40, BLACK)
+        draw_text_on_menu("Next", 650, 500, 40, BLACK, screen)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -177,8 +170,8 @@ def choose_character():
                     else:
                         final_side = "evil"
 
-                    return final_name, final_type, final_side, eligible_characters_images[index], eligible_small_images[
-                        index]
+                    return final_name, final_type, final_side, eligible_characters_images[index][0], \
+                           eligible_characters_images[index][1]
             elif 250 < y < 350 and 650 < x <= 700:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if pressed:
@@ -213,11 +206,7 @@ def choose_character():
                     sys.exit()
                 # Setting name size limit and possible characters
                 if len(char_name) < 15:
-                    letters_numbers = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-                                       'r', 's', 't', 'u', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
-                                       '8', '9']
-
-                    if pygame.key.name(event.key) in letters_numbers:
+                    if pygame.key.name(event.key) in LETTERS_NUMBERS:
                         # Changing first letter to be big
                         if len(char_name) == 0:
                             char_name += pygame.key.name(event.key).upper()
@@ -232,26 +221,6 @@ def choose_character():
         clock.tick(60)
 
 
-# Format final generated text about character to be displayed in a few lines next to the image
-def divide(final_text):
-    array = []
-    sentence = ''
-    i = 0
-    for word in final_text:
-        sentence += word
-        if word == '\n':
-            word = ' '
-        if word == ' ':
-            if i == 5:
-                array.append(sentence)
-                sentence = ''
-                i = 0
-            else:
-                i += 1
-    array.append(sentence)
-    return array
-
-
 # Method for last menu screen, displaying the final generated text and character image
 def character_info(name, ch_type, side, image):
     sequence = "Welcome to our world " + name + ". You are a " + side + " " + ch_type + " that"
@@ -264,13 +233,13 @@ def character_info(name, ch_type, side, image):
         # Creating button "Play" tp exit menu and start the game
         button_play = pygame.Rect(250, 500, 300, 50)
         pygame.draw.rect(screen, WHITE, button_play, 0, 3)
-        draw_text("Play", 350, 500, 40, BLACK)
+        draw_text_on_menu("Play", 350, 500, 40, BLACK, screen)
 
         # Displaying image and text
         screen.blit(image, (350, 0))
         text_y = 100
         for sentence in array_text:
-            draw_text(sentence, 50, text_y, 20, WHITE)
+            draw_text_on_menu(sentence, 50, text_y, 20, WHITE, screen)
             text_y += 20
 
         # draw_text(final_text, 50, 100, 10, WHITE)
@@ -309,7 +278,8 @@ def character_info(name, ch_type, side, image):
 # Calling menus in the right order
 menu()
 chosen_name, chosen_type, chosen_side, image, image_small = choose_character()
-character_info(chosen_name, chosen_type, chosen_side, image)
+# character_info(chosen_name, chosen_type, chosen_side, image)
+main_character = create_character(chosen_name, chosen_type, chosen_side)
 
-# Calling main game function with chosen parameters about the hero
-game(chosen_name, chosen_type, chosen_side, image_small)
+# Calling main game function with hero parameter
+game(main_character)

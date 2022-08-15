@@ -15,6 +15,7 @@ class Npc(Character):
         self.quests_to_give = quests
         self.movement = [0, 0, 0]
         self.text = ">> "
+        self.image = self.images['down']
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
