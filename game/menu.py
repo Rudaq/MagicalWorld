@@ -8,7 +8,10 @@ from game.menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
 from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS
-
+import os
+from pathlib import Path
+full_path = os.getcwd()
+path = str(Path(full_path).parents[0])
 pygame.init()
 pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT))
@@ -72,16 +75,16 @@ def menu():
 # Method displaying the menu for choosing the character race
 def choose_character():
     # images to be displayed in the menu - (big, small)
-    eligible_characters_images = [(pygame.image.load(r'resources/graphics/characters/barbarian.png'),
-                                   pygame.image.load(r'resources/graphics/characters/barbarian.png')),
-                                  (pygame.image.load(r'resources/graphics/characters/Dwarf2.png'),
-                                   pygame.image.load(r'resources/graphics/characters/Dwarf_small.png')),
-                                  (pygame.image.load(r'resources/graphics/characters/Wizard2.png'),
-                                   pygame.image.load(r'resources/graphics/characters/Wizard_small.png')),
-                                  (pygame.image.load(r'resources/graphics/characters/Elf2.png'),
-                                   pygame.image.load(r'resources/graphics/characters/Elf_small.png')),
-                                  (pygame.image.load(r'resources/graphics/characters/Faerie.png'),
-                                   pygame.image.load(r'resources/graphics/characters/Faerie_small.png'))]
+    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf2.png")),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Wizard2.png")),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Wizard_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Elf2.png")),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Elf_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Faerie.png")),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Faerie_small.png")))]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0

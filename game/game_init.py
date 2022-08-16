@@ -174,7 +174,7 @@ def game(hero):
             hero.move(direct, dx, dy)
 
         if use_spell:
-            hero.fight(screen, option)
+            hero.fight(screen, option, npcs)
 
         # Random movement of npcs if not in dialog
         for npc in npcs:

@@ -14,9 +14,9 @@ Class for a hero of race Elf, inherits from Character class
 class Elf(Character):
     def __init__(self, name, side, mana, life, images, active_quest):
         super().__init__(name, side, mana, life, images, active_quest)
-        self.earth_spell = SpellClass(ELF_SPELLS['earth'], 25)
-        self.heal_spell = SpellClass(ELF_SPELLS['healing'], -15)
-        self.shoot_arrow = SpellClass(ELF_SPELLS['arrow'], 20)
+        self.earth_spell = SpellClass(ELF_SPELLS['earth'], 25, None)
+        self.heal_spell = SpellClass(ELF_SPELLS['healing'], -15, None)
+        self.shoot_arrow = SpellClass(ELF_SPELLS['arrow'], 20, None)
         self.chosen_spell = None
         self.spell_direction = 0
         self.race = "Elf"
@@ -75,7 +75,7 @@ class Elf(Character):
                 self.casting_spell = True
                 self.spell_direction = self.direction
 
-    def fight(self, screen, option):
+    def fight(self, screen, option, npcs):
         mana = 0
 
         if self.chosen_spell is None:

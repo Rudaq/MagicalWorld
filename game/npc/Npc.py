@@ -1,4 +1,5 @@
 import random
+import pygame
 from game.hero.Character import Character
 
 
@@ -56,4 +57,24 @@ class Npc(Character):
             # Waiting by a number of randomly selected iteration, before another random call
             elif self.movement[0] == 0:
                 self.movement[2] -= 1
+
+    def moveByFaerie(self, direction, dx, dy):
+        self.direction = direction
+        self.rect.x += dx
+        self.rect.y += dy
+
+    def thrown(self, side):
+
+        for i in range(1, 30):
+            if side == "R" or side == "D":
+                self.moveByFaerie("R", 15, -10)
+            else:
+                self.moveByFaerie("L", -15, -10)
+            pygame.display.flip()
+
+
+        for i in range(1, 100):
+            self.moveByFaerie("D", 0, 3)
+            pygame.display.flip()
+
 
