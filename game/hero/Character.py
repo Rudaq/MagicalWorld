@@ -31,10 +31,12 @@ class Character(pygame.sprite.Sprite):
         self.last_position = 175
 
         # dialog variables
+        self.lets_fight = False
         self.hero_turn = False
         self.in_dialog = False
         self.in_fight = False
         self.casting_spell = False
+        self.in_spell = False
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
@@ -51,5 +53,5 @@ class Character(pygame.sprite.Sprite):
         self.equipment.append(weapon)
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
-    def fight(self, screen, option):
+    def fight(self, screen, option, npcs):
         print("This is a fight!!")

@@ -51,13 +51,3 @@ def create_character(chosen_name, chosen_type, chosen_side):
         hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None)
 
     return hero
-
-
-
-
-
-
-
-
-
-

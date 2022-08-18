@@ -1,12 +1,11 @@
 
-
 # Function to update hud and displayed there components
 from datetime import datetime
 
 import pygame
 
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
-from game.settings import WIDTH_GAME, HUD_YELLOW, ALMOND, BLACK, LIGHT_GREEN, BLUE, GUI_IMAGES
+from game.settings import WIDTH_GAME, HUD_YELLOW, ALMOND, BLACK, LIGHT_GREEN, BLUE, GUI_IMAGES, RED
 
 
 def time_to_restore(screen, restore_life_time_passed, x):
@@ -29,7 +28,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
 
 
 def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
-               restore_life_time_passed):
+               restore_life_time_passed, chosen_npc):
 
     hud = pygame.Rect(0, 0, WIDTH_GAME, 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
@@ -37,18 +36,18 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     border = pygame.Rect(0, 0, WIDTH_GAME, 100)
     pygame.draw.rect(screen, ALMOND, border, 5, 2)
 
-    draw_text("Life ", 100, 25, 12, BLACK, screen)
+    draw_text("Life ", 50, 25, 12, BLACK, screen)
 
-    life = pygame.Rect(150, 50, hero.life, 25)
+    life = pygame.Rect(100, 50, hero.life, 25)
     pygame.draw.rect(screen, LIGHT_GREEN, life, 0, 2)
-    border = pygame.Rect(150, 50, 100, 25)
+    border = pygame.Rect(100, 50, 100, 25)
     pygame.draw.rect(screen, BLACK, border, 2, 2)
 
-    draw_text("Mana ", 400, 25, 12, BLACK, screen)
+    draw_text("Mana ", 250, 25, 12, BLACK, screen)
 
-    mana = pygame.Rect(450, 50, hero.mana, 25)
+    mana = pygame.Rect(300, 50, hero.mana, 25)
     pygame.draw.rect(screen, BLUE, mana, 0, 2)
-    border = pygame.Rect(450, 50, 100, 25)
+    border = pygame.Rect(300, 50, 100, 25)
     pygame.draw.rect(screen, BLACK, border, 2, 2)
 
     draw_text("Points ", 1100, 25, 12, BLACK, screen)
@@ -71,3 +70,16 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
         time_left = time_to_restore(screen, restore_mana_time_passed, 600)
         if time_left == 0:
             hero.mana = 100
+
+    if chosen_npc is not None and chosen_npc.add_npc_to_hud:
+        text = chosen_npc.race + "'s Life"
+
+        text_mana = chosen_npc.race + "'s Mana"
+
+        draw_text(text, 700, 25, 12, BLACK, screen)
+        life = pygame.Rect(750, 50, chosen_npc.life, 25)
+        pygame.draw.rect(screen, RED, life, 0, 2)
+        border = pygame.Rect(750, 50, 100, 25)
+        pygame.draw.rect(screen, BLACK, border, 2, 2)
+
+

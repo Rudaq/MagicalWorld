@@ -14,6 +14,8 @@ class Npc(Character):
         self.movement = [0, 0, 0]
         self.text = ">> "
         self.image = self.images['down']
+        self.unclicked = False
+        self.add_npc_to_hud = False
 
     # Placeholder. Method to talk? May be useful
     def talk(self):

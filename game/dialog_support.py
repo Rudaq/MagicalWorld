@@ -1,6 +1,7 @@
 import pygame
 
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
+from game.fight_support import set_fight_parameters
 from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE
 
 
@@ -58,6 +59,62 @@ def move_dialog_down(text_history):
             print("HERE")
             break
         reversed_text[i].position -= 75
+
+
+def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
+    s.fill(BLACK)
+    s.set_alpha(192)
+
+    buttons = pygame.sprite.Group()
+    fight_button.rect.x = chosen_npc.rect.x - 50
+    fight_button.rect.y = chosen_npc.rect.y - 70
+
+    talk_button.rect.x = chosen_npc.rect.x + 50
+    talk_button.rect.y = chosen_npc.rect.y - 70
+
+    buttons.add(fight_button)
+    buttons.add(talk_button)
+
+    if talk_button.draw(screen):
+        if not chosen_npc.is_talking:
+            chosen_npc.is_talking = True
+            hero.in_dialog = True
+            hero.hero_turn = False
+            hero.my_text = ">> "
+            print("START TALKING!!")
+
+            # if yes - stop the dialog
+        else:
+            chosen_npc.is_talking = False
+            hero.in_dialog = False
+            hero.hero_turn = False
+            hero.my_text = ">> "
+            hero.text_history = []
+            chosen_npc.text_history = []
+            chosen_npc.text = ">> "
+            print("STOP TALKING!!")
+            chosen_npc.unclicked = True
+
+    if fight_button.draw(screen):
+        if not chosen_npc.is_fighting:
+            hero.in_fight = not hero.in_fight
+            hero.casting_spell = False
+            hero.in_spell = False
+            hero.chosen_spell = None
+            hero.lets_fight = True
+            print("FIGHT")
+
+            chosen_npc.unclicked = True
+
+        else:
+            chosen_npc.is_fighting = False
+            hero.lets_fight = False
+            hero.in_fight = False
+            print("STOP FIGHT")
+            chosen_npc.unclicked = True
+
+    buttons.update()
+    buttons.draw(screen)
 
 
 def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):

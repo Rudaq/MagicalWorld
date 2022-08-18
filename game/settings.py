@@ -6,14 +6,18 @@ from game.npc.Druid import Druid
 from game.npc.IceMonster import IceMonster
 from game.npc.Mermaid import Mermaid
 from game.npc.Orc import Orc
+from os.path import dirname, realpath, join
 
+# full_path = os.getcwd()
+# print("full_path:", full_path)
+#
+# path = str(Path(full_path).parents[0])
+# print("path:", path)
 
-full_path = os.getcwd()
-print("full_path:", full_path)
-
-path = str(Path(full_path).parents[0])
-print("path:", path)
-
+path2 = os.path.dirname(os.path.realpath(__file__))
+print("Current Directory", path2)
+path = Path(__file__).resolve().parent.parent
+print(path)
 
 MENU_WIDTH = 800
 MENU_HEIGHT = 600
@@ -25,6 +29,7 @@ DIALOG_START = 100
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
+RED = (255, 0, 0)
 GREEN = (24, 165, 88)
 LIGHT_GREEN = (127, 255, 0)
 YELLOW = (255, 234, 0)
@@ -123,7 +128,10 @@ NPC_IMAGES = {
 }
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
-    'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png"))
+    'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),
+    'fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight.png")),
+    'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png"))
+
 }
 
 # preferences -> name : side, artifacts, quests, x, y
@@ -152,37 +160,37 @@ ORCS = {
 NPCs = {
     'druid': {
         'class_name': Druid,
-        'mana': 300,
-        'life': 600,
+        'mana': 100,
+        'life': 100,
         'images': NPC_IMAGES['image_druid'],
         'dict': DRUIDS,
         'quests': DRUID_QUESTS
     },
     'dark_wizard': {
         'class_name': DarkWizard,
-        'mana': 200,
-        'life': 400,
+        'mana': 100,
+        'life': 100,
         'images': NPC_IMAGES['image_dark_wizard'],
         'dict': DARK_WIZARDS
     },
     'ice_monster': {
         'class_name': IceMonster,
-        'mana': 200,
-        'life': 600,
+        'mana': 100,
+        'life': 100,
         'images': NPC_IMAGES['image_ice_monster'],
         'dict': ICE_MONSTERS
     },
     'mermaid': {
         'class_name': Mermaid,
-        'mana': 300,
+        'mana': 100,
         'life': 100,
         'images': NPC_IMAGES['image_mermaid'],
         'dict': MERMAIDS
     },
     'orc': {
         'class_name': Orc,
-        'mana': 700,
-        'life': 200,
+        'mana': 100,
+        'life': 100,
         'images': NPC_IMAGES['image_orc'],
         'dict': ORCS
     }

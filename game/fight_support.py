@@ -1,7 +1,7 @@
 
-def set_fight_parameters(hero, use_spell):
+def set_fight_parameters(hero):
     if hero.in_fight:
-        use_spell = not use_spell
+        hero.in_spell = not hero.in_spell
         if hero.casting_spell:
             hero.casting_spell = not hero.casting_spell
             hero.chosen_spell = None
@@ -9,8 +9,6 @@ def set_fight_parameters(hero, use_spell):
             hero.chosen_spell = None
             hero.casting_spell = False
         if hero.mana == 0:
-            use_spell = False
+            hero.in_spell = False
             hero.chosen_spell = None
             hero.casting_spell = False
-
-    return use_spell
