@@ -70,6 +70,7 @@ def game(hero):
     npc_clicked = False
     chosen_npc = None
     add_npc_to_hud = False
+    counter = 0
 
     s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25)
@@ -203,31 +204,21 @@ def game(hero):
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
-                    # Checking if npc is already talking or fighting
-                    #jeśli gada - jak klikasz w przycisk to stop
-                    if not npc.unclicked:
-                        if not npc.is_talking and not npc.is_talking:
-                            npc_clicked = True
-                            chosen_npc = npc
-                            chosen_npc.add_npc_to_hud = True
-
-                        else:
-                            npc_clicked = False
-                            chosen_npc.add_npc_to_hud = False
-                            update_hud(screen, hero, scroll_button, restore_life, restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc)
-
-                        pygame.display.update()
-                    else:
-                        npc_clicked = False
-
-                        pygame.display.update()
-                        npc.add_npc_to_hud = False
+                    counter += 1
+                    if counter % 2 == 1:
+                        npc_clicked = True
+                        chosen_npc = npc
+                        chosen_npc.add_npc_to_hud = True
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
-                                   restore_life_time_passed, npc)
-                npc.unclicked = False
+                                   restore_life_time_passed, chosen_npc)
+
+                    else:
+                        npc_clicked = False
+                        chosen_npc.add_npc_to_hud = False
+                        update_hud(screen, hero, scroll_button, restore_life, restore_mana,
+                                   restore_mana_time_passed,
+                                   restore_life_time_passed, chosen_npc)
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -238,7 +229,7 @@ def game(hero):
 
         # Set previous state of left mouse button
         prev = left
-        #check if needed
+        # check if needed
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, restore_life, restore_mana,
@@ -247,6 +238,7 @@ def game(hero):
         if hero.in_spell:
             hero.fight(screen, option, npcs)
 
+        # when npc is unclicked, talking or fighting is bein stopped
         if chosen_npc is not None:
             if not npc_clicked:
                 chosen_npc.is_talking = False
@@ -255,6 +247,7 @@ def game(hero):
                 hero.in_spell = False
                 hero.in_dialog = False
                 hero.in_fight = False
+
 
         if npc_clicked:
             hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)

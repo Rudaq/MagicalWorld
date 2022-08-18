@@ -71,7 +71,7 @@ class Faerie(Character):
                 else:
                     screen.blit(self.chosen_spell.image, (self.chosen_spell.rect.x, self.chosen_spell.rect.y),
                                 (0, 0, self.chosen_spell.size, 50))
-            self.chosen_spell.check_spell_npc_collision(npcs, False, self)
+            self.chosen_spell.check_spell_npc_collision(npcs, False, self, screen)
 
         else:
             if self.mana - mana >= 0:

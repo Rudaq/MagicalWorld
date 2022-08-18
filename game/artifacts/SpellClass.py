@@ -48,7 +48,7 @@ class SpellClass(pygame.sprite.Sprite):
             while npc.rect.x < expected_x:
                 npc.rect.x += 2
 
-    def check_spell_npc_collision(self, npcs, option, hero):
+    def check_spell_npc_collision(self, npcs, option, hero, screen):
         for npc in npcs:
             if npc.rect.colliderect(self.rect):
                 if (self.start_x + self.size) >= npc.rect.x:
@@ -60,7 +60,7 @@ class SpellClass(pygame.sprite.Sprite):
                         if self.spell_type == "fire_spell":
                             self.fire_spell(npc, hero)
                         elif self.spell_type == "thrown_spell":
-                            npc.thrown(hero.spell_direction)
+                            npc.thrown(hero.spell_direction, screen)
                         elif self.spell_type == "tree_spell":
                             npc.image = FAERIE_SPELLS['tree']
                         elif self.spell_type == "frozen_spell":

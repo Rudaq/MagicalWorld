@@ -74,12 +74,11 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     if chosen_npc is not None and chosen_npc.add_npc_to_hud:
         text = chosen_npc.race + "'s Life"
 
-        text_mana = chosen_npc.race + "'s Mana"
 
         draw_text(text, 700, 25, 12, BLACK, screen)
-        life = pygame.Rect(750, 50, chosen_npc.life, 25)
+        life = pygame.Rect(800, 50, chosen_npc.life, 25)
         pygame.draw.rect(screen, RED, life, 0, 2)
-        border = pygame.Rect(750, 50, 100, 25)
+        border = pygame.Rect(800, 50, 100, 25)
         pygame.draw.rect(screen, BLACK, border, 2, 2)
 
 
