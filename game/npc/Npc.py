@@ -14,7 +14,6 @@ class Npc(Character):
         self.movement = [0, 0, 0]
         self.text = ">> "
         self.image = self.images['down']
-        self.unclicked = False
         self.add_npc_to_hud = False
 
     # Placeholder. Method to talk? May be useful
@@ -76,11 +75,8 @@ class Npc(Character):
                         (0, 0, 50, 50))
             pygame.display.flip()
 
-
         for i in range(1, 100):
             self.moveByFaerie("D", 0, 3)
             screen.blit(self.image, (self.rect.x, self.rect.y),
                         (0, 0, 50, 50))
             pygame.display.flip()
-
-

@@ -1,26 +1,19 @@
-import os
 import sys
 from datetime import datetime
-import pygame
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
-from NLP.dialog_generation.Button2 import Button2
-from NLP.dialog_generation.GenerateNpcDialog import draw_text, wrap_text
+from game.Button import Button
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
-from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
-    hero_in_dialog_or_talk
+from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down
+from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters
 from game.game_support import create_npc
 from game.hud_component import update_hud
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
 from settings import *
-from tkinter import *
-from tkinter import ttk
 import pygame
 from settings import GUI_IMAGES
-
-import random
 
 '''
 Main game loop
@@ -61,7 +54,6 @@ def game(hero):
     npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
     npc_dialog_thread.start()
     show_quest = False
-    use_spell = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
@@ -69,15 +61,14 @@ def game(hero):
     option = 1
     npc_clicked = False
     chosen_npc = None
-    add_npc_to_hud = False
     counter = 0
 
     s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25)
     arrow_down = ButtonClass(25, 25)
     scroll_button = ButtonClass(30, 40)
-    fight_button = Button2(100, 200, GUI_IMAGES['fight_button'], 0.8)
-    talk_button = Button2(450, 200, GUI_IMAGES['talk_button'], 0.8)
+    fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
+    talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
 
     while True:
         screen.fill(GREEN)
@@ -124,23 +115,19 @@ def game(hero):
                     dx = -5
                     dy = 0
                     moving = True
-                # elif event.key == pygame.K_0 and hero.lets_fight:
-                #     hero.in_fight = not hero.in_fight
-                #     hero.casting_spell = False
-                #     hero.in_spell = False
-                #     hero.chosen_spell = None
-                elif event.key == pygame.K_1 and hero.lets_fight:
+                elif event.key == pygame.K_1 and hero.in_fight:
                     option = 1
                     set_fight_parameters(hero)
-                elif event.key == pygame.K_2 and hero.lets_fight:
+                elif event.key == pygame.K_2 and hero.in_fight:
                     option = 2
                     set_fight_parameters(hero)
-                elif event.key == pygame.K_3 and hero.lets_fight:
+                elif event.key == pygame.K_3 and hero.in_fight:
                     option = 3
                     set_fight_parameters(hero)
 
                 # Event support for dialog
                 if hero.in_dialog:
+                   # talk_button.image.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
                     moving = False
                     # Checking if hero is now talking - possibility of keyboard interaction
                     # letters, digits, signs and space accepted (lists at the top)
@@ -206,8 +193,8 @@ def game(hero):
                 if npc.rect.collidepoint(mouse_point):
                     counter += 1
                     if counter % 2 == 1:
-                        npc_clicked = True
                         chosen_npc = npc
+                        npc_clicked = True
                         chosen_npc.add_npc_to_hud = True
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
@@ -229,13 +216,14 @@ def game(hero):
 
         # Set previous state of left mouse button
         prev = left
-        # check if needed
+
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc)
         if hero.in_spell:
+           # fight_button.image.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
             hero.fight(screen, option, npcs)
 
         # when npc is unclicked, talking or fighting is bein stopped
@@ -251,6 +239,7 @@ def game(hero):
 
         if npc_clicked:
             hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)

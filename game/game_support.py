@@ -1,11 +1,15 @@
 import random
+import pygame
 
 from game.hero.Barbarian import Barbarian
 from game.hero.Dwarf import Dwarf
 from game.hero.Elf import Elf
 from game.hero.Faerie import Faerie
 from game.hero.Wizard import Wizard
-from settings import NPCs, HERO_ANIMATIONS
+from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES
+from game.settings import BLACK
+from game.dialog_support import talk
+from game.fight_support import fight
 
 
 class NPCTypeNotExistException(Exception):
@@ -51,3 +55,43 @@ def create_character(chosen_name, chosen_type, chosen_side):
         hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None)
 
     return hero
+
+
+def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
+    s.fill(BLACK)
+    s.set_alpha(192)
+
+    buttons = pygame.sprite.Group()
+    fight_button.rect.x = chosen_npc.rect.x - 40
+    fight_button.rect.y = chosen_npc.rect.y - 70
+
+    talk_button.rect.x = chosen_npc.rect.x + 40
+    talk_button.rect.y = chosen_npc.rect.y - 70
+
+    buttons.add(fight_button)
+    buttons.add(talk_button)
+
+    if talk_button.draw():
+        if chosen_npc.is_fighting:
+            chosen_npc.is_fighting = False
+            hero.in_fight = False
+            print("STOP FIGHT")
+            fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
+        talk(hero, chosen_npc, talk_button, fight_button)
+
+    if fight_button.draw():
+        if chosen_npc.is_talking:
+            chosen_npc.is_talking = False
+            hero.in_dialog = False
+            hero.hero_turn = False
+            hero.my_text = ">> "
+            hero.text_history = []
+            chosen_npc.text_history = []
+            chosen_npc.text = ">> "
+            print("STOP TALKING!!")
+            talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
+        fight(hero, chosen_npc, fight_button, talk_button)
+
+    buttons.update()
+    buttons.draw(screen)
+

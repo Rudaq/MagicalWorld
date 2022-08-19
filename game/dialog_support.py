@@ -2,8 +2,7 @@ import pygame
 
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
 from game.fight_support import set_fight_parameters
-from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE
-
+from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES
 
 # Function to limit the length of text input in the dialog and its formatting (moves text to the next line after 220
 # characters and cutting it all together after 440) - hero text (this and the one for npc can be converted into one)
@@ -61,58 +60,6 @@ def move_dialog_down(text_history):
         reversed_text[i].position -= 75
 
 
-def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
-    s.fill(BLACK)
-    s.set_alpha(192)
-
-    buttons = pygame.sprite.Group()
-    fight_button.rect.x = chosen_npc.rect.x - 40
-    fight_button.rect.y = chosen_npc.rect.y - 70
-
-    talk_button.rect.x = chosen_npc.rect.x + 40
-    talk_button.rect.y = chosen_npc.rect.y - 70
-
-    buttons.add(fight_button)
-    buttons.add(talk_button)
-
-    if talk_button.draw(screen):
-        if not chosen_npc.is_talking:
-            chosen_npc.is_talking = True
-            hero.in_dialog = True
-            hero.hero_turn = False
-            hero.my_text = ">> "
-            print("START TALKING!!")
-
-            # if yes - stop the dialog
-        else:
-            chosen_npc.is_talking = False
-            hero.in_dialog = False
-            hero.hero_turn = False
-            hero.my_text = ">> "
-            hero.text_history = []
-            chosen_npc.text_history = []
-            chosen_npc.text = ">> "
-            print("STOP TALKING!!")
-
-    if fight_button.draw(screen):
-        if not chosen_npc.is_fighting:
-            hero.in_fight = not hero.in_fight
-            hero.casting_spell = False
-            hero.in_spell = False
-            hero.chosen_spell = None
-            hero.lets_fight = True
-            print("FIGHT")
-
-        else:
-            chosen_npc.is_fighting = False
-            hero.lets_fight = False
-            hero.in_fight = False
-            print("STOP FIGHT")
-
-    buttons.update()
-    buttons.draw(screen)
-
-
 def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
     surf.fill(BLACK)
     surf.set_alpha(192)  # 0 - 255
@@ -141,3 +88,29 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
 
     border = pygame.Rect(0, DIALOG_START, WIDTH_GAME, 150)
     pygame.draw.rect(screen, WHITE, border, 2, 3)
+
+
+def talk(hero, chosen_npc, talk_button, fight_button):
+
+    if not chosen_npc.is_talking:
+        chosen_npc.is_talking = True
+        hero.in_dialog = True
+        hero.hero_turn = False
+
+        talk_button.change_image(GUI_IMAGES['clicked_talk_button'], 0.8)
+        fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
+
+        hero.my_text = ">> "
+        print("START TALKING!!")
+
+        # if yes - stop the dialog
+    else:
+        chosen_npc.is_talking = False
+        hero.in_dialog = False
+        hero.hero_turn = False
+        hero.my_text = ">> "
+        hero.text_history = []
+        chosen_npc.text_history = []
+        chosen_npc.text = ">> "
+        print("STOP TALKING!!")
+        talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)

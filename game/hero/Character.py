@@ -31,7 +31,6 @@ class Character(pygame.sprite.Sprite):
         self.last_position = 175
 
         # dialog variables
-        self.lets_fight = False
         self.hero_turn = False
         self.in_dialog = False
         self.in_fight = False
