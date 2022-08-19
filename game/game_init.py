@@ -226,7 +226,7 @@ def game(hero):
            # fight_button.image.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
             hero.fight(screen, option, npcs)
 
-        # when npc is unclicked, talking or fighting is bein stopped
+        # when npc is unclicked, talking or fighting is being stopped
         if chosen_npc is not None:
             if not npc_clicked:
                 chosen_npc.is_talking = False
@@ -235,6 +235,8 @@ def game(hero):
                 hero.in_spell = False
                 hero.in_dialog = False
                 hero.in_fight = False
+                talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
+                fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
 
 
         if npc_clicked:
