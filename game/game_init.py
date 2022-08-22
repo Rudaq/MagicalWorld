@@ -127,7 +127,7 @@ def game(hero):
 
                 # Event support for dialog
                 if hero.in_dialog:
-                   # talk_button.image.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
+
                     moving = False
                     # Checking if hero is now talking - possibility of keyboard interaction
                     # letters, digits, signs and space accepted (lists at the top)
@@ -146,7 +146,6 @@ def game(hero):
                                 hero.my_text += pygame.key.name(event.key)
                             hero.text_history[len(hero.text_history) - 1].text = hero.my_text
                         elif pygame.key.name(event.key) == 'space':
-                            # print("SPACE")
                             hero.my_text += ' '
                             hero.text_history[len(hero.text_history) - 1].text = hero.my_text
                         elif pygame.key.name(event.key) in SIGNS:
@@ -203,6 +202,21 @@ def game(hero):
                     else:
                         npc_clicked = False
                         chosen_npc.add_npc_to_hud = False
+                        if chosen_npc.is_talking:
+                            chosen_npc.is_talking = False
+                            hero.in_dialog = False
+                            hero.hero_turn = False
+                            hero.my_text = ">> "
+                            hero.text_history = []
+                            chosen_npc.text_history = []
+                            chosen_npc.text = ">> "
+                            print("STOP TALKING!!")
+
+                        if chosen_npc.is_fighting:
+                            chosen_npc.is_fighting = False
+                            hero.in_fight = False
+                            print("STOP FIGHT")
+
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
                                    restore_life_time_passed, chosen_npc)
@@ -223,25 +237,13 @@ def game(hero):
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc)
         if hero.in_spell:
-           # fight_button.image.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
             hero.fight(screen, option, npcs)
 
-        # when npc is unclicked, talking or fighting is being stopped
-        if chosen_npc is not None:
-            if not npc_clicked:
-                chosen_npc.is_talking = False
-                chosen_npc.is_fighting = False
-                hero.in_dialog = False
-                hero.in_spell = False
-                hero.in_dialog = False
-                hero.in_fight = False
-                talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
-                fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
-
-
+        # in npc is clicked, the buttons to fight or talk are displayed
         if npc_clicked:
-            hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
-
+            if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+                # checking if talk or fight button are clicked
+                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)

@@ -23,11 +23,3 @@ def fight(hero, chosen_npc, fight_button, talk_button):
         hero.in_spell = False
         hero.chosen_spell = None
         print("FIGHT")
-        fight_button.change_image(GUI_IMAGES['clicked_fight_button'], 0.8)
-        talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
-
-    else:
-        chosen_npc.is_fighting = False
-        hero.in_fight = False
-        print("STOP FIGHT")
-        fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)

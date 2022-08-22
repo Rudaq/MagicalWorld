@@ -67,31 +67,14 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
 
     talk_button.rect.x = chosen_npc.rect.x + 40
     talk_button.rect.y = chosen_npc.rect.y - 70
-
     buttons.add(fight_button)
     buttons.add(talk_button)
 
     if talk_button.draw():
-        if chosen_npc.is_fighting:
-            chosen_npc.is_fighting = False
-            hero.in_fight = False
-            print("STOP FIGHT")
-            fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
         talk(hero, chosen_npc, talk_button, fight_button)
 
     if fight_button.draw():
-        if chosen_npc.is_talking:
-            chosen_npc.is_talking = False
-            hero.in_dialog = False
-            hero.hero_turn = False
-            hero.my_text = ">> "
-            hero.text_history = []
-            chosen_npc.text_history = []
-            chosen_npc.text = ">> "
-            print("STOP TALKING!!")
-            talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
         fight(hero, chosen_npc, fight_button, talk_button)
 
     buttons.update()
     buttons.draw(screen)
-

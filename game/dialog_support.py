@@ -97,20 +97,10 @@ def talk(hero, chosen_npc, talk_button, fight_button):
         hero.in_dialog = True
         hero.hero_turn = False
 
-        talk_button.change_image(GUI_IMAGES['clicked_talk_button'], 0.8)
-        fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
+       # talk_button.change_image(GUI_IMAGES['clicked_talk_button'], 0.8)
+        #fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
 
         hero.my_text = ">> "
         print("START TALKING!!")
 
-        # if yes - stop the dialog
-    else:
-        chosen_npc.is_talking = False
-        hero.in_dialog = False
-        hero.hero_turn = False
-        hero.my_text = ">> "
-        hero.text_history = []
-        chosen_npc.text_history = []
-        chosen_npc.text = ">> "
-        print("STOP TALKING!!")
-        talk_button.change_image(GUI_IMAGES['talk_button'], 0.8)
+

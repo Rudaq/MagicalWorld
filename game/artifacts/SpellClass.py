@@ -28,8 +28,6 @@ class SpellClass(pygame.sprite.Sprite):
         self.acceleration += 0.05
 
 
-
-
     def fire_spell(self, npc, hero):
         if hero.spell_direction == 'D':
             expected_y = npc.rect.y + 200

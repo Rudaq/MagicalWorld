@@ -29,37 +29,6 @@ class Faerie(Character):
     # move the spell
     # check collision with npcs or other objects
 
-    def use_bow(self, screen, mana):
-        if self.casting_spell:
-            # self.chosen_spell.size = 5
-            self.chosen_spell.move_spell()
-            draw = False
-            if self.chosen_spell.image == self.chosen_spell.image_up:
-                self.chosen_spell.rect.y -= self.chosen_spell.size
-                if self.chosen_spell.rect.bottom > self.chosen_spell.start_y - 150:
-                    draw = True
-            elif self.chosen_spell.image == self.chosen_spell.image_down:
-                self.chosen_spell.rect.y += self.chosen_spell.size
-                if self.chosen_spell.rect.top < self.chosen_spell.start_y + 150:
-                    draw = True
-            elif self.chosen_spell.image == self.chosen_spell.image_left:
-                self.chosen_spell.rect.x -= self.chosen_spell.size
-                if self.chosen_spell.rect.right > self.chosen_spell.start_x - 150:
-                    draw = True
-            else:
-                self.chosen_spell.rect.x += self.chosen_spell.size
-                if self.chosen_spell.rect.left < self.chosen_spell.start_x + 150:
-                    draw = True
-
-            if draw:
-                screen.blit(self.chosen_spell.image, (self.chosen_spell.rect.x, self.chosen_spell.rect.y))
-
-        else:
-            if self.mana - mana >= 0:
-                self.mana -= mana
-                self.chosen_spell.size = 5
-                self.casting_spell = True
-                self.spell_direction = self.direction
 
     def use_magic(self, screen, mana, npcs):
         if self.casting_spell:

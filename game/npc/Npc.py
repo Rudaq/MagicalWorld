@@ -64,19 +64,20 @@ class Npc(Character):
         self.rect.x += dx
         self.rect.y += dy
 
+
     def thrown(self, side, screen):
 
-        for i in range(1, 30):
+        for i in range(1, 8):
             if side == "R" or side == "D":
-                self.moveByFaerie("R", 15, -10)
+                self.moveByFaerie("R", 50, -20)
             else:
-                self.moveByFaerie("L", -15, -10)
+                self.moveByFaerie("L", -50, -20)
             screen.blit(self.image, (self.rect.x, self.rect.y),
                         (0, 0, 50, 50))
             pygame.display.flip()
 
-        for i in range(1, 100):
-            self.moveByFaerie("D", 0, 3)
+        for i in range(1, 16):
+            self.moveByFaerie("D", 0, 10)
             screen.blit(self.image, (self.rect.x, self.rect.y),
                         (0, 0, 50, 50))
             pygame.display.flip()
