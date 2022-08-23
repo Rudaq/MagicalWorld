@@ -80,18 +80,13 @@ HERO_ANIMATIONS = {
 
 ELF_SPELLS = {
     'earth': pygame.image.load(os.path.join(path, "resources/graphics/particles", "earth2.PNG")),
-    'fire': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fire.PNG")),
-    'thrown': pygame.image.load(os.path.join(path, "resources/graphics/particles", "spell.PNG")),
     'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
     'arrow': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
 }
 FAERIE_SPELLS = {
     'fire': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fire.PNG")),
-    'ice': pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG")),
-    'frozen': pygame.image.load(os.path.join(path, "resources/graphics/particles", "ice_cube.PNG")),
-    'leaf': pygame.image.load(os.path.join(path, "resources/graphics/particles", "leaf.PNG")),
-    'tree': pygame.image.load(os.path.join(path, "resources/graphics/particles", "tree.PNG")),
-    'thrown': pygame.image.load(os.path.join(path, "resources/graphics/particles", "spell.PNG"))
+    'flower': pygame.image.load(os.path.join(path, "resources/graphics/particles", "flowers.PNG")),
+    'thrown': pygame.image.load(os.path.join(path, "resources/graphics/particles", "throw.PNG"))
 }
 
 NPC_IMAGES = {
@@ -132,7 +127,8 @@ GUI_IMAGES = {
     'fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight.png")),
     'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png")),
     'clicked_fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight_clicked.png")),
-    'clicked_talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk_clicked.png"))
+    'clicked_talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk_clicked.png")),
+    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
 
 }
 

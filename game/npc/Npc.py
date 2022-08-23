@@ -59,25 +59,23 @@ class Npc(Character):
             elif self.movement[0] == 0:
                 self.movement[2] -= 1
 
+    # move npc to a given place
     def moveByFaerie(self, direction, dx, dy):
         self.direction = direction
         self.rect.x += dx
         self.rect.y += dy
 
 
-    def thrown(self, side, screen):
-
+    def throw(self, side, screen):
         for i in range(1, 8):
             if side == "R" or side == "D":
                 self.moveByFaerie("R", 50, -20)
             else:
                 self.moveByFaerie("L", -50, -20)
-            screen.blit(self.image, (self.rect.x, self.rect.y),
-                        (0, 0, 50, 50))
+            screen.blit()
             pygame.display.flip()
 
         for i in range(1, 16):
             self.moveByFaerie("D", 0, 10)
-            screen.blit(self.image, (self.rect.x, self.rect.y),
-                        (0, 0, 50, 50))
+            screen.blit()
             pygame.display.flip()

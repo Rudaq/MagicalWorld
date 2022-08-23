@@ -61,6 +61,7 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     s.fill(BLACK)
     s.set_alpha(192)
 
+    # create buttons 'Fight' and 'Talk'
     buttons = pygame.sprite.Group()
     fight_button.rect.x = chosen_npc.rect.x - 40
     fight_button.rect.y = chosen_npc.rect.y - 70
@@ -70,11 +71,12 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     buttons.add(fight_button)
     buttons.add(talk_button)
 
+    # check if buttons were clicked
     if talk_button.draw():
-        talk(hero, chosen_npc, talk_button, fight_button)
+        talk(hero, chosen_npc)
 
     if fight_button.draw():
-        fight(hero, chosen_npc, fight_button, talk_button)
+        fight(hero, chosen_npc)
 
     buttons.update()
     buttons.draw(screen)

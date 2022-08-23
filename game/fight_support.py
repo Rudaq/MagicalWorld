@@ -1,5 +1,3 @@
-from game.settings import GUI_IMAGES
-
 def set_fight_parameters(hero):
     if hero.in_fight:
         hero.in_spell = not hero.in_spell
@@ -15,7 +13,8 @@ def set_fight_parameters(hero):
             hero.casting_spell = False
 
 
-def fight(hero, chosen_npc, fight_button, talk_button):
+# sey the settings of fight
+def fight(hero, chosen_npc):
     if not chosen_npc.is_fighting:
         chosen_npc.is_fighting = True
         hero.in_fight = True

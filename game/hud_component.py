@@ -1,7 +1,7 @@
 
 # Function to update hud and displayed there components
 from datetime import datetime
-
+from PIL import Image
 import pygame
 
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
@@ -80,5 +80,10 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
         pygame.draw.rect(screen, RED, life, 0, 2)
         border = pygame.Rect(800, 50, 100, 25)
         pygame.draw.rect(screen, BLACK, border, 2, 2)
+
+    if chosen_npc is not None and chosen_npc.is_fighting:
+        swords = GUI_IMAGES['swords']
+        screen.blit(swords, (3, 8))
+
 
 

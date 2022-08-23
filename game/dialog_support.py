@@ -89,17 +89,13 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
     border = pygame.Rect(0, DIALOG_START, WIDTH_GAME, 150)
     pygame.draw.rect(screen, WHITE, border, 2, 3)
 
-
-def talk(hero, chosen_npc, talk_button, fight_button):
+# sey the settings of dialog
+def talk(hero, chosen_npc):
 
     if not chosen_npc.is_talking:
         chosen_npc.is_talking = True
         hero.in_dialog = True
         hero.hero_turn = False
-
-       # talk_button.change_image(GUI_IMAGES['clicked_talk_button'], 0.8)
-        #fight_button.change_image(GUI_IMAGES['fight_button'], 0.8)
-
         hero.my_text = ">> "
         print("START TALKING!!")
 
