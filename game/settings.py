@@ -8,12 +8,6 @@ from game.npc.Mermaid import Mermaid
 from game.npc.Orc import Orc
 from os.path import dirname, realpath, join
 
-# full_path = os.getcwd()
-# print("full_path:", full_path)
-#
-# path = str(Path(full_path).parents[0])
-# print("path:", path)
-
 path2 = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", path2)
 path = Path(__file__).resolve().parent.parent
@@ -47,10 +41,10 @@ LETTERS_NUMBERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 
 HERO_ANIMATIONS = {
     'Barbarian': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png"))
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian_small.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian_small.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian_small.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian_small.png"))
     },
     'Dwarf': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf_small.png")),
@@ -132,6 +126,9 @@ GUI_IMAGES = {
 
 }
 
+MAP_IMAGES = {
+    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png"))
+}
 # preferences -> name : side, artifacts, quests, x, y
 DRUIDS = {
     'Leaf': ["good", None, None, 700, 300]
@@ -158,37 +155,42 @@ ORCS = {
 NPCs = {
     'druid': {
         'class_name': Druid,
-        'mana': 100,
-        'life': 100,
+        'mana': 300,
+        'life': 600,
+        'inflate': (-10, -10),
         'images': NPC_IMAGES['image_druid'],
         'dict': DRUIDS,
         'quests': DRUID_QUESTS
     },
     'dark_wizard': {
         'class_name': DarkWizard,
-        'mana': 100,
-        'life': 100,
+        'mana': 200,
+        'life': 400,
+        'inflate': (-10, -10),
         'images': NPC_IMAGES['image_dark_wizard'],
         'dict': DARK_WIZARDS
     },
     'ice_monster': {
         'class_name': IceMonster,
-        'mana': 100,
-        'life': 100,
+        'mana': 200,
+        'life': 600,
+        'inflate': (-10, -10),
         'images': NPC_IMAGES['image_ice_monster'],
         'dict': ICE_MONSTERS
     },
     'mermaid': {
         'class_name': Mermaid,
-        'mana': 100,
+        'mana': 300,
         'life': 100,
+        'inflate': (-10, -10),
         'images': NPC_IMAGES['image_mermaid'],
         'dict': MERMAIDS
     },
     'orc': {
         'class_name': Orc,
-        'mana': 100,
-        'life': 100,
+        'mana': 700,
+        'life': 200,
+        'inflate': (-10, -10),
         'images': NPC_IMAGES['image_orc'],
         'dict': ORCS
     }

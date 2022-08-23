@@ -5,8 +5,8 @@ from game.hero.Character import Character
 
 # Class with characteristics common to all npcs, from which npc classes inherit
 class Npc(Character):
-    def __init__(self, name, side, mana, life, images, artifacts, quests):
-        super().__init__(name, side, mana, life, images, None)
+    def __init__(self, name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites):
+        super().__init__(name, side, mana, life, images, None, pos, groups, inflation, collision_sprites)
         self.artifacts = artifacts
         self.is_talking = False
         self.is_fighting = False
@@ -14,6 +14,9 @@ class Npc(Character):
         self.movement = [0, 0, 0]
         self.text = ">> "
         self.image = self.images['down']
+        self.collision_sprites = collision_sprites
+        self.rect = self.image.get_rect(topleft=pos)
+        self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.add_npc_to_hud = False
 
     # Placeholder. Method to talk? May be useful

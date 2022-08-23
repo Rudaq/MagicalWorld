@@ -1,9 +1,12 @@
+from game.game_support import create_npc, import_csv_layout, import_folder
+
 import sys
+import os
 from datetime import datetime
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
-from game.Button import Button
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
+from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down
 from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters
@@ -13,11 +16,91 @@ from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
 from settings import *
 import pygame
-from settings import GUI_IMAGES
-
+from settings import GUI_IMAGES, MAP_IMAGES
+from _csv import reader
+import os
+from pathlib import Path
 '''
 Main game loop
 '''
+
+
+TILESIZE = 32
+path2 = os.path.dirname(os.path.realpath(__file__))
+print("Current Directory", path2)
+current_path = Path(__file__).resolve().parent.parent
+
+
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, pos, groups, sprite_type, inflation, surface=pygame.Surface((32, 32))):
+        super(Tile, self).__init__(groups)
+        self.sprite_type = sprite_type
+        self.image = surface
+        self.inflation = inflation
+        # inflate - take the rect and change the size
+        self.groups = groups
+        if sprite_type == 'object':
+            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILESIZE))
+        else:
+            self.rect = self.image.get_rect(topleft=pos)
+        self.hitbox = self.rect.inflate(inflation[0], inflation[1])
+
+
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super(CameraGroup, self).__init__()
+        self.display_surf = pygame.display.get_surface()
+
+        # camera offset
+        self.offset = pygame.math.Vector2()
+        self.half_w = self.display_surf.get_size()[0] // 2
+        self.half_h = self.display_surf.get_size()[1] // 2
+
+        # ground
+        self.ground_surf = MAP_IMAGES['ground_surf']
+        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+
+    def custom_draw(self, hero):
+        if hero.rect.centerx <= 750:
+            self.offset.x = 0
+        else:
+            self.offset.x = hero.rect.centerx - self.half_w
+        if hero.rect.centery <= 400:
+            self.offset.y = 0
+        else:
+            self.offset.y = hero.rect.centery - self.half_h
+
+        # ground
+        ground_offset = self.ground_rect.topleft - self.offset
+        self.display_surf.blit(self.ground_surf, ground_offset)
+
+        # active elements
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            offset_position = sprite.rect.topleft - self.offset
+            self.display_surf.blit(sprite.image, offset_position)
+
+
+def create_map(all_sprites_group, collision_sprites):
+    layouts = {
+        'boundary': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
+        'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
+    }
+    graphics = {
+        'objects': import_folder('resources/graphics/objects')
+    }
+   bound = pygame.image.load(os.path.join(path2, 'resources/graphics/tilemap/player_blocker.png'))
+    for style, layout in layouts.items():
+        for row_index, row in enumerate(layout):
+            for col_index, tile in enumerate(row):
+                if tile != '-1':
+                    x = col_index * 16
+                    y = row_index * 16
+                    if style == 'boundary':
+                        Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+
+                    if style == 'object':
+                        surf = graphics['objects'][int(tile)]
+                        Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
 
 
 # Main game function
@@ -29,11 +112,9 @@ def game(hero):
     clock = pygame.time.Clock()
 
     npcs = []
-    all_sprites_group = pygame.sprite.Group()
+    all_sprites_group = CameraGroup()
+    collision_sprites = pygame.sprite.Group()
 
-    # Creating npcs
-    for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs], [all_sprites_group])
 
     # Test quest
     quest = Quest(
@@ -42,6 +123,8 @@ def game(hero):
     hero.active_quest = quest
 
     # Adding created characters to group with all sprites
+    hero.collision_sprites = collision_sprites
+    hero.groups = all_sprites_group
     all_sprites_group.add(hero)
 
     dx = 0
@@ -70,13 +153,18 @@ def game(hero):
     fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
     talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
 
+    # Creating npcs
+    for npc_entity in NPCs:
+        create_npc(npc_entity, [npcs], [all_sprites_group], collision_sprites)
+
+    create_map(all_sprites_group, collision_sprites)
+
+    # Main game loop
     while True:
         screen.fill(GREEN)
 
-        # Updating and drawing sprites
+        all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
-        hero.update()
-        all_sprites_group.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
