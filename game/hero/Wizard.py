@@ -2,6 +2,7 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import WIZARD_SPELLS
 
+
 # Class for a hero of race Wizard, inherits from Character class
 class Wizard(Character):
     def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
@@ -13,8 +14,6 @@ class Wizard(Character):
         self.heal_spell = AttackClass(WIZARD_SPELLS['healing'], 0, 'heal_spell')
         self.magic_ball_spell = AttackClass(WIZARD_SPELLS['magic_ball'], 20, 'magic_ball_spell')
         self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 'powerful_sparks')
-        self.chosen_attack = None
-        self.attack_direction = 0
 
     def perform_action(self, screen, mana):
         if self.performing_action:
@@ -47,7 +46,6 @@ class Wizard(Character):
                 self.chosen_attack.size = 5
                 self.performing_action = True
                 self.attack_direction = self.direction
-
 
     def fight(self, screen, option, npcs):
         mana = 0

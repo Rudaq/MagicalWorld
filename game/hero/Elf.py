@@ -16,8 +16,6 @@ class Elf(Character):
         self.earth_spell = AttackClass(ELF_SPELLS['earth'], 25, 'earth_spell')
         self.heal_spell = AttackClass(ELF_SPELLS['healing'], -15, 'heal_spell')
         self.shoot_arrow = AttackClass(ELF_SPELLS['arrow'], 20, 'shoot_arrow')
-        self.chosen_attack = None
-        self.attack_direction = 0
         self.race = "Elf"
         self.collision_sprites = collision_sprites
         self.pos = pos

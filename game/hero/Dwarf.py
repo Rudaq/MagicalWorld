@@ -2,6 +2,7 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import DWARVES_ACTIONS
 
+
 # Class for a hero of race Dwarf, inherits from Character class
 # images = entries from HERO_ANIMATIONS['Dwarf'] dict
 class Dwarf(Character):
@@ -14,8 +15,6 @@ class Dwarf(Character):
         self.axe_throw_attack = AttackClass(DWARVES_ACTIONS['axe_throw'], 25, 'axe_throw_attack')
         self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 'sleep')
-        self.chosen_attack = None
-        self.attack_direction = 0
 
     def throw_axe(self, screen):
         if self.performing_action:
@@ -49,6 +48,7 @@ class Dwarf(Character):
             self.chosen_attack.size = 5
             self.performing_action = True
             self.attack_direction = self.direction
+
 
     def attack(self, screen, npcs):
         if self.performing_action:

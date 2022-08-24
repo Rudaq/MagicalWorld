@@ -8,7 +8,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down
-from game.game_support import hero_in_dialog_or_talk, hero_only_in_dialog
+from game.game_support import hero_in_dialog_or_talk, hero_only_in_fight
 from game.fight_support import set_fight_parameters
 from game.game_support import create_npc
 from game.hud_component import update_hud
@@ -46,40 +46,6 @@ class Tile(pygame.sprite.Sprite):
         else:
             self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(inflation[0], inflation[1])
-
-
-class CameraGroup(pygame.sprite.Group):
-    def __init__(self):
-        super(CameraGroup, self).__init__()
-        self.display_surf = pygame.display.get_surface()
-
-        # camera offset
-        self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] // 2
-        self.half_h = self.display_surf.get_size()[1] // 2
-
-        # ground
-        self.ground_surf = MAP_IMAGES['ground_surf']
-        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
-
-    def custom_draw(self, hero):
-        if hero.rect.centerx <= 750:
-            self.offset.x = 0
-        else:
-            self.offset.x = hero.rect.centerx - self.half_w
-        if hero.rect.centery <= 400:
-            self.offset.y = 0
-        else:
-            self.offset.y = hero.rect.centery - self.half_h
-
-        # ground
-        ground_offset = self.ground_rect.topleft - self.offset
-        self.display_surf.blit(self.ground_surf, ground_offset)
-
-        # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            offset_position = sprite.rect.topleft - self.offset
-            self.display_surf.blit(sprite.image, offset_position)
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -372,6 +338,7 @@ def game(hero):
         if hero.in_attack:
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
+            print(hero.rect.x, hero.rect.y)
 
         # in npc is clicked, the buttons to fight or talk are displayed
         if npc_clicked:
@@ -384,8 +351,9 @@ def game(hero):
                     all_sprites_group.update()
             else:
                 # NPC can only fight
-                if not chosen_npc.is_talking:
-                    hero_only_in_dialog(s, screen, fight_button, chosen_npc, hero)
+                if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+                    hero_only_in_fight(s, screen, fight_button, chosen_npc, hero)
+                    all_sprites_group.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)

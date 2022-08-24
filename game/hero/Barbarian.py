@@ -10,3 +10,4 @@ class Barbarian(Character):
         self.race = "Barbarian"
         self.collision_sprites = collision_sprites
         self.pos = pos
+

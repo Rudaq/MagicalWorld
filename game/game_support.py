@@ -118,7 +118,7 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
 
 
 # Function for displaying buttons above these NPC's that can only fight
-def hero_only_in_dialog(s, screen, fight_button, chosen_npc, hero):
+def hero_only_in_fight(s, screen, fight_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
 

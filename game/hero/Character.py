@@ -43,6 +43,9 @@ class Character(pygame.sprite.Sprite):
         self.in_attack = False
         self.performing_action = False
 
+        self.chosen_attack = None
+        self.attack_direction = 0
+
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction
@@ -101,8 +104,6 @@ class Character(pygame.sprite.Sprite):
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):
         print("This is a fight!!")
-
-
 
     def add_life(self, value):
         if self.life <= 100 - value:

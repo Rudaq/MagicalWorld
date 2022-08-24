@@ -10,6 +10,7 @@ from game.settings import FAERIE_SPELLS
 Class for a hero of race Elf, inherits from Character class
 '''
 
+
 class Faerie(Character):
     def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
         super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
@@ -19,8 +20,6 @@ class Faerie(Character):
         self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, "fire_spell")
         self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 10, "thrown_spell")
         self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, "flower_spell")
-        self.chosen_attack = None
-        self.attack_direction = 0
 
     # load images
     # create class to manage spell objects
