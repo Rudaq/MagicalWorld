@@ -9,3 +9,4 @@ class Druid(Npc):
         self.rect.y = y
         self.race = "Druid"
         self.collision_sprites = collision_sprites
+        self.can_talk = True

@@ -29,8 +29,6 @@ class Faerie(Character):
     # move the spell
     # check collision with npcs or other objects
 
-
-
     def fight(self, screen, option, npcs):
         mana = 0
         if self.chosen_attack is None:

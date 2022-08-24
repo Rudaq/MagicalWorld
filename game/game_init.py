@@ -8,7 +8,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down
-from game.game_support import hero_in_dialog_or_talk
+from game.game_support import hero_in_dialog_or_talk, hero_only_in_dialog
 from game.fight_support import set_fight_parameters
 from game.game_support import create_npc
 from game.hud_component import update_hud
@@ -82,7 +82,6 @@ class CameraGroup(pygame.sprite.Group):
             self.display_surf.blit(sprite.image, offset_position)
 
 
-
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super(CameraGroup, self).__init__()
@@ -152,7 +151,7 @@ def game(hero):
 
     npcs = []
     all_sprites_group = CameraGroup()
-    #all_sprites_group = pygame.sprite.Group()
+    # all_sprites_group = pygame.sprite.Group()
     collision_sprites = pygame.sprite.Group()
 
     # Test quest
@@ -201,10 +200,9 @@ def game(hero):
     # Main game loop
     while True:
         screen.fill(GREEN)
-        #
+
         # all_sprites_group.custom_draw(hero)
         # all_sprites_group.update()
-
 
         all_sprites_group.update()
         hero.update()
@@ -320,7 +318,6 @@ def game(hero):
         if pressed:
             for npc in npcs:
                 # Checking mouse point collision with npc
-                #all_sprites_group.update()
                 if npc.rect.collidepoint(mouse_point):
                     counter += 1
                     if counter % 2 == 1:
@@ -378,10 +375,17 @@ def game(hero):
 
         # in npc is clicked, the buttons to fight or talk are displayed
         if npc_clicked:
-            if not chosen_npc.is_talking and not chosen_npc.is_fighting:
-                # checking if talk or fight button are clicked
-                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
-                all_sprites_group.update()
+            # check if npc can be in dialog or only cn fight
+            if chosen_npc.can_talk:
+                # NPC can fight and talk
+                if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+                    # checking if talk or fight button are clicked
+                    hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                    all_sprites_group.update()
+            else:
+                # NPC can only fight
+                if not chosen_npc.is_talking:
+                    hero_only_in_dialog(s, screen, fight_button, chosen_npc, hero)
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)

@@ -9,3 +9,4 @@ class Orc(Npc):
         self.rect.y = y
         self.race = "Orc"
         self.collision_sprites = collision_sprites
+        self.can_talk = False

@@ -9,3 +9,4 @@ class IceMonster(Npc):
         self.rect.y = y
         self.race = "Ice Monster"
         self.collision_sprites = collision_sprites
+        self.can_talk = True

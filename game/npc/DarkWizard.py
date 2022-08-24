@@ -9,3 +9,4 @@ class DarkWizard(Npc):
         self.rect.y = y
         self.race = "Dark Wizard"
         self.collision_sprites = collision_sprites
+        self.can_talk = True

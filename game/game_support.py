@@ -18,6 +18,7 @@ path2 = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", path2)
 current_path = Path(__file__).resolve().parent.parent
 
+
 class NPCTypeNotExistException(Exception):
     pass
 
@@ -53,13 +54,16 @@ def create_character(chosen_name, chosen_type, chosen_side):
     if chosen_type == "Elf":
         hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), (-10, -10), [])
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (-18, -18), [])
+        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (-18, -18),
+                      [])
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (-10, -10), [])
+        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (-10, -10),
+                      [])
     elif chosen_type == "Dwarf":
         hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), (-30, -20), [])
     else:
-        hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (), (-24, -30), [])
+        hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (),
+                         (-24, -30), [])
 
     return hero
 
@@ -87,6 +91,7 @@ def import_folder(path):
             surface_list.append(image_surf)
     return surface_list
 
+# Function for displaying buttons above these NPC's that can talk and fight
 def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
@@ -94,10 +99,10 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     # create buttons 'Fight' and 'Talk'
     buttons = pygame.sprite.Group()
     fight_button.rect.x = chosen_npc.rect.x - 40
-    fight_button.rect.y = chosen_npc.rect.y - 70
+    fight_button.rect.y = chosen_npc.rect.y - 50
 
     talk_button.rect.x = chosen_npc.rect.x + 40
-    talk_button.rect.y = chosen_npc.rect.y - 70
+    talk_button.rect.y = chosen_npc.rect.y - 50
     buttons.add(fight_button)
     buttons.add(talk_button)
 
@@ -105,6 +110,25 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     if talk_button.draw():
         talk(hero, chosen_npc)
 
+    if fight_button.draw():
+        fight(hero, chosen_npc)
+
+    buttons.update()
+    buttons.draw(screen)
+
+
+# Function for displaying buttons above these NPC's that can only fight
+def hero_only_in_dialog(s, screen, fight_button, chosen_npc, hero):
+    s.fill(BLACK)
+    s.set_alpha(192)
+
+    # create button 'Fight'
+    buttons = pygame.sprite.Group()
+    fight_button.rect.x = chosen_npc.rect.x
+    fight_button.rect.y = chosen_npc.rect.y - 50
+    buttons.add(fight_button)
+
+    # check if buttons were clicked
     if fight_button.draw():
         fight(hero, chosen_npc)
 

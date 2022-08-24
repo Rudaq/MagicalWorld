@@ -9,6 +9,7 @@ class Mermaid(Npc):
         self.rect.y = y
         self.race = "Mermaid"
         self.collision_sprites = collision_sprites
+        self.can_talk = False
 
     # Method move to stop mermaid from moving (not moving; on the beach)
     def move(self, direction="R", dx=0, dy=0):

@@ -71,6 +71,7 @@ class Character(pygame.sprite.Sprite):
                     if self.direction == 'U':  # moving up
                         self.hitbox.top = sprite.hitbox.bottom
 
+    # One common function for throwing out particles for all heros
     def attack(self, screen, mana, npcs):
         if self.performing_action:
             self.chosen_attack.move_attack()
