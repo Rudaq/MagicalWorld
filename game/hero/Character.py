@@ -40,7 +40,8 @@ class Character(pygame.sprite.Sprite):
         self.hero_turn = False
         self.in_dialog = False
         self.in_fight = False
-        self.casting_spell = False
+        self.in_attack = False
+        self.performing_action = False
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
@@ -70,6 +71,24 @@ class Character(pygame.sprite.Sprite):
                     if self.direction == 'U':  # moving up
                         self.hitbox.top = sprite.hitbox.bottom
 
+    def attack(self, screen, mana, npcs):
+        if self.performing_action:
+            self.chosen_attack.move_attack()
+            if self.chosen_attack.size < 150:
+                if self.chosen_attack.image == self.chosen_attack.image_up or self.chosen_attack.image == self.chosen_attack.image_down:
+                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
+                                (0, 0, 50, self.chosen_attack.size))
+                else:
+                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
+                                (0, 0, self.chosen_attack.size, 50))
+            self.chosen_attack.check_attack_npc_collision(npcs, False, self)
+
+        else:
+            if self.mana - mana >= 0:
+                self.mana -= mana
+                self.performing_action = True
+                self.attack_direction = self.direction
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("HELLO")
@@ -81,3 +100,13 @@ class Character(pygame.sprite.Sprite):
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):
         print("This is a fight!!")
+
+
+
+    def add_life(self, value):
+        if self.life <= 100 - value:
+            self.life += value
+
+    def add_mana(self, value):
+        if self.mana <= 100 - value:
+            self.mana += value

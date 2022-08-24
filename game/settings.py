@@ -8,8 +8,8 @@ from game.npc.Mermaid import Mermaid
 from game.npc.Orc import Orc
 from os.path import dirname, realpath, join
 
-path2 = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", path2)
+current = os.path.dirname(os.path.realpath(__file__))
+print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
 print(path)
 
@@ -126,6 +126,21 @@ GUI_IMAGES = {
 
 }
 
+DWARVES_ACTIONS = {
+    # TO DO DRAW NICER BRAIDS :(
+    'braids': pygame.image.load(os.path.join(path, "resources/graphics/particles", "braids.PNG")),
+    'axe': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
+    'axe_throw': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
+    'sleep': pygame.image.load(os.path.join(path, "resources/graphics/particles", "sleep.PNG"))
+}
+
+WIZARD_SPELLS = {
+    'wind': pygame.image.load(os.path.join(path, "resources/graphics/particles", "wind.PNG")),
+    'magic_ball': pygame.image.load(os.path.join(path, "resources/graphics/particles", "magic_ball.PNG")),
+    'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
+    'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
+}
+
 MAP_IMAGES = {
     'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png"))
 }
@@ -134,7 +149,9 @@ DRUIDS = {
     'Leaf': ["good", None, None, 700, 300]
 }
 DRUID_QUESTS = {
-    'quest1': ["bnlablabla"]
+    'Wizard': {
+        'quest_name': ['Quest Content', True]  # [content, points, artifacts, is_done, priority]
+    }
 }
 
 DARK_WIZARDS = {
@@ -156,7 +173,7 @@ NPCs = {
     'druid': {
         'class_name': Druid,
         'mana': 300,
-        'life': 600,
+        'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_druid'],
         'dict': DRUIDS,
@@ -165,7 +182,7 @@ NPCs = {
     'dark_wizard': {
         'class_name': DarkWizard,
         'mana': 200,
-        'life': 400,
+        'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_dark_wizard'],
         'dict': DARK_WIZARDS
@@ -173,7 +190,7 @@ NPCs = {
     'ice_monster': {
         'class_name': IceMonster,
         'mana': 200,
-        'life': 600,
+        'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_ice_monster'],
         'dict': ICE_MONSTERS
@@ -189,7 +206,7 @@ NPCs = {
     'orc': {
         'class_name': Orc,
         'mana': 700,
-        'life': 200,
+        'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_orc'],
         'dict': ORCS

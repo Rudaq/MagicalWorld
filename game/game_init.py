@@ -20,15 +20,17 @@ from settings import GUI_IMAGES, MAP_IMAGES
 from _csv import reader
 import os
 from pathlib import Path
+
 '''
 Main game loop
 '''
 
-
 TILESIZE = 32
-path2 = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", path2)
-current_path = Path(__file__).resolve().parent.parent
+
+current = os.path.dirname(os.path.realpath(__file__))
+print("Current Directory", current)
+path = Path(__file__).resolve().parent.parent
+print(path)
 
 
 class Tile(pygame.sprite.Sprite):
@@ -80,22 +82,59 @@ class CameraGroup(pygame.sprite.Group):
             self.display_surf.blit(sprite.image, offset_position)
 
 
+
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super(CameraGroup, self).__init__()
+        self.display_surf = pygame.display.get_surface()
+
+        # camera offset
+        self.offset = pygame.math.Vector2()
+        self.half_w = self.display_surf.get_size()[0] // 2
+        self.half_h = self.display_surf.get_size()[1] // 2
+
+        # ground
+        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
+        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+
+    def custom_draw(self, hero):
+        if hero.rect.centerx <= 750:
+            self.offset.x = 0
+        else:
+            self.offset.x = hero.rect.centerx - self.half_w
+        if hero.rect.centery <= 400:
+            self.offset.y = 0
+        else:
+            self.offset.y = hero.rect.centery - self.half_h
+
+        # ground
+        ground_offset = self.ground_rect.topleft - self.offset
+        self.display_surf.blit(self.ground_surf, ground_offset)
+
+        # active elements
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            offset_position = sprite.rect.topleft - self.offset
+            self.display_surf.blit(sprite.image, offset_position)
+
+
 def create_map(all_sprites_group, collision_sprites):
     layouts = {
-        'boundary': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
+        'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
         'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
     }
     graphics = {
-        'objects': import_folder('resources/graphics/objects')
+        'objects': import_folder('../resources/graphics/objects')
     }
-   bound = pygame.image.load(os.path.join(path2, 'resources/graphics/tilemap/player_blocker.png'))
+
+    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/player_blocker.png'))
+
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
             for col_index, tile in enumerate(row):
                 if tile != '-1':
                     x = col_index * 16
                     y = row_index * 16
-                    if style == 'boundary':
+                    if style == 'boundary_hero':
                         Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
 
                     if style == 'object':
@@ -113,8 +152,8 @@ def game(hero):
 
     npcs = []
     all_sprites_group = CameraGroup()
+    #all_sprites_group = pygame.sprite.Group()
     collision_sprites = pygame.sprite.Group()
-
 
     # Test quest
     quest = Quest(
@@ -162,9 +201,14 @@ def game(hero):
     # Main game loop
     while True:
         screen.fill(GREEN)
+        #
+        # all_sprites_group.custom_draw(hero)
+        # all_sprites_group.update()
 
-        all_sprites_group.custom_draw(hero)
+
         all_sprites_group.update()
+        hero.update()
+        all_sprites_group.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -215,7 +259,6 @@ def game(hero):
 
                 # Event support for dialog
                 if hero.in_dialog:
-
                     moving = False
                     # Checking if hero is now talking - possibility of keyboard interaction
                     # letters, digits, signs and space accepted (lists at the top)
@@ -277,6 +320,7 @@ def game(hero):
         if pressed:
             for npc in npcs:
                 # Checking mouse point collision with npc
+                #all_sprites_group.update()
                 if npc.rect.collidepoint(mouse_point):
                     counter += 1
                     if counter % 2 == 1:
@@ -286,6 +330,7 @@ def game(hero):
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
                                    restore_life_time_passed, chosen_npc)
+                        all_sprites_group.update()
 
                     else:
                         npc_clicked = False
@@ -308,6 +353,7 @@ def game(hero):
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
                                    restore_life_time_passed, chosen_npc)
+                        all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -324,17 +370,22 @@ def game(hero):
                 update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc)
-        if hero.in_spell:
+                all_sprites_group.update()
+
+        if hero.in_attack:
             hero.fight(screen, option, npcs)
+            all_sprites_group.update()
 
         # in npc is clicked, the buttons to fight or talk are displayed
         if npc_clicked:
             if not chosen_npc.is_talking and not chosen_npc.is_fighting:
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                all_sprites_group.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
+            all_sprites_group.update()
 
         update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc)
@@ -355,5 +406,6 @@ def game(hero):
         elif hero.mana > 0:
             restore_life = False
 
+        all_sprites_group.update()
         pygame.display.update()
         clock.tick(60)

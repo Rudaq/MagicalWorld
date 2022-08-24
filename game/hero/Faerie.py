@@ -2,7 +2,7 @@ import pygame
 import os
 import copy
 
-from game.artifacts.SpellClass import SpellClass
+from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import FAERIE_SPELLS
 
@@ -16,11 +16,11 @@ class Faerie(Character):
         self.race = "Faerie"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.fire_spell = SpellClass(FAERIE_SPELLS['fire'], 20, "fire_spell")
-        self.thrown_spell = SpellClass(FAERIE_SPELLS['thrown'], 10, "thrown_spell")
-        self.flower_spell = SpellClass(FAERIE_SPELLS['flower'], 0, "flower_spell")
-        self.chosen_spell = None
-        self.spell_direction = 0
+        self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, "fire_spell")
+        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 10, "thrown_spell")
+        self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, "flower_spell")
+        self.chosen_attack = None
+        self.attack_direction = 0
 
     # load images
     # create class to manage spell objects
@@ -29,68 +29,53 @@ class Faerie(Character):
     # move the spell
     # check collision with npcs or other objects
 
-    def use_magic(self, screen, mana, npcs):
-        if self.casting_spell:
-            self.chosen_spell.move_spell()
-            if self.chosen_spell.size < 150:
-                if self.chosen_spell.image == self.chosen_spell.image_up or self.chosen_spell.image == self.chosen_spell.image_down:
-                    screen.blit(self.chosen_spell.image, (self.chosen_spell.rect.x, self.chosen_spell.rect.y),
-                                (0, 0, 50, self.chosen_spell.size))
-                else:
-                    screen.blit(self.chosen_spell.image, (self.chosen_spell.rect.x, self.chosen_spell.rect.y),
-                                (0, 0, self.chosen_spell.size, 50))
-            self.chosen_spell.check_spell_npc_collision(npcs, False, self)
 
-        else:
-            if self.mana - mana >= 0:
-                self.mana -= mana
-                self.casting_spell = True
-                self.spell_direction = self.direction
 
     def fight(self, screen, option, npcs):
         mana = 0
-
-        if self.chosen_spell is None:
+        if self.chosen_attack is None:
             if option == 1:
-                self.chosen_spell = self.fire_spell
+                self.chosen_attack = self.fire_spell
                 mana = 20
             elif option == 2:
-                self.chosen_spell = self.thrown_spell
+                self.chosen_attack = self.thrown_spell
                 mana = 10
             elif option == 3:
-                self.chosen_spell = self.flower_spell
-                mana = 20
-                self.life += 10
+                self.chosen_attack = self.flower_spell
+                if self.life < 100:
+                    self.life += 10
+                    mana = 20
 
             if self.direction == 'U' and not option == 3:
-                self.spell_direction = 0
-                self.chosen_spell.rect.x = self.rect.x
-                self.chosen_spell.rect.y = self.rect.y - 120
-                self.chosen_spell.image = self.chosen_spell.image_up
+                self.attack_direction = 0
+                self.chosen_attack.rect.x = self.rect.x
+                self.chosen_attack.rect.y = self.rect.y - 120
+                self.chosen_attack.image = self.chosen_attack.image_up
             elif self.direction == 'D' or option == 3:
-                self.spell_direction = 1
-                self.chosen_spell.rect.x = self.rect.x
-                self.chosen_spell.rect.y = self.rect.y + 30
-                self.chosen_spell.image = self.chosen_spell.image_down
+                self.attack_direction = 1
+                self.chosen_attack.rect.x = self.rect.x
+                self.chosen_attack.rect.y = self.rect.y + 30
+                self.chosen_attack.image = self.chosen_attack.image_down
             elif self.direction == 'L' and not option == 3:
-                self.spell_direction = 2
-                self.chosen_spell.rect.x = self.rect.x - 120
-                self.chosen_spell.rect.y = self.rect.y
-                self.chosen_spell.image = self.chosen_spell.image_left
+                self.attack_direction = 2
+                self.chosen_attack.rect.x = self.rect.x - 120
+                self.chosen_attack.rect.y = self.rect.y
+                self.chosen_attack.image = self.chosen_attack.image_left
             else:
                 if not option == 3:
-                    self.spell_direction = 3
-                    self.chosen_spell.rect.x = self.rect.x + 30
-                    self.chosen_spell.rect.y = self.rect.y
-                    self.chosen_spell.image = self.chosen_spell.image_right
+                    self.attack_direction = 3
+                    self.chosen_attack.rect.x = self.rect.x + 30
+                    self.chosen_attack.rect.y = self.rect.y
+                    self.chosen_attack.image = self.chosen_attack.image_right
 
-            self.chosen_spell.size = 50
-            self.chosen_spell.acceleration = 0.1
-            self.chosen_spell.start_x = self.chosen_spell.rect.x
+            self.chosen_attack.size = 50
+            self.chosen_attack.acceleration = 0.1
+            self.chosen_attack.start_x = self.chosen_attack.rect.x
+
             if not option == 3:
-                self.chosen_spell.start_y = self.chosen_spell.rect.y
+                self.chosen_attack.start_y = self.chosen_attack.rect.y
             else:
-                self.chosen_spell.rect.y -= 30
-                self.chosen_spell.start_y = self.chosen_spell.rect.y
+                self.chosen_attack.rect.y -= 30
+                self.chosen_attack.start_y = self.chosen_attack.rect.y
 
-        self.use_magic(screen, mana, npcs)
+        self.attack(screen, mana, npcs)

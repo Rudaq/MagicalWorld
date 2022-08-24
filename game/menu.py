@@ -76,9 +76,9 @@ def menu():
 def choose_character():
     # images to be displayed in the menu - (big, small)
     eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
-                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png"))),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian_small.png"))),
                                   (pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf2.png")),
-                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf_small.png"))),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png"))),
                                   (pygame.image.load(os.path.join(path, "resources/graphics/characters/Wizard2.png")),
                                    pygame.image.load(os.path.join(path, "resources/graphics/characters/Wizard_small.png"))),
                                   (pygame.image.load(os.path.join(path, "resources/graphics/characters/Elf2.png")),
