@@ -46,7 +46,7 @@ class Faerie(Character):
             if self.direction == 'U' and not option == 3:
                 self.attack_direction = 0
                 self.chosen_attack.rect.x = self.rect.x
-                self.chosen_attack.rect.y = self.rect.y - 120
+                self.chosen_attack.rect.y = self.rect.y + 30
                 self.chosen_attack.image = self.chosen_attack.image_up
             elif self.direction == 'D' or option == 3:
                 self.attack_direction = 1
@@ -55,7 +55,7 @@ class Faerie(Character):
                 self.chosen_attack.image = self.chosen_attack.image_down
             elif self.direction == 'L' and not option == 3:
                 self.attack_direction = 2
-                self.chosen_attack.rect.x = self.rect.x - 120
+                self.chosen_attack.rect.x = self.rect.x + 30
                 self.chosen_attack.rect.y = self.rect.y
                 self.chosen_attack.image = self.chosen_attack.image_left
             else:

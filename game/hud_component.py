@@ -30,10 +30,10 @@ def time_to_restore(screen, restore_life_time_passed, x):
 def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
                restore_life_time_passed, chosen_npc):
 
-    hud = pygame.Rect(0, 0, WIDTH_GAME, 100)
+    hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
-    border = pygame.Rect(0, 0, WIDTH_GAME, 100)
+    border = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, ALMOND, border, 5, 2)
 
     draw_text("Life ", 50, 25, 12, BLACK, screen)
@@ -62,12 +62,12 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
 
     if restore_life:
-        time_left = time_to_restore(screen, restore_life_time_passed, 300)
+        time_left = time_to_restore(screen, restore_life_time_passed, life.x + 150)
         if time_left == 0:
             hero.life = 100
 
     if restore_mana:
-        time_left = time_to_restore(screen, restore_mana_time_passed, 600)
+        time_left = time_to_restore(screen, restore_mana_time_passed, mana.x + 150)
         if time_left == 0:
             hero.mana = 100
 

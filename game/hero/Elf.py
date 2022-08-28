@@ -27,7 +27,7 @@ class Elf(Character):
     # move the spell
     # check collision with npcs or other objects
 
-    def use_bow(self, screen, mana):
+    def use_bow(self, screen, mana, npcs):
         if self.performing_action:
             # self.chosen_spell.size = 5
             self.chosen_attack.move_attack()
@@ -51,6 +51,7 @@ class Elf(Character):
 
             if draw:
                 screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y))
+            self.chosen_attack.check_attack_npc_collision(npcs, False, self)
 
         else:
             if self.mana - mana >= 0:
@@ -77,7 +78,7 @@ class Elf(Character):
                 self.attack_direction = 0
                 self.chosen_attack.rect.x = self.rect.x
                 if not option == 3:
-                    self.chosen_attack.rect.y = self.rect.y - 120
+                    self.chosen_attack.rect.y = self.rect.y+ 30
                 else:
                     self.chosen_attack.rect.y = self.rect.y
                 self.chosen_attack.image = self.chosen_attack.image_up
@@ -92,7 +93,7 @@ class Elf(Character):
             elif self.direction == 'L':
                 self.attack_direction = 2
                 if not option == 3:
-                    self.chosen_attack.rect.x = self.rect.x - 120
+                    self.chosen_attack.rect.x = self.rect.x + 30
                 else:
                     self.chosen_attack.rect.x = self.rect.x
                 self.chosen_attack.rect.y = self.rect.y
@@ -112,6 +113,6 @@ class Elf(Character):
             self.chosen_attack.start_y = self.chosen_attack.rect.y
 
         if option == 1 or option == 2:
-            self.attack(screen, mana, npcs)
+            self.attack(screen, mana, npcs, True)
         else:
-            self.use_bow(screen, mana)
+            self.use_bow(screen, mana, npcs)

@@ -36,7 +36,7 @@ def end_sentence_on_the_dot(text):
 
 # Method to generate the text about the character using saved model and input sequence
 def generate_text_about_character(sequence):
-    output = pipeline('text-generation', model='./NLP/description_generation/my_gpt2', tokenizer='gpt2')
+    output = pipeline('text-generation', model='../NLP/description_generation/my_gpt2', tokenizer='gpt2')
     final_text = output(sequence)[0]['generated_text']
     final_text = end_sentence_on_the_dot(final_text)
     print("\n", final_text)

@@ -66,9 +66,9 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
     screen.blit(surf, (0, DIALOG_START))
 
     arrows = pygame.sprite.Group()
-    arrow_up.rect.x = WIDTH_GAME - 50
+    arrow_up.rect.x = screen.get_size()[0] - 50
     arrow_up.rect.y = DIALOG_START + 25
-    arrow_down.rect.x = WIDTH_GAME - 50
+    arrow_down.rect.x = screen.get_size()[0] - 50
     arrow_down.rect.y = DIALOG_START + 100
 
     arrows.add(arrow_up)
@@ -81,12 +81,12 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
 
     arrows.update()
     arrows.draw(screen)
-    pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 140), (WIDTH_GAME - 38, 130), (WIDTH_GAME - 30, 140)],
+    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 140), (screen.get_size()[0] - 38, 130), (screen.get_size()[0] - 30, 140)],
                         2)
-    pygame.draw.polygon(screen, BLACK, [(WIDTH_GAME - 45, 210), (WIDTH_GAME - 38, 220), (WIDTH_GAME - 30, 210)],
+    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 210), (screen.get_size()[0] - 38, 220), (screen.get_size()[0] - 30, 210)],
                         2)
 
-    border = pygame.Rect(0, DIALOG_START, WIDTH_GAME, 150)
+    border = pygame.Rect(0, DIALOG_START, screen.get_size()[0], 150)
     pygame.draw.rect(screen, WHITE, border, 2, 3)
 
 # sey the settings of dialog

@@ -56,11 +56,13 @@ class AttackClass(pygame.sprite.Sprite):
                 if (self.start_x + self.size) >= npc.rect.x:
                     if option:
                         npc.life += self.strength
-                        npc.life = 100 - int(npc.life % 100)
+                        if npc.life > 100:
+                            npc.life = 100 - int(npc.life % 100)
                     if self.spell_type == "fire_spell":
                         fire_spell(npc, hero)
-
-                    npc.life -= self.strength
+                        npc.life -= self.strength
+                    else:
+                        npc.life -= self.strength
                     if npc.life < 0:
                         npc.life = 0
                 hero.performing_action = False

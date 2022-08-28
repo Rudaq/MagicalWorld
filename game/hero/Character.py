@@ -75,17 +75,27 @@ class Character(pygame.sprite.Sprite):
                         self.hitbox.top = sprite.hitbox.bottom
 
     # One common function for throwing out particles for all heros
-    def attack(self, screen, mana, npcs):
+    def attack(self, screen, mana, npcs, heal=False):
         if self.performing_action:
             self.chosen_attack.move_attack()
             if self.chosen_attack.size < 150:
-                if self.chosen_attack.image == self.chosen_attack.image_up or self.chosen_attack.image == self.chosen_attack.image_down:
+                if self.chosen_attack.image == self.chosen_attack.image_down:
                     screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
                                 (0, 0, 50, self.chosen_attack.size))
+                elif self.chosen_attack.image == self.chosen_attack.image_up:
+                    self.chosen_attack.rect.topleft = [self.chosen_attack.start_x,
+                                                      self.chosen_attack.start_y - self.chosen_attack.size]
+                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
+                                (0, 0, 50, self.chosen_attack.size))
+                elif self.chosen_attack.image == self.chosen_attack.image_left:
+                    self.chosen_attack.rect.topleft = [self.chosen_attack.start_x - self.chosen_attack.size,
+                                                      self.chosen_attack.start_y]
+                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
+                                (0, 0, self.chosen_attack.size, 50))
                 else:
                     screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
                                 (0, 0, self.chosen_attack.size, 50))
-            self.chosen_attack.check_attack_npc_collision(npcs, False, self)
+            self.chosen_attack.check_attack_npc_collision(npcs, heal, self)
 
         else:
             if self.mana - mana >= 0:

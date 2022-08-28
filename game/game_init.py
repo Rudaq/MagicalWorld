@@ -153,7 +153,7 @@ def game(hero):
     chosen_npc = None
     counter = 0
 
-    s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
+    s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25)
     arrow_down = ButtonClass(25, 25)
     scroll_button = ButtonClass(30, 40)
