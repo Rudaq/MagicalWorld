@@ -22,3 +22,8 @@ def fight(hero, chosen_npc):
         hero.in_attack = False
         hero.chosen_attack = None
         print("FIGHT")
+
+def stop_fight(hero, chosen_npc):
+    chosen_npc.is_fighting = False
+    hero.in_fight = False
+    print("STOP FIGHT")

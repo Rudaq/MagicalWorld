@@ -90,7 +90,6 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
 
 # sey the settings of dialog
 def talk(hero, chosen_npc):
-
     if not chosen_npc.is_talking:
         chosen_npc.is_talking = True
         hero.in_dialog = True
@@ -98,4 +97,13 @@ def talk(hero, chosen_npc):
         hero.my_text = ">> "
         print("START TALKING!!")
 
+def stop_talk(hero, chosen_npc):
+    chosen_npc.is_talking = False
+    hero.in_dialog = False
+    hero.hero_turn = False
+    hero.my_text = ">> "
+    hero.text_history = []
+    chosen_npc.text_history = []
+    chosen_npc.text = ">> "
+    print("STOP TALKING!!")
 

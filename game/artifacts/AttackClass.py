@@ -3,26 +3,6 @@ import math
 import pygame.sprite
 from settings import FAERIE_SPELLS
 
-
-def fire_spell(npc, hero):
-    if hero.attack_direction == 'D':
-        expected_y = npc.rect.y + 200
-        while npc.rect.y < expected_y:
-            npc.rect.y += 2
-    elif hero.attack_direction == 'U':
-        expected_y = npc.rect.y - 200
-        while npc.rect.y > expected_y:
-            npc.rect.y -= 2
-    elif hero.attack_direction == 'L':
-        expected_x = npc.rect.x - 200
-        while npc.rect.x > expected_x:
-            npc.rect.x -= 2
-    else:
-        expected_x = npc.rect.x + 200
-        while npc.rect.x < expected_x:
-            npc.rect.x += 2
-
-
 class AttackClass(pygame.sprite.Sprite):
     def __init__(self, image, strength, spell_type):
         super().__init__()
@@ -67,6 +47,25 @@ class AttackClass(pygame.sprite.Sprite):
             expected_x = npc.rect.x + 200
             while npc.rect.x < expected_x:
                 npc.rect.x += 2
+
+    def fire_spell(npc, hero):
+        if hero.attack_direction == 'D':
+            expected_y = npc.rect.y + 200
+            while npc.rect.y < expected_y:
+                npc.rect.y += 2
+        elif hero.attack_direction == 'U':
+            expected_y = npc.rect.y - 200
+            while npc.rect.y > expected_y:
+                npc.rect.y -= 2
+        elif hero.attack_direction == 'L':
+            expected_x = npc.rect.x - 200
+            while npc.rect.x > expected_x:
+                npc.rect.x -= 2
+        else:
+            expected_x = npc.rect.x + 200
+            while npc.rect.x < expected_x:
+                npc.rect.x += 2
+
     def check_attack_npc_collision(self, npcs, option, hero):
         for npc in npcs:
             if npc.rect.colliderect(self.rect):
@@ -76,7 +75,7 @@ class AttackClass(pygame.sprite.Sprite):
                         if npc.life > 100:
                             npc.life = 100 - int(npc.life % 100)
                     if self.spell_type == "fire_spell":
-                        fire_spell(npc, hero)
+                        self.fire_spell(npc, hero)
                         npc.life -= self.strength
                     else:
                         npc.life -= self.strength

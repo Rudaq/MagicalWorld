@@ -1,4 +1,3 @@
-
 # Function to update hud and displayed there components
 from datetime import datetime
 from PIL import Image
@@ -29,7 +28,6 @@ def time_to_restore(screen, restore_life_time_passed, x):
 
 def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
                restore_life_time_passed, chosen_npc):
-
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
@@ -49,6 +47,19 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     pygame.draw.rect(screen, BLUE, mana, 0, 2)
     border = pygame.Rect(300, 50, 100, 25)
     pygame.draw.rect(screen, BLACK, border, 2, 2)
+
+    draw_text("Equipment ", 850, 25, 12, BLACK, screen)
+    x = 950
+    y = 10
+    counter = 0
+    for i in hero.equipment:
+        screen.blit(i.image, (x, y))
+        if counter == 2:
+            y += 20
+            x = 900
+            counter = -1
+        x += 50
+        counter += 1
 
     draw_text("Points ", 1100, 25, 12, BLACK, screen)
     draw_text(str(hero.points), 1150, 50, 12, BLACK, screen)
@@ -74,16 +85,12 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     if chosen_npc is not None and chosen_npc.add_npc_to_hud:
         text = chosen_npc.race + "'s Life"
 
-
-        draw_text(text, 700, 25, 12, BLACK, screen)
-        life = pygame.Rect(800, 50, chosen_npc.life, 25)
+        draw_text(text, 500, 25, 12, BLACK, screen)
+        life = pygame.Rect(600, 50, chosen_npc.life, 25)
         pygame.draw.rect(screen, RED, life, 0, 2)
-        border = pygame.Rect(800, 50, 100, 25)
+        border = pygame.Rect(600, 50, 100, 25)
         pygame.draw.rect(screen, BLACK, border, 2, 2)
 
     if chosen_npc is not None and chosen_npc.is_fighting:
         swords = GUI_IMAGES['swords']
         screen.blit(swords, (3, 8))
-
-
-

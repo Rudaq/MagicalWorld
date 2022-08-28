@@ -83,9 +83,11 @@ class Npc(Character):
             screen.blit()
             pygame.display.flip()
 
-    def kill(self, all_artifacts, screen):
+    def kill_npc(self, all_artifacts, screen):
+        self.add_npc_to_hud = False
         x = self.rect.x - 100
         y = self.rect.y
+        self.kill()
         for artifact in self.artifacts:
             x += 50
             artifact.show(x, y, all_artifacts, screen)

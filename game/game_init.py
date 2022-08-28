@@ -7,9 +7,10 @@ from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.Button import Button
-from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down
+from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
+    stop_talk
 from game.game_support import hero_in_dialog_or_talk, hero_only_in_fight
-from game.fight_support import set_fight_parameters
+from game.fight_support import set_fight_parameters, stop_fight
 from game.game_support import create_npc
 from game.hud_component import update_hud
 from game.quest.Quest import Quest
@@ -122,6 +123,7 @@ def game(hero):
     all_sprites_group = CameraGroup()
     # all_sprites_group = pygame.sprite.Group()
     collision_sprites = pygame.sprite.Group()
+    all_artifacts = pygame.sprite.Group()
 
     # Test quest
     quest = Quest(
@@ -176,6 +178,8 @@ def game(hero):
         all_sprites_group.update()
         hero.update()
         all_sprites_group.draw(screen)
+        all_artifacts.update()
+        all_artifacts.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -285,6 +289,13 @@ def game(hero):
 
         # Checking if mouse pressed
         if pressed:
+            for artifact in all_artifacts:
+                if artifact.rect.collidepoint(mouse_point):
+                    hero.collect_artifact(artifact)
+                    all_artifacts.remove(artifact)
+                    all_artifacts.update()
+                    all_artifacts.draw(screen)
+
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
@@ -302,19 +313,10 @@ def game(hero):
                         npc_clicked = False
                         chosen_npc.add_npc_to_hud = False
                         if chosen_npc.is_talking:
-                            chosen_npc.is_talking = False
-                            hero.in_dialog = False
-                            hero.hero_turn = False
-                            hero.my_text = ">> "
-                            hero.text_history = []
-                            chosen_npc.text_history = []
-                            chosen_npc.text = ">> "
-                            print("STOP TALKING!!")
+                            stop_talk(hero, chosen_npc)
 
                         if chosen_npc.is_fighting:
-                            chosen_npc.is_fighting = False
-                            hero.in_fight = False
-                            print("STOP FIGHT")
+                            stop_fight(hero, chosen_npc)
 
                         update_hud(screen, hero, scroll_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
@@ -331,6 +333,14 @@ def game(hero):
         # Set previous state of left mouse button
         prev = left
 
+        for npc in npcs:
+            if npc.life == 0:
+                npc.kill_npc(all_artifacts, screen)
+                npcs.remove(npc)
+                all_sprites_group.remove(npc)
+                all_sprites_group.update()
+                all_sprites_group.draw(screen
+                                       )
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, restore_life, restore_mana,
