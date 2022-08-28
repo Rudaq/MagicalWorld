@@ -112,7 +112,10 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
-    screen = pygame.display.set_mode((WIDTH_GAME, HEIGHT_GAME))
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    print("Screen size", screen.get_size()[0])
+    WIDTH_GAME = screen.get_size()[0]
+    HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
     npcs = []
