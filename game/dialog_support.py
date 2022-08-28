@@ -1,5 +1,4 @@
 import pygame
-
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
 from game.fight_support import set_fight_parameters
 from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES

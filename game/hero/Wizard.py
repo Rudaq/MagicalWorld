@@ -1,6 +1,6 @@
-from game.artifacts.AttackClass import AttackClass
-from game.hero.Character import Character
-from game.settings import WIZARD_SPELLS
+from artifacts.AttackClass import AttackClass
+from hero.Character import Character
+from settings import WIZARD_SPELLS
 
 
 # Class for a hero of race Wizard, inherits from Character class

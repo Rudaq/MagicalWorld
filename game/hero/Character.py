@@ -75,7 +75,7 @@ class Character(pygame.sprite.Sprite):
                         self.hitbox.top = sprite.hitbox.bottom
 
     # One common function for throwing out particles for all heros
-    def attack(self, screen, mana, npcs, heal=False):
+    def attack(self, screen, mana, npcs):
         if self.performing_action:
             self.chosen_attack.move_attack()
             if self.chosen_attack.size < 150:
@@ -87,15 +87,10 @@ class Character(pygame.sprite.Sprite):
                                                       self.chosen_attack.start_y - self.chosen_attack.size]
                     screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
                                 (0, 0, 50, self.chosen_attack.size))
-                elif self.chosen_attack.image == self.chosen_attack.image_left:
-                    self.chosen_attack.rect.topleft = [self.chosen_attack.start_x - self.chosen_attack.size,
-                                                      self.chosen_attack.start_y]
-                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
-                                (0, 0, self.chosen_attack.size, 50))
                 else:
                     screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
                                 (0, 0, self.chosen_attack.size, 50))
-            self.chosen_attack.check_attack_npc_collision(npcs, heal, self)
+            self.chosen_attack.check_attack_npc_collision(npcs, False, self)
 
         else:
             if self.mana - mana >= 0:
@@ -108,8 +103,12 @@ class Character(pygame.sprite.Sprite):
         print("HELLO")
 
     # Placeholder. Method to add the found or obtained weapon to the equipment.
-    def collect_weapon(self, weapon):
-        self.equipment.append(weapon)
+    def collect_artifact(self, artifact):
+        if len(self.equipment) == 5:
+            print("You can't collect more equipment! Your backpack is full!")
+        else:
+            self.equipment.append(artifact)
+            self.points += artifact.points
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

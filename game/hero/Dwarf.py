@@ -1,6 +1,6 @@
-from game.artifacts.AttackClass import AttackClass
-from game.hero.Character import Character
-from game.settings import DWARVES_ACTIONS
+from artifacts.AttackClass import AttackClass
+from hero.Character import Character
+from settings import DWARVES_ACTIONS
 
 
 # Class for a hero of race Dwarf, inherits from Character class

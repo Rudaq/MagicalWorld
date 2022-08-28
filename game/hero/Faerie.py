@@ -2,9 +2,9 @@ import pygame
 import os
 import copy
 
-from game.artifacts.AttackClass import AttackClass
-from game.hero.Character import Character
-from game.settings import FAERIE_SPELLS
+from artifacts.AttackClass import AttackClass
+from hero.Character import Character
+from settings import FAERIE_SPELLS
 
 '''
 Class for a hero of race Elf, inherits from Character class
@@ -18,7 +18,7 @@ class Faerie(Character):
         self.collision_sprites = collision_sprites
         self.pos = pos
         self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, "fire_spell")
-        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 10, "thrown_spell")
+        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, "thrown_spell")
         self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, "flower_spell")
 
     # load images

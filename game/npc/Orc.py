@@ -1,4 +1,4 @@
-from game.npc.Npc import Npc
+from npc.Npc import Npc
 
 
 # Class for a npc of type Orc, inherits from Npc class inheriting from Character class

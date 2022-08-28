@@ -3,8 +3,8 @@ import sys
 import pygame
 from pygame.locals import *
 
-from game.game_support import create_character
-from game.menu_support import draw_text_on_menu, divide
+from game_support import create_character
+from menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
 from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS

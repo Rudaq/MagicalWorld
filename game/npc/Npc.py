@@ -1,13 +1,13 @@
 import random
 import pygame
-from game.hero.Character import Character
+from hero.Character import Character
 
 
 # Class with characteristics common to all npcs, from which npc classes inherit
 class Npc(Character):
     def __init__(self, name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites):
         super().__init__(name, side, mana, life, images, None, pos, groups, inflation, collision_sprites)
-        self.artifacts = artifacts
+        self.artifacts = pygame.sprite.Group()
         self.is_talking = False
         self.is_fighting = False
         self.quests_to_give = quests
@@ -69,7 +69,6 @@ class Npc(Character):
         self.rect.x += dx
         self.rect.y += dy
 
-
     def throw(self, side, screen):
         for i in range(1, 8):
             if side == "R" or side == "D":
@@ -83,3 +82,11 @@ class Npc(Character):
             self.moveByFaerie("D", 0, 10)
             screen.blit()
             pygame.display.flip()
+
+    def kill(self, all_artifacts, screen):
+        x = self.rect.x - 100
+        y = self.rect.y
+        for artifact in self.artifacts:
+            x += 50
+            artifact.show(x, y, all_artifacts, screen)
+        print("dead")

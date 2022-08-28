@@ -1,7 +1,7 @@
 import math
 
 import pygame.sprite
-from game.settings import FAERIE_SPELLS
+from settings import FAERIE_SPELLS
 
 
 def fire_spell(npc, hero):
@@ -50,6 +50,23 @@ class AttackClass(pygame.sprite.Sprite):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.01
 
+    def fire_spell(npc, hero):
+        if hero.attack_direction == 'D':
+            expected_y = npc.rect.y + 200
+            while npc.rect.y < expected_y:
+                npc.rect.y += 2
+        elif hero.attack_direction == 'U':
+            expected_y = npc.rect.y - 200
+            while npc.rect.y > expected_y:
+                npc.rect.y -= 2
+        elif hero.attack_direction == 'L':
+            expected_x = npc.rect.x - 200
+            while npc.rect.x > expected_x:
+                npc.rect.x -= 2
+        else:
+            expected_x = npc.rect.x + 200
+            while npc.rect.x < expected_x:
+                npc.rect.x += 2
     def check_attack_npc_collision(self, npcs, option, hero):
         for npc in npcs:
             if npc.rect.colliderect(self.rect):

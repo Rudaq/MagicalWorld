@@ -4,15 +4,15 @@ from _csv import reader
 from os import walk
 import os
 from pathlib import Path
-from game.hero.Barbarian import Barbarian
-from game.hero.Dwarf import Dwarf
-from game.hero.Elf import Elf
-from game.hero.Faerie import Faerie
-from game.hero.Wizard import Wizard
+from hero.Barbarian import Barbarian
+from hero.Dwarf import Dwarf
+from hero.Elf import Elf
+from hero.Faerie import Faerie
+from hero.Wizard import Wizard
 from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES
-from game.settings import BLACK
-from game.dialog_support import talk
-from game.fight_support import fight
+from settings import BLACK
+from dialog_support import talk
+from fight_support import fight
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", path2)

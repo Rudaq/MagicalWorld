@@ -1,11 +1,11 @@
 import os
 from pathlib import Path
 import pygame as pygame
-from game.npc.DarkWizard import DarkWizard
-from game.npc.Druid import Druid
-from game.npc.IceMonster import IceMonster
-from game.npc.Mermaid import Mermaid
-from game.npc.Orc import Orc
+from npc.DarkWizard import DarkWizard
+from npc.Druid import Druid
+from npc.IceMonster import IceMonster
+from npc.Mermaid import Mermaid
+from npc.Orc import Orc
 from os.path import dirname, realpath, join
 
 current = os.path.dirname(os.path.realpath(__file__))
