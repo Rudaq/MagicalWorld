@@ -10,99 +10,99 @@ class Wizard(Character):
         self.race = "Wizard"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.wind_spell = AttackClass(WIZARD_SPELLS['wind'], 10, 'wind_spell')
-        self.heal_spell = AttackClass(WIZARD_SPELLS['healing'], 0, 'heal_spell')
-        self.magic_ball_spell = AttackClass(WIZARD_SPELLS['magic_ball'], 20, 'magic_ball_spell')
-        self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 'powerful_sparks')
+        self.wind_spell = AttackClass(WIZARD_SPELLS['wind'], 10, 10, 'wind_spell')
+        self.healing_spell = AttackClass(WIZARD_SPELLS['healing'], 0, 25, 'healing_spell')
+        self.magic_ball_spell = AttackClass(WIZARD_SPELLS['magic_ball'], 20, 30, 'magic_ball_spell')
+        self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 20, 'powerful_sparks')
 
-    def perform_action(self, screen, mana):
-        if self.performing_action:
+    def perform_action(self, screen):
+        if self.in_attack:
             # self.chosen_spell.size = 5
-            self.chosen_attack.move_attack()
+            self.attack_type.move_attack()
             draw = False
-            if self.chosen_attack.image == self.chosen_attack.image_up:
-                self.chosen_attack.rect.y -= self.chosen_attack.size
-                if self.chosen_attack.rect.bottom > self.chosen_attack.start_y - 150:
+            if self.attack_type.image == self.attack_type.image_up:
+                self.attack_type.rect.y -= self.attack_type.size
+                if self.attack_type.rect.bottom > self.attack_type.start_y - 150:
                     draw = True
-            elif self.chosen_attack.image == self.chosen_attack.image_down:
-                self.chosen_attack.rect.y += self.chosen_attack.size
-                if self.chosen_attack.rect.top < self.chosen_attack.start_y + 150:
+            elif self.attack_type.image == self.attack_type.image_down:
+                self.attack_type.rect.y += self.attack_type.size
+                if self.attack_type.rect.top < self.attack_type.start_y + 150:
                     draw = True
-            elif self.chosen_attack.image == self.chosen_attack.image_left:
-                self.chosen_attack.rect.x -= self.chosen_attack.size
-                if self.chosen_attack.rect.right > self.chosen_attack.start_x - 150:
+            elif self.attack_type.image == self.attack_type.image_left:
+                self.attack_type.rect.x -= self.attack_type.size
+                if self.attack_type.rect.right > self.attack_type.start_x - 150:
                     draw = True
             else:
-                self.chosen_attack.rect.x += self.chosen_attack.size
-                if self.chosen_attack.rect.left < self.chosen_attack.start_x + 150:
+                self.attack_type.rect.x += self.attack_type.size
+                if self.attack_type.rect.left < self.attack_type.start_x + 150:
                     draw = True
 
             if draw:
-                screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y))
+                screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y))
 
         else:
-            if self.mana - mana >= 0:
-                self.mana -= mana
-                self.chosen_attack.size = 5
-                self.performing_action = True
+            if self.mana - self.attack_type.mana >= 0:
+                self.mana -= self.attack_type.mana
+                self.attack_type.size = 5
+                self.in_attack = True
                 self.attack_direction = self.direction
 
     def fight(self, screen, option, npcs):
-        mana = 0
 
-        if self.chosen_attack is None:
+        if self.attack_type is None:
             if option == 1:
-                self.chosen_attack = self.wind_spell
-                mana = 10
+                self.attack_type = self.wind_spell
+
             elif option == 2:
-                self.chosen_attack = self.heal_spell
-                mana = 25
+                self.attack_type = self.healing_spell
+
             elif option == 3:
-                self.chosen_attack = self.powerful_sparks
-                mana = 30
+                self.attack_type = self.powerful_sparks
+
             else:
-                self.chosen_attack = self.magic_ball_spell
-                mana = 20
+                self.attack_type = self.magic_ball_spell
+
 
             if self.direction == 'U':
                 self.attack_direction = 0
-                self.chosen_attack.rect.x = self.rect.x
+                self.attack_type.rect.x = self.rect.x
                 if not option > 4:
-                    self.chosen_attack.rect.y = self.rect.y + 30
+                    self.attack_type.rect.y = self.rect.y + 30
                 else:
-                    self.chosen_attack.rect.y = self.rect.y
-                self.chosen_attack.image = self.chosen_attack.image_up
+                    self.attack_type.rect.y = self.rect.y
+                self.attack_type.image = self.attack_type.image_up
             elif self.direction == 'D':
                 self.attack_direction = 1
-                self.chosen_attack.rect.x = self.rect.x
+                self.attack_type.rect.x = self.rect.x
                 if not option > 4:
-                    self.chosen_attack.rect.y = self.rect.y + 30
+                    self.attack_type.rect.y = self.rect.y + 30
                 else:
-                    self.chosen_attack.rect.y = self.rect.y
-                self.chosen_attack.image = self.chosen_attack.image_down
+                    self.attack_type.rect.y = self.rect.y
+                self.attack_type.image = self.attack_type.image_down
             elif self.direction == 'L':
                 self.attack_direction = 2
                 if not option > 4:
-                    self.chosen_attack.rect.x = self.rect.x + 30
+                    self.attack_type.rect.x = self.rect.x + 30
                 else:
-                    self.chosen_attack.rect.x = self.rect.x
-                self.chosen_attack.rect.y = self.rect.y
-                self.chosen_attack.image = self.chosen_attack.image_left
+                    self.attack_type.rect.x = self.rect.x
+                self.attack_type.rect.y = self.rect.y
+                self.attack_type.image = self.attack_type.image_left
             else:
                 self.attack_direction = 3
-                if not option > 4:
-                    self.chosen_attack.rect.x = self.rect.x + 30
-                else:
-                    self.chosen_attack.rect.x = self.rect.x
-                self.chosen_attack.rect.y = self.rect.y
-                self.chosen_attack.image = self.chosen_attack.image_right
 
-            self.chosen_attack.size = 50
-            self.chosen_attack.acceleration = 0.1
-            self.chosen_attack.start_x = self.chosen_attack.rect.x
-            self.chosen_attack.start_y = self.chosen_attack.rect.y
+                if not option > 4:
+                    self.attack_type.rect.x = self.rect.x + 30
+                else:
+                    self.attack_type.rect.x = self.rect.x
+                self.attack_type.rect.y = self.rect.y
+                self.attack_type.image = self.attack_type.image_right
+
+            self.attack_type.size = 50
+            self.attack_type.acceleration = 0.1
+            self.attack_type.start_x = self.attack_type.rect.x
+            self.attack_type.start_y = self.attack_type.rect.y
 
         if option == 1 or option == 2:
-            self.attack(screen, mana, npcs)
+            self.attack(screen, npcs)
         else:
-            self.perform_action(screen, mana)
+            self.perform_action(screen)

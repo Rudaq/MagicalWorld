@@ -39,11 +39,11 @@ class Character(pygame.sprite.Sprite):
         # dialog variables
         self.hero_turn = False
         self.in_dialog = False
-        self.in_fight = False
+        self.in_fight_mode = False
         self.in_attack = False
         self.performing_action = False
 
-        self.chosen_attack = None
+        self.attack_type = None
         self.attack_direction = 0
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
@@ -74,27 +74,29 @@ class Character(pygame.sprite.Sprite):
                     if self.direction == 'U':  # moving up
                         self.hitbox.top = sprite.hitbox.bottom
 
-    # One common function for throwing out particles for all heros
-    def attack(self, screen, mana, npcs):
+    # One common function for throwing out particles for all heroes
+
+    def attack(self, screen, npcs):
         if self.performing_action:
-            self.chosen_attack.move_attack()
-            if self.chosen_attack.size < 150:
-                if self.chosen_attack.image == self.chosen_attack.image_down:
-                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
-                                (0, 0, 50, self.chosen_attack.size))
-                elif self.chosen_attack.image == self.chosen_attack.image_up:
-                    self.chosen_attack.rect.topleft = [self.chosen_attack.start_x,
-                                                      self.chosen_attack.start_y - self.chosen_attack.size]
-                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
-                                (0, 0, 50, self.chosen_attack.size))
+            self.attack_type.move_attack()
+            if self.attack_type.size < 150:
+                if self.attack_type.image == self.attack_type.image_down:
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, 50, self.attack_type.size))
+                elif self.attack_type.image == self.attack_type.image_up:
+                    self.attack_type.rect.topleft = [self.attack_type.start_x,
+                                                     self.attack_type.start_y - self.attack_type.size]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, 50, self.attack_type.size))
                 else:
-                    screen.blit(self.chosen_attack.image, (self.chosen_attack.rect.x, self.chosen_attack.rect.y),
-                                (0, 0, self.chosen_attack.size, 50))
-            self.chosen_attack.check_attack_npc_collision(npcs, False, self)
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, self.attack_type.size, 50))
+            self.attack_type.check_attack_npc_collision(self, npcs)
 
         else:
-            if self.mana - mana >= 0:
-                self.mana -= mana
+            if self.mana - self.attack_type.mana >= 0:
+
+                self.mana -= self.attack_type.mana
                 self.performing_action = True
                 self.attack_direction = self.direction
 
@@ -115,8 +117,11 @@ class Character(pygame.sprite.Sprite):
         print("This is a fight!!")
 
     def add_life(self, value):
-        if self.life <= 100 - value:
-            self.life += value
+        if self.life < 100:
+            if self.life + value > 100:
+                self.life = 100
+            else:
+                self.life += value
 
     def add_mana(self, value):
         if self.mana <= 100 - value:

@@ -91,6 +91,7 @@ def import_folder(path):
             surface_list.append(image_surf)
     return surface_list
 
+
 # Function for displaying buttons above these NPC's that can talk and fight
 def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)

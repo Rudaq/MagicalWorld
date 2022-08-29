@@ -17,9 +17,9 @@ class Faerie(Character):
         self.race = "Faerie"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, "fire_spell")
-        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, "thrown_spell")
-        self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, "flower_spell")
+        self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, 20, "fire_spell")
+        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, 10, "thrown_spell")
+        self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, 20, "flower_spell")
 
     # load images
     # create class to manage spell objects
@@ -27,52 +27,76 @@ class Faerie(Character):
     # delete some mana
     # move the spell
     # check collision with npcs or other objects
-
     def fight(self, screen, option, npcs):
         mana = 0
-        if self.chosen_attack is None:
+        if self.attack_type is None:
             if option == 1:
-                self.chosen_attack = self.fire_spell
-                mana = 20
+                self.attack_type = self.fire_spell
+
             elif option == 2:
-                self.chosen_attack = self.thrown_spell
-                mana = 10
+                self.attack_type = self.thrown_spell
+
             elif option == 3:
-                self.chosen_attack = self.flower_spell
-                if self.life < 100:
-                    self.life += 10
-                    mana = 20
+                self.attack_type = self.flower_spell
+                self.add_life(20)
 
             if self.direction == 'U' and not option == 3:
                 self.attack_direction = 0
-                self.chosen_attack.rect.x = self.rect.x
-                self.chosen_attack.rect.y = self.rect.y + 30
-                self.chosen_attack.image = self.chosen_attack.image_up
+                self.attack_type.rect.x = self.rect.x
+                self.attack_type.rect.y = self.rect.y + 30
+                self.attack_type.image = self.attack_type.image_up
+
             elif self.direction == 'D' or option == 3:
                 self.attack_direction = 1
-                self.chosen_attack.rect.x = self.rect.x
-                self.chosen_attack.rect.y = self.rect.y + 30
-                self.chosen_attack.image = self.chosen_attack.image_down
+                self.attack_type.rect.x = self.rect.x
+                self.attack_type.rect.y = self.rect.y + 30
+                self.attack_type.image = self.attack_type.image_down
+
             elif self.direction == 'L' and not option == 3:
                 self.attack_direction = 2
-                self.chosen_attack.rect.x = self.rect.x + 30
-                self.chosen_attack.rect.y = self.rect.y
-                self.chosen_attack.image = self.chosen_attack.image_left
+                self.attack_type.rect.x = self.rect.x + 30
+                self.attack_type.rect.y = self.rect.y
+                self.attack_type.image = self.attack_type.image_left
             else:
                 if not option == 3:
                     self.attack_direction = 3
-                    self.chosen_attack.rect.x = self.rect.x + 30
-                    self.chosen_attack.rect.y = self.rect.y
-                    self.chosen_attack.image = self.chosen_attack.image_right
+                    self.attack_type.rect.x = self.rect.x + 30
+                    self.attack_type.rect.y = self.rect.y
+                    self.attack_type.image = self.attack_type.image_right
 
-            self.chosen_attack.size = 50
-            self.chosen_attack.acceleration = 0.1
-            self.chosen_attack.start_x = self.chosen_attack.rect.x
+            self.attack_type.size = 50
+            self.attack_type.acceleration = 0.1
+            self.attack_type.start_x = self.attack_type.rect.x
 
             if not option == 3:
-                self.chosen_attack.start_y = self.chosen_attack.rect.y
+                self.attack_type.start_y = self.attack_type.rect.y
             else:
-                self.chosen_attack.rect.y -= 30
-                self.chosen_attack.start_y = self.chosen_attack.rect.y
+                self.attack_type.rect.y -= 30
+                self.attack_type.start_y = self.attack_type.rect.y
 
-        self.attack(screen, mana, npcs)
+        self.attack(screen, npcs)
+
+    def fire_spell_attack(self, npc):
+        if self.attack_direction == 'D':
+            expected_y = npc.rect.y + 200
+            while npc.rect.y < expected_y:
+                npc.rect.y += 2
+
+        elif self.attack_direction == 'U':
+            expected_y = npc.rect.y - 200
+            while npc.rect.y > expected_y:
+                npc.rect.y -= 2
+
+        elif self.attack_direction == 'L':
+            expected_x = npc.rect.x - 200
+            while npc.rect.x > expected_x:
+                npc.rect.x -= 2
+        else:
+            expected_x = npc.rect.x + 200
+            while npc.rect.x < expected_x:
+                npc.rect.x += 2
+        npc.life -= self.attack_type.strength
+
+
+
+

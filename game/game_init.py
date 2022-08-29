@@ -218,13 +218,13 @@ def game(hero):
                     dx = -5
                     dy = 0
                     moving = True
-                elif event.key == pygame.K_1 and hero.in_fight:
+                elif event.key == pygame.K_1 and hero.in_fight_mode:
                     option = 1
                     set_fight_parameters(hero)
-                elif event.key == pygame.K_2 and hero.in_fight:
+                elif event.key == pygame.K_2 and hero.in_fight_mode:
                     option = 2
                     set_fight_parameters(hero)
-                elif event.key == pygame.K_3 and hero.in_fight:
+                elif event.key == pygame.K_3 and hero.in_fight_mode:
                     option = 3
                     set_fight_parameters(hero)
 
@@ -335,12 +335,14 @@ def game(hero):
 
         for npc in npcs:
             if npc.life == 0:
+                stop_fight(hero, npc)
+                npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
                 npcs.remove(npc)
                 all_sprites_group.remove(npc)
                 all_sprites_group.update()
-                all_sprites_group.draw(screen
-                                       )
+                all_sprites_group.draw(screen)
+
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, restore_life, restore_mana,

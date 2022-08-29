@@ -1,13 +1,12 @@
-import math
-
 import pygame.sprite
-from settings import FAERIE_SPELLS
+
 
 class AttackClass(pygame.sprite.Sprite):
-    def __init__(self, image, strength, spell_type):
+    def __init__(self, image, strength, mana, attack_type):
         super().__init__()
         self.strength = strength
-        self.spell_type = spell_type
+        self.mana = mana
+        self.attack_type = attack_type
         self.image = image
         self.image_right = image
         self.image_left = pygame.transform.flip(self.image, True, False)
@@ -30,57 +29,27 @@ class AttackClass(pygame.sprite.Sprite):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.01
 
-    def fire_spell(npc, hero):
-        if hero.attack_direction == 'D':
-            expected_y = npc.rect.y + 200
-            while npc.rect.y < expected_y:
-                npc.rect.y += 2
-        elif hero.attack_direction == 'U':
-            expected_y = npc.rect.y - 200
-            while npc.rect.y > expected_y:
-                npc.rect.y -= 2
-        elif hero.attack_direction == 'L':
-            expected_x = npc.rect.x - 200
-            while npc.rect.x > expected_x:
-                npc.rect.x -= 2
-        else:
-            expected_x = npc.rect.x + 200
-            while npc.rect.x < expected_x:
-                npc.rect.x += 2
-
-    def fire_spell(npc, hero):
-        if hero.attack_direction == 'D':
-            expected_y = npc.rect.y + 200
-            while npc.rect.y < expected_y:
-                npc.rect.y += 2
-        elif hero.attack_direction == 'U':
-            expected_y = npc.rect.y - 200
-            while npc.rect.y > expected_y:
-                npc.rect.y -= 2
-        elif hero.attack_direction == 'L':
-            expected_x = npc.rect.x - 200
-            while npc.rect.x > expected_x:
-                npc.rect.x -= 2
-        else:
-            expected_x = npc.rect.x + 200
-            while npc.rect.x < expected_x:
-                npc.rect.x += 2
-
-    def check_attack_npc_collision(self, npcs, option, hero):
+    def check_attack_npc_collision(self, hero, npcs):
         for npc in npcs:
             if npc.rect.colliderect(self.rect):
                 if (self.start_x + self.size) >= npc.rect.x:
-                    if option:
-                        npc.life += self.strength
-                        if npc.life > 100:
-                            npc.life = 100 - int(npc.life % 100)
-                    if self.spell_type == "fire_spell":
-                        self.fire_spell(npc, hero)
-                        npc.life -= self.strength
+
+                    # for one type of Elf attack
+                    if self.attack_type == "heal_spell":
+                        hero.heal_spell_attack(npc)
+
+                        # for one type of Faerie attack
+                    if self.attack_type == "fire_spell":
+                        hero.fire_spell_attack(npc)
+
+                        # for every other attack
                     else:
                         npc.life -= self.strength
+
+                    # check if NPC is still alive
                     if npc.life < 0:
                         npc.life = 0
+
                 hero.performing_action = False
                 hero.in_attack = False
                 break
