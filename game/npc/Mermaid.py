@@ -3,9 +3,9 @@ from artifacts.Artifact import Artifact
 import pygame
 import os
 from pathlib import Path
+#from game.settings import MERMAID_ARTIFACTS
 
 current = os.path.dirname(os.path.realpath(__file__))
-
 path = Path(__file__).resolve().parent.parent.parent
 
 
@@ -19,13 +19,11 @@ class Mermaid(Npc):
         self.race = "Mermaid"
         self.collision_sprites = collision_sprites
         self.can_talk = False
-        image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        image2 = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "corn.PNG"))
-        self.blood = Artifact(image, 10, 'Mermaid blood')
-        self.blood2 = Artifact(image, 10, 'blood')
-        self.corn = Artifact(image2, 15, 'corn')
-        self.corn2 = Artifact(image2, 15, 'corn2')
-        self.artifacts.add(self.corn, self.blood, self.corn2, self.blood2)
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG"))
+        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
+        self.blood = Artifact(blood_image, 10, 'Mermaid Blood')
+        self.necklace = Artifact(necklace_image, 15, 'Mermaid Necklace')
+        self.artifacts.add(self.necklace, self.blood)
 
     # Method move to stop mermaid from moving (not moving; on the beach)
     def move(self, direction="R", dx=0, dy=0):

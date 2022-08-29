@@ -26,7 +26,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
         return 1
 
 
-def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
+def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
                restore_life_time_passed, chosen_npc):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
@@ -49,17 +49,12 @@ def update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_
     pygame.draw.rect(screen, BLACK, border, 2, 2)
 
     draw_text("Equipment ", 850, 25, 12, BLACK, screen)
-    x = 950
-    y = 10
-    counter = 0
-    for i in hero.equipment:
-        screen.blit(i.image, (x, y))
-        if counter == 2:
-            y += 20
-            x = 900
-            counter = -1
-        x += 50
-        counter += 1
+    chest_surface = pygame.Surface((30, 30))
+    screen.blit(GUI_IMAGES['small_chest'], (900, 50))
+    chest_button.image = GUI_IMAGES['small_chest']
+    chest_button.rect.x = 900
+    chest_button.rect.y = 50
+    chest_surface.blit(chest_button.image, (chest_button.rect.x, chest_button.rect.y))
 
     draw_text("Points ", 1100, 25, 12, BLACK, screen)
     draw_text(str(hero.points), 1150, 50, 12, BLACK, screen)

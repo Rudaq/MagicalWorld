@@ -39,7 +39,7 @@ class AttackClass(pygame.sprite.Sprite):
                         hero.heal_spell_attack(npc)
 
                         # for one type of Faerie attack
-                    if self.attack_type == "fire_spell":
+                    elif self.attack_type == "fire_spell":
                         hero.fire_spell_attack(npc)
 
                         # for every other attack

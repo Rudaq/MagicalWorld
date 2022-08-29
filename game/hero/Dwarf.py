@@ -93,7 +93,7 @@ class Dwarf(Character):
                 self.attack_direction = 0
                 self.attack_type.rect.x = self.rect.x
                 if not option == 4:
-                    self.attack_type.rect.y = self.rect.y + 30
+                    self.attack_type.rect.y = self.rect.y - 30
                 else:
                     self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_up
@@ -108,7 +108,7 @@ class Dwarf(Character):
             elif self.direction == 'L' and option != 3:
                 self.attack_direction = 2
                 if not option == 4:
-                    self.attack_type.rect.x = self.rect.x + 30
+                    self.attack_type.rect.x = self.rect.x - 30
                 else:
                     self.attack_type.rect.x = self.rect.x
                 self.attack_type.rect.y = self.rect.y

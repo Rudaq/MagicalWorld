@@ -28,7 +28,4 @@ class Button(pygame.sprite.Sprite):
 
         return action
 
-    def change_image(self, image, scale):
-        width = image.get_width()
-        height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+

@@ -28,7 +28,7 @@ class Faerie(Character):
     # move the spell
     # check collision with npcs or other objects
     def fight(self, screen, option, npcs):
-        mana = 0
+
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.fire_spell
@@ -43,7 +43,7 @@ class Faerie(Character):
             if self.direction == 'U' and not option == 3:
                 self.attack_direction = 0
                 self.attack_type.rect.x = self.rect.x
-                self.attack_type.rect.y = self.rect.y + 30
+                self.attack_type.rect.y = self.rect.y - 30
                 self.attack_type.image = self.attack_type.image_up
 
             elif self.direction == 'D' or option == 3:
@@ -54,7 +54,7 @@ class Faerie(Character):
 
             elif self.direction == 'L' and not option == 3:
                 self.attack_direction = 2
-                self.attack_type.rect.x = self.rect.x + 30
+                self.attack_type.rect.x = self.rect.x - 30
                 self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_left
             else:
@@ -95,6 +95,7 @@ class Faerie(Character):
             expected_x = npc.rect.x + 200
             while npc.rect.x < expected_x:
                 npc.rect.x += 2
+
         npc.life -= self.attack_type.strength
 
 

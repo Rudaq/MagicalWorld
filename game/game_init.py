@@ -9,12 +9,12 @@ from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk
-from game.game_support import hero_in_dialog_or_talk, hero_only_in_fight
+from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters, stop_fight
 from game.game_support import create_npc
 from game.hud_component import update_hud
 from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero
+from game.quest_support import show_quest_to_hero, show_chest_to_hero, show_equipment_name
 from settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
@@ -146,6 +146,7 @@ def game(hero):
     npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
     npc_dialog_thread.start()
     show_quest = False
+    show_chest = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
@@ -156,11 +157,16 @@ def game(hero):
     counter = 0
 
     s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
-    arrow_up = ButtonClass(25, 25)
-    arrow_down = ButtonClass(25, 25)
-    scroll_button = ButtonClass(30, 40)
+    arrow_up = ButtonClass(25, 25, 'arrow_up')
+    arrow_down = ButtonClass(25, 25, 'arrow_down')
+    scroll_button = ButtonClass(30, 40, 'scroll_button')
+    chest_button = ButtonClass(30, 40, 'chest_button')
     fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
     talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
+
+    equipment_buttons = pygame.sprite.Group()
+    equipment_buttons.update()
+    equipment_buttons.draw(screen)
 
     # Creating npcs
     for npc_entity in NPCs:
@@ -178,6 +184,7 @@ def game(hero):
         all_sprites_group.update()
         hero.update()
         all_sprites_group.draw(screen)
+
         all_artifacts.update()
         all_artifacts.draw(screen)
 
@@ -304,7 +311,7 @@ def game(hero):
                         chosen_npc = npc
                         npc_clicked = True
                         chosen_npc.add_npc_to_hud = True
-                        update_hud(screen, hero, scroll_button, restore_life, restore_mana,
+                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
                                    restore_life_time_passed, chosen_npc)
                         all_sprites_group.update()
@@ -318,7 +325,7 @@ def game(hero):
                         if chosen_npc.is_fighting:
                             stop_fight(hero, chosen_npc)
 
-                        update_hud(screen, hero, scroll_button, restore_life, restore_mana,
+                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
                                    restore_life_time_passed, chosen_npc)
                         all_sprites_group.update()
@@ -329,6 +336,8 @@ def game(hero):
                 move_dialog_down(hero.text_history)
             elif scroll_button.rect.collidepoint(mouse_point):
                 show_quest = not show_quest
+            elif chest_button.rect.collidepoint(mouse_point):
+                show_chest = not show_chest
 
         # Set previous state of left mouse button
         prev = left
@@ -345,7 +354,7 @@ def game(hero):
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
-                update_hud(screen, hero, scroll_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc)
                 all_sprites_group.update()
@@ -353,32 +362,30 @@ def game(hero):
         if hero.in_attack:
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
-            print(hero.rect.x, hero.rect.y)
 
-        # in npc is clicked, the buttons to fight or talk are displayed
         if npc_clicked:
-            # check if npc can be in dialog or only cn fight
-            if chosen_npc.can_talk:
-                # NPC can fight and talk
-                if not chosen_npc.is_talking and not chosen_npc.is_fighting:
-                    # checking if talk or fight button are clicked
-                    hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
-                    all_sprites_group.update()
-            else:
-                # NPC can only fight
-                if not chosen_npc.is_talking and not chosen_npc.is_fighting:
-                    hero_only_in_fight(s, screen, fight_button, chosen_npc, hero)
-                    all_sprites_group.update()
+            if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+                # checking if talk or fight button are clicked
+                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                all_sprites_group.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
             all_sprites_group.update()
 
-        update_hud(screen, hero, scroll_button, restore_life, restore_mana, restore_mana_time_passed,
+        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc)
 
         if show_quest:
             show_quest_to_hero(screen, hero)
+
+        if show_chest:
+            show_chest_to_hero(screen, hero, equipment_buttons)
+            for equipment in equipment_buttons:
+                if equipment.rect.collidepoint(mouse_point):
+                    show_equipment_name(screen, equipment)
+
+
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True

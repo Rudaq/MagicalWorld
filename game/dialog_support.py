@@ -3,6 +3,7 @@ from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
 from game.fight_support import set_fight_parameters
 from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES
 
+
 # Function to limit the length of text input in the dialog and its formatting (moves text to the next line after 220
 # characters and cutting it all together after 440) - hero text (this and the one for npc can be converted into one)
 def check_text_length(text, screen, text_height_position, color):
@@ -80,13 +81,16 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
 
     arrows.update()
     arrows.draw(screen)
-    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 140), (screen.get_size()[0] - 38, 130), (screen.get_size()[0] - 30, 140)],
+    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 140), (screen.get_size()[0] - 38, 130),
+                                        (screen.get_size()[0] - 30, 140)],
                         2)
-    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 210), (screen.get_size()[0] - 38, 220), (screen.get_size()[0] - 30, 210)],
+    pygame.draw.polygon(screen, BLACK, [(screen.get_size()[0] - 45, 210), (screen.get_size()[0] - 38, 220),
+                                        (screen.get_size()[0] - 30, 210)],
                         2)
 
     border = pygame.Rect(0, DIALOG_START, screen.get_size()[0], 150)
     pygame.draw.rect(screen, WHITE, border, 2, 3)
+
 
 # sey the settings of dialog
 def talk(hero, chosen_npc):
@@ -97,6 +101,8 @@ def talk(hero, chosen_npc):
         hero.my_text = ">> "
         print("START TALKING!!")
 
+
+
 def stop_talk(hero, chosen_npc):
     chosen_npc.is_talking = False
     hero.in_dialog = False
@@ -106,4 +112,10 @@ def stop_talk(hero, chosen_npc):
     chosen_npc.text_history = []
     chosen_npc.text = ">> "
     print("STOP TALKING!!")
+
+
+def generate_random_answer():
+
+    text = "Cant talk"
+    return text
 

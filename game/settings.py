@@ -122,6 +122,9 @@ GUI_IMAGES = {
     'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png")),
     'clicked_fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight_clicked.png")),
     'clicked_talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk_clicked.png")),
+    'chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest.png")),
+    'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),
+    'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
 
 }
@@ -153,7 +156,11 @@ DRUID_QUESTS = {
         'quest_name': ['Quest Content', True]  # [content, points, artifacts, is_done, priority]
     }
 }
+MERMAID_ARTIFACTS = {
+    'Mermaid Blood': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG")),
+    'Mermaid Necklace': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
 
+}
 DARK_WIZARDS = {
     'Sarus': ["evil", None, None, 400, 500]
 }

@@ -2,6 +2,7 @@ import threading
 
 from NLP.dialog_generation.DialogLine import DialogLine
 from NLP.dialog_generation.GenerateNpcDialog import generate_text
+from game.dialog_support import generate_random_answer
 
 DIALOG_START = 100
 
@@ -27,7 +28,10 @@ class NpcDialogThread(threading.Thread):
                 if not self.hero.hero_turn:
                     for npc in self.npcs:
                         if npc.is_talking:
-                            npc.text = ">> " + generate_text()
+                            if npc.can_talk:
+                                npc.text = ">> " + generate_text()
+                            else:
+                                npc.text = ">> " + generate_random_answer()
                             # npc.text_history.append(npc.text)
                             if len(self.hero.text_history) > 1:
                                 reversed_text = self.hero.text_history[::-1]
