@@ -45,7 +45,6 @@ class Wizard(Character):
                 self.mana -= self.attack_type.mana
                 self.attack_type.size = 5
                 self.in_attack = True
-                self.attack_direction = self.direction
 
     def fight(self, screen, option, npcs):
 
@@ -64,7 +63,6 @@ class Wizard(Character):
 
 
             if self.direction == 'U':
-                self.attack_direction = 0
                 self.attack_type.rect.x = self.rect.x
                 if not option > 4:
                     self.attack_type.rect.y = self.rect.y - 30
@@ -72,7 +70,6 @@ class Wizard(Character):
                     self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_up
             elif self.direction == 'D':
-                self.attack_direction = 1
                 self.attack_type.rect.x = self.rect.x
                 if not option > 4:
                     self.attack_type.rect.y = self.rect.y + 30
@@ -80,7 +77,6 @@ class Wizard(Character):
                     self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_down
             elif self.direction == 'L':
-                self.attack_direction = 2
                 if not option > 4:
                     self.attack_type.rect.x = self.rect.x - 30
                 else:
@@ -88,7 +84,6 @@ class Wizard(Character):
                 self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_left
             else:
-                self.attack_direction = 3
 
                 if not option > 4:
                     self.attack_type.rect.x = self.rect.x + 30

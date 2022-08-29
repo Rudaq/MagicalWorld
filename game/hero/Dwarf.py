@@ -47,7 +47,6 @@ class Dwarf(Character):
         else:
             self.attack_type.size = 5
             self.in_attack = True
-            self.attack_direction = self.direction
 
     def attack(self, screen, npcs):
         if self.in_attack:
@@ -63,8 +62,6 @@ class Dwarf(Character):
 
         else:
             self.in_attack = True
-            self.attack_direction = self.direction
-
 
     def rest(self, screen):
         if self.in_attack:
@@ -74,7 +71,6 @@ class Dwarf(Character):
                             (0, 0, 50, self.attack_type.size))
         else:
             self.in_attack = True
-            self.attack_direction = self.direction
 
     def fight(self, screen, option, npcs):
 
@@ -90,7 +86,6 @@ class Dwarf(Character):
                 self.attack_type = self.axe_throw_attack
 
             if self.direction == 'U' and option != 3:
-                self.attack_direction = 0
                 self.attack_type.rect.x = self.rect.x
                 if not option == 4:
                     self.attack_type.rect.y = self.rect.y - 30
@@ -98,7 +93,6 @@ class Dwarf(Character):
                     self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_up
             elif self.direction == 'D' and option != 3:
-                self.attack_direction = 1
                 self.attack_type.rect.x = self.rect.x
                 if not option == 4:
                     self.attack_type.rect.y = self.rect.y + 30
@@ -106,7 +100,6 @@ class Dwarf(Character):
                     self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_down
             elif self.direction == 'L' and option != 3:
-                self.attack_direction = 2
                 if not option == 4:
                     self.attack_type.rect.x = self.rect.x - 30
                 else:
@@ -114,7 +107,6 @@ class Dwarf(Character):
                 self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_left
             else:
-                self.attack_direction = 3
                 if not option == 4:
                     self.attack_type.rect.x = self.rect.x + 30
                 else:

@@ -44,7 +44,6 @@ class Character(pygame.sprite.Sprite):
         self.performing_action = False
 
         self.attack_type = None
-        self.attack_direction = 0
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
@@ -95,7 +94,6 @@ class Character(pygame.sprite.Sprite):
     #             if self.mana - self.attack_type.mana >= 0:
     #                 self.mana -= self.attack_type.mana
     #                 self.performing_action = True
-    #                 self.attack_direction = self.direction
 
     # nowa moja wersja
     # def attack(self, screen, npcs):
@@ -139,7 +137,6 @@ class Character(pygame.sprite.Sprite):
     #         if self.mana - self.attack_type.mana >= 0:
     #             self.mana -= self.attack_type.mana
     #             self.performing_action = True
-    #             self.attack_direction = self.direction
 
     def attack(self, screen, npcs):
         if self.performing_action:
@@ -171,7 +168,6 @@ class Character(pygame.sprite.Sprite):
             if self.mana - self.attack_type.mana >= 0:
                 self.mana -= self.attack_type.mana
                 self.performing_action = True
-                self.attack_direction = self.direction
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
