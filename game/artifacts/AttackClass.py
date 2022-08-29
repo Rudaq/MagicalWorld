@@ -29,12 +29,41 @@ class AttackClass(pygame.sprite.Sprite):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.01
 
+    def check_if_correct_distance(self, hero, npc):
+        # if hero.direction == "U":
+        #     if self.start_y + self.size <= npc.rect.bottomleft[1]:
+        #         return True
+        # elif hero.direction == "D":
+        #     if self.start_y + self.size >= npc.rect.topleft[1]:
+        #         return True
+        # elif hero.direction == "R":
+        #     if self.start_x + self.size >= npc.rect.topleft[0]:
+        #         return True
+        # else:
+        #     if self.start_x + self.size <= npc.rect.topright[0]:
+        #         return True
+        if hero.direction == "U":
+            if self.rect.topleft[1] <= npc.rect.bottomleft[1]:
+                return True
+        elif hero.direction == "D":
+            if self.rect.bottomleft[1] >= npc.rect.topleft[1]:
+                return True
+        elif hero.direction == "R":
+            if self.rect.topright[0] >= npc.rect.topleft[0]:
+                return True
+        else:
+            if self.rect.topleft[0] <= npc.rect.topright[0]:
+                return True
+
+        return False
+
     def check_attack_npc_collision(self, hero, npcs):
         for npc in npcs:
             if npc.rect.colliderect(self.rect):
-                if (self.start_x + self.size) >= npc.rect.x:
+                # if (self.start_x + self.size) >= npc.rect.x:
+                if self.check_if_correct_distance(hero, npc):
 
-                    # for one type of Elf attack
+                # for one type of Elf attack
                     if self.attack_type == "heal_spell":
                         hero.heal_spell_attack(npc)
 
