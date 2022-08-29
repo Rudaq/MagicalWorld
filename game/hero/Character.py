@@ -79,24 +79,32 @@ class Character(pygame.sprite.Sprite):
     def attack(self, screen, npcs):
         if self.performing_action:
             self.attack_type.move_attack()
-            if self.attack_type.size < 150:
+            if self.attack_type.size < 200:
                 if self.attack_type.image == self.attack_type.image_down:
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, 50, self.attack_type.size))
+                    self.attack_type.rect.bottomleft = [self.attack_type.start_x,
+                                                     self.attack_type.start_y + self.attack_type.size]
                 elif self.attack_type.image == self.attack_type.image_up:
                     self.attack_type.rect.topleft = [self.attack_type.start_x,
-                                                     self.attack_type.start_y - self.attack_type.size]
+                                                       self.attack_type.start_y - self.attack_type.size]
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, 50, self.attack_type.size))
+                elif self.attack_type.image == self.attack_type.image_left:
+                    self.attack_type.rect.topleft = [self.attack_type.start_x - self.attack_type.size,
+                                                       self.attack_type.start_y]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, self.attack_type.size, 50))
                 else:
+                    self.attack_type.rect.topright = [self.attack_type.start_x + self.attack_type.size,
+                                                     self.attack_type.start_y]
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             self.attack_type.check_attack_npc_collision(self, npcs)
 
         else:
             if self.mana - self.attack_type.mana >= 0:
-
-                self.mana -= self.attack_type.mana
+                # self.mana -= self.attack_type.mana
                 self.performing_action = True
                 self.attack_direction = self.direction
 

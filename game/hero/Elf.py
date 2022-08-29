@@ -1,9 +1,9 @@
 import pygame
 import os
 
-from artifacts.AttackClass import AttackClass
-from hero.Character import Character
-from settings import ELF_SPELLS
+from game.artifacts.AttackClass import AttackClass
+from game.hero.Character import Character
+from game.settings import ELF_SPELLS
 
 '''
 Class for a hero of race Elf, inherits from Character class
@@ -32,7 +32,7 @@ class Elf(Character):
             npc.life = 100 - int(npc.life % 100)
 
     def use_bow(self, screen, npcs):
-        if self.in_attack:
+        if self.performing_action:
             # self.chosen_spell.size = 5
             self.attack_type.move_attack()
             draw = False
@@ -59,14 +59,13 @@ class Elf(Character):
 
         else:
             if self.mana - self.attack_type.mana >= 0:
-                self.mana -= self.attack_type.mana
+                # self.mana -= self.attack_type.mana
                 self.attack_type.size = 5
-                self.in_attack = True
+                self.performing_action = True
                 self.attack_direction = self.direction
 
 
     def fight(self, screen, option, npcs):
-
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.earth_spell
@@ -102,7 +101,7 @@ class Elf(Character):
             else:
                 self.attack_direction = 3
                 if not option == 3:
-                    self.attack_type.rect.x = self.rect.x + 30
+                    self.attack_type.rect.x = self.rect.x + 120
                 else:
                     self.attack_type.rect.x = self.rect.x
                 self.attack_type.rect.y = self.rect.y
