@@ -28,32 +28,31 @@ def time_to_restore(screen, restore_life_time_passed, x):
 
 
 def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
-               restore_life_time_passed, chosen_npc):
+               restore_life_time_passed, chosen_npc, chest_opened):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
     border = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, ALMOND, border, 5, 2)
 
-    distance = math.floor(screen.get_size()[0]/6)
+    distance = math.floor(screen.get_size()[0] / 6)
     multiplicator = 0
 
-    draw_text("Life ", multiplicator*distance + 50, 25, 12, BLACK, screen)
+    draw_text("Life ", multiplicator * distance + 50, 25, 12, BLACK, screen)
 
-    life = pygame.Rect(multiplicator*distance + 100, 50, hero.life, 25)
+    life = pygame.Rect(multiplicator * distance + 100, 50, hero.life, 25)
     pygame.draw.rect(screen, LIGHT_GREEN, life, 0, 2)
-    border = pygame.Rect(multiplicator*distance + 100, 50, 100, 25)
+    border = pygame.Rect(multiplicator * distance + 100, 50, 100, 25)
     pygame.draw.rect(screen, BLACK, border, 2, 2)
     multiplicator += 1
 
-    draw_text("Mana ", multiplicator*distance + 50, 25, 12, BLACK, screen)
+    draw_text("Mana ", multiplicator * distance + 50, 25, 12, BLACK, screen)
 
-    mana = pygame.Rect(multiplicator*distance + 100, 50, hero.mana, 25)
+    mana = pygame.Rect(multiplicator * distance + 100, 50, hero.mana, 25)
     pygame.draw.rect(screen, BLUE, mana, 0, 2)
-    border = pygame.Rect(multiplicator*distance + 100, 50, 100, 25)
+    border = pygame.Rect(multiplicator * distance + 100, 50, 100, 25)
     pygame.draw.rect(screen, BLACK, border, 2, 2)
     multiplicator += 1
-
 
     if restore_life:
         time_left = time_to_restore(screen, restore_life_time_passed, life.x + 150)
@@ -68,10 +67,10 @@ def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_
     if chosen_npc is not None and chosen_npc.add_npc_to_hud:
         text = chosen_npc.race + "'s Life"
 
-        draw_text(text, multiplicator*distance + 50, 25, 12, BLACK, screen)
-        life = pygame.Rect(multiplicator*distance + 100, 50, chosen_npc.life, 25)
+        draw_text(text, multiplicator * distance + 50, 25, 12, BLACK, screen)
+        life = pygame.Rect(multiplicator * distance + 100, 50, chosen_npc.life, 25)
         pygame.draw.rect(screen, RED, life, 0, 2)
-        border = pygame.Rect(multiplicator*distance + 100, 50, 100, 25)
+        border = pygame.Rect(multiplicator * distance + 100, 50, 100, 25)
         pygame.draw.rect(screen, BLACK, border, 2, 2)
     multiplicator += 1
 
@@ -79,23 +78,27 @@ def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_
         swords = GUI_IMAGES['swords']
         screen.blit(swords, (3, 8))
 
-    draw_text("Equipment ", multiplicator*distance + 50, 25, 12, BLACK, screen)
+    draw_text("Equipment ", multiplicator * distance + 50, 25, 12, BLACK, screen)
     chest_surface = pygame.Surface((30, 30))
-    screen.blit(GUI_IMAGES['small_chest'], (multiplicator*distance + 125, 25))
-    chest_button.image = GUI_IMAGES['small_chest']
-    chest_button.rect.x = multiplicator*distance + 125
+    if chest_opened:
+        chest_image = GUI_IMAGES['small_chest_opened']
+    else:
+        chest_image = GUI_IMAGES['small_chest']
+    screen.blit(chest_image, (multiplicator * distance + 125, 25))
+    chest_button.image = chest_image
+    chest_button.rect.x = multiplicator * distance + 125
     chest_button.rect.y = 40
     chest_surface.blit(chest_button.image, (chest_button.rect.x, chest_button.rect.y))
     multiplicator += 1
 
-    draw_text("Points ", multiplicator*distance + 50, 25, 12, BLACK, screen)
-    draw_text(str(hero.points), multiplicator*distance + 100, 50, 12, BLACK, screen)
+    draw_text("Points ", multiplicator * distance + 50, 25, 12, BLACK, screen)
+    draw_text(str(hero.points), multiplicator * distance + 100, 50, 12, BLACK, screen)
     scroll_surface = pygame.Surface((30, 30))
     multiplicator += 1
 
-    draw_text("Quest ", multiplicator*distance + 50, 25, 12, BLACK, screen)
-    screen.blit(GUI_IMAGES['scroll_small'], (multiplicator*distance + 100, 50))
+    draw_text("Quest ", multiplicator * distance + 50, 25, 12, BLACK, screen)
+    screen.blit(GUI_IMAGES['scroll_small'], (multiplicator * distance + 100, 50))
     scroll_button.image = GUI_IMAGES['scroll_small']
-    scroll_button.rect.x = multiplicator*distance + 100
+    scroll_button.rect.x = multiplicator * distance + 100
     scroll_button.rect.y = 50
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))

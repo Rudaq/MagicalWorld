@@ -14,7 +14,7 @@ from game.game_support import create_npc, talk, fight
 from game.hud_component import update_hud
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
-from game.equipment_support import show_chest_to_hero, show_equipment_name
+from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact
 from settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
@@ -147,10 +147,12 @@ def game(hero):
     npc_dialog_thread.start()
     show_quest = False
     show_chest = False
+    chest_opened = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
     restore_mana_time_passed = None
+    restore = None
     option = 1
     npc_clicked = False
     chosen_npc = None
@@ -192,6 +194,9 @@ def game(hero):
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
+        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                   restore_mana_time_passed,
+                   restore_life_time_passed, chosen_npc, chest_opened)
 
         # Event support - quiting, movement
         for event in pygame.event.get():
@@ -298,29 +303,39 @@ def game(hero):
 
         # Checking if mouse pressed
         if pressed:
+            # check if hero have collected an artifact
             for artifact in all_artifacts:
                 if artifact.rect.collidepoint(mouse_point):
-                    hero.collect_artifact(artifact)
-                    all_artifacts.remove(artifact)
-                    all_artifacts.update()
-                    all_artifacts.draw(screen)
+                    # change the chest image in the hud to open chest
+                    chest_opened = True
+                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                               restore_mana_time_passed,
+                               restore_life_time_passed, chosen_npc, chest_opened)
+                    # remove the artifact from the surface
+                    remove_artifact(hero, all_artifacts, artifact, screen)
+                    # time to chest icon to be opened
+                    restore = datetime.now()
 
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
                     counter += 1
+                    # check if NPC is clicked or / unclicked
                     if counter % 2 == 1:
                         chosen_npc = npc
                         npc_clicked = True
+                        # show NPC's life on hud
                         chosen_npc.add_npc_to_hud = True
                         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc)
+                                   restore_life_time_passed, chosen_npc, chest_opened)
                         all_sprites_group.update()
 
                     else:
                         npc_clicked = False
+                        # remove NPC's life from hud
                         chosen_npc.add_npc_to_hud = False
+                        # Stop talking or fighting
                         if chosen_npc.is_talking:
                             stop_talk(hero, chosen_npc)
 
@@ -329,7 +344,7 @@ def game(hero):
 
                         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                    restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc)
+                                   restore_life_time_passed, chosen_npc, chest_opened)
                         all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
@@ -347,7 +362,15 @@ def game(hero):
 
         # Set previous state of left mouse button
         prev = left
+        # check the state of chest icon
+        if restore is not None:
+            if time_to_chest_be_opened(restore):
+                chest_opened = False
+                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                           restore_mana_time_passed,
+                           restore_life_time_passed, chosen_npc, chest_opened)
 
+        # check if NPC is still alive
         for npc in npcs:
             if npc.life == 0:
                 stop_fight(hero, npc)
@@ -359,7 +382,7 @@ def game(hero):
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc)
+                           restore_life_time_passed, chosen_npc, chest_opened)
                 all_sprites_group.update()
 
         if hero.in_attack:
@@ -376,12 +399,10 @@ def game(hero):
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
             all_sprites_group.update()
 
-        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
-                   restore_life_time_passed, chosen_npc)
-
         if show_quest:
             show_quest_to_hero(screen, hero)
 
+        # show the chest with the hero's equipment
         if show_chest:
             show_chest_to_hero(screen, hero, equipment_buttons)
             for equipment in equipment_buttons:

@@ -2,6 +2,8 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
 from game.settings import GUI_IMAGES, BLACK
 import pygame
+import math
+from datetime import datetime
 
 
 def show_equipment_name(screen, equipment):
@@ -30,3 +32,22 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
             counter = -1
         x += 70
         counter += 1
+
+
+def time_to_chest_be_opened(restore_time_passed):
+    time_diff = datetime.now() - restore_time_passed
+    time_sec = time_diff.total_seconds()
+    # print("time_start", restore_life_time_passed)
+
+    time_to_display = 1 - time_sec
+    if time_to_display <= 0:
+        return True
+    else:
+        return False
+
+
+def remove_artifact(hero, all_artifacts, artifact, screen):
+    hero.collect_artifact(artifact)
+    all_artifacts.remove(artifact)
+    all_artifacts.update()
+    all_artifacts.draw(screen)
