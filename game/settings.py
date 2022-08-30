@@ -124,6 +124,7 @@ GUI_IMAGES = {
     'clicked_talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk_clicked.png")),
     'chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest.png")),
     'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),
+    'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
 

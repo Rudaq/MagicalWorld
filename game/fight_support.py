@@ -29,3 +29,10 @@ def stop_fight(hero, chosen_npc):
     hero.in_fight_mode = False
     hero.in_attack = False
     print("STOP FIGHT")
+
+
+def remove_npc(npc, npcs, all_sprites_group, screen):
+    npcs.remove(npc)
+    all_sprites_group.remove(npc)
+    all_sprites_group.update()
+    all_sprites_group.draw(screen)

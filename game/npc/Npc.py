@@ -91,4 +91,4 @@ class Npc(Character):
         for artifact in self.artifacts:
             x += 50
             artifact.show(x, y, all_artifacts, screen)
-        print("dead")
+

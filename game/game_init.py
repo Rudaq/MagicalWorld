@@ -6,15 +6,15 @@ from datetime import datetime
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
-from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk
 from game.game_support import hero_in_dialog_or_talk
-from game.fight_support import set_fight_parameters, stop_fight
-from game.game_support import create_npc
+from game.fight_support import set_fight_parameters, stop_fight, remove_npc
+from game.game_support import create_npc, talk, fight
 from game.hud_component import update_hud
 from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero, show_chest_to_hero, show_equipment_name
+from game.quest_support import show_quest_to_hero
+from game.equipment_support import show_chest_to_hero, show_equipment_name
 from settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
@@ -161,8 +161,10 @@ def game(hero):
     arrow_down = ButtonClass(25, 25, 'arrow_down')
     scroll_button = ButtonClass(30, 40, 'scroll_button')
     chest_button = ButtonClass(30, 40, 'chest_button')
-    fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
-    talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
+    fight_button = ButtonClass(80, 40, 'fight_button')
+    talk_button = ButtonClass(80, 40, 'talk_button')
+    # fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
+    # talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
@@ -338,6 +340,10 @@ def game(hero):
                 show_quest = not show_quest
             elif chest_button.rect.collidepoint(mouse_point):
                 show_chest = not show_chest
+            elif fight_button.rect.collidepoint(mouse_point):
+                fight(hero, chosen_npc)
+            elif talk_button.rect.collidepoint(mouse_point):
+                talk(hero, chosen_npc)
 
         # Set previous state of left mouse button
         prev = left
@@ -347,10 +353,7 @@ def game(hero):
                 stop_fight(hero, npc)
                 npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
-                npcs.remove(npc)
-                all_sprites_group.remove(npc)
-                all_sprites_group.update()
-                all_sprites_group.draw(screen)
+                remove_npc(npc, npcs, all_sprites_group, screen)
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
@@ -385,11 +388,8 @@ def game(hero):
                 if equipment.rect.collidepoint(mouse_point):
                     show_equipment_name(screen, equipment)
 
-
-
         if hero.mana == 0 and not restore_mana:
             restore_mana = True
-            # print("TEST")
             restore_mana_time_passed = datetime.now()
         elif hero.mana > 0:
             restore_mana = False
