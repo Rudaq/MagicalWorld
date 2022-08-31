@@ -16,38 +16,6 @@ class Dwarf(Character):
         self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 15, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 20, 'sleep')
 
-    def throw_axe(self, screen):
-        if self.in_attack:
-            self.attack_type.move_attack()
-            draw = False
-            if self.attack_type.image == self.attack_type.image_up:
-                self.attack_type.rect.y -= self.attack_type.size
-                if self.attack_type.rect.bottom > self.attack_type.start_y - 150:
-                    draw = True
-            elif self.attack_type.image == self.attack_type.image_down:
-                self.attack_type.rect.y += self.attack_type.size
-                if self.attack_type.rect.top < self.attack_type.start_y + 150:
-                    draw = True
-            elif self.attack_type.image == self.attack_type.image_left:
-                self.attack_type.rect.x -= self.attack_type.size
-                if self.attack_type.rect.right > self.attack_type.start_x - 150:
-                    draw = True
-            else:
-                self.attack_type.rect.x += self.attack_type.size
-                if self.attack_type.rect.left < self.attack_type.start_x + 150:
-                    draw = True
-
-            # TO DO add rotation of an axe
-            if draw:
-                screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y))
-                # rotated_image1 = pygame.transform.rotate(self.chosen_attack.image, 70)
-                # rotated_image2 = pygame.transform.rotate(self.chosen_attack.image, 130)
-                # screen.blit(rotated_image1, (self.chosen_attack.rect.x * 0.3, self.chosen_attack.rect.y))
-                # screen.blit(rotated_image2, (self.chosen_attack.rect.x * 0.7, self.chosen_attack.rect.y))
-        else:
-            self.attack_type.size = 5
-            self.in_attack = True
-
     def attack(self, screen, npcs):
         if self.in_attack:
             self.attack_type.move_attack()
@@ -124,4 +92,4 @@ class Dwarf(Character):
         elif option == 3:
             self.rest(screen)
         else:
-            self.throw_axe(screen)
+            self.use_weapon(screen)

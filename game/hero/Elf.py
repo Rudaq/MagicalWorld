@@ -31,39 +31,6 @@ class Elf(Character):
         if npc.life > 100:
             npc.life = 100 - int(npc.life % 100)
 
-    def use_bow(self, screen, npcs):
-        if self.performing_action:
-            # self.chosen_spell.size = 5
-            self.attack_type.move_attack()
-            draw = False
-            if self.attack_type.image == self.attack_type.image_up:
-                self.attack_type.rect.y -= self.attack_type.size
-                if self.attack_type.rect.bottom > self.attack_type.start_y - 150:
-                    draw = True
-            elif self.attack_type.image == self.attack_type.image_down:
-                self.attack_type.rect.y += self.attack_type.size
-                if self.attack_type.rect.top < self.attack_type.start_y + 150:
-                    draw = True
-            elif self.attack_type.image == self.attack_type.image_left:
-                self.attack_type.rect.x -= self.attack_type.size
-                if self.attack_type.rect.right > self.attack_type.start_x - 150:
-                    draw = True
-            else:
-                self.attack_type.rect.x += self.attack_type.size
-                if self.attack_type.rect.left < self.attack_type.start_x + 150:
-                    draw = True
-
-            if draw:
-                screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y))
-            self.attack_type.check_attack_npc_collision(self, npcs)
-
-        else:
-            if self.mana - self.attack_type.mana >= 0:
-                self.mana -= self.attack_type.mana
-                self.attack_type.size = 5
-                self.performing_action = True
-
-
     def fight(self, screen, option, npcs):
         if self.attack_type is None:
             if option == 1:
@@ -110,4 +77,4 @@ class Elf(Character):
         if option == 1 or option == 2:
             self.attack(screen, npcs)
         else:
-            self.use_bow(screen, npcs)
+            self.use_weapon(screen, npcs)

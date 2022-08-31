@@ -83,6 +83,10 @@ FAERIE_SPELLS = {
     'thrown': pygame.image.load(os.path.join(path, "resources/graphics/particles", "throw.PNG"))
 }
 
+BARBARIAN_ACTIONS = {
+    'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG"))
+}
+
 NPC_IMAGES = {
     'image_druid': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png")),
