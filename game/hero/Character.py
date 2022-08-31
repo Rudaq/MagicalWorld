@@ -46,6 +46,11 @@ class Character(pygame.sprite.Sprite):
         self.attack_type = None
         self.attack_direction = 0
 
+        self.start_centerx = 0
+        self.start_centery = 0
+        self.set_start_centerx = True
+        self.set_start_centery = True
+
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction

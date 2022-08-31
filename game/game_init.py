@@ -12,7 +12,9 @@ from game.dialog_support import hero_in_dialog, update_positions_and_transparenc
 from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters, stop_fight
 from game.game_support import create_npc
+from game.hero.Character import Character
 from game.hud_component import update_hud
+from game.npc.Npc import Npc
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero, show_chest_to_hero, show_equipment_name
 from settings import *
@@ -63,24 +65,48 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
-    def custom_draw(self, hero):
+
+    def custom_draw(self, hero, npcs):
+
         if hero.rect.centerx <= 750:
             self.offset.x = 0
         else:
+            print("AHOJ")
             self.offset.x = hero.rect.centerx - self.half_w
+            if hero.set_start_centerx:
+                hero.set_start_centerx = False
+                hero.start_centerx = hero.rect.centerx
+            for npc in npcs:
+                difference = hero.rect.centerx - hero.start_centerx
+                npc.rect.centerx = npc.start_centerx - difference
+                npc.start_centerx = npc.rect.centerx
+            hero.start_centerx = hero.rect.centerx
+
         if hero.rect.centery <= 400:
             self.offset.y = 0
         else:
+            print("OLE")
             self.offset.y = hero.rect.centery - self.half_h
+            if hero.set_start_centery:
+                hero.set_start_centery = False
+                hero.start_centery = hero.rect.centery
+
+            for npc in npcs:
+                difference = hero.rect.centery - hero.start_centery
+                npc.rect.centery = npc.start_centery - difference
+                npc.start_centery = npc.rect.centery
+            hero.start_centery = hero.rect.centery
+
 
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
+        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            offset_position = sprite.rect.topleft - self.offset
-            self.display_surf.blit(sprite.image, offset_position)
+        # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            # offset_position = sprite.rect.topleft - self.offset
+            # self.display_surf.blit(sprite.image, offset_position)
 
 
 def create_map(all_sprites_group, collision_sprites):
@@ -101,6 +127,7 @@ def create_map(all_sprites_group, collision_sprites):
                     x = col_index * 16
                     y = row_index * 16
                     if style == 'boundary_hero':
+                        # print(x, y)
                         Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
 
                     if style == 'object':
@@ -135,6 +162,7 @@ def game(hero):
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
+    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
@@ -170,20 +198,30 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
+        # create_npc(npc_entity, [npcs], [all_npcs], collision_sprites)
         create_npc(npc_entity, [npcs], [all_sprites_group], collision_sprites)
 
     create_map(all_sprites_group, collision_sprites)
+
+    for npc in npcs:
+        npc.start_centerx = npc.rect.centerx
+        npc.start_centery = npc.rect.centery
+        npc.set_start_centerx = False
+        npc.set_start_centery = False
 
     # Main game loop
     while True:
         screen.fill(GREEN)
 
-        # all_sprites_group.custom_draw(hero)
-        # all_sprites_group.update()
+        all_sprites_group.custom_draw(hero, npcs)
+
+        all_sprites_group.update()
 
         all_sprites_group.update()
         hero.update()
         all_sprites_group.draw(screen)
+        all_npcs.update()
+        all_npcs.draw(screen)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
@@ -351,6 +389,8 @@ def game(hero):
                 all_sprites_group.remove(npc)
                 all_sprites_group.update()
                 all_sprites_group.draw(screen)
+                all_npcs.update()
+                all_npcs.draw(screen)
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
@@ -358,20 +398,24 @@ def game(hero):
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc)
                 all_sprites_group.update()
+                all_npcs.update()
 
         if hero.in_attack:
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
+            all_npcs.update()
 
         if npc_clicked:
             if not chosen_npc.is_talking and not chosen_npc.is_fighting:
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
+                all_npcs.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
             all_sprites_group.update()
+            all_npcs.update()
 
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc)
@@ -400,6 +444,12 @@ def game(hero):
         elif hero.mana > 0:
             restore_life = False
 
+        # for npc in npcs:
+        #     if type(npc) == Mermaid:
+        #         print("X: ", npc.rect.x, " Y: ", npc.rect.y)
+        #         break
+
         all_sprites_group.update()
+        all_npcs.update()
         pygame.display.update()
         clock.tick(60)
