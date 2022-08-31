@@ -124,11 +124,11 @@ def game(hero):
     all_artifacts = pygame.sprite.Group()
 
     # Test quest
+
     quest = Quest(
         "Go to the place where you found the stone, pour raven blood over it, burn the sage in the sacred fire, release mermaid’s voice and say the incantation to summon the god.",
-        50, [], [])
+        50, [], [], "good", False, 1)
     hero.active_quest = quest
-
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
