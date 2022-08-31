@@ -1,6 +1,6 @@
 import pygame
 
-from hero.Character import Character
+from Character import Character
 
 
 # Class for a hero of race Barbarian, inherits from Character class

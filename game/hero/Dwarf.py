@@ -18,7 +18,7 @@ class Dwarf(Character):
 
     def throw_axe(self, screen):
         if self.in_attack:
-            self.attack_type.attack_acceleration()
+            self.attack_type.move_attack()
             draw = False
             if self.attack_type.image == self.attack_type.image_up:
                 self.attack_type.rect.y -= self.attack_type.size
@@ -50,7 +50,7 @@ class Dwarf(Character):
 
     def attack(self, screen, npcs):
         if self.in_attack:
-            self.attack_type.attack_acceleration()
+            self.attack_type.move_attack()
             if self.attack_type.size < 150:
                 if self.attack_type.image == self.attack_type.image_up or self.attack_type.image == self.attack_type.image_down:
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
@@ -65,7 +65,7 @@ class Dwarf(Character):
 
     def rest(self, screen):
         if self.in_attack:
-            self.attack_type.attack_acceleration()
+            self.attack_type.move_attack()
             if self.attack_type.size < 150:
                 screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y - 5),
                             (0, 0, 50, self.attack_type.size))

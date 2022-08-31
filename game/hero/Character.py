@@ -74,94 +74,38 @@ class Character(pygame.sprite.Sprite):
                         self.hitbox.top = sprite.hitbox.bottom
 
     # One common function for throwing out particles for all heroes
-
-    # One common function for throwing out particles for all heroes
-    # stara wersja
-    #     def attack(self, screen, npcs):
-    #         if self.performing_action:
-    #             self.attack_type.move_attack()
-    #             if self.attack_type.size < 150:
-    #                 if self.attack_type.image == self.attack_type.image_up or self.attack_type.image == self.attack_type.image_down:
-    #                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                                 (0, 0, 50, self.attack_type.size))
-    #                 else:
-    #                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                                 (0, 0, self.attack_type.size, 50))
-    #             # check if npc was affected by the attack
-    #             self.attack_type.check_attack_npc_collision(self, npcs)
-    #
-    #         else:
-    #             if self.mana - self.attack_type.mana >= 0:
-    #                 self.mana -= self.attack_type.mana
-    #                 self.performing_action = True
-
-    # nowa moja wersja
-    # def attack(self, screen, npcs):
-    #     if self.performing_action:
-    #         # move attack to the NPC
-    #         self.attack_type.move_attack()
-    #         if self.attack_type.size < 150:
-    #
-    #             # move attack down
-    #             if self.attack_type.image == self.attack_type.image_down:
-    #                 self.attack_type.rect.topleft = [self.attack_type.start_x,
-    #                                                  self.attack_type.start_y + self.attack_type.size]
-    #                 screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                             (0, 0, 50, self.attack_type.size))
-    #
-    #             # move attack up
-    #             elif self.attack_type.image == self.attack_type.image_up:
-    #                 self.attack_type.rect.topleft = [self.attack_type.start_x,
-    #                                                  self.attack_type.start_y - self.attack_type.size]
-    #                 screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                             (0, 0, 50, self.attack_type.size))
-    #
-    #             # move attack to the left
-    #             elif self.attack_type.image == self.attack_type.image_left:
-    #                 self.attack_type.rect.topleft = [self.attack_type.start_x - self.attack_type.size,
-    #                                                  self.attack_type.start_y]
-    #                 screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                             (0, 0, 50, self.attack_type.size))
-    #
-    #             # move attack to the right
-    #             else:
-    #                 self.attack_type.rect.topleft = [self.attack_type.start_x + self.attack_type.size,
-    #                                                  self.attack_type.start_y]
-    #                 screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-    #                             (0, 0, self.attack_type.size, 50))
-    #
-    #         # check if npc was affected by the attack
-    #         self.attack_type.check_attack_npc_collision(self, npcs)
-    #
-    #     else:
-    #         if self.mana - self.attack_type.mana >= 0:
-    #             self.mana -= self.attack_type.mana
-    #             self.performing_action = True
-
     def attack(self, screen, npcs):
         if self.performing_action:
             self.attack_type.move_attack()
             if self.attack_type.size < 200:
+
+                # move particles to the down
                 if self.attack_type.image == self.attack_type.image_down:
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, 50, self.attack_type.size))
                     self.attack_type.rect.bottomleft = [self.attack_type.start_x,
-                                                     self.attack_type.start_y + self.attack_type.size]
+                                                        self.attack_type.start_y + self.attack_type.size]
+                # move particles to the up
                 elif self.attack_type.image == self.attack_type.image_up:
                     self.attack_type.rect.topleft = [self.attack_type.start_x,
-                                                       self.attack_type.start_y - self.attack_type.size]
+                                                     self.attack_type.start_y - self.attack_type.size]
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, 50, self.attack_type.size))
+
+                # move particles to the left
                 elif self.attack_type.image == self.attack_type.image_left:
                     self.attack_type.rect.topleft = [self.attack_type.start_x - self.attack_type.size,
-                                                       self.attack_type.start_y]
-                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-                                (0, 0, self.attack_type.size, 50))
-                else:
-                    self.attack_type.rect.topright = [self.attack_type.start_x + self.attack_type.size,
                                                      self.attack_type.start_y]
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
+
+                # move particles to the right
+                else:
+                    self.attack_type.rect.topright = [self.attack_type.start_x + self.attack_type.size,
+                                                      self.attack_type.start_y]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, self.attack_type.size, 50))
+            # check if npc had collision with attack
             self.attack_type.check_attack_npc_collision(self, npcs)
 
         else:

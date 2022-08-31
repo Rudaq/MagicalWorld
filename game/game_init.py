@@ -82,7 +82,6 @@ class CameraGroup(pygame.sprite.Group):
             offset_position = sprite.rect.topleft - self.offset
             self.display_surf.blit(sprite.image, offset_position)
 
-
 def create_map(all_sprites_group, collision_sprites):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
@@ -121,7 +120,6 @@ def game(hero):
 
     npcs = []
     all_sprites_group = CameraGroup()
-    # all_sprites_group = pygame.sprite.Group()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
 
@@ -165,8 +163,6 @@ def game(hero):
     chest_button = ButtonClass(30, 40, 'chest_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
-    # fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
-    # talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()

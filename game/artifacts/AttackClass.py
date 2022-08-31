@@ -25,10 +25,6 @@ class AttackClass(pygame.sprite.Sprite):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.05
 
-    def attack_acceleration(self):
-        self.size += (self.speed * self.acceleration)
-        self.acceleration += 0.01
-
     def check_if_correct_distance(self, hero, npc):
         # if hero.direction == "U":
         #     if self.start_y + self.size <= npc.rect.bottomleft[1]:
@@ -63,15 +59,15 @@ class AttackClass(pygame.sprite.Sprite):
                 # if (self.start_x + self.size) >= npc.rect.x:
                 if self.check_if_correct_distance(hero, npc):
 
-                # for one type of Elf attack
+                    # for one type of Elf attack
                     if self.attack_type == "heal_spell":
                         hero.heal_spell_attack(npc)
 
-                        # for one type of Faerie attack
+                    # for one type of Faerie attack
                     elif self.attack_type == "fire_spell":
                         hero.fire_spell_attack(npc)
 
-                        # for every other attack
+                    # for every other attack
                     else:
                         npc.life -= self.strength
 
