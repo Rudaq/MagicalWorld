@@ -47,7 +47,7 @@ def time_to_chest_be_opened(restore_time_passed):
 
 
 def remove_artifact(hero, all_artifacts, artifact, screen):
-    hero.collect_artifact(artifact)
-    all_artifacts.remove(artifact)
-    all_artifacts.update()
-    all_artifacts.draw(screen)
+    if hero.collect_artifact(artifact):
+        all_artifacts.remove(artifact)
+        all_artifacts.update()
+        all_artifacts.draw(screen)

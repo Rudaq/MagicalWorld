@@ -74,7 +74,7 @@ def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_
         pygame.draw.rect(screen, BLACK, border, 2, 2)
     multiplicator += 1
 
-    if chosen_npc is not None and chosen_npc.is_fighting:
+    if chosen_npc is not None and chosen_npc.in_fight_mode:
         swords = GUI_IMAGES['swords']
         screen.blit(swords, (3, 8))
 

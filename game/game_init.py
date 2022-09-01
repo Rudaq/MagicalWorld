@@ -82,6 +82,7 @@ class CameraGroup(pygame.sprite.Group):
             offset_position = sprite.rect.topleft - self.offset
             self.display_surf.blit(sprite.image, offset_position)
 
+
 def create_map(all_sprites_group, collision_sprites):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
@@ -155,6 +156,7 @@ def game(hero):
     npc_clicked = False
     chosen_npc = None
     counter = 0
+    time_counter = 0
 
     s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
@@ -281,7 +283,7 @@ def game(hero):
 
         # Random movement of npcs if not in dialog
         for npc in npcs:
-            if not npc.is_talking and not npc.is_fighting:
+            if not npc.is_talking and not npc.in_fight_mode:
                 npc.move()
 
         # Getting the state of mouse buttons - pressed or not
@@ -335,7 +337,7 @@ def game(hero):
                         if chosen_npc.is_talking:
                             stop_talk(hero, chosen_npc)
 
-                        if chosen_npc.is_fighting:
+                        if chosen_npc.in_fight_mode:
                             stop_fight(hero, chosen_npc)
 
                         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
@@ -368,7 +370,7 @@ def game(hero):
 
         # check if NPC is still alive
         for npc in npcs:
-            if npc.life == 0:
+            if npc.life == 0 or npc.life < 0:
                 stop_fight(hero, npc)
                 npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
@@ -385,8 +387,15 @@ def game(hero):
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
 
+        if chosen_npc is not None:
+            if chosen_npc.in_fight_mode:
+                chosen_npc.move_in_fight(hero)
+                chosen_npc.attack_type = None
+                chosen_npc.fight_npc(screen, hero)
+                all_sprites_group.update()
+
         if npc_clicked:
-            if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+            if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
@@ -414,7 +423,7 @@ def game(hero):
         if hero.life == 0 and not restore_life:
             restore_life = True
             restore_life_time_passed = datetime.now()
-        elif hero.mana > 0:
+        elif hero.life > 0:
             restore_life = False
 
         all_sprites_group.update()

@@ -78,3 +78,11 @@ class AttackClass(pygame.sprite.Sprite):
                 hero.performing_action = False
                 hero.in_attack = False
                 break
+
+    def check_attack_hero_collision(self, npc, hero):
+        if hero.rect.colliderect(self.rect):
+            # if (self.start_x + self.size) >= npc.rect.x:
+            if self.check_if_correct_distance(npc, hero):
+                hero.life -= self.strength
+                if hero.life < 0:
+                    hero.life = 0

@@ -47,7 +47,6 @@ class Wizard(Character):
                 self.in_attack = True
 
     def fight(self, screen, option, npcs):
-
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.wind_spell
@@ -60,7 +59,6 @@ class Wizard(Character):
 
             else:
                 self.attack_type = self.magic_ball_spell
-
 
             if self.direction == 'U':
                 self.attack_type.rect.x = self.rect.x

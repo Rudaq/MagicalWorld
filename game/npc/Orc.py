@@ -1,6 +1,11 @@
 from npc.Npc import Npc
-
-
+import pygame
+from artifacts.Artifact import Artifact
+import os
+from pathlib import Path
+from artifacts.AttackClass import AttackClass
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 # Class for a npc of type Orc, inherits from Npc class inheriting from Character class
 class Orc(Npc):
     def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation, collision_sprites):
@@ -10,3 +15,6 @@ class Orc(Npc):
         self.race = "Orc"
         self.collision_sprites = collision_sprites
         self.can_talk = False
+        ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
+        self.ice_attack = AttackClass(ice_image, 20, 10, 'ice attack')
+

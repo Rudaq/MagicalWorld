@@ -146,6 +146,9 @@ WIZARD_SPELLS = {
     'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
 }
 
+NPC_FIGHTS = {
+    'ice': pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
+}
 MAP_IMAGES = {
     'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png"))
 }

@@ -106,6 +106,7 @@ class Character(pygame.sprite.Sprite):
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             # check if npc had collision with attack
+
             self.attack_type.check_attack_npc_collision(self, npcs)
 
         else:
@@ -153,9 +154,11 @@ class Character(pygame.sprite.Sprite):
     def collect_artifact(self, artifact):
         if len(self.equipment) == 5:
             print("You can't collect more equipment! Your backpack is full!")
+            return False
         else:
             self.equipment.append(artifact)
             self.points += artifact.points
+            return True
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

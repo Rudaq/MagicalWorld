@@ -1,10 +1,9 @@
 from npc.Npc import Npc
-from artifacts.Artifact import Artifact
 import pygame
+from artifacts.Artifact import Artifact
 import os
 from pathlib import Path
-#from game.settings import MERMAID_ARTIFACTS
-
+from artifacts.AttackClass import AttackClass
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
@@ -24,6 +23,9 @@ class Mermaid(Npc):
         self.blood = Artifact(blood_image, 10, 'Mermaid Blood')
         self.necklace = Artifact(necklace_image, 15, 'Mermaid Necklace')
         self.artifacts.add(self.necklace, self.blood)
+        mermaid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mermaid_attack.PNG"))
+        self.npc_attack = AttackClass(mermaid_attack, 20, 10, 'mermaid attack')
+
 
     # Method move to stop mermaid from moving (not moving; on the beach)
     def move(self, direction="R", dx=0, dy=0):
