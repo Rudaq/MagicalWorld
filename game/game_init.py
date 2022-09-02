@@ -63,24 +63,48 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
-    def custom_draw(self, hero):
+
+    def custom_draw(self, hero, npcs):
+
         if hero.rect.centerx <= 750:
             self.offset.x = 0
         else:
+            print("AHOJ")
             self.offset.x = hero.rect.centerx - self.half_w
+            if hero.set_start_centerx:
+                hero.set_start_centerx = False
+                hero.start_centerx = hero.rect.centerx
+            for npc in npcs:
+                difference = hero.rect.centerx - hero.start_centerx
+                npc.rect.centerx = npc.start_centerx - difference
+                npc.start_centerx = npc.rect.centerx
+            hero.start_centerx = hero.rect.centerx
+
         if hero.rect.centery <= 400:
             self.offset.y = 0
         else:
+            print("OLE")
             self.offset.y = hero.rect.centery - self.half_h
+            if hero.set_start_centery:
+                hero.set_start_centery = False
+                hero.start_centery = hero.rect.centery
+
+            for npc in npcs:
+                difference = hero.rect.centery - hero.start_centery
+                npc.rect.centery = npc.start_centery - difference
+                npc.start_centery = npc.rect.centery
+            hero.start_centery = hero.rect.centery
+
 
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
+        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            offset_position = sprite.rect.topleft - self.offset
-            self.display_surf.blit(sprite.image, offset_position)
+        # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            # offset_position = sprite.rect.topleft - self.offset
+            # self.display_surf.blit(sprite.image, offset_position)
 
 
 def create_map(all_sprites_group, collision_sprites):
@@ -101,6 +125,7 @@ def create_map(all_sprites_group, collision_sprites):
                     x = col_index * 16
                     y = row_index * 16
                     if style == 'boundary_hero':
+                        # print(x, y)
                         Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
 
                     if style == 'object':
@@ -134,6 +159,7 @@ def game(hero):
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
+    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
@@ -156,7 +182,6 @@ def game(hero):
     npc_clicked = False
     chosen_npc = None
     counter = 0
-    time_counter = 0
 
     s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
@@ -176,25 +201,34 @@ def game(hero):
 
     create_map(all_sprites_group, collision_sprites)
 
+    for npc in npcs:
+        npc.start_centerx = npc.rect.centerx
+        npc.start_centery = npc.rect.centery
+        npc.set_start_centerx = False
+        npc.set_start_centery = False
+
     # Main game loop
     while True:
         screen.fill(GREEN)
 
-        # all_sprites_group.custom_draw(hero)
-        # all_sprites_group.update()
-
+        all_sprites_group.custom_draw(hero, npcs)
         all_sprites_group.update()
+
         hero.update()
         all_sprites_group.draw(screen)
+
+        all_npcs.update()
+        all_npcs.draw(screen)
+
+        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                   restore_mana_time_passed,
+                   restore_life_time_passed, chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
-        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                   restore_mana_time_passed,
-                   restore_life_time_passed, chosen_npc, chest_opened)
 
         # Event support - quiting, movement
         for event in pygame.event.get():
@@ -427,5 +461,6 @@ def game(hero):
             restore_life = False
 
         all_sprites_group.update()
+        all_npcs.update()
         pygame.display.update()
         clock.tick(60)
