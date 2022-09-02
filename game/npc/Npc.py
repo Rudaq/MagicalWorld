@@ -69,20 +69,6 @@ class Npc(Character):
         self.rect.x += dx
         self.rect.y += dy
 
-    def throw(self, side, screen):
-        for i in range(1, 8):
-            if side == "R" or side == "D":
-                self.moveByFaerie("R", 50, -20)
-            else:
-                self.moveByFaerie("L", -50, -20)
-            screen.blit()
-            pygame.display.flip()
-
-        for i in range(1, 16):
-            self.moveByFaerie("D", 0, 10)
-            screen.blit()
-            pygame.display.flip()
-
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
         x = self.rect.x - 100
@@ -91,8 +77,7 @@ class Npc(Character):
             x += 50
             artifact.show(x, y, all_artifacts, screen)
 
-        # One common function for throwing out particles for all heroes
-
+    # One common function for throwing out particles for all NPC's
     def fight_npc(self, screen, hero):
         counter = random.randint(1, 25)
         if counter == 4:

@@ -30,3 +30,6 @@ class Mermaid(Npc):
     # Method move to stop mermaid from moving (not moving; on the beach)
     def move(self, direction="R", dx=0, dy=0):
         pass
+
+    def move_in_fight(self, hero):
+        pass
