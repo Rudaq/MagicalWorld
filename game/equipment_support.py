@@ -11,8 +11,10 @@ def show_equipment_name(screen, equipment):
 
 
 def show_chest_to_hero(screen, hero, equipment_buttons):
-    screen.blit(GUI_IMAGES['big_chest'], (800, 100))
-    x = 840
+    distance = math.floor(screen.get_size()[0] / 5)
+    pos = 2 * distance
+    screen.blit(GUI_IMAGES['big_chest'], (pos, 100))
+    x = pos + 40
     y = 220
     counter = 0
 
@@ -28,7 +30,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
         equipment_buttons.draw(screen)
         if counter == 2:
             y += 65
-            x = 770
+            x = pos - 30
             counter = -1
         x += 70
         counter += 1

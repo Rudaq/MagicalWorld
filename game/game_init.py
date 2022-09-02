@@ -103,8 +103,8 @@ class CameraGroup(pygame.sprite.Group):
         print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
         # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            # offset_position = sprite.rect.topleft - self.offset
-            # self.display_surf.blit(sprite.image, offset_position)
+        #     offset_position = sprite.rect.topleft - self.offset
+        #     self.display_surf.blit(sprite.image, offset_position)
 
 
 def create_map(all_sprites_group, collision_sprites):
