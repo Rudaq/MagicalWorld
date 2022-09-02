@@ -108,7 +108,7 @@ class Npc(Character):
             self.attack(screen, hero, counter)
 
     def attack(self, screen, hero, counter):
-        if counter == 4:
+        if counter == 4 and self.life > 0:
             self.attack_type.move_attack()
             if self.attack_type.size < 200:
                 # move particles to the down
