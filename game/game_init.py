@@ -60,17 +60,26 @@ class CameraGroup(pygame.sprite.Group):
 
         # camera offset
         self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] / 2
-        self.half_h = self.display_surf.get_size()[1] / 2
+        self.half_w = self.display_surf.get_size()[0] // 2
+        self.half_h = self.display_surf.get_size()[1] // 2
 
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
-
     def custom_draw(self, hero, npcs, screen):
         # if hero.rect.centerx <= 750:
-        if hero.rect.centerx <= screen.get_size()[0]/2:
+        #     self.offset.x = 0
+        # else:
+        #     self.offset.x = hero.rect.centerx - self.half_w
+        # if hero.rect.centery <= 400:
+        #     self.offset.y = 0
+        # else:
+        #     self.offset.y = hero.rect.centery - self.half_h
+
+
+        # jesli jest przy krancu mapy to nie przesuwaj kamery
+        if hero.rect.centerx <= screen.get_size()[0] / 2:
             self.offset.x = 0
         else:
             print("AHOJ")

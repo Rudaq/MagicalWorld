@@ -208,7 +208,7 @@ MERMAIDS_QUESTS = {
                          "tree", 100, "ball", "Fearie", "good", False, 1]
 }
 ORCS = {
-    'Stinker': ["evil", None, None, 800, 50]
+    'Stinker': ["evil", None, None, 800, 300]
 }
 ORCS_QUESTS = {
     'clean_feet': ["clean the orcs feet using mud from the swamp (learn a spell that will enable you to change the "
