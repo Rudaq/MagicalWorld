@@ -56,31 +56,40 @@ class CameraGroup(pygame.sprite.Group):
 
         # camera offset
         self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] // 2
-        self.half_h = self.display_surf.get_size()[1] // 2
+        self.half_w = self.display_surf.get_size()[0] / 2
+        self.half_h = self.display_surf.get_size()[1] / 2
 
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
 
-    def custom_draw(self, hero, npcs):
-
-        if hero.rect.centerx <= 750:
+    def custom_draw(self, hero, npcs, screen):
+        # if hero.rect.centerx <= 750:
+        if hero.rect.centerx <= screen.get_size()[0]/2:
             self.offset.x = 0
         else:
             print("AHOJ")
-            self.offset.x = hero.rect.centerx - self.half_w
+            # self.offset.x = hero.rect.centerx - self.half_w
+            self.offset.x = hero.rect.centerx - screen.get_size()[0]/2
+
             if hero.set_start_centerx:
                 hero.set_start_centerx = False
                 hero.start_centerx = hero.rect.centerx
+
             for npc in npcs:
+                moved = 0
+
+                if npc.rect.centerx != npc.start_centerx:
+                    moved = npc.rect.centerx - npc.start_centerx
+
                 difference = hero.rect.centerx - hero.start_centerx
-                npc.rect.centerx = npc.start_centerx - difference
+                npc.rect.centerx = npc.start_centerx - difference + moved
                 npc.start_centerx = npc.rect.centerx
+
             hero.start_centerx = hero.rect.centerx
 
-        if hero.rect.centery <= 400:
+        if hero.rect.centery <= screen.get_size()[1]/2:
             self.offset.y = 0
         else:
             print("OLE")
@@ -90,9 +99,14 @@ class CameraGroup(pygame.sprite.Group):
                 hero.start_centery = hero.rect.centery
 
             for npc in npcs:
+                moved = 0
+                if npc.rect.centery != npc.start_centery:
+                    moved = npc.rect.centery - npc.start_centery
+
                 difference = hero.rect.centery - hero.start_centery
-                npc.rect.centery = npc.start_centery - difference
+                npc.rect.centery = npc.start_centery - difference + moved
                 npc.start_centery = npc.rect.centery
+
             hero.start_centery = hero.rect.centery
 
 
@@ -211,7 +225,7 @@ def game(hero):
     while True:
         screen.fill(GREEN)
 
-        all_sprites_group.custom_draw(hero, npcs)
+        all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
         hero.update()
