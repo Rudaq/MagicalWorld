@@ -60,41 +60,40 @@ class CameraGroup(pygame.sprite.Group):
 
         # camera offset
         self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] // 2
-        self.half_h = self.display_surf.get_size()[1] // 2
+        self.half_w = self.display_surf.get_size()[0] / 2
+        self.half_h = self.display_surf.get_size()[1] / 2
 
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
-    def custom_draw(self, hero, npcs):
+
+    def custom_draw(self, hero, npcs, screen):
         # if hero.rect.centerx <= 750:
-        #     self.offset.x = 0
-        # else:
-        #     self.offset.x = hero.rect.centerx - self.half_w
-        # if hero.rect.centery <= 400:
-        #     self.offset.y = 0
-        # else:
-        #     self.offset.y = hero.rect.centery - self.half_h
-
-
-        # jesli jest przy krancu mapy to nie przesuwaj kamery
-        if hero.rect.centerx <= 750:
+        if hero.rect.centerx <= screen.get_size()[0]/2:
             self.offset.x = 0
         else:
-            # jesli wyszedl poza polowe ekranu to kamera ma sie przesuwac z nim
             print("AHOJ")
-            self.offset.x = hero.rect.centerx - self.half_w
+            # self.offset.x = hero.rect.centerx - self.half_w
+            self.offset.x = hero.rect.centerx - screen.get_size()[0]/2
+
             if hero.set_start_centerx:
                 hero.set_start_centerx = False
                 hero.start_centerx = hero.rect.centerx
+
             for npc in npcs:
+                moved = 0
+
+                if npc.rect.centerx != npc.start_centerx:
+                    moved = npc.rect.centerx - npc.start_centerx
+
                 difference = hero.rect.centerx - hero.start_centerx
-                npc.rect.centerx = npc.start_centerx - difference
+                npc.rect.centerx = npc.start_centerx - difference + moved
                 npc.start_centerx = npc.rect.centerx
+
             hero.start_centerx = hero.rect.centerx
 
-        if hero.rect.centery <= 400:
+        if hero.rect.centery <= screen.get_size()[1]/2:
             self.offset.y = 0
         else:
             print("OLE")
@@ -104,9 +103,14 @@ class CameraGroup(pygame.sprite.Group):
                 hero.start_centery = hero.rect.centery
 
             for npc in npcs:
+                moved = 0
+                if npc.rect.centery != npc.start_centery:
+                    moved = npc.rect.centery - npc.start_centery
+
                 difference = hero.rect.centery - hero.start_centery
-                npc.rect.centery = npc.start_centery - difference
+                npc.rect.centery = npc.start_centery - difference + moved
                 npc.start_centery = npc.rect.centery
+
             hero.start_centery = hero.rect.centery
 
 
@@ -114,6 +118,7 @@ class CameraGroup(pygame.sprite.Group):
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
+        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
         # sorting elements by "y" position (hero in front of or behind an object)
 
@@ -157,11 +162,10 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
-    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((WIDTH_GAME, HEIGHT_GAME))
-    # print("Screen size", screen.get_size()[0])
-    # WIDTH_GAME = screen.get_size()[0]
-    # HEIGHT_GAME = screen.get_size()[1]
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    print("Screen size", screen.get_size()[0])
+    WIDTH_GAME = screen.get_size()[0]
+    HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
     npcs = []
@@ -183,6 +187,7 @@ def game(hero):
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
+    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
@@ -206,8 +211,7 @@ def game(hero):
     chosen_npc = None
     counter = 0
 
-    # s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
-    s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
+    s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
     arrow_down = ButtonClass(25, 25, 'arrow_down')
     scroll_button = ButtonClass(30, 40, 'scroll_button')
@@ -236,7 +240,7 @@ def game(hero):
     while True:
         screen.fill(GREEN)
 
-        all_sprites_group.custom_draw(hero, npcs)
+        all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
         hero.update()
