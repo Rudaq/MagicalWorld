@@ -1,6 +1,5 @@
 import pygame.sprite
 
-
 class AttackClass(pygame.sprite.Sprite):
     def __init__(self, image, strength, mana, attack_type):
         super().__init__()

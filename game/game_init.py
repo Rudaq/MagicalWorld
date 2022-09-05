@@ -26,7 +26,7 @@ from pathlib import Path
 Main game loop
 '''
 
-TILESIZE = 32
+TILESIZE = 64
 
 current = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", current)
@@ -35,7 +35,7 @@ print(path)
 
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, sprite_type, inflation, surface=pygame.Surface((32, 32))):
+    def __init__(self, pos, groups, sprite_type, inflation=(0,0), surface=pygame.Surface((TILESIZE, TILESIZE))):
         super(Tile, self).__init__(groups)
         self.sprite_type = sprite_type
         self.image = surface
@@ -46,7 +46,11 @@ class Tile(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILESIZE))
         else:
             self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(inflation[0], inflation[1])
+
+        if inflation is not None:
+            self.hitbox = self.rect.inflate(inflation[0], inflation[1])
+        else:
+            self.hitbox = self.rect
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -63,12 +67,22 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
 
-
     def custom_draw(self, hero, npcs):
+        # if hero.rect.centerx <= 750:
+        #     self.offset.x = 0
+        # else:
+        #     self.offset.x = hero.rect.centerx - self.half_w
+        # if hero.rect.centery <= 400:
+        #     self.offset.y = 0
+        # else:
+        #     self.offset.y = hero.rect.centery - self.half_h
 
+
+        # jesli jest przy krancu mapy to nie przesuwaj kamery
         if hero.rect.centerx <= 750:
             self.offset.x = 0
         else:
+            # jesli wyszedl poza polowe ekranu to kamera ma sie przesuwac z nim
             print("AHOJ")
             self.offset.x = hero.rect.centerx - self.half_w
             if hero.set_start_centerx:
@@ -100,8 +114,18 @@ class CameraGroup(pygame.sprite.Group):
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
-        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
+        print("HERO: ", hero.rect.centerx, " , ", hero.rect.centery)
+
         # active elements
+        # sorting elements by "y" position (hero in front of or behind an object)
+
+        # not_npc = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and (sprite.sprite_type=='hero'
+        #            or sprite.sprite_type == 'object')]
+        # for sprite in sorted(not_npc, key=lambda sprite: sprite.rect.centery):
+        #     offset_position = sprite.rect.topleft - self.offset
+        #     self.display_surf.blit(sprite.image, offset_position)
+
+
         # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
         #     offset_position = sprite.rect.topleft - self.offset
         #     self.display_surf.blit(sprite.image, offset_position)
@@ -109,28 +133,32 @@ class CameraGroup(pygame.sprite.Group):
 
 def create_map(all_sprites_group, collision_sprites):
     layouts = {
-        'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
-        'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
+        'boundary_hero': import_csv_layout('resources/map/tilesets/constraints_hero.csv'),
+        'boundary_npc': import_csv_layout('resources/map/tilesets/constraints_npc.csv'),
+        'object': import_csv_layout('resources/map/tilesets/trees.csv'),
     }
     graphics = {
-        'objects': import_folder('../resources/graphics/objects')
+        'tree_objects': import_folder('../resources/graphics/objects/trees')
     }
 
-    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/player_blocker.png'))
+    #bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/npc_blocker.png'))
 
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
             for col_index, tile in enumerate(row):
                 if tile != '-1':
-                    x = col_index * 16
-                    y = row_index * 16
-                    if style == 'boundary_hero':
-                        # print(x, y)
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+                    x = col_index * TILESIZE
+                    y = row_index * TILESIZE
 
-                    if style == 'object':
-                        surf = graphics['objects'][int(tile)]
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
+                    if style == 'boundary_hero':
+                        Tile((x, y), collision_sprites, 'invisible')
+
+                    # if style == 'boundary_npc':
+                    #     Tile((x, y), npc_boundaries, 'invisible')
+
+                    # if style == 'object' and int(tile)!=8 and int(tile)!=9 and int(tile)!=10 and int(tile)!=11 and int(tile)!=12:
+                    #     surf = graphics['tree_objects'][int(tile)]
+                        # Tile((x, y), (nature_objects, collision_sprites, npc_boundaries), 'object', (-10, -10), surf)
 
 
 # Main game function
@@ -138,16 +166,19 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    print("Screen size", screen.get_size()[0])
-    WIDTH_GAME = screen.get_size()[0]
-    HEIGHT_GAME = screen.get_size()[1]
+    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((WIDTH_GAME, HEIGHT_GAME))
+    # print("Screen size", screen.get_size()[0])
+    # WIDTH_GAME = screen.get_size()[0]
+    # HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
     npcs = []
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
+    npc_boundaries = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
+    nature_objects = pygame.sprite.Group()
 
     # Test quest
 
@@ -155,6 +186,7 @@ def game(hero):
         "Go to the place where you found the stone, pour raven blood over it, burn the sage in the sacred fire, release mermaid’s voice and say the incantation to summon the god.",
         50, [], [], "good", False, 1)
     hero.active_quest = quest
+
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
@@ -183,7 +215,8 @@ def game(hero):
     chosen_npc = None
     counter = 0
 
-    s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
+    # s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
+    s = pygame.Surface((WIDTH_GAME, 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
     arrow_down = ButtonClass(25, 25, 'arrow_down')
     scroll_button = ButtonClass(30, 40, 'scroll_button')
@@ -197,7 +230,7 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs], [all_sprites_group], collision_sprites)
+        create_npc(npc_entity, [npcs], [all_npcs], collision_sprites)
 
     create_map(all_sprites_group, collision_sprites)
 
@@ -206,6 +239,7 @@ def game(hero):
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
+        npc.collision_sprites = npc_boundaries
 
     # Main game loop
     while True:
@@ -216,6 +250,9 @@ def game(hero):
 
         hero.update()
         all_sprites_group.draw(screen)
+
+        # nature_objects.update()
+        # nature_objects.draw(screen)
 
         all_npcs.update()
         all_npcs.draw(screen)

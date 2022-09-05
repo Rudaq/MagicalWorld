@@ -20,9 +20,32 @@ class Npc(Character):
         self.add_npc_to_hud = False
         self.can_talk = None
 
+        self.sprite_type = 'npc'
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("I'm NPC")
+
+    # Calling parent method for checking collisions with objects from collision_sprites group
+    def collision(self, direction):
+        Character.collision(self, direction)
+
+    # def collision(self, direction):
+    #     if direction == 'horizontal':
+    #         for sprite in self.collision_sprites:
+    #             if sprite.hitbox.colliderect(self.hitbox):
+    #                 if self.direction == 'R':  # moving right
+    #                     self.hitbox.right = sprite.hitbox.left
+    #                 if self.direction == 'L':  # moving left
+    #                     self.hitbox.left = sprite.hitbox.right
+    #
+    #     if direction == 'vertical':
+    #         for sprite in self.collision_sprites:
+    #             if sprite.hitbox.colliderect(self.hitbox):
+    #                 if self.direction == 'D':  # moving down
+    #                     self.hitbox.bottom = sprite.hitbox.top
+    #                 if self.direction == 'U':  # moving up
+    #                     self.hitbox.top = sprite.hitbox.bottom
 
     # Method for randomly moving the npc
     def move(self, direction="R", dx=0, dy=0):
@@ -43,25 +66,36 @@ class Npc(Character):
                 self.movement[0] -= 1
                 # Moving right
                 if self.movement[1] == 0:
-                    self.rect.x += step
+                    #self.rect.x += step
+                    self.hitbox.x += step
+                    self.collision('horizontal')
                     self.direction = "R"
                 # Moving down
                 else:
-                    self.rect.y += step
+                    #self.rect.y += step
+                    self.hitbox.y += step
+                    self.collision('vertical')
                     self.direction = "D"
+
             elif self.movement[0] < 0:
                 self.movement[0] += 1
                 # Moving left
                 if self.movement[1] == 0:
-                    self.rect.x -= step
+                    #self.rect.x -= step
+                    self.hitbox.x -= step
+                    self.collision('horizontal')
                     self.direction = "L"
                 # Moving right
                 else:
-                    self.rect.y -= step
+                    #self.rect.y -= step
+                    self.hitbox.y -= step
+                    self.collision('vertical')
                     self.direction = "U"
             # Waiting by a number of randomly selected iteration, before another random call
             elif self.movement[0] == 0:
                 self.movement[2] -= 1
+
+            self.rect.center = self.hitbox.center
 
     # move npc to a given place
     def moveByFaerie(self, direction, dx, dy):

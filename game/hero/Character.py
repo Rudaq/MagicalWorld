@@ -1,4 +1,6 @@
 import random
+from math import sin
+
 import pygame
 
 SPRITE_SIZE = 50
@@ -21,6 +23,9 @@ class Character(pygame.sprite.Sprite):
         self.inflation = inflation
         self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.speed = 5
+
+        self.sprite_type = 'hero'
+        self.race = ""
 
         self.name = name
         self.side = side
@@ -50,14 +55,15 @@ class Character(pygame.sprite.Sprite):
         self.start_centery = 0
         self.set_start_centerx = True
         self.set_start_centery = True
+        self.time_to_blit = None
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction
 
-        self.hitbox.x += dx * 2
+        self.hitbox.x += dx * 3
         self.collision('horizontal')
-        self.hitbox.y += dy * 2
+        self.hitbox.y += dy * 3
         self.collision('vertical')
 
         self.rect.center = self.hitbox.center
@@ -83,14 +89,15 @@ class Character(pygame.sprite.Sprite):
     def attack(self, screen, npcs):
         if self.performing_action:
             self.attack_type.move_attack()
-            if self.attack_type.size < 200:
 
-                # move particles to the down
+            if self.attack_type.size < 200:
+                    # move particles to the down
                 if self.attack_type.image == self.attack_type.image_down:
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
-                                (0, 0, 50, self.attack_type.size))
+                                                        (0, 0, 50, self.attack_type.size))
                     self.attack_type.rect.bottomleft = [self.attack_type.start_x,
                                                         self.attack_type.start_y + self.attack_type.size]
+
                 # move particles to the up
                 elif self.attack_type.image == self.attack_type.image_up:
                     self.attack_type.rect.topleft = [self.attack_type.start_x,
@@ -119,8 +126,9 @@ class Character(pygame.sprite.Sprite):
             if self.mana - self.attack_type.mana >= 0:
                 self.mana -= self.attack_type.mana
                 self.performing_action = True
+                # self.is_animating = False
 
-# function for throwing a weapon for Barbarian, Elf and Dwarf
+    # function for throwing a weapon for Barbarian, Elf and Dwarf
     def use_weapon(self, screen, npcs):
         if self.performing_action:
             # self.chosen_spell.size = 5
@@ -152,6 +160,7 @@ class Character(pygame.sprite.Sprite):
                 self.mana -= self.attack_type.mana
                 self.attack_type.size = 5
                 self.performing_action = True
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("HELLO")
