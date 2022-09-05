@@ -9,7 +9,6 @@ class Npc(Character):
         super().__init__(name, side, mana, life, images, None, pos, groups, inflation, collision_sprites)
         self.artifacts = pygame.sprite.Group()
         self.is_talking = False
-        # self.is_fighting = False
         self.quests_to_give = quests
         self.movement = [0, 0, 0]
         self.text = ">> "
@@ -78,7 +77,7 @@ class Npc(Character):
             artifact.show(x, y, all_artifacts, screen)
 
     # One common function for throwing out particles for all NPC's
-    def fight_npc(self, screen, hero):
+    def fight_npc(self, screen, hero, npcs):
         counter = random.randint(1, 25)
         if counter == 4:
             if self.attack_type == None:
@@ -105,9 +104,9 @@ class Npc(Character):
                 self.attack_type.start_x = self.attack_type.rect.x
                 self.attack_type.start_y = self.attack_type.rect.y
 
-            self.attack(screen, hero, counter)
+            self.attack(screen, hero, counter, npcs)
 
-    def attack(self, screen, hero, counter):
+    def attack(self, screen, hero, counter, npcs):
         if counter == 4 and self.life > 0:
             self.attack_type.move_attack()
             if self.attack_type.size < 200:
@@ -139,7 +138,7 @@ class Npc(Character):
                                 (0, 0, self.attack_type.size, 50))
 
             # check if hero had collision with attack
-            self.attack_type.check_attack_hero_collision(self, hero)
+            self.attack_type.check_attack_hero_collision(self, hero, npcs)
 
         else:
             if self.life > 0:

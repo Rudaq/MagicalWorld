@@ -425,7 +425,7 @@ def game(hero):
             if chosen_npc.in_fight_mode:
                 chosen_npc.move_in_fight(hero)
                 chosen_npc.attack_type = None
-                chosen_npc.fight_npc(screen, hero)
+                chosen_npc.fight_npc(screen, hero, npcs)
                 all_sprites_group.update()
 
         if npc_clicked:
