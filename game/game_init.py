@@ -114,24 +114,15 @@ class CameraGroup(pygame.sprite.Group):
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
-        print("HERO: ", hero.rect.centerx, " , ", hero.rect.centery)
-
         # active elements
         # sorting elements by "y" position (hero in front of or behind an object)
-
-        # not_npc = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and (sprite.sprite_type=='hero'
-        #            or sprite.sprite_type == 'object')]
-        # for sprite in sorted(not_npc, key=lambda sprite: sprite.rect.centery):
-        #     offset_position = sprite.rect.topleft - self.offset
-        #     self.display_surf.blit(sprite.image, offset_position)
-
 
         # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
         #     offset_position = sprite.rect.topleft - self.offset
         #     self.display_surf.blit(sprite.image, offset_position)
 
 
-def create_map(all_sprites_group, collision_sprites):
+def create_map(all_sprites_group, collision_sprites, npc_boundaries, nature_objects):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/constraints_hero.csv'),
         'boundary_npc': import_csv_layout('resources/map/tilesets/constraints_npc.csv'),
@@ -153,12 +144,12 @@ def create_map(all_sprites_group, collision_sprites):
                     if style == 'boundary_hero':
                         Tile((x, y), collision_sprites, 'invisible')
 
-                    # if style == 'boundary_npc':
-                    #     Tile((x, y), npc_boundaries, 'invisible')
+                    if style == 'boundary_npc':
+                        Tile((x, y), npc_boundaries, 'invisible')
 
-                    # if style == 'object' and int(tile)!=8 and int(tile)!=9 and int(tile)!=10 and int(tile)!=11 and int(tile)!=12:
-                    #     surf = graphics['tree_objects'][int(tile)]
-                        # Tile((x, y), (nature_objects, collision_sprites, npc_boundaries), 'object', (-10, -10), surf)
+                    if style == 'object' and int(tile)!=8 and int(tile)!=9 and int(tile)!=10 and int(tile)!=11 and int(tile)!=12:
+                        surf = graphics['tree_objects'][int(tile)]
+                        Tile((x, y), (all_sprites_group, nature_objects, collision_sprites, npc_boundaries), 'object', (-10, -10), surf)
 
 
 # Main game function
@@ -174,6 +165,7 @@ def game(hero):
     clock = pygame.time.Clock()
 
     npcs = []
+    all_npcs = pygame.sprite.Group()
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
     npc_boundaries = pygame.sprite.Group()
@@ -191,7 +183,6 @@ def game(hero):
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
-    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
@@ -230,9 +221,9 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs], [all_npcs], collision_sprites)
+        create_npc(npc_entity, [npcs], [all_npcs, all_sprites_group], npc_boundaries)
 
-    create_map(all_sprites_group, collision_sprites)
+    create_map(all_sprites_group, collision_sprites, npc_boundaries, nature_objects)
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
