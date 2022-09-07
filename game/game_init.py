@@ -12,6 +12,7 @@ from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc
 from game.game_support import create_npc, talk, fight
 from game.hud_component import update_hud
+from game.npc.Npc import Npc
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact
@@ -65,17 +66,19 @@ class CameraGroup(pygame.sprite.Group):
 
 
     def custom_draw(self, hero, npcs, screen):
+
         # if hero.rect.centerx <= 750:
         if hero.rect.centerx <= screen.get_size()[0]/2:
             self.offset.x = 0
         else:
             print("AHOJ")
             # self.offset.x = hero.rect.centerx - self.half_w
-            self.offset.x = hero.rect.centerx - screen.get_size()[0]/2
-
+            # self.offset.x = hero.rect.centerx - screen.get_size()[0]/2
             if hero.set_start_centerx:
                 hero.set_start_centerx = False
                 hero.start_centerx = hero.rect.centerx
+
+            self.offset.x = hero.start_centerx - screen.get_size()[0]/2
 
             for npc in npcs:
                 moved = 0
@@ -88,6 +91,7 @@ class CameraGroup(pygame.sprite.Group):
                 npc.start_centerx = npc.rect.centerx
 
             hero.start_centerx = hero.rect.centerx
+            # hero.rect.centerx = self.half_w
 
         if hero.rect.centery <= screen.get_size()[1]/2:
             self.offset.y = 0
@@ -109,16 +113,21 @@ class CameraGroup(pygame.sprite.Group):
 
             hero.start_centery = hero.rect.centery
 
-
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
+
+        # self.ground_rect.topleft = (self.ground_rect.x - self.offset.x, self.ground_rect.y - self.offset.y)
         self.display_surf.blit(self.ground_surf, ground_offset)
 
         print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
-        # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-        #     offset_position = sprite.rect.topleft - self.offset
-        #     self.display_surf.blit(sprite.image, offset_position)
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            if issubclass(type(sprite), Npc):
+            # offset_position = sprite.rect.topleft - self.offset
+
+                self.display_surf.blit(sprite.image, ground_offset)
+        # offset_position = hero.rect.topleft - self.offset
+        self.display_surf.blit(hero.image, hero.rect.center)
 
 
 def create_map(all_sprites_group, collision_sprites):
