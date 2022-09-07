@@ -65,113 +65,7 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
         self.ground_offset = 0
 
-
-    def custom_draw1(self, hero, npcs, screen):
-
-        # if hero.rect.centerx <= 750:
-        if hero.rect.centerx <= screen.get_size()[0]/2:
-            print("Offset: 0")
-
-            self.offset.x = 0
-        else:
-            print("AHOJ")
-            # self.offset.x = hero.rect.centerx - self.half_w
-            # self.offset.x = hero.rect.centerx - screen.get_size()[0]/2
-            if hero.set_start_centerx:
-                hero.set_start_centerx = False
-                hero.start_centerx = hero.rect.centerx
-
-            # self.offset.x = hero.start_centerx - screen.get_size()[0]/2
-            # self.offset.x += 775 - screen.get_size()[0]/2
-
-            for npc in npcs:
-                moved = 0
-
-                if npc.rect.centerx != npc.start_centerx:
-                    moved = npc.rect.centerx - npc.start_centerx
-
-                difference = hero.rect.centerx - hero.start_centerx
-                npc.rect.centerx = npc.start_centerx - difference + moved
-                npc.start_centerx = npc.rect.centerx
-
-            hero.start_centerx = hero.rect.centerx
-            # hero.rect.centerx = self.half_w
-
-        if hero.rect.centery <= screen.get_size()[1]/2:
-            print("Offset: 0")
-            self.offset.y = 0
-        else:
-            print("OLE")
-            self.offset.y = hero.rect.centery - self.half_h
-            if hero.set_start_centery:
-                hero.set_start_centery = False
-                hero.start_centery = hero.rect.centery
-
-            for npc in npcs:
-                moved = 0
-                if npc.rect.centery != npc.start_centery:
-                    moved = npc.rect.centery - npc.start_centery
-
-                difference = hero.rect.centery - hero.start_centery
-                npc.rect.centery = npc.start_centery - difference + moved
-                npc.start_centery = npc.rect.centery
-
-            hero.start_centery = hero.rect.centery
-
-        # ground
-        print("Offset: ", self.offset)
-        ground_offset = self.ground_rect.topleft - self.offset
-
-        # self.ground_rect.topleft = (self.ground_rect.x - self.offset.x, self.ground_rect.y - self.offset.y)
-        self.display_surf.blit(self.ground_surf, ground_offset)
-
-        # print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
-        # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            if issubclass(type(sprite), Npc):
-                self.display_surf.blit(sprite.image, ground_offset)
-        self.display_surf.blit(hero.image, hero.rect.topleft)
-
     def custom_draw(self, hero, npcs, screen):
-        if hero.rect.centerx <= screen.get_size()[0]/2:
-            self.offset.x = 0
-        else:
-            self.offset.x = hero.rect.centerx - self.half_w
-
-            if hero.set_start_centerx:
-                hero.set_start_centerx = False
-                hero.start_centerx = hero.rect.centerx
-
-            for npc in npcs:
-                moved = 0
-
-                if npc.rect.centerx != npc.start_centerx:
-                    moved = npc.rect.centerx - npc.start_centerx
-
-                difference = hero.rect.centerx - hero.start_centerx
-                npc.rect.centerx = npc.start_centerx - difference + moved
-                npc.start_centerx = npc.rect.centerx
-
-            hero.start_centerx = hero.rect.centerx
-
-        if hero.rect.centery <= screen.get_size()[1]/2:
-            self.offset.y = 0
-        else:
-            self.offset.y = hero.rect.centery - self.half_h
-            if hero.set_start_centery:
-                hero.set_start_centery = False
-                hero.start_centery = hero.rect.centery
-
-            for npc in npcs:
-                moved = 0
-                if npc.rect.centery != npc.start_centery:
-                    moved = npc.rect.centery - npc.start_centery
-
-                difference = hero.rect.centery - hero.start_centery
-                npc.rect.centery = npc.start_centery - difference + moved
-                npc.start_centery = npc.rect.centery
-
-            hero.start_centery = hero.rect.centery
 
             # ground
         ground_offset = self.ground_rect.topleft - self.offset
@@ -179,13 +73,10 @@ class CameraGroup(pygame.sprite.Group):
 
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            # offset_position = sprite.rect.topleft - self.offset
             if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
-                # print("AAAAAAAAAAAAAAA")
                 self.display_surf.blit(sprite.image, sprite.rect.topleft)
 
-        offset_position = hero.rect.topleft - self.offset
-        self.display_surf.blit(hero.image, offset_position)
+        self.display_surf.blit(hero.image, hero.rect.topleft)
 
 
 def create_map(all_sprites_group, collision_sprites):
@@ -289,6 +180,10 @@ def game(hero):
         npc.set_start_centerx = False
         npc.set_start_centery = False
 
+    hero.rect.centerx = screen.get_size()[0]/2
+    hero.rect.centery = screen.get_size()[1]/2
+    all_sprites_group.offset.x = 0
+    all_sprites_group.offset.y = 0
     # Main game loop
     while True:
         screen.fill(GREEN)
@@ -309,6 +204,31 @@ def game(hero):
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
 
+        if keys_pressed[K_LEFT]:
+            all_sprites_group.offset.x -= 25
+            hero.direction = 'L'
+            for npc in npcs:
+                npc.rect.centerx += 25
+                npc.direction = 'R'
+        elif keys_pressed[K_RIGHT]:
+            all_sprites_group.offset.x += 25
+            hero.direction = 'R'
+            for npc in npcs:
+                npc.rect.centerx -= 25
+                npc.direction = 'L'
+        elif keys_pressed[K_DOWN]:
+            all_sprites_group.offset.y += 25
+            hero.direction = 'D'
+            for npc in npcs:
+                npc.rect.centery -= 25
+                npc.direction = 'U'
+        elif keys_pressed[K_UP]:
+            all_sprites_group.offset.y -= 25
+            hero.direction = 'U'
+            for npc in npcs:
+                npc.rect.centery += 25
+                npc.direction = 'D'
+
         # Event support - quiting, movement
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -327,21 +247,25 @@ def game(hero):
                     direct = "U"
                     dx = 0
                     dy = -5
+                    # all_sprites_group.offset.y -= 25
                     moving = True
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     direct = "D"
                     dx = 0
                     dy = 5
+                    # all_sprites_group.offset.y += 25
                     moving = True
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     direct = "R"
                     dx = 5
                     dy = 0
+                    # all_sprites_group.offset.x += 25
                     moving = True
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     direct = "L"
                     dx = -5
                     dy = 0
+                    # all_sprites_group.offset.x -= 25
                     moving = True
                 elif event.key == pygame.K_1 and hero.in_fight_mode:
                     option = 1
@@ -391,8 +315,8 @@ def game(hero):
                             update_positions_and_transparency(hero.text_history)
 
         # Moving hero
-        if moving:
-            hero.move(direct, dx, dy)
+        # if moving:
+        #     hero.move(direct, dx, dy)
 
         # Random movement of npcs if not in dialog
         for npc in npcs:

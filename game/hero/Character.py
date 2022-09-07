@@ -57,7 +57,6 @@ class Character(pygame.sprite.Sprite):
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction
-
         self.hitbox.x += dx * 5
         self.collision('horizontal')
         self.hitbox.y += dy * 5
