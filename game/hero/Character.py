@@ -51,13 +51,16 @@ class Character(pygame.sprite.Sprite):
         self.set_start_centerx = True
         self.set_start_centery = True
 
+        self.sprite_type = 'hero'
+
+
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction
 
-        self.hitbox.x += dx * 2
+        self.hitbox.x += dx * 5
         self.collision('horizontal')
-        self.hitbox.y += dy * 2
+        self.hitbox.y += dy * 5
         self.collision('vertical')
 
         self.rect.center = self.hitbox.center

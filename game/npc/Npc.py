@@ -18,6 +18,7 @@ class Npc(Character):
         self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.add_npc_to_hud = False
         self.can_talk = None
+        self.sprite_type = 'npc'
 
     # Placeholder. Method to talk? May be useful
     def talk(self):

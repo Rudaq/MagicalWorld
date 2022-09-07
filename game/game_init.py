@@ -63,12 +63,15 @@ class CameraGroup(pygame.sprite.Group):
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+        self.ground_offset = 0
 
 
-    def custom_draw(self, hero, npcs, screen):
+    def custom_draw1(self, hero, npcs, screen):
 
         # if hero.rect.centerx <= 750:
         if hero.rect.centerx <= screen.get_size()[0]/2:
+            print("Offset: 0")
+
             self.offset.x = 0
         else:
             print("AHOJ")
@@ -78,7 +81,8 @@ class CameraGroup(pygame.sprite.Group):
                 hero.set_start_centerx = False
                 hero.start_centerx = hero.rect.centerx
 
-            self.offset.x = hero.start_centerx - screen.get_size()[0]/2
+            # self.offset.x = hero.start_centerx - screen.get_size()[0]/2
+            # self.offset.x += 775 - screen.get_size()[0]/2
 
             for npc in npcs:
                 moved = 0
@@ -94,6 +98,7 @@ class CameraGroup(pygame.sprite.Group):
             # hero.rect.centerx = self.half_w
 
         if hero.rect.centery <= screen.get_size()[1]/2:
+            print("Offset: 0")
             self.offset.y = 0
         else:
             print("OLE")
@@ -114,20 +119,73 @@ class CameraGroup(pygame.sprite.Group):
             hero.start_centery = hero.rect.centery
 
         # ground
+        print("Offset: ", self.offset)
         ground_offset = self.ground_rect.topleft - self.offset
 
         # self.ground_rect.topleft = (self.ground_rect.x - self.offset.x, self.ground_rect.y - self.offset.y)
         self.display_surf.blit(self.ground_surf, ground_offset)
 
-        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
+        # print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             if issubclass(type(sprite), Npc):
-            # offset_position = sprite.rect.topleft - self.offset
-
                 self.display_surf.blit(sprite.image, ground_offset)
-        # offset_position = hero.rect.topleft - self.offset
-        self.display_surf.blit(hero.image, hero.rect.center)
+        self.display_surf.blit(hero.image, hero.rect.topleft)
+
+    def custom_draw(self, hero, npcs, screen):
+        if hero.rect.centerx <= screen.get_size()[0]/2:
+            self.offset.x = 0
+        else:
+            self.offset.x = hero.rect.centerx - self.half_w
+
+            if hero.set_start_centerx:
+                hero.set_start_centerx = False
+                hero.start_centerx = hero.rect.centerx
+
+            for npc in npcs:
+                moved = 0
+
+                if npc.rect.centerx != npc.start_centerx:
+                    moved = npc.rect.centerx - npc.start_centerx
+
+                difference = hero.rect.centerx - hero.start_centerx
+                npc.rect.centerx = npc.start_centerx - difference + moved
+                npc.start_centerx = npc.rect.centerx
+
+            hero.start_centerx = hero.rect.centerx
+
+        if hero.rect.centery <= screen.get_size()[1]/2:
+            self.offset.y = 0
+        else:
+            self.offset.y = hero.rect.centery - self.half_h
+            if hero.set_start_centery:
+                hero.set_start_centery = False
+                hero.start_centery = hero.rect.centery
+
+            for npc in npcs:
+                moved = 0
+                if npc.rect.centery != npc.start_centery:
+                    moved = npc.rect.centery - npc.start_centery
+
+                difference = hero.rect.centery - hero.start_centery
+                npc.rect.centery = npc.start_centery - difference + moved
+                npc.start_centery = npc.rect.centery
+
+            hero.start_centery = hero.rect.centery
+
+            # ground
+        ground_offset = self.ground_rect.topleft - self.offset
+        self.display_surf.blit(self.ground_surf, ground_offset)
+
+        # active elements
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            # offset_position = sprite.rect.topleft - self.offset
+            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
+                # print("AAAAAAAAAAAAAAA")
+                self.display_surf.blit(sprite.image, sprite.rect.topleft)
+
+        offset_position = hero.rect.topleft - self.offset
+        self.display_surf.blit(hero.image, offset_position)
 
 
 def create_map(all_sprites_group, collision_sprites):
@@ -147,9 +205,10 @@ def create_map(all_sprites_group, collision_sprites):
                 if tile != '-1':
                     x = col_index * 16
                     y = row_index * 16
-                    if style == 'boundary_hero':
-                        # print(x, y)
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+                    # if style == 'boundary_hero':
+                    #     # print(x, y)
+                    #     # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+                    #     Tile((x, y), collision_sprites, 'invisible', (-5, -4), bound)
 
                     if style == 'object':
                         surf = graphics['objects'][int(tile)]
@@ -161,7 +220,8 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1500, 800))
     print("Screen size", screen.get_size()[0])
     WIDTH_GAME = screen.get_size()[0]
     HEIGHT_GAME = screen.get_size()[1]
@@ -182,7 +242,6 @@ def game(hero):
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
-    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
@@ -237,11 +296,8 @@ def game(hero):
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
-        hero.update()
-        all_sprites_group.draw(screen)
-
-        all_npcs.update()
-        all_npcs.draw(screen)
+        # hero.update()
+        # all_sprites_group.draw(screen)
 
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                    restore_mana_time_passed,
@@ -484,6 +540,5 @@ def game(hero):
             restore_life = False
 
         all_sprites_group.update()
-        all_npcs.update()
         pygame.display.update()
         clock.tick(60)
