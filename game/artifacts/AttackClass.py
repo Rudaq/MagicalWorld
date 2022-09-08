@@ -55,7 +55,7 @@ class AttackClass(pygame.sprite.Sprite):
 
     def check_attack_npc_collision(self, hero, npcs):
         for npc in npcs:
-            if npc.rect.colliderect(self.rect):
+            if npc.rect.colliderect(self.rect) and npc is not hero:
                 # if (self.start_x + self.size) >= npc.rect.x:
                 if self.check_if_correct_distance(hero, npc):
 

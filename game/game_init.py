@@ -408,8 +408,9 @@ def game(hero):
         # check if NPC is still alive
         for npc in npcs:
             if npc.life == 0 or npc.life < 0:
-                stop_fight(hero, npc)
-                npc_clicked = False
+                if npc == chosen_npc:
+                    stop_fight(hero, npc)
+                    npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
                 remove_npc(npc, npcs, all_sprites_group, screen)
 

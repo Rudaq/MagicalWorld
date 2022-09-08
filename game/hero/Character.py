@@ -160,7 +160,7 @@ class Character(pygame.sprite.Sprite):
 
     # Placeholder. Method to add the found or obtained weapon to the equipment.
     def collect_artifact(self, artifact):
-        if len(self.equipment) == 5:
+        if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
