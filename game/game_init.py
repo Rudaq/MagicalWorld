@@ -119,6 +119,7 @@ def game(hero):
     clock = pygame.time.Clock()
 
     npcs = []
+    sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
@@ -170,7 +171,7 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs], [all_sprites_group], collision_sprites)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites)
 
     create_map(all_sprites_group, collision_sprites)
 
@@ -179,6 +180,7 @@ def game(hero):
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
+        sprites_to_move_opposite.extend(npc.artifacts)
 
     hero.rect.centerx = screen.get_size()[0]/2
     hero.rect.centery = screen.get_size()[1]/2
@@ -207,27 +209,27 @@ def game(hero):
         if keys_pressed[K_LEFT]:
             all_sprites_group.offset.x -= 25
             hero.direction = 'L'
-            for npc in npcs:
+            for npc in sprites_to_move_opposite:
                 npc.rect.centerx += 25
                 npc.direction = 'R'
         elif keys_pressed[K_RIGHT]:
             all_sprites_group.offset.x += 25
             hero.direction = 'R'
-            for npc in npcs:
-                npc.rect.centerx -= 25
-                npc.direction = 'L'
+            for sprite in sprites_to_move_opposite:
+                sprite.rect.centerx -= 25
+                sprite.direction = 'L'
         elif keys_pressed[K_DOWN]:
             all_sprites_group.offset.y += 25
             hero.direction = 'D'
-            for npc in npcs:
-                npc.rect.centery -= 25
-                npc.direction = 'U'
+            for sprite in sprites_to_move_opposite:
+                sprite.rect.centery -= 25
+                sprite.direction = 'U'
         elif keys_pressed[K_UP]:
             all_sprites_group.offset.y -= 25
             hero.direction = 'U'
-            for npc in npcs:
-                npc.rect.centery += 25
-                npc.direction = 'D'
+            for sprite in sprites_to_move_opposite:
+                sprite.rect.centery += 25
+                sprite.direction = 'D'
 
         # Event support - quiting, movement
         for event in pygame.event.get():
