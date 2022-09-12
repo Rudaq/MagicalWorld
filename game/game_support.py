@@ -15,7 +15,6 @@ from dialog_support import talk
 from fight_support import fight
 
 path2 = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", path2)
 current_path = Path(__file__).resolve().parent.parent
 
 
@@ -52,18 +51,18 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
 
 def create_character(chosen_name, chosen_type, chosen_side):
     if chosen_type == "Elf":
-        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), (-10, -10), [])
+        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), (0, 0), [])
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (-18, -18),
+        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (0, 0),
                       [])
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (-10, -10),
+        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (0, 0),
                       [])
     elif chosen_type == "Dwarf":
-        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), (-30, -20), [])
+        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), (0, 0), [])
     else:
         hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (),
-                         (-24, -30), [])
+                         (0, 0), [])
 
     return hero
 

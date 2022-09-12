@@ -9,9 +9,7 @@ from npc.Orc import Orc
 from os.path import dirname, realpath, join
 
 current = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-print(path)
 
 MENU_WIDTH = 800
 MENU_HEIGHT = 600
@@ -84,7 +82,13 @@ FAERIE_SPELLS = {
 }
 
 BARBARIAN_ACTIONS = {
-    'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG"))
+    'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG")),
+    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fury_2.PNG")),
+    'fury_flames': [pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_1.PNG")),
+                    pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_2.PNG")),
+                    pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_3.PNG")),
+                    pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_4.PNG"))],
+    'resistance': pygame.image.load(os.path.join(path, "resources/graphics/particles", "claws.PNG"))
 }
 
 NPC_IMAGES = {
