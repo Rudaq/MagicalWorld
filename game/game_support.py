@@ -11,6 +11,7 @@ from hero.Faerie import Faerie
 from hero.Wizard import Wizard
 from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES
 from settings import BLACK
+from math import dist
 from dialog_support import talk
 from fight_support import fight
 
@@ -113,3 +114,12 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     buttons.update()
     buttons.draw(screen)
 
+
+# checking the distance between hero and chosen npc
+def npc_in_interaction_range(chosen_npc, hero_x_coordinate, hero_y_coordinate):
+    distance = dist((chosen_npc.rect.x, chosen_npc.rect.y), (hero_x_coordinate, hero_y_coordinate))
+    # if the distance in straight line is smaller than 120 px then the interaction is possible
+    if distance > 120:
+        return False
+    else:
+        return True

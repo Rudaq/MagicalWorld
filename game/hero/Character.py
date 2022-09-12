@@ -53,7 +53,6 @@ class Character(pygame.sprite.Sprite):
 
         self.sprite_type = 'hero'
 
-
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dx, dy):
         self.direction = direction
@@ -122,7 +121,7 @@ class Character(pygame.sprite.Sprite):
                 self.mana -= self.attack_type.mana
                 self.performing_action = True
 
-# function for throwing a weapon for Barbarian, Elf and Dwarf
+    # function for throwing a weapon for Barbarian, Elf and Dwarf
     def use_weapon(self, screen, npcs):
         if self.performing_action:
             # self.chosen_spell.size = 5
@@ -154,6 +153,7 @@ class Character(pygame.sprite.Sprite):
                 self.mana -= self.attack_type.mana
                 self.attack_type.size = 5
                 self.performing_action = True
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("HELLO")

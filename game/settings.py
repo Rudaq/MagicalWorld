@@ -87,6 +87,19 @@ BARBARIAN_ACTIONS = {
     'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG"))
 }
 
+DWARVES_ACTIONS = {
+    'braids': pygame.image.load(os.path.join(path, "resources/graphics/particles", "braids.PNG")),
+    'axe': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
+    'sleep': pygame.image.load(os.path.join(path, "resources/graphics/particles", "sleep.PNG"))
+}
+
+WIZARD_SPELLS = {
+    'wind': pygame.image.load(os.path.join(path, "resources/graphics/particles", "wind.PNG")),
+    'magic_ball': pygame.image.load(os.path.join(path, "resources/graphics/particles", "magic_ball.PNG")),
+    'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
+    'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
+}
+
 NPC_IMAGES = {
     'image_druid': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png")),
@@ -129,21 +142,6 @@ GUI_IMAGES = {
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
 
-}
-
-DWARVES_ACTIONS = {
-    # TO DO DRAW NICER BRAIDS :(
-    'braids': pygame.image.load(os.path.join(path, "resources/graphics/particles", "braids.PNG")),
-    'axe': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
-    'axe_throw': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
-    'sleep': pygame.image.load(os.path.join(path, "resources/graphics/particles", "sleep.PNG"))
-}
-
-WIZARD_SPELLS = {
-    'wind': pygame.image.load(os.path.join(path, "resources/graphics/particles", "wind.PNG")),
-    'magic_ball': pygame.image.load(os.path.join(path, "resources/graphics/particles", "magic_ball.PNG")),
-    'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
-    'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
 }
 
 NPC_FIGHTS = {
@@ -208,7 +206,7 @@ ORCS_QUESTS = {
     'clean_feet': ["clean the orcs feet using mud from the swamp (learn a spell that will enable you to change the "
                    "mud into water", 100, "water", "Wizard", "evil", False, 1],
     'expel_the_blind': ["expel blind rats from the Misty Swamp (lead them out of the swamp so that they can’t find "
-                        "their way back).", 100, "nth", "Wizard", "good", False, 1],
+                        "their way back).", 100, None, "Wizard", "good", False, 1],
     'kill_tiger': ["Deprive the good barbarians of their strength", 100, "tiger's fur", "Barbarian", "evil", False, 1]
 }
 VAMPIRE_QUESTS = {
@@ -227,7 +225,7 @@ VAMPIRE_QUESTS = {
     'mermaid_blood': ["Bring back the Mermaid blood", 100, "blood", "Fearie", "evil", False, 1]
 }
 PANDAS_QUESTS = {
-    'spiders_gone': ["Beat the spiders that pandas are scared of", 100, "nth", "Wizard", "evil", False, 1]
+    'spiders_gone': ["Beat the spiders that pandas are scared of", 100, None, "Wizard", "evil", False, 1]
 }
 
 FEARIES_QUESTS = {
@@ -274,7 +272,7 @@ SMITHS_QUESTS = {
 UNICORN_QUESTS = {
     'safe_comeback': ["Climb the highest mountain of the Frozen Empire and help a creature that is living there", 100,
                       "rope", "Dwarf", "good", False, 1],
-    'kill_the_god': ["Kill the god you summoned and take control over the demons he controlled.", 100, "nth", "Elf",
+    'kill_the_god': ["Kill the god you summoned and take control over the demons he controlled.", 100, None, "Elf",
                      "evil",
                      False, 1]
 }
@@ -285,15 +283,15 @@ BLIND_RATS_QUESTS = {
 }
 
 EARTH_ELEMENTAL_QUESTS = {
-    'magic_oak_bloom': ["Help the oak bloom with your earth magic", 100, "nth", "Elf", "good", False, 1]
+    'magic_oak_bloom': ["Help the oak bloom with your earth magic", 100, None, "Elf", "good", False, 1]
 }
 
 TREANTS_QUESTS = {
-    'secret_of_orcs': ["Acquire the secret of the Orcs", 100, "nth", "Wizard", "evil", False, 1],
+    'secret_of_orcs': ["Acquire the secret of the Orcs", 100, None, "Wizard", "evil", False, 1],
     'make_a_wand': ["find a big old oak and take a piece of wood (trunk) so you could gain a wand", 100, "wand",
                     "Wizard",
                     "good", False, 1],
-    'pour_potion_oak': ["Pour the potion over the roots of the sacred oak.", 100, "nth", "Elf", "good", False, 1],
+    'pour_potion_oak': ["Pour the potion over the roots of the sacred oak.", 100, None, "Elf", "good", False, 1],
     'find_potion_wizard': ["Find the Dark Wizard and ask him for the healing potion paying with gold.", 100,
                            "healing potion", "Elf", "good", 2]
 }
@@ -307,7 +305,7 @@ DARK_ELVES_QUESTS = {
 
 ELVES_QUESTS = {
     'bring_tigers_fur': ["Bring the tiger’s fur", 100, "tiger's fur", "Fearie", "evil", False, 1],
-    'kill_Yeti': ["Kill the ice monster that is attacking the poor snowman", 100, "nth", "Fearie", "good", False, 1]
+    'kill_Yeti': ["Kill the ice monster that is attacking the poor snowman", 100, None, "Fearie", "good", False, 1]
 }
 
 BIG_MONKE_QUESTS = {
@@ -332,7 +330,7 @@ LEPRECHAUN_QUESTS = {
 }
 
 BIG_WOLVES_QUESTS = {
-    'sacrifice': ["Sacrifice one of your belongings in order to get through the pack of wolves", 100, "nth", "Dwarf",
+    'sacrifice': ["Sacrifice one of your belongings in order to get through the pack of wolves", 100, None, "Dwarf",
                   "evil", False, 1]
 }
 
