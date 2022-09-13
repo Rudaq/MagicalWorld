@@ -356,6 +356,7 @@ def game(hero):
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
+                    # checking if hero is in npc's range in order to interact
                     if npc_in_interaction_range(npc, hero.rect.centerx, hero.rect.centery):
                         counter += 1
                         # check if NPC is clicked or / unclicked

@@ -13,9 +13,10 @@ class Dwarf(Character):
         self.collision_sprites = collision_sprites
         self.pos = pos
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
-        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 15, 'axe_attack')
-        self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 20, 'sleep')
+        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 5, 'axe_attack')
+        self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
 
+    # printing the attack onto the screen
     def attack(self, screen, npcs):
         if self.in_attack:
             self.attack_type.move_attack()
@@ -27,8 +28,10 @@ class Dwarf(Character):
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             self.attack_type.check_attack_npc_collision(self, npcs)
+
         if self.mana - self.attack_type.mana >= 0:
             self.mana -= self.attack_type.mana
+            self.in_attack = False
 
     def fight(self, screen, option, npcs):
         if self.attack_type is None:
@@ -38,8 +41,8 @@ class Dwarf(Character):
                 self.attack_type = self.braids_attack
             elif option == 3:
                 self.attack_type = self.sleep
-
-            if self.direction == 'U': ## aqui
+            # aqui - potentially TODO printing the attack from right, not left
+            if self.direction == 'U':
                 self.attack_direction = 0
                 if option == 2:
                     self.attack_type.rect.x = self.rect.x - 20
@@ -57,7 +60,8 @@ class Dwarf(Character):
                     self.attack_type.rect.x = self.rect.x + 10
                     self.attack_type.rect.y = self.rect.y + 35
                 self.attack_type.image = self.attack_type.image_down
-            elif self.direction == 'L': ## aqui
+            # aqui - potentially TODO printing the attack from right, not left
+            elif self.direction == 'L':
                 self.attack_direction = 2
                 if option == 2:
                     self.attack_type.rect.x = self.rect.x - 80
