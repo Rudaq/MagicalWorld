@@ -15,7 +15,8 @@ from game.hud_component import update_hud
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
-from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact
+from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
+    show_table_to_hero
 from settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
@@ -67,13 +68,13 @@ class CameraGroup(pygame.sprite.Group):
 
     def custom_draw(self, hero, npcs, screen):
 
-            # ground
+        # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
+            if hasattr(sprite, 'sprite_type') and sprite.sprite_type != 'hero':
                 self.display_surf.blit(sprite.image, sprite.rect.topleft)
 
         self.display_surf.blit(hero.image, hero.rect.topleft)
@@ -147,6 +148,7 @@ def game(hero):
     show_quest = False
     show_chest = False
     chest_opened = False
+    show_table = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
@@ -182,8 +184,8 @@ def game(hero):
         npc.set_start_centery = False
         sprites_to_move_opposite.extend(npc.artifacts)
 
-    hero.rect.centerx = screen.get_size()[0]/2
-    hero.rect.centery = screen.get_size()[1]/2
+    hero.rect.centerx = screen.get_size()[0] / 2
+    hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
     # Main game loop
@@ -397,6 +399,14 @@ def game(hero):
             elif talk_button.rect.collidepoint(mouse_point):
                 talk(hero, chosen_npc)
 
+            for equipment in equipment_buttons:
+                if equipment.rect.collidepoint(mouse_point):
+                    equipment.clicked_counter += 1
+                    if equipment.clicked_counter % 2 == 1:
+                        show_table = True
+                    else:
+                        show_table = False
+
         # Set previous state of left mouse button
         prev = left
         # check the state of chest icon
@@ -453,6 +463,10 @@ def game(hero):
             for equipment in equipment_buttons:
                 if equipment.rect.collidepoint(mouse_point):
                     show_equipment_name(screen, equipment)
+
+
+        if show_table:
+            show_table_to_hero(screen)
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True

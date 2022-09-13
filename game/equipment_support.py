@@ -18,9 +18,9 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     y = 220
     counter = 0
 
-    for i in hero.equipment:
-        eq = ButtonClass(60, 60, i.name)
-        image = pygame.transform.scale(i.image, (60, 60))
+    for eq in hero.equipment:
+       # eq = ButtonClass(60, 60, i.name)
+        image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
         eq.rect.x = x
         eq.rect.y = y
@@ -34,6 +34,53 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
             counter = -1
         x += 70
         counter += 1
+    # for i in hero.equipment:
+    #     eq = ButtonClass(60, 60, i.name)
+    #     image = pygame.transform.scale(i.image, (60, 60))
+    #     eq.image = image
+    #     eq.rect.x = x
+    #     eq.rect.y = y
+    #     screen.blit(image, (eq.rect.x, eq.rect.y))
+    #     equipment_buttons.add(eq)
+    #     equipment_buttons.update()
+    #     equipment_buttons.draw(screen)
+    #     if counter == 2:
+    #         y += 65
+    #         x = pos - 30
+    #         counter = -1
+    #     x += 70
+    #     counter += 1
+
+def show_table_to_hero(screen):
+    distance = math.floor(screen.get_size()[0] / 5)
+    chest_pos = 2 * distance
+    pos = chest_pos - 400
+    # chest jest 300 x 300
+    # table 400 X 200
+    screen.blit(GUI_IMAGES['table'], (pos, 100))
+    text = 'Choose NPC to which you wanna give an artifact:'
+    draw_text(text, pos + 10, 110, 13, BLACK, screen)
+
+    # x = pos + 40
+    # y = 220
+    # counter = 0
+    #
+    # for i in hero.equipment:
+    #     eq = ButtonClass(60, 60, i.name)
+    #     image = pygame.transform.scale(i.image, (60, 60))
+    #     eq.image = image
+    #     eq.rect.x = x
+    #     eq.rect.y = y
+    #     screen.blit(image, (eq.rect.x, eq.rect.y))
+    #     equipment_buttons.add(eq)
+    #     equipment_buttons.update()
+    #     equipment_buttons.draw(screen)
+    #     if counter == 2:
+    #         y += 65
+    #         x = pos - 30
+    #         counter = -1
+    #     x += 70
+    #     counter += 1
 
 
 def time_to_chest_be_opened(restore_time_passed):
