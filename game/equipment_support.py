@@ -44,18 +44,20 @@ def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
     pos = chest_pos - 400
     # chest jest 300 x 300
     # table 400 X 200
-    screen.blit(GUI_IMAGES['table'], (pos, 100))
-    text = 'Choose NPC to which you wanna give an artifact:'
-    draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
     x = pos + 20
     y = 150
     counter = 0
+    check = 0
 
     for npc in npcs:
+        image = GUI_IMAGES['table']
+        image = pygame.transform.scale(image, (400, 150 + check * 60))
+        screen.blit(image, (pos, 100))
+        text = 'Choose NPC to which you wanna give an artifact:'
+        draw_text(text, pos + 10, 110, 13, BLACK, screen)
+
         npc_represent = NpcRepresent(npc)
-        # image = pygame.transform.scale(npc.image, (60, 60))
-        # copy_npc.image = image
         npc_represent.rect.x = x
         npc_represent.rect.y = y
         screen.blit(npc_represent.image, (npc_represent.rect.x, npc_represent.rect.y))
@@ -64,8 +66,10 @@ def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
         npcs_to_choose.draw(screen)
         if counter == 6:
             y += 65
-            x = pos - 30
+            x = pos - 35
             counter = -1
+            check += 1
+
         x += 55
         counter += 1
 
