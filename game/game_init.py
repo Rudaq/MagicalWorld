@@ -23,6 +23,7 @@ from settings import GUI_IMAGES, MAP_IMAGES
 from _csv import reader
 import os
 from pathlib import Path
+from artifacts.MockNpc import MockNpc
 
 '''
 Main game loop
@@ -189,6 +190,9 @@ def game(hero):
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
+
+        mock_npc = MockNpc(npc)
+        npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
 
     hero.rect.centerx = screen.get_size()[0] / 2
@@ -401,22 +405,22 @@ def game(hero):
                 show_quest = not show_quest
             elif chest_button.rect.collidepoint(mouse_point):
                 show_chest = not show_chest
+                if not show_chest:
+                    show_table = False
             elif fight_button.rect.collidepoint(mouse_point):
                 fight(hero, chosen_npc)
             elif talk_button.rect.collidepoint(mouse_point):
                 talk(hero, chosen_npc)
 
-            for equipment in equipment_buttons:
-                if equipment.rect.collidepoint(mouse_point):
-                    equipment.clicked_counter += 1
-                    if equipment.clicked_counter % 2 == 1:
-                        show_table = True
-                        chosen_artifact = equipment
-                    else:
-                        show_table = False
-            for n in npcs_to_choose:
-                if n.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, n, chosen_artifact, equipment_buttons)
+            if show_chest:
+                for equipment in equipment_buttons:
+                    if equipment.rect.collidepoint(mouse_point):
+                        show_table = not show_table
+                        if show_table:
+                            chosen_artifact = equipment
+            for mock_npc in npcs_to_choose:
+                if mock_npc.rect.collidepoint(mouse_point):
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
                     show_table = False
 
 
@@ -437,7 +441,7 @@ def game(hero):
                     stop_fight(hero, npc)
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
-                remove_npc(npc, npcs, all_sprites_group, screen)
+                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
@@ -478,7 +482,7 @@ def game(hero):
                     show_equipment_name(screen, equipment)
 
         if show_table:
-            show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose)
+            show_table_to_hero(screen, npcs_to_choose)
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True

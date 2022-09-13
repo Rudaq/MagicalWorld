@@ -3,7 +3,7 @@ from NLP.dialog_generation.GenerateNpcDialog import draw_text
 from game.settings import GUI_IMAGES, BLACK
 import pygame
 import math
-from artifacts.NpcRepresent import NpcRepresent
+from artifacts.MockNpc import MockNpc
 from datetime import datetime
 import copy
 
@@ -38,7 +38,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
         counter += 1
 
 
-def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
+def show_table_to_hero(screen, npcs_to_choose):
     distance = math.floor(screen.get_size()[0] / 5)
     chest_pos = 2 * distance
     pos = chest_pos - 400
@@ -50,20 +50,20 @@ def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
     counter = 0
     check = 0
 
-    for npc in npcs:
+    for mock_npc in npcs_to_choose:
+
         image = GUI_IMAGES['table']
         image = pygame.transform.scale(image, (400, 150 + check * 60))
         screen.blit(image, (pos, 100))
+
         text = 'Choose NPC to which you wanna give an artifact:'
         draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
-        npc_represent = NpcRepresent(npc)
-        npc_represent.rect.x = x
-        npc_represent.rect.y = y
-        screen.blit(npc_represent.image, (npc_represent.rect.x, npc_represent.rect.y))
-        npcs_to_choose.add(npc_represent)
+        mock_npc.rect.x = x
+        mock_npc.rect.y = y
         npcs_to_choose.update()
         npcs_to_choose.draw(screen)
+        print(mock_npc.npc.race)
         if counter == 6:
             y += 65
             x = pos - 35
@@ -74,12 +74,12 @@ def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
         counter += 1
 
 
-def give_artifact_to_npc(hero, n, artifact, equipment_buttons):
-    npc = n.represent
+def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons):
+    npc = mock_npc.npc
     npc.take_gift(artifact)
     for e in hero.equipment:
         if e.name == artifact.name:
-            hero.equipment.remove(artifact)
+            hero.equipment.remove(e)
     equipment_buttons.remove(artifact)
 
 

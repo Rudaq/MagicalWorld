@@ -12,7 +12,6 @@ class Artifact(pygame.sprite.Sprite):
         self.rect.x = 0
         self.rect.y = 0
         self.clicked = False
-        self.clicked_counter = 0
 
     def show(self, x, y, all_artifacts, screen):
         self.rect.x = x
