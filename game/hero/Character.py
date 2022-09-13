@@ -51,6 +51,9 @@ class Character(pygame.sprite.Sprite):
         self.set_start_centerx = True
         self.set_start_centery = True
 
+        self.had_collision = False
+        self.last_direction = 'D'
+
         self.sprite_type = 'hero'
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
@@ -65,85 +68,23 @@ class Character(pygame.sprite.Sprite):
 
     def collision(self, all_sprites_group, sprites_to_move_opposite):
         is_collision = False
-
+        collision_occurred = False
+        collision_direction = 'D'
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.rect):
+                collision_occurred = True
+                if not self.had_collision:
+                    collision_direction = self.direction
+                else:
+                    collision_direction = self.last_direction
+                print(collision_direction)
 
-                # direction RIGHT
-                if self.rect.right <= sprite.rect.left + 25:
-                    print("RIGHT COLLISION")
-                    if self.direction == 'R':  # moving right
-                        all_sprites_group.offset.x += 0
-                        is_collision = True
+                if collision_direction == self.direction:
+                    all_sprites_group.offset.x -= 0
+                    is_collision = True
 
-                    elif self.direction == 'L':  # moving left
-                        is_collision = False
-                        return is_collision, all_sprites_group
-
-                    if self.direction == 'D':  # moving down
-                        is_collision = False
-                        return is_collision, all_sprites_group
-
-                    elif self.direction == 'U':  # moving up
-                        is_collision = False
-                        return is_collision, all_sprites_group
-
-                # LEFT
-                elif self.rect.left <= sprite.rect.right + 25:
-                    print("LEFT COLLISION")
-                    if self.direction == 'R':  # moving right
-                        return is_collision, all_sprites_group
-
-                    elif self.direction == 'L':  # moving left
-                        all_sprites_group.offset.x += 0
-
-                    if self.direction == 'D':  # moving down
-                        return is_collision, all_sprites_group
-
-                    elif self.direction == 'U':  # moving up
-                        return is_collision, all_sprites_group
-
-                # DOWN
-                # if self.rect.bottom >= sprite.rect.top + 25:
-                #     print("DOWN COLLISION")
-                #     if self.direction == 'R':  # moving right
-                #         is_collision = False
-                #         return is_collision, all_sprites_group
-                #
-                #     elif self.direction == 'L':  # moving left
-                #         is_collision = False
-                #         return is_collision, all_sprites_group
-                #
-                #     if self.direction == 'D':  # moving down
-                #         print("GAGA ")
-                #         all_sprites_group.offset.y += 0
-                #
-                #     elif self.direction == 'U':  # moving up
-                #         is_collision = False
-                #         return is_collision, all_sprites_group
-
-                # UP
-                if self.rect.top <= sprite.rect.bottom + 25:
-                    print(self.rect.top, sprite.rect.bottom)
-                    print("UP COLLISION")
-                    if self.direction == 'R':  # moving right
-                        return is_collision, all_sprites_group
-
-                    elif self.direction == 'L':  # moving left
-                        return is_collision, all_sprites_group
-
-                    if self.direction == 'D':  # moving down
-                        return is_collision, all_sprites_group
-
-                    elif self.direction == 'U':  # moving up
-                        print("RA RA RA RA RA")
-                        all_sprites_group.offset.y -= 0
-
-                is_collision = True
-
+        self.had_collision = collision_occurred
         return is_collision, all_sprites_group
-
-
 
     # One common function for throwing out particles for all heroes
     def attack(self, screen, npcs):

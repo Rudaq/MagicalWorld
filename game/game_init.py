@@ -107,7 +107,7 @@ def create_map(all_sprites_group, collision_sprites, sprites_to_move_opposite):
 
                     if style == 'boundary_hero':
                         # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
-                        Tile((x, y),[sprites_to_move_opposite] ,[collision_sprites], 'invisible', (0, 0), bound)
+                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible', (0, 0), bound)
 
                     # if style == 'object':
                     #     surf = graphics['objects'][int(tile)]
@@ -194,6 +194,9 @@ def game(hero):
     hero.rect.centery = screen.get_size()[1]/2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
+
+    prev_movement = False
+
     # Main game loop
 
 
@@ -218,8 +221,12 @@ def game(hero):
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
 
+        if not hero.had_collision:
+            hero.last_direction = hero.direction
         if keys_pressed[K_LEFT]:
             hero.direction = 'L'
+
+
             is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
             if not is_collision:
                 all_sprites_group.offset.x -= 8
@@ -230,6 +237,7 @@ def game(hero):
 
         elif keys_pressed[K_RIGHT]:
             hero.direction = 'R'
+
             is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
             if not is_collision:
                 all_sprites_group.offset.x += 8
@@ -240,6 +248,7 @@ def game(hero):
 
         elif keys_pressed[K_DOWN]:
             hero.direction = 'D'
+
             is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
             if not is_collision:
                 all_sprites_group.offset.y += 8
@@ -250,6 +259,7 @@ def game(hero):
 
         elif keys_pressed[K_UP]:
             hero.direction = 'U'
+
             is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
             if not is_collision:
                 all_sprites_group.offset.y -= 8
@@ -257,8 +267,6 @@ def game(hero):
                 for sprite in sprites_to_move_opposite:
                     sprite.rect.centery += 8
                     sprite.direction = 'D'
-
-        # hero.hitbox.center = hero.rect.center
 
         # Event support - quiting, movement
         for event in pygame.event.get():
