@@ -3,7 +3,9 @@ from NLP.dialog_generation.GenerateNpcDialog import draw_text
 from game.settings import GUI_IMAGES, BLACK
 import pygame
 import math
+from artifacts.NpcRepresent import NpcRepresent
 from datetime import datetime
+import copy
 
 
 def show_equipment_name(screen, equipment):
@@ -34,24 +36,9 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
             counter = -1
         x += 70
         counter += 1
-    # for i in hero.equipment:
-    #     eq = ButtonClass(60, 60, i.name)
-    #     image = pygame.transform.scale(i.image, (60, 60))
-    #     eq.image = image
-    #     eq.rect.x = x
-    #     eq.rect.y = y
-    #     screen.blit(image, (eq.rect.x, eq.rect.y))
-    #     equipment_buttons.add(eq)
-    #     equipment_buttons.update()
-    #     equipment_buttons.draw(screen)
-    #     if counter == 2:
-    #         y += 65
-    #         x = pos - 30
-    #         counter = -1
-    #     x += 70
-    #     counter += 1
 
-def show_table_to_hero(screen):
+
+def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
     distance = math.floor(screen.get_size()[0] / 5)
     chest_pos = 2 * distance
     pos = chest_pos - 400
@@ -61,26 +48,26 @@ def show_table_to_hero(screen):
     text = 'Choose NPC to which you wanna give an artifact:'
     draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
-    # x = pos + 40
-    # y = 220
-    # counter = 0
-    #
-    # for i in hero.equipment:
-    #     eq = ButtonClass(60, 60, i.name)
-    #     image = pygame.transform.scale(i.image, (60, 60))
-    #     eq.image = image
-    #     eq.rect.x = x
-    #     eq.rect.y = y
-    #     screen.blit(image, (eq.rect.x, eq.rect.y))
-    #     equipment_buttons.add(eq)
-    #     equipment_buttons.update()
-    #     equipment_buttons.draw(screen)
-    #     if counter == 2:
-    #         y += 65
-    #         x = pos - 30
-    #         counter = -1
-    #     x += 70
-    #     counter += 1
+    x = pos + 20
+    y = 150
+    counter = 0
+
+    for npc in npcs:
+        npc_represent = NpcRepresent(npc)
+        # image = pygame.transform.scale(npc.image, (60, 60))
+        # copy_npc.image = image
+        npc_represent.rect.x = x
+        npc_represent.rect.y = y
+        screen.blit(npc_represent.image, (npc_represent.rect.x, npc_represent.rect.y))
+        npcs_to_choose.add(npc_represent)
+        npcs_to_choose.update()
+        npcs_to_choose.draw(screen)
+        if counter == 6:
+            y += 65
+            x = pos - 30
+            counter = -1
+        x += 55
+        counter += 1
 
 
 def time_to_chest_be_opened(restore_time_passed):

@@ -171,6 +171,11 @@ def game(hero):
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
+# list of NPC's from which hero can select to who give an artifact
+    npcs_to_choose = pygame.sprite.Group()
+    npcs_to_choose.update()
+    npcs_to_choose.draw(screen)
+
     # Creating npcs
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites)
@@ -464,9 +469,8 @@ def game(hero):
                 if equipment.rect.collidepoint(mouse_point):
                     show_equipment_name(screen, equipment)
 
-
         if show_table:
-            show_table_to_hero(screen)
+            show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose)
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True
