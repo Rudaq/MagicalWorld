@@ -52,6 +52,7 @@ class Character(pygame.sprite.Sprite):
         self.set_start_centery = True
 
         self.sprite_type = 'hero'
+        self.artifacts = pygame.sprite.Group()
 
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
@@ -182,3 +183,5 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
+
+

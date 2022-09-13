@@ -16,7 +16,7 @@ from game.npc.Npc import Npc
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
-    show_table_to_hero
+    show_table_to_hero, give_artifact_to_npc
 from settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
@@ -149,6 +149,8 @@ def game(hero):
     show_chest = False
     chest_opened = False
     show_table = False
+    chosen_artifact = None
+    give_artifact = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
@@ -409,8 +411,14 @@ def game(hero):
                     equipment.clicked_counter += 1
                     if equipment.clicked_counter % 2 == 1:
                         show_table = True
+                        chosen_artifact = equipment
                     else:
                         show_table = False
+            for n in npcs_to_choose:
+                if n.rect.collidepoint(mouse_point):
+                    give_artifact_to_npc(hero, n, chosen_artifact, equipment_buttons)
+                    show_table = False
+
 
         # Set previous state of left mouse button
         prev = left

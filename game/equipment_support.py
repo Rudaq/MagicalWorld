@@ -21,7 +21,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     counter = 0
 
     for eq in hero.equipment:
-       # eq = ButtonClass(60, 60, i.name)
+        # eq = ButtonClass(60, 60, i.name)
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
         eq.rect.x = x
@@ -70,10 +70,18 @@ def show_table_to_hero(screen, hero, npcs, equipment_buttons, npcs_to_choose):
         counter += 1
 
 
+def give_artifact_to_npc(hero, n, artifact, equipment_buttons):
+    npc = n.represent
+    npc.take_gift(artifact)
+    for e in hero.equipment:
+        if e.name == artifact.name:
+            hero.equipment.remove(artifact)
+    equipment_buttons.remove(artifact)
+
+
 def time_to_chest_be_opened(restore_time_passed):
     time_diff = datetime.now() - restore_time_passed
     time_sec = time_diff.total_seconds()
-    # print("time_start", restore_life_time_passed)
 
     time_to_display = 1 - time_sec
     if time_to_display <= 0:

@@ -19,6 +19,7 @@ class Npc(Character):
         self.add_npc_to_hud = False
         self.can_talk = None
         self.sprite_type = 'npc'
+        self.race = 'npc'
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -180,3 +181,7 @@ class Npc(Character):
                 step *= 2
                 self.direction = "D"
                 self.rect.y += step
+
+    def take_gift(self, artifact):
+        self.artifacts.add(artifact)
+        print(self.race + ": Thank you for your gift")
