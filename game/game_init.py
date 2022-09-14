@@ -48,6 +48,8 @@ class Tile(pygame.sprite.Sprite):
         else:
             self.rect = self.image.get_rect(topleft=pos)
 
+        self.rect = self.image.get_rect(topleft=pos)
+
         if inflation is not None:
             self.hitbox = self.rect.inflate(inflation[0], inflation[1])
         else:
@@ -195,8 +197,6 @@ def game(hero):
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
 
-    prev_movement = False
-
     # Main game loop
 
 
@@ -221,13 +221,10 @@ def game(hero):
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
 
-        if not hero.had_collision:
-            hero.last_direction = hero.direction
         if keys_pressed[K_LEFT]:
             hero.direction = 'L'
 
-
-            is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
+            is_collision, all_sprites_group = hero.collision(all_sprites_group)
             if not is_collision:
                 all_sprites_group.offset.x -= 8
 
@@ -238,7 +235,7 @@ def game(hero):
         elif keys_pressed[K_RIGHT]:
             hero.direction = 'R'
 
-            is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
+            is_collision, all_sprites_group = hero.collision(all_sprites_group)
             if not is_collision:
                 all_sprites_group.offset.x += 8
 
@@ -249,7 +246,7 @@ def game(hero):
         elif keys_pressed[K_DOWN]:
             hero.direction = 'D'
 
-            is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
+            is_collision, all_sprites_group = hero.collision(all_sprites_group)
             if not is_collision:
                 all_sprites_group.offset.y += 8
 
@@ -260,7 +257,7 @@ def game(hero):
         elif keys_pressed[K_UP]:
             hero.direction = 'U'
 
-            is_collision, all_sprites_group = hero.collision(all_sprites_group, sprites_to_move_opposite)
+            is_collision, all_sprites_group = hero.collision(all_sprites_group)
             if not is_collision:
                 all_sprites_group.offset.y -= 8
 
