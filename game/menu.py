@@ -10,6 +10,7 @@ from NLP.description_generation.main import generate_text_about_character
 from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS
 import os
 from pathlib import Path
+
 full_path = os.getcwd()
 path = str(Path(full_path).parents[0])
 pygame.init()

@@ -8,7 +8,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk
-from game.game_support import hero_in_dialog_or_talk
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc
 from game.game_support import create_npc, talk, fight
 from game.hud_component import update_hud
@@ -369,33 +369,35 @@ def game(hero):
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
-                    counter += 1
-                    # check if NPC is clicked or / unclicked
-                    if counter % 2 == 1:
-                        chosen_npc = npc
-                        npc_clicked = True
-                        # show NPC's life on hud
-                        chosen_npc.add_npc_to_hud = True
-                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                   restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc, chest_opened)
-                        all_sprites_group.update()
+                    # checking if hero is in npc's range in order to interact
+                    if npc_in_interaction_range(npc, hero.rect.centerx, hero.rect.centery):
+                        counter += 1
+                        # check if NPC is clicked or / unclicked
+                        if counter % 2 == 1:
+                            chosen_npc = npc
+                            npc_clicked = True
+                            # show NPC's life on hud
+                            chosen_npc.add_npc_to_hud = True
+                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                                       restore_mana_time_passed,
+                                       restore_life_time_passed, chosen_npc, chest_opened)
+                            all_sprites_group.update()
 
-                    else:
-                        npc_clicked = False
-                        # remove NPC's life from hud
-                        chosen_npc.add_npc_to_hud = False
-                        # Stop talking or fighting
-                        if chosen_npc.is_talking:
-                            stop_talk(hero, chosen_npc)
+                        else:
+                            npc_clicked = False
+                            # remove NPC's life from hud
+                            chosen_npc.add_npc_to_hud = False
+                            # Stop talking or fighting
+                            if chosen_npc.is_talking:
+                                stop_talk(hero, chosen_npc)
 
-                        if chosen_npc.in_fight_mode:
-                            stop_fight(hero, chosen_npc)
+                            if chosen_npc.in_fight_mode:
+                                stop_fight(hero, chosen_npc)
 
-                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                   restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc, chest_opened)
-                        all_sprites_group.update()
+                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                                       restore_mana_time_passed,
+                                       restore_life_time_passed, chosen_npc, chest_opened)
+                            all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
