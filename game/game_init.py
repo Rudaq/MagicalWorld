@@ -174,10 +174,13 @@ def game(hero):
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
-# list of NPC's from which hero can select to who give an artifact
+#list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
     npcs_to_choose.update()
     npcs_to_choose.draw(screen)
+    mock_npcs_to_choose = pygame.sprite.Group()
+    mock_npcs_to_choose.update()
+    mock_npcs_to_choose.draw(screen)
 
     # Creating npcs
     for npc_entity in NPCs:
@@ -193,6 +196,7 @@ def game(hero):
 
         mock_npc = MockNpc(npc)
         npcs_to_choose.add(mock_npc)
+        mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
 
     hero.rect.centerx = screen.get_size()[0] / 2
@@ -215,6 +219,14 @@ def game(hero):
 
         all_artifacts.update()
         all_artifacts.draw(screen)
+        #
+        # npcs_to_choose = pygame.sprite.Group()
+        # for npc in npcs:
+        #     if npc_in_interaction_range(npc, hero):
+        #         mock_npc = MockNpc(npc)
+        #         npcs_to_choose.add(mock_npc)
+        #
+        # npcs_to_choose.update()
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -370,7 +382,7 @@ def game(hero):
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
                     # checking if hero is in npc's range in order to interact
-                    if npc_in_interaction_range(npc, hero.rect.centerx, hero.rect.centery):
+                    if npc_in_interaction_range(npc, hero):
                         counter += 1
                         # check if NPC is clicked or / unclicked
                         if counter % 2 == 1:
@@ -420,7 +432,7 @@ def game(hero):
                         show_table = not show_table
                         if show_table:
                             chosen_artifact = equipment
-            for mock_npc in npcs_to_choose:
+            for mock_npc in mock_npcs_to_choose:
                 if mock_npc.rect.collidepoint(mouse_point):
                     give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
                     show_table = False
@@ -484,7 +496,7 @@ def game(hero):
                     show_equipment_name(screen, equipment)
 
         if show_table:
-            show_table_to_hero(screen, npcs_to_choose)
+            show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True

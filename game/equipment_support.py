@@ -5,6 +5,7 @@ import pygame
 import math
 from artifacts.MockNpc import MockNpc
 from datetime import datetime
+from game_support import npc_in_interaction_range
 import copy
 
 
@@ -38,40 +39,97 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
         counter += 1
 
 
-def show_table_to_hero(screen, npcs_to_choose):
+# def show_table_to_hero(screen, npcs, npcs_to_choose, mock_npc_to_choose, hero):
+#     distance = math.floor(screen.get_size()[0] / 5)
+#     chest_pos = 2 * distance
+#     pos = chest_pos - 400
+#     # chest jest 300 x 300
+#     # table 400 X 200
+#
+#     x = pos + 20
+#     y = 150
+#     counter = 0
+#     check = 0
+#     image = GUI_IMAGES['table']
+#
+#     if len(npcs_to_choose) > 0:
+#         for mock_npc in npcs_to_choose:
+#             if npc_in_interaction_range(mock_npc.npc, hero):
+#
+#                 image = pygame.transform.scale(image, (400, 150 + check * 60))
+#                 screen.blit(image, (pos, 100))
+#
+#                 text = 'Choose NPC to which you wanna give a gift:'
+#                 draw_text(text, pos + 10, 110, 13, BLACK, screen)
+#
+#                 mock_npc.rect.x = x
+#                 mock_npc.rect.y = y
+#                 npcs_to_choose.update()
+#                 npcs_to_choose.draw(screen)
+#                 print(mock_npc.npc.race)
+#                 if counter == 6:
+#                     y += 65
+#                     x = pos - 35
+#                     counter = -1
+#                     check += 1
+#
+#                 x += 55
+#                 counter += 1
+#     else:
+#         image = pygame.transform.scale(image, (400, 100))
+#         screen.blit(image, (pos, 100))
+#         text = 'You have to get closer to the NPC to give him a gift ...'
+#         draw_text(text, pos + 10, 110, 13, BLACK, screen)
+
+
+def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
     distance = math.floor(screen.get_size()[0] / 5)
     chest_pos = 2 * distance
     pos = chest_pos - 400
-    # chest jest 300 x 300
-    # table 400 X 200
 
     x = pos + 20
     y = 150
     counter = 0
     check = 0
+    image = GUI_IMAGES['table']
 
-    for mock_npc in npcs_to_choose:
+    for npc in npcs_to_choose:
+        if npc_in_interaction_range(npc.npc, hero):
+            if npc not in mock_npc_to_choose:
+                mock_npc_to_choose.add(npc)
+        else:
+            mock_npc_to_choose.remove(npc)
 
-        image = GUI_IMAGES['table']
-        image = pygame.transform.scale(image, (400, 150 + check * 60))
+    for mock_npc in mock_npc_to_choose:
+        if mock_npc not in npcs_to_choose:
+            mock_npc_to_choose.remove(mock_npc)
+
+    if len(mock_npc_to_choose) > 0:
+        for mock_npc in mock_npc_to_choose:
+            image = pygame.transform.scale(image, (400, 150 + check * 60))
+            screen.blit(image, (pos, 100))
+
+            text = 'Choose NPC to which you wanna give a gift:'
+            draw_text(text, pos + 10, 110, 13, BLACK, screen)
+
+            mock_npc.rect.x = x
+            mock_npc.rect.y = y
+            mock_npc_to_choose.update()
+            mock_npc_to_choose.draw(screen)
+
+            if counter == 6:
+                y += 65
+                x = pos - 35
+                counter = -1
+                check += 1
+
+            x += 55
+            counter += 1
+    else:
+        image = pygame.transform.scale(image, (400, 50))
         screen.blit(image, (pos, 100))
-
-        text = 'Choose NPC to which you wanna give an artifact:'
+        text = 'You have to get closer to the NPC to give him a gift ...'
         draw_text(text, pos + 10, 110, 13, BLACK, screen)
-
-        mock_npc.rect.x = x
-        mock_npc.rect.y = y
-        npcs_to_choose.update()
-        npcs_to_choose.draw(screen)
-        print(mock_npc.npc.race)
-        if counter == 6:
-            y += 65
-            x = pos - 35
-            counter = -1
-            check += 1
-
-        x += 55
-        counter += 1
 
 
 def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons):

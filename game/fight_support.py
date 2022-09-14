@@ -41,8 +41,6 @@ def remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen):
         if mock.npc == npc:
             npcs_to_choose.remove(mock)
             npcs_to_choose.update()
-           # npcs_to_choose.draw(screen)
-    #npcs_to_choose.remove(npc)
     all_sprites_group.remove(npc)
     npc.kill()
     all_sprites_group.update()
