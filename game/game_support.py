@@ -75,83 +75,83 @@ def create_character(chosen_name, chosen_type, chosen_side):
 
 def create_quest(NPC, quest_name):
     if NPC.race == "Dark Wizard":
-        quest = Quest(DARK_WIZARDS_QUESTS[quest_name[0]], DARK_WIZARDS_QUESTS[quest_name[1]], DARK_WIZARDS_QUESTS[quest_name[2]], DARK_WIZARDS_QUESTS[quest_name[3]], DARK_WIZARDS_QUESTS[quest_name[4]], DARK_WIZARDS_QUESTS[quest_name[5]], DARK_WIZARDS_QUESTS[quest_name[6]])
+        quest = Quest(DARK_WIZARDS_QUESTS[quest_name][0], DARK_WIZARDS_QUESTS[quest_name][1], DARK_WIZARDS_QUESTS[quest_name][2], DARK_WIZARDS_QUESTS[quest_name][3], DARK_WIZARDS_QUESTS[quest_name][4], DARK_WIZARDS_QUESTS[quest_name][5], DARK_WIZARDS_QUESTS[quest_name][6])
     elif NPC.race == "Mermaid":
-        quest = Quest(MERMAIDS_QUESTS[quest_name[0]], MERMAIDS_QUESTS[quest_name[1]], MERMAIDS_QUESTS[quest_name[2]], MERMAIDS_QUESTS[quest_name[3]], MERMAIDS_QUESTS[quest_name[4]], MERMAIDS_QUESTS[quest_name[5]], MERMAIDS_QUESTS[quest_name[6]])
+        quest = Quest(MERMAIDS_QUESTS[quest_name][0], MERMAIDS_QUESTS[quest_name][1], MERMAIDS_QUESTS[quest_name][2], MERMAIDS_QUESTS[quest_name][3], MERMAIDS_QUESTS[quest_name][4], MERMAIDS_QUESTS[quest_name][5], MERMAIDS_QUESTS[quest_name][6])
     elif NPC.race == "Orc":
-        quest = Quest(ORCS_QUESTS[quest_name[0]], ORCS_QUESTS[quest_name[1]], ORCS_QUESTS[quest_name[2]], ORCS_QUESTS[quest_name[3]], ORCS_QUESTS[quest_name[4]], ORCS_QUESTS[quest_name[5]], ORCS_QUESTS[quest_name[6]])
+        quest = Quest(ORCS_QUESTS[quest_name][0], ORCS_QUESTS[quest_name][1], ORCS_QUESTS[quest_name][2], ORCS_QUESTS[quest_name][3], ORCS_QUESTS[quest_name][4], ORCS_QUESTS[quest_name][5], ORCS_QUESTS[quest_name][6])
     elif NPC.race == "Vampire":
-        quest = Quest(VAMPIRE_QUESTS[quest_name[0]], VAMPIRE_QUESTS[quest_name[1]], VAMPIRE_QUESTS[quest_name[2]], VAMPIRE_QUESTS[quest_name[3]], VAMPIRE_QUESTS[quest_name[4]], VAMPIRE_QUESTS[quest_name[5]], VAMPIRE_QUESTS[quest_name[6]])
+        quest = Quest(VAMPIRE_QUESTS[quest_name][0], VAMPIRE_QUESTS[quest_name][1], VAMPIRE_QUESTS[quest_name][2], VAMPIRE_QUESTS[quest_name][3], VAMPIRE_QUESTS[quest_name][4], VAMPIRE_QUESTS[quest_name][5], VAMPIRE_QUESTS[quest_name][6])
     elif NPC.race == "Panda":
-        quest = Quest(PANDAS_QUESTS[quest_name[0]], PANDAS_QUESTS[quest_name[1]], PANDAS_QUESTS[quest_name[2]],
-                      PANDAS_QUESTS[quest_name[3]], PANDAS_QUESTS[quest_name[4]], PANDAS_QUESTS[quest_name[5]],
-                      PANDAS_QUESTS[quest_name[6]])
+        quest = Quest(PANDAS_QUESTS[quest_name][0], PANDAS_QUESTS[quest_name][1], PANDAS_QUESTS[quest_name][2],
+                      PANDAS_QUESTS[quest_name][3], PANDAS_QUESTS[quest_name][4], PANDAS_QUESTS[quest_name][5],
+                      PANDAS_QUESTS[quest_name][6])
     elif NPC.race == "Faerie":
-        quest = Quest(FEARIES_QUESTS[quest_name[0]], FEARIES_QUESTS[quest_name[1]], FEARIES_QUESTS[quest_name[2]],
-                      FEARIES_QUESTS[quest_name[3]], FEARIES_QUESTS[quest_name[4]], FEARIES_QUESTS[quest_name[5]],
-                      FEARIES_QUESTS[quest_name[6]])
+        quest = Quest(FEARIES_QUESTS[quest_name][0], FEARIES_QUESTS[quest_name][1], FEARIES_QUESTS[quest_name][2],
+                      FEARIES_QUESTS[quest_name][3], FEARIES_QUESTS[quest_name][4], FEARIES_QUESTS[quest_name][5],
+                      FEARIES_QUESTS[quest_name][6])
     elif NPC.race == "Earth Elemental":
-        quest = Quest(EARTH_ELEMENTAL_QUESTS[quest_name[0]], EARTH_ELEMENTAL_QUESTS[quest_name[1]], EARTH_ELEMENTAL_QUESTS[quest_name[2]],
-                      EARTH_ELEMENTAL_QUESTS[quest_name[3]], EARTH_ELEMENTAL_QUESTS[quest_name[4]], EARTH_ELEMENTAL_QUESTS[quest_name[5]],
-                      EARTH_ELEMENTAL_QUESTS[quest_name[6]])
+        quest = Quest(EARTH_ELEMENTAL_QUESTS[quest_name][0], EARTH_ELEMENTAL_QUESTS[quest_name][1], EARTH_ELEMENTAL_QUESTS[quest_name][2],
+                      EARTH_ELEMENTAL_QUESTS[quest_name][3], EARTH_ELEMENTAL_QUESTS[quest_name][4], EARTH_ELEMENTAL_QUESTS[quest_name][5],
+                      EARTH_ELEMENTAL_QUESTS[quest_name][6])
     elif NPC.race == "Dark Elf":
-        quest = Quest(DARK_ELVES_QUESTS[quest_name[0]], DARK_ELVES_QUESTS[quest_name[1]], DARK_ELVES_QUESTS[quest_name[2]],
-                      DARK_ELVES_QUESTS[quest_name[3]], DARK_ELVES_QUESTS[quest_name[4]], DARK_ELVES_QUESTS[quest_name[5]],
-                      DARK_ELVES_QUESTS[quest_name[6]])
+        quest = Quest(DARK_ELVES_QUESTS[quest_name][0], DARK_ELVES_QUESTS[quest_name][1], DARK_ELVES_QUESTS[quest_name][2],
+                      DARK_ELVES_QUESTS[quest_name][3], DARK_ELVES_QUESTS[quest_name][4], DARK_ELVES_QUESTS[quest_name][5],
+                      DARK_ELVES_QUESTS[quest_name][6])
     elif NPC.race == "Elf":
-        quest = Quest(ELVES_QUESTS[quest_name[0]], ELVES_QUESTS[quest_name[1]], ELVES_QUESTS[quest_name[2]],
-                      ELVES_QUESTS[quest_name[3]], ELVES_QUESTS[quest_name[4]], ELVES_QUESTS[quest_name[5]],
-                      ELVES_QUESTS[quest_name[6]])
+        quest = Quest(ELVES_QUESTS[quest_name][0], ELVES_QUESTS[quest_name][1], ELVES_QUESTS[quest_name][2],
+                      ELVES_QUESTS[quest_name][3], ELVES_QUESTS[quest_name][4], ELVES_QUESTS[quest_name][5],
+                      ELVES_QUESTS[quest_name][6])
     elif NPC.race == "Smith":
-        quest = Quest(SMITHS_QUESTS[quest_name[0]], SMITHS_QUESTS[quest_name[1]], SMITHS_QUESTS[quest_name[2]],
-                      SMITHS_QUESTS[quest_name[3]], SMITHS_QUESTS[quest_name[4]], SMITHS_QUESTS[quest_name[5]],
-                      SMITHS_QUESTS[quest_name[6]])
+        quest = Quest(SMITHS_QUESTS[quest_name][0], SMITHS_QUESTS[quest_name][1], SMITHS_QUESTS[quest_name][2],
+                      SMITHS_QUESTS[quest_name][3], SMITHS_QUESTS[quest_name][4], SMITHS_QUESTS[quest_name][5],
+                      SMITHS_QUESTS[quest_name][6])
     elif NPC.race == "Unicorn":
-        quest = Quest(UNICORN_QUESTS[quest_name[0]], UNICORN_QUESTS[quest_name[1]], UNICORN_QUESTS[quest_name[2]],
-                      UNICORN_QUESTS[quest_name[3]], UNICORN_QUESTS[quest_name[4]], UNICORN_QUESTS[quest_name[5]],
-                      UNICORN_QUESTS[quest_name[6]])
+        quest = Quest(UNICORN_QUESTS[quest_name][0], UNICORN_QUESTS[quest_name][1], UNICORN_QUESTS[quest_name][2],
+                      UNICORN_QUESTS[quest_name][3], UNICORN_QUESTS[quest_name][4], UNICORN_QUESTS[quest_name][5],
+                      UNICORN_QUESTS[quest_name][6])
     elif NPC.race == "Blind Rats":
-        quest = Quest(BLIND_RATS_QUESTS[quest_name[0]], BLIND_RATS_QUESTS[quest_name[1]], BLIND_RATS_QUESTS[quest_name[2]],
-                      BLIND_RATS_QUESTS[quest_name[3]], BLIND_RATS_QUESTS[quest_name[4]], BLIND_RATS_QUESTS[quest_name[5]],
-                      BLIND_RATS_QUESTS[quest_name[6]])
+        quest = Quest(BLIND_RATS_QUESTS[quest_name][0], BLIND_RATS_QUESTS[quest_name][1], BLIND_RATS_QUESTS[quest_name][2],
+                      BLIND_RATS_QUESTS[quest_name][3], BLIND_RATS_QUESTS[quest_name][4], BLIND_RATS_QUESTS[quest_name][5],
+                      BLIND_RATS_QUESTS[quest_name][6])
     elif NPC.race == "Treant":
-        quest = Quest(TREANTS_QUESTS[quest_name[0]], TREANTS_QUESTS[quest_name[1]], TREANTS_QUESTS[quest_name[2]],
-                      TREANTS_QUESTS[quest_name[3]], TREANTS_QUESTS[quest_name[4]], TREANTS_QUESTS[quest_name[5]],
-                      TREANTS_QUESTS[quest_name[6]])
-    elif NPC.rac == "Amazon":
-        quest = Quest(AMAZONS_QUESTS[quest_name[0]], AMAZONS_QUESTS[quest_name[1]], AMAZONS_QUESTS[quest_name[2]],
-                      AMAZONS_QUESTS[quest_name[3]], AMAZONS_QUESTS[quest_name[4]], AMAZONS_QUESTS[quest_name[5]],
-                      AMAZONS_QUESTS[quest_name[6]])
+        quest = Quest(TREANTS_QUESTS[quest_name][0], TREANTS_QUESTS[quest_name][1], TREANTS_QUESTS[quest_name][2],
+                      TREANTS_QUESTS[quest_name][3], TREANTS_QUESTS[quest_name][4], TREANTS_QUESTS[quest_name][5],
+                      TREANTS_QUESTS[quest_name][6])
+    elif NPC.race == "Amazon":
+        quest = Quest(AMAZONS_QUESTS[quest_name][0], AMAZONS_QUESTS[quest_name][1], AMAZONS_QUESTS[quest_name][2],
+                      AMAZONS_QUESTS[quest_name][3], AMAZONS_QUESTS[quest_name][4], AMAZONS_QUESTS[quest_name][5],
+                      AMAZONS_QUESTS[quest_name][6])
     elif NPC.race == "Farmer":
-        quest = Quest(FARMERS_QUESTS[quest_name[0]], FARMERS_QUESTS[quest_name[1]], FARMERS_QUESTS[quest_name[2]],
-                      FARMERS_QUESTS[quest_name[3]], FARMERS_QUESTS[quest_name[4]], FARMERS_QUESTS[quest_name[5]],
-                      FARMERS_QUESTS[quest_name[6]])
+        quest = Quest(FARMERS_QUESTS[quest_name][0], FARMERS_QUESTS[quest_name][1], FARMERS_QUESTS[quest_name][2],
+                      FARMERS_QUESTS[quest_name][3], FARMERS_QUESTS[quest_name][4], FARMERS_QUESTS[quest_name][5],
+                      FARMERS_QUESTS[quest_name][6])
     elif NPC.race == "Big Monke":
-        quest = Quest(BIG_MONKE_QUESTS[quest_name[0]], BIG_MONKE_QUESTS[quest_name[1]], BIG_MONKE_QUESTS[quest_name[2]],
-                      BIG_MONKE_QUESTS[quest_name[3]], BIG_MONKE_QUESTS[quest_name[4]], BIG_MONKE_QUESTS[quest_name[5]],
-                      BIG_MONKE_QUESTS[quest_name[6]])
+        quest = Quest(BIG_MONKE_QUESTS[quest_name][0], BIG_MONKE_QUESTS[quest_name][1], BIG_MONKE_QUESTS[quest_name][2],
+                      BIG_MONKE_QUESTS[quest_name][3], BIG_MONKE_QUESTS[quest_name][4], BIG_MONKE_QUESTS[quest_name][5],
+                      BIG_MONKE_QUESTS[quest_name][6])
     elif NPC.race == "Spirit":
-        quest = Quest(SPIRIT_QUESTS[quest_name[0]], SPIRIT_QUESTS[quest_name[1]], SPIRIT_QUESTS[quest_name[2]],
-                      SPIRIT_QUESTS[quest_name[3]], SPIRIT_QUESTS[quest_name[4]], SPIRIT_QUESTS[quest_name[5]],
-                      SPIRIT_QUESTS[quest_name[6]])
+        quest = Quest(SPIRIT_QUESTS[quest_name][0], SPIRIT_QUESTS[quest_name][1], SPIRIT_QUESTS[quest_name][2],
+                      SPIRIT_QUESTS[quest_name][3], SPIRIT_QUESTS[quest_name][4], SPIRIT_QUESTS[quest_name][5],
+                      SPIRIT_QUESTS[quest_name][6])
     elif NPC.race == "Snowman":
-        quest = Quest(SNOWMAN_QUESTS[quest_name[0]], SNOWMAN_QUESTS[quest_name[1]], SNOWMAN_QUESTS[quest_name[2]],
-                      SNOWMAN_QUESTS[quest_name[3]], SNOWMAN_QUESTS[quest_name[4]], SNOWMAN_QUESTS[quest_name[5]],
-                      SNOWMAN_QUESTS[quest_name[6]])
+        quest = Quest(SNOWMAN_QUESTS[quest_name][0], SNOWMAN_QUESTS[quest_name][1], SNOWMAN_QUESTS[quest_name][2],
+                      SNOWMAN_QUESTS[quest_name][3], SNOWMAN_QUESTS[quest_name][4], SNOWMAN_QUESTS[quest_name][5],
+                      SNOWMAN_QUESTS[quest_name][6])
     elif NPC.race == "Leprechaun":
-        quest = Quest(LEPRECHAUN_QUESTS[quest_name[0]], LEPRECHAUN_QUESTS[quest_name[1]], LEPRECHAUN_QUESTS[quest_name[2]],
-                      LEPRECHAUN_QUESTS[quest_name[3]], LEPRECHAUN_QUESTS[quest_name[4]], LEPRECHAUN_QUESTS[quest_name[5]],
-                      LEPRECHAUN_QUESTS[quest_name[6]])
+        quest = Quest(LEPRECHAUN_QUESTS[quest_name][0], LEPRECHAUN_QUESTS[quest_name][1], LEPRECHAUN_QUESTS[quest_name][2],
+                      LEPRECHAUN_QUESTS[quest_name][3], LEPRECHAUN_QUESTS[quest_name][4], LEPRECHAUN_QUESTS[quest_name][5],
+                      LEPRECHAUN_QUESTS[quest_name][6])
     elif NPC.race == "Big Wolves":
-        quest = Quest(BIG_WOLVES_QUESTS[quest_name[0]], BIG_WOLVES_QUESTS[quest_name[1]], BIG_WOLVES_QUESTS[quest_name[2]],
-                      BIG_WOLVES_QUESTS[quest_name[3]], BIG_WOLVES_QUESTS[quest_name[4]], BIG_WOLVES_QUESTS[quest_name[5]],
-                      BIG_WOLVES_QUESTS[quest_name[6]])
+        quest = Quest(BIG_WOLVES_QUESTS[quest_name][0], BIG_WOLVES_QUESTS[quest_name][1], BIG_WOLVES_QUESTS[quest_name][2],
+                      BIG_WOLVES_QUESTS[quest_name][3], BIG_WOLVES_QUESTS[quest_name][4], BIG_WOLVES_QUESTS[quest_name][5],
+                      BIG_WOLVES_QUESTS[quest_name][6])
 
     else:
-        quest = Quest(DRUID_QUESTS[quest_name[0]], DRUID_QUESTS[quest_name[1]],
-                      DRUID_QUESTS[quest_name[2]], DRUID_QUESTS[quest_name[3]],
-                      DRUID_QUESTS[quest_name[4]], DRUID_QUESTS[quest_name[5]],
-                      DRUID_QUESTS[quest_name[6]])
+        quest = Quest(DRUID_QUESTS[quest_name][0], DRUID_QUESTS[quest_name][1],
+                      DRUID_QUESTS[quest_name][2], DRUID_QUESTS[quest_name][3],
+                      DRUID_QUESTS[quest_name][4], DRUID_QUESTS[quest_name][5],
+                      DRUID_QUESTS[quest_name][6])
 
     return quest
 
@@ -170,7 +170,8 @@ def test_quest(npc, hero):
     if quest_name == "0":
         print("No quest")
     else:
-        npc.give_quest(hero, quest_name)
+        quest = create_quest(npc, quest_name)
+        hero.active_quest = quest
 def import_csv_layout(path):
     terrain_map = []
 
