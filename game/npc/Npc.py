@@ -1,7 +1,7 @@
 import random
 import pygame
 from hero.Character import Character
-
+from game.game_support import create_quest
 
 # Class with characteristics common to all npcs, from which npc classes inherit
 class Npc(Character):
@@ -185,3 +185,8 @@ class Npc(Character):
     def take_gift(self, artifact):
         self.artifacts.add(artifact)
         print(self.race + ": Thank you for your gift")
+
+    def give_quest(self, hero, quest_name):
+        # Test quest
+        quest = create_quest(self, quest_name)
+        hero.active_quest = quest

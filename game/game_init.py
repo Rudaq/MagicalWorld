@@ -8,9 +8,9 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk
-from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range,create_quest
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc
-from game.game_support import create_npc, talk, fight
+from game.game_support import create_npc, talk, fight, test_quest
 from game.hud_component import update_hud
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
@@ -126,12 +126,7 @@ def game(hero):
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
 
-    # Test quest
 
-    quest = Quest(
-        "Go to the place where you found the stone, pour raven blood over it, burn the sage in the sacred fire, release mermaid’s voice and say the incantation to summon the god.",
-        50, [], [], "good", False, 1)
-    hero.active_quest = quest
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
@@ -151,7 +146,6 @@ def game(hero):
     chest_opened = False
     show_table = False
     chosen_artifact = None
-    give_artifact = False
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
@@ -186,6 +180,11 @@ def game(hero):
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites)
 
+    # Test quest
+
+    #
+    # quest = create_quest(DarkWizard, "true_in_blood")
+    # hero.active_quest = quest
     create_map(all_sprites_group, collision_sprites)
 
     for npc in npcs:
@@ -219,14 +218,6 @@ def game(hero):
 
         all_artifacts.update()
         all_artifacts.draw(screen)
-        #
-        # npcs_to_choose = pygame.sprite.Group()
-        # for npc in npcs:
-        #     if npc_in_interaction_range(npc, hero):
-        #         mock_npc = MockNpc(npc)
-        #         npcs_to_choose.add(mock_npc)
-        #
-        # npcs_to_choose.update()
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -390,6 +381,8 @@ def game(hero):
                             npc_clicked = True
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
+                            test_quest(chosen_npc, hero)
+
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
                                        restore_life_time_passed, chosen_npc, chest_opened)
@@ -495,6 +488,7 @@ def game(hero):
                 if equipment.rect.collidepoint(mouse_point):
                     show_equipment_name(screen, equipment)
 
+        # show the table with NPC's from which hero can choose while giving a gift
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
