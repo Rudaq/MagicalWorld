@@ -92,7 +92,7 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
 
 def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons):
     npc = mock_npc.npc
-    npc.take_gift(artifact)
+    npc.take_gift(hero, artifact)
     for e in hero.equipment:
         if e.name == artifact.name:
             hero.equipment.remove(e)

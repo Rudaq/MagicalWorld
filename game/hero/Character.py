@@ -39,10 +39,10 @@ class Character(pygame.sprite.Sprite):
         # dialog variables
         self.hero_turn = False
         self.in_dialog = False
+
         self.in_fight_mode = False
         self.in_attack = False
         self.performing_action = False
-
         self.attack_type = None
         self.attack_direction = 0
 

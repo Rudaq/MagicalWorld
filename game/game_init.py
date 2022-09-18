@@ -7,14 +7,14 @@ from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
-    stop_talk
-from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range,create_quest
-from game.fight_support import set_fight_parameters, stop_fight, remove_npc
-from game.game_support import create_npc, talk, fight, test_quest
+    stop_talk, talk
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
+from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
+from game.game_support import create_npc
 from game.hud_component import update_hud
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero
+from game.quest_support import show_quest_to_hero, create_quest
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
@@ -126,7 +126,6 @@ def game(hero):
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
 
-
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
@@ -168,7 +167,7 @@ def game(hero):
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
-#list of NPC's from which hero can select to who give an artifact
+    # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
     npcs_to_choose.update()
     npcs_to_choose.draw(screen)
@@ -381,7 +380,8 @@ def game(hero):
                             npc_clicked = True
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
-                            test_quest(chosen_npc, hero)
+                            if hero.active_quest is None:
+                                create_quest(chosen_npc, hero)
 
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
@@ -430,7 +430,6 @@ def game(hero):
                     give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
                     show_table = False
 
-
         # Set previous state of left mouse button
         prev = left
         # check the state of chest icon
@@ -446,6 +445,7 @@ def game(hero):
             if npc.life == 0 or npc.life < 0:
                 if npc == chosen_npc:
                     stop_fight(hero, npc)
+                    stop_talk(hero, npc)
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
@@ -491,6 +491,10 @@ def game(hero):
         # show the table with NPC's from which hero can choose while giving a gift
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
+
+        if hero.active_quest is not None:
+            if hero.active_quest.is_done:
+                hero.active_quest = None
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True
