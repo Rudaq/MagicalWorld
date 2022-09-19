@@ -17,6 +17,8 @@ from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact
 from settings import *
+from npc_settings import *
+from quest_settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
 from _csv import reader

@@ -78,18 +78,18 @@ def choose_character():
     # images to be displayed in the menu - (big, small)
     eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/Barbarian_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Dwarf2.png")),
+                                       os.path.join(path, "resources/graphics/characters/barbarian_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")),
                                    pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Wizard2.png")),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard.png")),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/Wizard_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Elf2.png")),
+                                       os.path.join(path, "resources/graphics/characters/wizard_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/elf.png")),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/Elf_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/Faerie.png")),
+                                       os.path.join(path, "resources/graphics/characters/elf_small.png"))),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie.png")),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/Faerie_small.png")))]
+                                       os.path.join(path, "resources/graphics/characters/faerie_small.png")))]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0
@@ -170,7 +170,8 @@ def choose_character():
         if 600 < x < 850:
             if 500 < y < 550 and x >= 600:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-                if left:
+                # return character's details only if the name is inserted
+                if left and len(char_name) > 0:
                     final_type = names[index]
                     final_name = char_name
                     if good:
@@ -223,6 +224,7 @@ def choose_character():
                     # Deleting last letter
                     elif event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                         char_name = char_name[:-1]
+
 
         prev = left
         pygame.display.update()
