@@ -1,4 +1,3 @@
-
 DRUID_QUESTS = {
     'snake_sacrifice_berserker': ["Make the sacrifice to receive the Berserker's blessing", 100, "dead snake",
                                   "Barbarian", "evil", False, 1],

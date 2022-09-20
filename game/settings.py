@@ -2,14 +2,6 @@ import os
 from pathlib import Path
 import pygame as pygame
 
-from game.quest_settings import DRUID_QUESTS
-from npc.DarkWizard import DarkWizard
-from npc.Druid import Druid
-from npc.IceMonster import IceMonster
-from npc.Mermaid import Mermaid
-from npc.Orc import Orc
-from os.path import dirname, realpath, join
-
 current = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
