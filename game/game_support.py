@@ -1,18 +1,23 @@
 import random
+import re
+
 import pygame
 from _csv import reader
 from os import walk
 import os
 from pathlib import Path
+
+from game.map.Tile import Tile
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES
+from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES, TILE_SIZE
 from settings import BLACK
 from dialog_support import talk
 from fight_support import fight
+from re import compile, split
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 current_path = Path(__file__).resolve().parent.parent
@@ -82,12 +87,21 @@ def import_csv_layout(path):
 # getting the whole path for each image
 # folder name, subfolder, img_files
 def import_folder(path):
+    dre = compile(r'(\d+)')
+
     surface_list = []
+    name_images = []
     for _, _, img_files in walk(path):
         for image in img_files:
-            full_path = path + '/' + image
-            image_surf = pygame.image.load(full_path).convert_alpha()
-            surface_list.append(image_surf)
+            name_images.append(image)
+
+    name_images.sort(key=lambda l: [int(s) if s.isdigit() else s.lower() for s in split(dre, l)])
+
+    for image in name_images:
+        full_path = path + '/' + image
+        image_surf = pygame.image.load(full_path).convert_alpha()
+        surface_list.append(image_surf)
+
     return surface_list
 
 
@@ -111,4 +125,6 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
 
     buttons.update()
     buttons.draw(screen)
+
+
 

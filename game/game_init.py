@@ -12,6 +12,8 @@ from game.game_support import hero_in_dialog_or_talk
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc
 from game.game_support import create_npc, talk, fight
 from game.hud_component import update_hud
+from game.map.CameraGroup import CameraGroup
+from game.map.map_support import create_map
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
 from game.quest_support import show_quest_to_hero
@@ -27,33 +29,31 @@ from pathlib import Path
 Main game loop
 '''
 
-TILE_SIZE = 64
-
 current = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", current)
+# print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-print(path)
+# print(path)
 
-
+'''
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, arrays, groups, sprite_type, inflation=(0,0), surface=pygame.Surface((TILE_SIZE, TILE_SIZE))):
+    def __init__(self, pos, arrays, groups, sprite_type, inflation=(0, 0),
+                 surface=pygame.Surface((TILE_SIZE, TILE_SIZE))):
         super(Tile, self).__init__(groups)
         self.sprite_type = sprite_type
         self.image = surface
         self.inflation = inflation
         # inflate - take the rect and change the size
         self.groups = groups
-        if sprite_type == 'object':
+        if sprite_type == 'nature_object':
             self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILE_SIZE))
         else:
             self.rect = self.image.get_rect(topleft=pos)
 
-        self.rect = self.image.get_rect(topleft=pos)
 
-        if inflation is not None:
-            self.hitbox = self.rect.inflate(inflation[0], inflation[1])
-        else:
-            self.hitbox = self.rect
+        # if inflation is not None:
+        #     self.hitbox = self.rect.inflate(inflation[0], inflation[1])
+        # else:
+        #     self.hitbox = self.rect
 
         for array in arrays:
             array.append(self)
@@ -77,28 +77,31 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_offset = 0
 
     def custom_draw(self, hero, npcs, screen):
-            # ground
+        # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
+            if hasattr(sprite, 'sprite_type') and sprite.sprite_type != 'hero':
                 self.display_surf.blit(sprite.image, sprite.rect.topleft)
 
         self.display_surf.blit(hero.image, hero.rect.topleft)
 
 
-def create_map(all_sprites_group, collision_sprites, sprites_to_move_opposite):
+def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/constraints_hero.csv'),
-        'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
+        'boundary_npc': import_csv_layout('resources/map/tilesets/constraints_npc.csv'),
+        'nature_object': import_csv_layout('resources/map/tilesets/trees_rocks_positions.csv'),
+        'harvest_object': import_csv_layout('resources/map/tilesets/harvest_positions.csv'),
     }
     graphics = {
-        'objects': import_folder('../resources/graphics/objects/trees')
+        'trees_rocks': import_folder('../resources/graphics/objects/trees'),
+        'harvest_tiles': import_folder('../resources/graphics/objects/harvest')
     }
 
-    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/player_blocker.png'))
+    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/npc_blocker.png'))
 
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
@@ -108,13 +111,19 @@ def create_map(all_sprites_group, collision_sprites, sprites_to_move_opposite):
                     y = row_index * TILE_SIZE
 
                     if style == 'boundary_hero':
-                        # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
-                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible', (0, 0), bound)
+                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible')
 
-                    # if style == 'object':
-                    #     surf = graphics['objects'][int(tile)]
-                    #     Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
+                    if style == 'boundary_npc':
+                        Tile((x, y), [sprites_to_move_opposite], [npc_boundaries], 'invisible')
 
+                    if style == 'nature_object':
+                        surf = graphics['trees_rocks'][int(tile)]
+                        Tile((x, y), [sprites_to_move_opposite], (all_sprites_group, collision_sprites, npc_boundaries), 'object', (-2,-2), surf)
+
+                    if style == 'harvest_object':
+                        surf = graphics['harvest_tiles'][int(tile)]
+                        Tile((x, y), [sprites_to_move_opposite], (all_sprites_group, collision_sprites, npc_boundaries), 'object', (-2,-2), surf)
+'''
 
 # Main game function
 def game(hero):
@@ -133,6 +142,7 @@ def game(hero):
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
+    npc_boundaries = pygame.sprite.Group()
 
     # Test quest
 
@@ -149,6 +159,14 @@ def game(hero):
     dy = 0
     direct = "U"
     moving = False
+
+    mov = False
+    dir_opposite = 'R'
+    mov_x = 0
+    mov_y = 0
+    sign = 1
+    movement = 'horizontal'
+
     pressed = False
     prev = False
     npc_dialog_thread = None
@@ -181,23 +199,23 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
 
-    create_map(all_sprites_group, collision_sprites, sprites_to_move_opposite)
+    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
+        npc.collision_sprites = npc_boundaries
         sprites_to_move_opposite.extend(npc.artifacts)
 
-    hero.rect.centerx = screen.get_size()[0]/2
-    hero.rect.centery = screen.get_size()[1]/2
+
+    hero.rect.centerx = screen.get_size()[0] / 2
+    hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
-
-    # Main game loop
 
 
     while True:
@@ -206,8 +224,6 @@ def game(hero):
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
-        # hero.update()
-        # all_sprites_group.draw(screen)
 
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                    restore_mana_time_passed,
@@ -215,55 +231,9 @@ def game(hero):
 
         all_artifacts.update()
         all_artifacts.draw(screen)
-        collision_sprites.update()
-        collision_sprites.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
-
-        if keys_pressed[K_LEFT]:
-            hero.direction = 'L'
-
-            is_collision, all_sprites_group = hero.collision(all_sprites_group)
-            if not is_collision:
-                all_sprites_group.offset.x -= 8
-
-                for npc in sprites_to_move_opposite:
-                    npc.rect.centerx += 8
-                    npc.direction = 'R'
-
-        elif keys_pressed[K_RIGHT]:
-            hero.direction = 'R'
-
-            is_collision, all_sprites_group = hero.collision(all_sprites_group)
-            if not is_collision:
-                all_sprites_group.offset.x += 8
-
-                for sprite in sprites_to_move_opposite:
-                    sprite.rect.centerx -= 8
-                    sprite.direction = 'L'
-
-        elif keys_pressed[K_DOWN]:
-            hero.direction = 'D'
-
-            is_collision, all_sprites_group = hero.collision(all_sprites_group)
-            if not is_collision:
-                all_sprites_group.offset.y += 8
-
-                for sprite in sprites_to_move_opposite:
-                    sprite.rect.centery -= 8
-                    sprite.direction = 'U'
-
-        elif keys_pressed[K_UP]:
-            hero.direction = 'U'
-
-            is_collision, all_sprites_group = hero.collision(all_sprites_group)
-            if not is_collision:
-                all_sprites_group.offset.y -= 8
-
-                for sprite in sprites_to_move_opposite:
-                    sprite.rect.centery += 8
-                    sprite.direction = 'D'
 
         # Event support - quiting, movement
         for event in pygame.event.get():
@@ -279,30 +249,40 @@ def game(hero):
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+
                 elif event.key == pygame.K_UP or event.key == pygame.K_w:
-                    direct = "U"
-                    dx = 0
-                    dy = -5
-                    # all_sprites_group.offset.y -= 25
+                    hero.direction = 'U'
+                    movement = 'vertical'
                     moving = True
+                    dir_opposite = 'D'
+                    mov_x = 0
+                    mov_y = HERO_SPEED
+                    sign = (-1)
+
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    direct = "D"
-                    dx = 0
-                    dy = 5
-                    # all_sprites_group.offset.y += 25
+                    hero.direction = 'D'
+                    movement = 'vertical'
                     moving = True
+                    dir_opposite = 'U'
+                    mov_x = 0
+                    mov_y = HERO_SPEED
+                    sign = 1
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    direct = "R"
-                    dx = 5
-                    dy = 0
-                    # all_sprites_group.offset.x += 25
+                    hero.direction = 'R'
+                    movement = 'horizontal'
                     moving = True
+                    dir_opposite = 'L'
+                    mov_x = HERO_SPEED
+                    mov_y = 0
+                    sign = 1
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    direct = "L"
-                    dx = -5
-                    dy = 0
-                    # all_sprites_group.offset.x -= 25
+                    hero.direction = 'L'
+                    movement = 'horizontal'
                     moving = True
+                    dir_opposite = 'R'
+                    mov_x = HERO_SPEED
+                    mov_y = 0
+                    sign = (-1)
                 elif event.key == pygame.K_1 and hero.in_fight_mode:
                     option = 1
                     set_fight_parameters(hero)
@@ -350,9 +330,9 @@ def game(hero):
                             hero.hero_turn = False
                             update_positions_and_transparency(hero.text_history)
 
-        # Moving hero
-        # if moving:
-        #     hero.move(direct, dx, dy)
+        if moving:
+            hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
+                      sprites_to_move_opposite)
 
         # Random movement of npcs if not in dialog
         for npc in npcs:

@@ -11,7 +11,7 @@ class Npc(Character):
         self.is_talking = False
         self.quests_to_give = quests
         self.movement = [0, 0, 0]
-        self.text = ">> "
+        self.text = '> '
         self.image = self.images['down']
         self.collision_sprites = collision_sprites
         self.rect = self.image.get_rect(topleft=pos)
@@ -19,13 +19,14 @@ class Npc(Character):
         self.add_npc_to_hud = False
         self.can_talk = None
         self.sprite_type = 'npc'
+        self.groups = groups
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("I'm NPC")
 
     # Method for randomly moving the npc
-    def move(self, direction="R", dx=0, dy=0):
+    def move(self, direction='R', dx=0, dy=0):
         step = 2
 
         # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
@@ -44,21 +45,21 @@ class Npc(Character):
                 # Moving right
                 if self.movement[1] == 0:
                     self.rect.x += step
-                    self.direction = "R"
+                    self.direction = 'R'
                 # Moving down
                 else:
                     self.rect.y += step
-                    self.direction = "D"
+                    self.direction = 'D'
             elif self.movement[0] < 0:
                 self.movement[0] += 1
                 # Moving left
                 if self.movement[1] == 0:
                     self.rect.x -= step
-                    self.direction = "L"
+                    self.direction = 'L'
                 # Moving right
                 else:
                     self.rect.y -= step
-                    self.direction = "U"
+                    self.direction = 'U'
             # Waiting by a number of randomly selected iteration, before another random call
             elif self.movement[0] == 0:
                 self.movement[2] -= 1
@@ -81,7 +82,7 @@ class Npc(Character):
     def fight_npc(self, screen, hero, npcs):
         counter = random.randint(1, 25)
         if counter == 4:
-            if self.attack_type == None:
+            if self.attack_type is None:
                 self.attack_type = self.npc_attack
 
                 if hero.direction == 'D':
@@ -148,35 +149,35 @@ class Npc(Character):
     # function for NPC' movement while fighting
     def move_in_fight(self, hero):
         step = random.randint(1, 4)
-        if hero.direction == "L":
+        if hero.direction == 'L':
             if hero.mana > 0:
                 self.rect.x += step
-                self.direction = "R"
+                self.direction = 'R'
             else:
                 step *= 2
                 self.rect.x -= step
-                self.direction = "L"
-        elif hero.direction == "U":
+                self.direction = 'L'
+        elif hero.direction == 'U':
             if hero.mana > 0:
                 self.rect.y += step
-                self.direction = "D"
+                self.direction = 'D'
             else:
                 step *= 2
                 self.rect.y -= step
-                self.direction = "U"
-        elif hero.direction == "R":
+                self.direction = 'U'
+        elif hero.direction == 'R':
             if hero.mana > 0:
-                self.direction = "L"
+                self.direction = 'L'
                 self.rect.x -= step
             else:
                 step *= 2
-                self.direction = "R"
+                self.direction = 'R'
                 self.rect.x += step
         else:
             if hero.mana > 0:
-                self.direction = "U"
+                self.direction = 'U'
                 self.rect.y -= step
             else:
                 step *= 2
-                self.direction = "D"
+                self.direction = 'D'
                 self.rect.y += step

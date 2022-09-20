@@ -19,7 +19,7 @@ class Character(pygame.sprite.Sprite):
         self.collision_sprites = collision_sprites
         self.groups = groups
         self.inflation = inflation
-        self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
+        self.rect = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.speed = 5
 
         self.name = name
@@ -60,18 +60,26 @@ class Character(pygame.sprite.Sprite):
         self.collisions_down = []
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
-    def move(self, direction, dx, dy):
-        self.direction = direction
-        self.hitbox.x += dx * 5
-        self.collision('horizontal')
-        self.hitbox.y += dy * 5
-        self.collision('vertical')
+    def move(self, direction, dir_opposite, mov_x, mov_y, sign, all_sprites_group, sprites_to_move_opposite):
+        is_collision, all_sprites_group = self.collision(all_sprites_group)
 
-        self.rect.center = self.hitbox.center
+        if not is_collision:
+            if direction == 'horizontal':
+                all_sprites_group.offset.x += mov_x * sign
+            elif direction == 'vertical':
+                all_sprites_group.offset.y += mov_y * sign
+
+            for sprite in sprites_to_move_opposite:
+                if direction == 'horizontal':
+                    sprite.rect.centerx += mov_x * sign * (-1)
+                elif direction == 'vertical':
+                    sprite.rect.centery += mov_y * sign * (-1)
+                sprite.direction = dir_opposite
 
     def collision(self, all_sprites_group):
         is_collision = False
         collision_occurred = False
+
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.rect):
                 collision_occurred = True
@@ -209,6 +217,7 @@ class Character(pygame.sprite.Sprite):
                 self.mana -= self.attack_type.mana
                 self.attack_type.size = 5
                 self.performing_action = True
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("HELLO")

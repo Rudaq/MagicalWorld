@@ -14,9 +14,13 @@ path = Path(__file__).resolve().parent.parent
 MENU_WIDTH = 800
 MENU_HEIGHT = 600
 
+TILE_SIZE = 64
+
 WIDTH_GAME = 1500
 HEIGHT_GAME = 800
 DIALOG_START = 100
+
+HERO_SPEED = 20
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
