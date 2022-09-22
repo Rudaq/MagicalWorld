@@ -58,7 +58,7 @@ PANDAS_QUESTS = {
     'spiders_gone': ["Beat the spiders that pandas are scared of", 100, None, "Wizard", "evil", False, 1]
 }
 
-FEARIES_QUESTS = {
+FAERIES_QUESTS = {
     'kill_spiders': ["Save faeries from ugly, evil spiders!", 100, "spider's fang", "Barbarian", "good", False, 1],
     'the_thief': ["find and beat the thief of the Greatest Gem of the Dwarven Empire", 100,
                   "the Greatest Gem of the Dwarven Empire", "Dwarf", "good", False, 1],

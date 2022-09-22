@@ -197,7 +197,7 @@ def game(hero):
     #
     # quest = create_quest(DarkWizard, "true_in_blood")
     # hero.active_quest = quest
-    create_map(all_sprites_group, collision_sprites)
+    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx

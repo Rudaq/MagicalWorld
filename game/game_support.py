@@ -13,8 +13,6 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
-from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES, TILE_SIZE
 from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
 from npc_settings import NPCs
 from settings import BLACK
