@@ -1,3 +1,4 @@
+
 # Class modelling a quest (to be discussed)
 # quests - short description, points, artifacts, whose quest, side, is_done flag, priority of the quest
 class Quest:

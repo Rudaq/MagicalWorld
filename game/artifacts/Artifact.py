@@ -2,6 +2,7 @@ import pygame
 
 import pygame.sprite
 
+
 class Artifact(pygame.sprite.Sprite):
     def __init__(self, image, points, name):
         super().__init__()

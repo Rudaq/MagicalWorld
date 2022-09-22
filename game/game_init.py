@@ -20,6 +20,8 @@ from game.quest_support import show_quest_to_hero, create_quest
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
+from npc_settings import *
+from quest_settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
 from _csv import reader
@@ -46,21 +48,11 @@ class Tile(pygame.sprite.Sprite):
         self.inflation = inflation
         # inflate - take the rect and change the size
         self.groups = groups
-        if sprite_type == 'nature_object':
-            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILE_SIZE))
+        if sprite_type == 'object':
+            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILESIZE))
         else:
             self.rect = self.image.get_rect(topleft=pos)
-
-
-        # if inflation is not None:
-        #     self.hitbox = self.rect.inflate(inflation[0], inflation[1])
-        # else:
-        #     self.hitbox = self.rect
-
-        for array in arrays:
-            array.append(self)
-        for group in groups:
-            group.add(self)
+        self.hitbox = self.rect.inflate(inflation[0], inflation[1])
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -219,11 +211,8 @@ def game(hero):
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
 
-
-    hero.rect.centerx = screen.get_size()[0] / 2
-    hero.rect.centery = screen.get_size()[1] / 2
-    hero.rect.centerx = screen.get_size()[0] / 2
-    hero.rect.centery = screen.get_size()[1] / 2
+    hero.rect.centerx = screen.get_size()[0]/2
+    hero.rect.centery = screen.get_size()[1]/2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
 
@@ -234,6 +223,8 @@ def game(hero):
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
+        # hero.update()
+        # all_sprites_group.draw(screen)
 
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                    restore_mana_time_passed,
