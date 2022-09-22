@@ -1,7 +1,7 @@
 import random
 import pygame
 
-SPRITE_SIZE = 64
+SPRITE_SIZE = 50
 
 
 # Class with characteristics common to all races, from which race classes inherit
@@ -19,7 +19,7 @@ class Character(pygame.sprite.Sprite):
         self.collision_sprites = collision_sprites
         self.groups = groups
         self.inflation = inflation
-        self.rect = self.rect.inflate(self.inflation[0], self.inflation[1])
+        self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.speed = 5
 
         self.name = name
@@ -39,10 +39,10 @@ class Character(pygame.sprite.Sprite):
         # dialog variables
         self.hero_turn = False
         self.in_dialog = False
+
         self.in_fight_mode = False
         self.in_attack = False
         self.performing_action = False
-
         self.attack_type = None
         self.attack_direction = 0
 
@@ -52,6 +52,8 @@ class Character(pygame.sprite.Sprite):
         self.set_start_centery = True
 
         self.sprite_type = 'hero'
+        self.artifacts = pygame.sprite.Group()
+
         self.sprite_colliding = []
         self.directions_of_collisions = []
         self.collisions_right = []

@@ -20,6 +20,7 @@ class Npc(Character):
         self.can_talk = None
         self.sprite_type = 'npc'
         self.groups = groups
+        self.race = 'npc'
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -181,3 +182,14 @@ class Npc(Character):
                 step *= 2
                 self.direction = 'D'
                 self.rect.y += step
+
+    def take_gift(self, hero, artifact):
+        self.artifacts.add(artifact)
+        if hero.active_quest is not None \
+                and hero.active_quest.npc == self.race \
+                and hero.active_quest.artifacts == artifact.name:
+            print(self.race + ": Your quest is completed!")
+            hero.points += hero.active_quest.points
+            hero.active_quest.is_done = True
+        else:
+            print(self.race + ": Thank you for your gift")

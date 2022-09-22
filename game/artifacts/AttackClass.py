@@ -25,6 +25,9 @@ class AttackClass(pygame.sprite.Sprite):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.05
 
+    def set_acceleration(self, acceleration):
+        self.acceleration = acceleration
+
     def check_if_correct_distance(self, hero, npc):
         # if hero.direction == "U":
         #     if self.start_y + self.size <= npc.rect.bottomleft[1]:

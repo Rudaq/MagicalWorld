@@ -13,8 +13,10 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
+from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
 from settings import NPCs, HERO_ANIMATIONS, GUI_IMAGES, TILE_SIZE
 from settings import BLACK
+from math import dist
 from dialog_support import talk
 from fight_support import fight
 from re import compile, split
@@ -128,3 +130,12 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
 
 
 
+
+# checking the distance between hero and chosen npc
+def npc_in_interaction_range(chosen_npc, hero):
+    distance = dist((chosen_npc.rect.x, chosen_npc.rect.y), (hero.rect.centerx, hero.rect.centery))
+    # if the distance in straight line is smaller than 120 px then the interaction is possible
+    if distance > 3 * TILES_SIZE:
+        return False
+    else:
+        return True
