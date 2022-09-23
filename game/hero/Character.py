@@ -31,7 +31,6 @@ class Character(pygame.sprite.Sprite):
 
         self.direction = "U"
 
-        self.active_quest = active_quest
         self.my_text = ''
         self.text_history = []
         self.last_position = 175
@@ -60,6 +59,22 @@ class Character(pygame.sprite.Sprite):
         self.collisions_left = []
         self.collisions_up = []
         self.collisions_down = []
+
+        self.quests = []
+        self.active_quest = None
+
+    # method to return active quest
+    def set_active_quest(self):
+        if len(self.quests) > 0:
+            self.active_quest = self.quests[0]
+        else:
+            print("Your mission is completed! Congratulations!")
+            self.active_quest = None
+
+    def take_next_quest(self):
+        self.points += self.active_quest.points
+        self.quests.pop()
+        self.set_active_quest()
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
     def move(self, direction, dir_opposite, mov_x, mov_y, sign, all_sprites_group, sprites_to_move_opposite):
@@ -90,7 +105,8 @@ class Character(pygame.sprite.Sprite):
 
                     if len(self.sprite_colliding) > 0:
                         self.sprite_colliding.append(sprite)
-                        if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[-2].rect.x == sprite.rect.x:
+                        if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
+                            -2].rect.x == sprite.rect.x:
                             if self.rect.left > sprite.rect.left:
                                 self.collisions_left.append(sprite)
                                 self.directions_of_collisions.append('L')
@@ -98,7 +114,8 @@ class Character(pygame.sprite.Sprite):
                                 self.collisions_right.append(sprite)
                                 self.directions_of_collisions.append('R')
 
-                        elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[-2].rect.y == sprite.rect.y:
+                        elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[
+                            -2].rect.y == sprite.rect.y:
                             if self.rect.top > sprite.rect.top:
                                 self.collisions_up.append(sprite)
                                 self.directions_of_collisions.append('U')
@@ -187,7 +204,7 @@ class Character(pygame.sprite.Sprite):
                 self.mana -= self.attack_type.mana
                 self.performing_action = True
 
-# function for throwing a weapon for Barbarian, Elf and Dwarf
+    # function for throwing a weapon for Barbarian, Elf and Dwarf
     def use_weapon(self, screen, npcs):
         if self.performing_action:
             # self.chosen_spell.size = 5

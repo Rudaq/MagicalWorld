@@ -117,5 +117,4 @@ def stop_talk(hero, chosen_npc):
 # function for taking random answers for NPC's who cannot talk
 def generate_random_answer():
     i = random.randint(1, len(RANDOM_ANSWERS))
-    print(len(RANDOM_ANSWERS))
     return RANDOM_ANSWERS[i]

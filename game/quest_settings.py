@@ -58,16 +58,16 @@ PANDAS_QUESTS = {
     'spiders_gone': ["Beat the spiders that pandas are scared of", 100, None, "Wizard", "evil", False, 1]
 }
 
-FAERIES_QUESTS = {
-    'kill_spiders': ["Save faeries from ugly, evil spiders!", 100, "spider's fang", "Barbarian", "good", False, 1],
-    'the_thief': ["find and beat the thief of the Greatest Gem of the Dwarven Empire", 100,
-                  "the Greatest Gem of the Dwarven Empire", "Dwarf", "good", False, 1],
-    'kill_the_gorilla': ["Kill the gorilla that hunts the fairies and get the magic dust from them", 100, "magic dust",
-                         "Elf", "good", False, 1],
-    'find_immortality_flower': ["Find the lost Flower of Immortality that was stolen by the Dwarf", 100,
-                                "a magical flower and piece of paper", "Fearie", "good", False, 1],
-    'mud_swimming': ["swim in a swamp to regain all your magical power", 100, "mud", "Wizard", "good", False, 1]
-}
+# FAERIES_QUESTS = {
+#     'kill_spiders': ["Save faeries from ugly, evil spiders!", 100, "spider's fang", "Barbarian", "good", False, 1],
+#     'the_thief': ["find and beat the thief of the Greatest Gem of the Dwarven Empire", 100,
+#                   "the Greatest Gem of the Dwarven Empire", "Dwarf", "good", False, 1],
+#     'kill_the_gorilla': ["Kill the gorilla that hunts the fairies and get the magic dust from them", 100, "magic dust",
+#                          "Elf", "good", False, 1],
+#     'find_immortality_flower': ["Find the lost Flower of Immortality that was stolen by the Dwarf", 100,
+#                                 "a magical flower and piece of paper", "Fearie", "good", False, 1],
+#     'mud_swimming': ["swim in a swamp to regain all your magical power", 100, "mud", "Wizard", "good", False, 1]
+# }
 
 AMAZONS_QUESTS = {
     'deadly_dragon_fangs': ["Kill the dragon and bring its fang back", 100, "dragon's fang", "Dwarf", "good", False, 1],
@@ -162,4 +162,20 @@ LEPRECHAUN_QUESTS = {
 BIG_WOLVES_QUESTS = {
     'sacrifice': ["Sacrifice one of your belongings in order to get through the pack of wolves", 100, None, "Dwarf",
                   "evil", False, 1]
+}
+
+QUESTS = {
+    'Faerie': {
+        'evil': {
+                1 : ['kill_unicorn', 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to do it.', 50,
+                     [['unicorn_horn', "Unicorns are powerful creatures... They are friendly, but who knows ... Maybe then they will use their power against us. Better not let that happen! Go and kill the unicorn and bring its horn back to me", 'Unicorn Horn', 'Dark Wizard', 5]],
+                     ]
+
+    },
+        'good': {
+
+        }
+
+    }
+
 }

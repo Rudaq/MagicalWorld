@@ -186,10 +186,16 @@ class Npc(Character):
     def take_gift(self, hero, artifact):
         self.artifacts.add(artifact)
         if hero.active_quest is not None \
-                and hero.active_quest.npc == self.race \
-                and hero.active_quest.artifacts == artifact.name:
+                and hero.active_quest.active_task is not None \
+                and hero.active_quest.active_task.npc == self.race \
+                and hero.active_quest.active_task.artifact == artifact.name:
             print(self.race + ": Your quest is completed!")
-            hero.points += hero.active_quest.points
-            hero.active_quest.is_done = True
+            hero.active_quest.task_completed(hero)
         else:
             print(self.race + ": Thank you for your gift")
+
+    def give_quest(self, hero):
+        if hero.active_quest.active_task is None:
+            for task in hero.active_quest.tasks:
+                if task.npc == self.race:
+                    hero.active_quest.set_active_task()

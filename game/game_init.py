@@ -15,8 +15,8 @@ from game.hud_component import update_hud
 from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
 from game.npc.Npc import Npc
-from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero, create_quest
+from game.quest.Task import Task
+from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
@@ -28,6 +28,7 @@ from _csv import reader
 import os
 from pathlib import Path
 from artifacts.MockNpc import MockNpc
+from quest_support import create_quests
 
 '''
 Main game loop
@@ -193,6 +194,8 @@ def game(hero):
 
     create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
     # Test quest
+    create_quests(hero)
+
 
     #
     # quest = create_quest(DarkWizard, "true_in_blood")
@@ -380,9 +383,8 @@ def game(hero):
                             npc_clicked = True
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
-                            if hero.active_quest is None:
-                                create_quest(chosen_npc, hero)
 
+                            chosen_npc.give_quest(hero)
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
                                        restore_life_time_passed, chosen_npc, chest_opened)
@@ -392,12 +394,10 @@ def game(hero):
                             npc_clicked = False
                             # remove NPC's life from hud
                             chosen_npc.add_npc_to_hud = False
-                            # Stop talking or fighting
-                            if chosen_npc.is_talking:
-                                stop_talk(hero, chosen_npc)
+                            # Stop talking and fighting
+                            stop_talk(hero, chosen_npc)
 
-                            if chosen_npc.in_fight_mode:
-                                stop_fight(hero, chosen_npc)
+                            stop_fight(hero, chosen_npc)
 
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
