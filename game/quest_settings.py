@@ -168,10 +168,15 @@ QUESTS = {
     'Faerie': {
         'evil': {
                 1 : ['kill_unicorn', 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to do it.', 50,
-                     [['unicorn_horn', "Unicorns are powerful creatures... They are friendly, but who knows ... Maybe then they will use their power against us. Better not let that happen! Go and kill the unicorn and bring its horn back to me", 'Unicorn Horn', 'Dark Wizard', 5]],
-                     ]
+                     [['unicorn_horn', "Unicorns are powerful creatures... They are friendly, but who knows ... Maybe then they will use their power against us. Better not let that happen! Go and kill the unicorn and bring its horn back to me", 'Unicorn Horn', 'Dark Wizard', 'Dark Wizard', None, None, 5]],
+                     ],
+                2: ['smiths_tools', 'You are a brave warrior. You can gain great fame by helping creatures in all lands. The Druid has a job for you, go to him for the rest of the details.', 50,
+                    [['tools', 'Druid: I need Mermaid Blood to work... I used to have them, but a Ice Monster stole them from me! Go to him and tell him to give the Mermaid Blood back!', 'Mermaid Blood', 'Druid', 'Druid', 'Ice Monster', None, 10],
+                    ['dark_wizard_blood', 'Ice Monster: I will give you my Mermaid Blood, but first you need to help me with the Dark Wizard. He stole the Mermaids necklace from me, bring me back it from him!', 'Mermaid Necklace', 'Ice Monster', 'Ice Monster', 'Dark Wizard', 'Mermaid Blood', 10],
+                     ['mermaid_necklace', 'Dark Wizard: I will give you a necklace, but first you need to go to the Orc and bring me his blood back!', 'Orc Blood', 'Dark Wizard', 'Dark Wizard', None, 'Mermaid Necklace', 15]]
+                    ]
 
-    },
+            },
         'good': {
 
         }

@@ -183,19 +183,24 @@ class Npc(Character):
                 self.direction = 'D'
                 self.rect.y += step
 
-    def take_gift(self, hero, artifact):
+    def take_gift(self, hero, artifact, npcs):
         self.artifacts.add(artifact)
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \
-                and hero.active_quest.active_task.npc == self.race \
-                and hero.active_quest.active_task.artifact == artifact.name:
-            print(self.race + ": Your quest is completed!")
-            hero.active_quest.task_completed(hero)
+                and hero.active_quest.active_task.artifact == artifact.name \
+                and hero.active_quest.active_task.npc_take_artifact == self.race:
+                print(self.race + ": Your quest is completed!")
+                hero.active_quest.task_completed(hero, npcs)
         else:
             print(self.race + ": Thank you for your gift")
 
     def give_quest(self, hero):
         if hero.active_quest.active_task is None:
             for task in hero.active_quest.tasks:
-                if task.npc == self.race:
+                if task.npc_give_task == self.race:
                     hero.active_quest.set_active_task()
+        elif hero.active_quest.active_task.next_npc == self.race:
+            print("set next active task")
+            hero.active_quest.set_next_active_task(hero)
+
+

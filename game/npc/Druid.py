@@ -26,4 +26,7 @@ class Druid(Npc):
         druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')
 
+   # Method move to stop mermaid from moving (not moving; on the beach)
+    def move(self, direction="R", dx=0, dy=0):
+        pass
 

@@ -394,10 +394,12 @@ def game(hero):
                             npc_clicked = False
                             # remove NPC's life from hud
                             chosen_npc.add_npc_to_hud = False
-                            # Stop talking and fighting
-                            stop_talk(hero, chosen_npc)
+                            # Stop talking or fighting
+                            if chosen_npc.is_talking:
+                                stop_talk(hero, chosen_npc)
 
-                            stop_fight(hero, chosen_npc)
+                            if chosen_npc.in_fight_mode:
+                                stop_fight(hero, chosen_npc)
 
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
@@ -427,8 +429,9 @@ def game(hero):
                             chosen_artifact = equipment
             for mock_npc in mock_npcs_to_choose:
                 if mock_npc.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs)
                     show_table = False
+                    show_chest = False
 
         # Set previous state of left mouse button
         prev = left

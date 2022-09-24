@@ -62,18 +62,26 @@ class Character(pygame.sprite.Sprite):
 
         self.quests = []
         self.active_quest = None
+        self.skipped_quests = []
 
     # method to return active quest
     def set_active_quest(self):
         if len(self.quests) > 0:
             self.active_quest = self.quests[0]
+            print(self.active_quest.name)
         else:
             print("Your mission is completed! Congratulations!")
             self.active_quest = None
 
     def take_next_quest(self):
         self.points += self.active_quest.points
-        self.quests.pop()
+        print("1: ")
+        for t in self.quests:
+            print(t.name)
+        self.quests.remove(self.active_quest)
+        print("2: ")
+        for t in self.quests:
+            print(t.name)
         self.set_active_quest()
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
@@ -265,3 +273,13 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
+
+    def take_gift_from_npc(self, npc, npcs, gift):
+
+        for n in npcs:
+            if n.race == npc:
+                for artifact in n.artifacts:
+                    if artifact.name == gift:
+                        n.artifacts.remove(artifact)
+                        self.equipment.append(artifact)
+            break
