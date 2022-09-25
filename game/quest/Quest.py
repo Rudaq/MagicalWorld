@@ -18,21 +18,17 @@ class Quest:
 
     def set_active_task(self):
         if len(self.tasks) > 0:
-            print("not next uest")
             self.active_task = self.tasks[0]
         else:
             self.hero.take_next_quest()
-            print("next uest")
             self.active_task = None
-
 
     def task_completed(self, hero, npcs):
         hero.points += self.active_task.points
         self.active_task.is_done = True
-        print("in task completed")
+
         if self.active_task.gift is not None:
             hero.take_gift_from_npc(self.active_task.npc_take_artifact, npcs, self.active_task.gift)
-            print("gift not none")
 
         self.tasks.remove(self.active_task)
 
@@ -43,19 +39,11 @@ class Quest:
         else:
             self.set_active_task()
 
-
-
-    def set_next_active_task(self, hero):
+    def set_next_active_task(self):
         self.skipped_tasks.append(self.active_task)
-        index = 1
+        index = 0
         for i in range(len(self.tasks) - 1):
             if self.tasks[i] == self.active_task:
                 index = i + 1
                 break
         self.active_task = self.tasks[index]
-
-
-
-
-
-

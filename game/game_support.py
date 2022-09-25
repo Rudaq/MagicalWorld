@@ -1,5 +1,4 @@
 import random
-import re
 
 import pygame
 from _csv import reader
@@ -7,7 +6,6 @@ from os import walk
 import os
 from pathlib import Path
 
-from game.map.Tile import Tile
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
 from hero.Elf import Elf
@@ -17,8 +15,6 @@ from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
 from npc_settings import NPCs
 from settings import BLACK
 from math import dist
-from dialog_support import talk
-from fight_support import fight
 from re import compile, split
 
 path2 = os.path.dirname(os.path.realpath(__file__))
@@ -108,12 +104,12 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
+def hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
 
     # create buttons 'Fight' and 'Talk'
-    buttons = pygame.sprite.Group()
+    # buttons = pygame.sprite.Group()
     fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
     fight_button.rect.x = chosen_npc.rect.x - 40
     fight_button.rect.y = chosen_npc.rect.y - 50
@@ -127,8 +123,6 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
 
     buttons.update()
     buttons.draw(screen)
-
-
 
 
 # checking the distance between hero and chosen npc

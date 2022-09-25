@@ -175,6 +175,7 @@ def game(hero):
     chest_button = ButtonClass(30, 40, 'chest_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
+    buttons = pygame.sprite.Group()
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
@@ -376,35 +377,10 @@ def game(hero):
                 if npc.rect.collidepoint(mouse_point):
                     # checking if hero is in npc's range in order to interact
                     if npc_in_interaction_range(npc, hero):
-                        counter += 1
-                        # check if NPC is clicked or / unclicked
-                        if counter % 2 == 1:
-                            chosen_npc = npc
-                            npc_clicked = True
-                            # show NPC's life on hud
-                            chosen_npc.add_npc_to_hud = True
+                        npc_clicked = not npc_clicked
+                        chosen_npc = npc
+                        chosen_npc.add_npc_to_hud = not chosen_npc.add_npc_to_hud
 
-                            chosen_npc.give_quest(hero)
-                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
-                            all_sprites_group.update()
-
-                        else:
-                            npc_clicked = False
-                            # remove NPC's life from hud
-                            chosen_npc.add_npc_to_hud = False
-                            # Stop talking or fighting
-                            if chosen_npc.is_talking:
-                                stop_talk(hero, chosen_npc)
-
-                            if chosen_npc.in_fight_mode:
-                                stop_fight(hero, chosen_npc)
-
-                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
-                            all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -431,7 +407,6 @@ def game(hero):
                 if mock_npc.rect.collidepoint(mouse_point):
                     give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs)
                     show_table = False
-                    show_chest = False
 
         # Set previous state of left mouse button
         prev = left
@@ -472,9 +447,14 @@ def game(hero):
                 all_sprites_group.update()
 
         if npc_clicked:
+            chosen_npc.give_quest(hero)
+            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                       restore_mana_time_passed,
+                       restore_life_time_passed, chosen_npc, chest_opened)
+            all_sprites_group.update()
             if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
-                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
 
         if hero.in_dialog:

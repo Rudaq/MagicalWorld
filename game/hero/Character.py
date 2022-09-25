@@ -1,6 +1,5 @@
-import random
 import pygame
-
+from game.quest_support import show_quest_to_hero
 SPRITE_SIZE = 50
 
 
@@ -68,20 +67,15 @@ class Character(pygame.sprite.Sprite):
     def set_active_quest(self):
         if len(self.quests) > 0:
             self.active_quest = self.quests[0]
-            print(self.active_quest.name)
+            self.active_quest.active_task = None
+
         else:
             print("Your mission is completed! Congratulations!")
             self.active_quest = None
 
     def take_next_quest(self):
         self.points += self.active_quest.points
-        print("1: ")
-        for t in self.quests:
-            print(t.name)
         self.quests.remove(self.active_quest)
-        print("2: ")
-        for t in self.quests:
-            print(t.name)
         self.set_active_quest()
 
     # Method to move - changes direction, adds or subtracts value on the x or y coordinates
@@ -256,8 +250,21 @@ class Character(pygame.sprite.Sprite):
             return False
         else:
             self.equipment.append(artifact)
-            self.points += artifact.points
+            #self.points += artifact.points
             return True
+
+    def take_gift_from_npc(self, npc, npcs, gift):
+        print(gift)
+        print(npc)
+        for n in npcs:
+            print(n.race)
+            if n.race == npc:
+                for artifact in n.artifacts:
+                    print(artifact)
+                    if artifact.name == gift:
+                        n.artifacts.remove(artifact)
+                        print("taking gift..")
+                        self.collect_artifact(artifact)
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):
@@ -274,12 +281,4 @@ class Character(pygame.sprite.Sprite):
         if self.mana <= 100 - value:
             self.mana += value
 
-    def take_gift_from_npc(self, npc, npcs, gift):
 
-        for n in npcs:
-            if n.race == npc:
-                for artifact in n.artifacts:
-                    if artifact.name == gift:
-                        n.artifacts.remove(artifact)
-                        self.equipment.append(artifact)
-            break

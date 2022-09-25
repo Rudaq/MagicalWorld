@@ -1,6 +1,7 @@
 import random
 import pygame
 from hero.Character import Character
+from game.quest_support import show_quest_to_hero
 
 
 # Class with characteristics common to all npcs, from which npc classes inherit
@@ -189,18 +190,18 @@ class Npc(Character):
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
-                print(self.race + ": Your quest is completed!")
-                hero.active_quest.task_completed(hero, npcs)
+            print(self.race + ": Your quest is completed!")
+            hero.active_quest.task_completed(hero, npcs)
         else:
             print(self.race + ": Thank you for your gift")
 
     def give_quest(self, hero):
-        if hero.active_quest.active_task is None:
-            for task in hero.active_quest.tasks:
-                if task.npc_give_task == self.race:
-                    hero.active_quest.set_active_task()
-        elif hero.active_quest.active_task.next_npc == self.race:
-            print("set next active task")
-            hero.active_quest.set_next_active_task(hero)
-
-
+        if hero.active_quest.active_task is not None:
+            print(hero.active_quest.active_task.name)
+        if hero.active_quest.active_task is None \
+                and hero.active_quest.tasks[0].npc_give_task == self.race:
+            hero.active_quest.set_active_task()
+        elif hero.active_quest.active_task is not None \
+                and hero.active_quest.active_task.next_npc == self.race:
+            print(hero.active_quest.active_task.name)
+            hero.active_quest.set_next_active_task()
