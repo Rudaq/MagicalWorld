@@ -111,6 +111,7 @@ def create_map(all_sprites_group, collision_sprites):
                         Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
 '''
 
+
 # Main game function
 def game(hero):
     # pygame initialization
@@ -211,11 +212,10 @@ def game(hero):
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
 
-    hero.rect.centerx = screen.get_size()[0]/2
-    hero.rect.centery = screen.get_size()[1]/2
+    hero.rect.centerx = screen.get_size()[0] / 2
+    hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
-
 
     while True:
         screen.fill(GREEN)
