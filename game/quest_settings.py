@@ -163,7 +163,7 @@ BIG_WOLVES_QUESTS = {
     'sacrifice': ["Sacrifice one of your belongings in order to get through the pack of wolves", 100, None, "Dwarf",
                   "evil", False, 1]
 }
-
+'''
 QUESTS = {
     'Faerie': {
         'evil': {
@@ -181,6 +181,193 @@ QUESTS = {
 
         }
 
+    }
+
+}
+'''
+
+QUESTS = {
+    # Barbarian #
+
+    # Quest 1 - True Barbarian
+    'true_barbarian': {
+        'side': 'good',
+        'description': 'You have just become a newly trained Barbarian. You are young and strong, but you are missing '
+                       'a certain thing that will make you a true barbarian. It is time for you to get your own '
+                       'powerful weapon that will accompany you to the end of your days. To find out more, '
+                       'find a blacksmith in the village and ask him for details.',
+        'points': 20,
+        'tasks': [
+            {
+                'name': 'new_weapon',
+                'description': 'A brave and mighty warrior like you needs a powerful weapon. But for that, you will '
+                               'need a magical crystal that is guarded by fairies. Head to their land, '
+                               'where various magical creatures lurk, and find a magic crystal to upgrade your '
+                               'sword, some of the faeries can be helpful. Take it to the blacksmith and show '
+                               'patience.',
+                'artefact': 'magical_crystal',
+                'points': 15,
+                'npc_give_task ': 'Smith',
+                'npc_take_artifact ': 'Smith',
+                'next_npc ': 'Faerie',
+                'gift': 'new_sword'
+            },
+            {
+                'name': 'evil_spiders',
+                'description': 'One of the dark spiders, dared to enter the land of fairies and ate one of us! As '
+                               'fairies, we are a very tasty snack. What is worse, the news spread and now other '
+                               'spiders are trying to invade our magical territory. Help us by killing at least 3 '
+                               'spiders and bringing to us their fang. Then you will get the magical crystal.',
+                'artefact': 'spider_fang',
+                'points': 10,
+                'npc_give_task ': 'Faerie',
+                'npc_take_artifact ': 'Faerie',
+                'next_npc ': None,
+                'gift': 'magical_crystal'
+            }
+        ]
+    },
+    # Quest 2 - Prove your worth
+    'prove_worth': {
+        'side': 'good',
+        'description': 'Now that you have a powerful weapon, it\'s time to make use of it. Head to the nearby lands '
+                       'and see if you can be of some service to the people there, starting with the village of the '
+                       'Great People.',
+        'points': 40,
+        'tasks': [
+            {
+                'name': 'save_the_villagers',
+                'description': 'Oh no! The blacksmith has run out of materials with which to build a new house for '
+                               'the settlers, if he doesn\'t get stones as soon as possible, the villagers will get '
+                               'sick from lack of a roof over their heads or worse, die…Stones… it sounds similar to '
+                               'the Earth Element from the Desolation of Abomination.',
+                'artefact': 'stones',
+                'points': 10,
+                'npc_give_task ': 'Smith',
+                'npc_take_artifact ': 'Smith',
+                'next_npc ': None,
+                'gift': None
+            },
+            {
+                'name': 'kill_ravens',
+                'description': 'For several days now, Big Ravens have been destroying the villagers\' harvest. They '
+                               'can\'t cope with them alone and need a big strong hero to do the job for them. Kill '
+                               'the ravens and bring its feathers to the Farmer.',
+                'artefact': 'raven_feathers',
+                'points': 15,
+                'npc_give_task ': 'Farmer',
+                'npc_take_artifact ': 'Farmer',
+                'next_npc ': None,
+                'gift': None
+            },
+            {
+                'name': 'feed_wild_tiger',
+                'description': 'Dark times have come, evil is spreading faster and faster through the world and its '
+                               'corruption is infecting various creatures, which are beginning to go wild. Only a '
+                               'brave hero, who has savagery written in his blood, will be able to cure the sick '
+                               'creature. Maybe the tiger is hungry..? After finishing this task, your life will '
+                               'increase by 20.',
+                'artefact': 'raven_meat',
+                'points': 15,
+                'npc_give_task ': 'Amazon',
+                'npc_take_artifact ': 'tiger',
+                'next_npc ': None,
+                'gift': None
+            },
+            {
+                'name': 'tiger_magic_necklace',
+                'description': 'There are rumours that the spiritual connection is one big scam. Show everyone that '
+                               'they are wrong and find your animal in the deep wilderness and convince him to give '
+                               'you one of the magic necklaces, which allows him to communicate with you.',
+                'artefact': 'tiger_necklace',
+                'points': 15,
+                'npc_give_task ': 'Farmer',
+                'npc_take_artifact ': 'Farmer',
+                'next_npc ': None,
+                'gift': None
+            }
+        ]
+    },
+
+    # Quest 1 - Power and disruption
+    'power_and_disruption': {
+        'side': 'evil',
+        'description': '',
+        'points': 30,
+        'tasks': [
+            {
+                'name': 'berserk_blessing',
+                'description': 'To stay in touch with the source of your supernatural power, you must regularly '
+                               'sacrifice the most venomous snake. No one knows where their hiding place is... except '
+                               'the Dark Wizard. Go to him and find out more, try not to come back with a curse. If '
+                               'you would finish the task, your power will increase by 10.',
+                'artefact': 'snake_body',
+                'points': 15,
+                'npc_give_task ': 'Druid',
+                'npc_take_artifact ': 'Druid',
+                'next_npc ': 'Dark Wizard',
+                'gift': None
+            },
+            {
+                'name': 'prove_strength',
+                'description': 'News of your power has spread throughout the land, but there will be those who do not '
+                               'believe it without proof.... Prove the Dark Wizard, one of the most powerful dark '
+                               'beings, wrong, defeat the dragon and bring him his fang. If you\'ll achieve it, '
+                               'maybe he will fulfil one of your wishes.',
+                'artefact': 'dragon_fang',
+                'points': 20,
+                'npc_give_task ': 'Dark Wizard',
+                'npc_take_artifact ': 'Dark Wizard',
+                'next_npc ': None,
+                'gift': 'snake_body'
+            },
+            {
+                'name': 'evil_and_allies',
+                'description': 'Your greatest enemy is the good barbarians, they spread goodness and help... The '
+                               'opposite of what you represent. Don\'t let them be the ones to win this eternal war '
+                               'between the sides of good and evil. Go to the wilderness, find a tiger and bring its '
+                               'fur to the Orc who is your ally.',
+                'artefact': 'tiger_fur',
+                'points': 15,
+                'npc_give_task ': 'Orc',
+                'npc_take_artifact ': 'Orc',
+                'next_npc ': None,
+                'gift': 'unicorn_horn'
+            }
+        ]
+    },
+    # Quest 2 - Money, money, money…
+    'money_money': {
+        'side': 'evil',
+        'description': '',
+        'points': 25,
+        'tasks': [
+            {
+                'name': 'kill_orc',
+                'description': 'The orcs were your allies, but you decided that you want their mace, and they would '
+                               'not voluntarily give it up... Stand in battle with an orc, defeat him and take his '
+                               'mace. Exchange it for gold at the blacksmith.',
+                'artefact': 'orc_mace',
+                'points': 20,
+                'npc_give_task ': 'Smith',
+                'npc_take_artifact ': 'Smith',
+                'next_npc ': None,
+                'gift': 'purple_gem'
+            },
+            {
+                'name': 'never_enough_gold',
+                'description': 'You love gold, and it just so happens that the Leprikons have too much of it, '
+                               'well why do they need so much anyway? If one pot disappears for them nothing will '
+                               'happen... Find a pot of gold that belongs to a Leprechaun and steal it, '
+                               'take the gold, and sell the pot to a dark wizard.',
+                'artefact': 'pot',
+                'points': 5,
+                'npc_give_task ': 'Dark Wizard',
+                'npc_take_artifact ': 'Dark Wizard',
+                'next_npc ': None,
+                'gift': 'magic_potion'
+            }
+        ]
     }
 
 }

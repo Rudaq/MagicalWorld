@@ -39,78 +39,6 @@ current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent
 # print(path)
 
-'''
-class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, arrays, groups, sprite_type, inflation=(0, 0),
-                 surface=pygame.Surface((TILE_SIZE, TILE_SIZE))):
-        super(Tile, self).__init__(groups)
-        self.sprite_type = sprite_type
-        self.image = surface
-        self.inflation = inflation
-        # inflate - take the rect and change the size
-        self.groups = groups
-        if sprite_type == 'object':
-            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILESIZE))
-        else:
-            self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(inflation[0], inflation[1])
-
-
-class CameraGroup(pygame.sprite.Group):
-    def __init__(self):
-        super(CameraGroup, self).__init__()
-        self.display_surf = pygame.display.get_surface()
-
-        # camera offset
-        self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] / 2
-        self.half_h = self.display_surf.get_size()[1] / 2
-
-        # ground
-        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
-        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
-        self.ground_offset = 0
-
-    def custom_draw(self, hero, npcs, screen):
-
-            # ground
-        ground_offset = self.ground_rect.topleft - self.offset
-        self.display_surf.blit(self.ground_surf, ground_offset)
-
-        # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
-                self.display_surf.blit(sprite.image, sprite.rect.topleft)
-
-        self.display_surf.blit(hero.image, hero.rect.topleft)
-
-
-def create_map(all_sprites_group, collision_sprites):
-    layouts = {
-        'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
-        'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
-    }
-    graphics = {
-        'objects': import_folder('../resources/graphics/objects')
-    }
-
-    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/player_blocker.png'))
-
-    for style, layout in layouts.items():
-        for row_index, row in enumerate(layout):
-            for col_index, tile in enumerate(row):
-                if tile != '-1':
-                    x = col_index * 16
-                    y = row_index * 16
-                    # if style == 'boundary_hero':
-                    #     # print(x, y)
-                    #     # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
-                    #     Tile((x, y), collision_sprites, 'invisible', (-5, -4), bound)
-
-                    if style == 'object':
-                        surf = graphics['objects'][int(tile)]
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
-'''
 
 # Main game function
 def game(hero):
@@ -136,12 +64,8 @@ def game(hero):
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
 
-    dx = 0
-    dy = 0
-    direct = "U"
     moving = False
 
-    mov = False
     dir_opposite = 'R'
     mov_x = 0
     mov_y = 0
@@ -221,8 +145,9 @@ def game(hero):
     all_sprites_group.offset.y = 0
 
 
+
     while True:
-        screen.fill(GREEN)
+        screen.blit(SEA, (0, 0))
 
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
