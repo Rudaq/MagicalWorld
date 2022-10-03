@@ -14,18 +14,24 @@ class QuestTypeNotExistException(Exception):
 def create_quests(hero):
     if hero.race == 'Faerie':
         quests_dict_entry = QUESTS.get(hero.race)
+    elif hero.race == 'Elf':
+        quests_dict_entry = QUESTS.get(hero.race)
     if quests_dict_entry:
-        if hero.side == 'evil':
-            parameters = quests_dict_entry.get('evil')
+        if hero.side == 'good':
+            parameters = quests_dict_entry.get('good')
+            index = 0
+            keys = list(parameters.keys())
             for p in parameters:
                 tasks = []
-                for t in parameters[p][3]:
-                    task = Task(t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], hero, False)
+                print(list(parameters.keys())[index])
+                for t in parameters[p]['tasks']:
+                    task = Task(t['name'], t['description'], t['artefact'], t['points'], t['npc_give_task '], t['npc_take_artifact '], t['next_npc '], t['gift'], hero, False)
                     tasks.append(task)
 
-                quest = Quest(parameters[p][0], parameters[p][1], parameters[p][2], tasks, hero, False)
+                quest = Quest(keys[index], parameters[p]['description'], parameters[p]['points'], tasks, hero, False)
 
                 hero.quests.append(quest)
+                index += 1
             hero.set_active_quest()
     else:
         raise QuestTypeNotExistException

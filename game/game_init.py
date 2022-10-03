@@ -416,6 +416,9 @@ def game(hero):
         elif hero.life > 0:
             restore_life = False
 
+
+        print("Active quest: ", hero.active_quest.name)
+
         all_sprites_group.update()
         pygame.display.update()
         clock.tick(60)
