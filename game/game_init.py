@@ -305,6 +305,13 @@ def game(hero):
                         npc_clicked = not npc_clicked
                         chosen_npc = npc
                         chosen_npc.add_npc_to_hud = not chosen_npc.add_npc_to_hud
+                        if not npc_clicked:
+                            stop_talk(hero, chosen_npc)
+                            stop_fight(hero, chosen_npc)
+                            buttons.remove(fight_button)
+                            buttons.remove(talk_button)
+                            buttons.update()
+                            buttons.draw(screen)
 
 
             if arrow_up.rect.collidepoint(mouse_point):

@@ -19,12 +19,12 @@ def create_quests(hero):
             parameters = quests_dict_entry.get('evil')
             for p in parameters:
                 tasks = []
-                for t in parameters[p][3]:
-                    task = Task(t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], hero, False)
+                task_parameters = parameters[p].get('tasks')
+                for t in task_parameters:
+                    task = Task(t.get('name'), t.get('description'), t.get('artefact'), t.get('points'), t.get('npc_give_task'), t.get('npc_take_artifact'), t.get('next_npc'), t.get('gift'), hero, False)
                     tasks.append(task)
 
-                quest = Quest(parameters[p][0], parameters[p][1], parameters[p][2], tasks, hero, False)
-
+                quest = Quest(parameters[p].get('name'), parameters[p].get('description'), parameters[p].get('points'), tasks, hero, False)
                 hero.quests.append(quest)
             hero.set_active_quest()
     else:

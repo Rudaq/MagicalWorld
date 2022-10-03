@@ -1,7 +1,7 @@
 
 # tasks - short description, points, artifacts, whose quest, side, is_done flag, priority of the quest
 class Task:
-    def __init__(self, name, description, artifact, npc_give_task, npc_take_artifact, next_npc, gift, points, hero, is_done):
+    def __init__(self, name, description, artifact, points, npc_give_task, npc_take_artifact, next_npc, gift, hero, is_done):
         self.name = name
         self.description = description
         self.artifact = artifact
