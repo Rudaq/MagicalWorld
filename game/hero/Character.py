@@ -30,7 +30,6 @@ class Character(pygame.sprite.Sprite):
         self.points = 0
 
         self.direction = "U"
-
         self.my_text = ''
         self.text_history = []
         self.last_position = 175
