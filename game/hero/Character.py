@@ -32,7 +32,7 @@ class Character(pygame.sprite.Sprite):
         self.direction = "U"
 
         self.active_quest = active_quest
-        self.my_text = ''
+        self.my_text = ">> "
         self.text_history = []
         self.last_position = 175
 

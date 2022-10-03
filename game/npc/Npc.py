@@ -1,4 +1,6 @@
 import random
+
+import pandas as pd
 import pygame
 from hero.Character import Character
 
@@ -19,6 +21,9 @@ class Npc(Character):
         self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.add_npc_to_hud = False
         self.can_talk = None
+        self.nice_greetings = []
+        self.rude_greetings = []
+        self.load_greetings()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -92,3 +97,14 @@ class Npc(Character):
             x += 50
             artifact.show(x, y, all_artifacts, screen)
         print("dead")
+
+    def load_greetings(self):
+        dataset = pd.read_csv(
+                "C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\Greetings.csv",
+                names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
+
+        for key, text in dataset.iterrows():
+            if text["sentiment"] == '1':
+                self.nice_greetings.append(str(text["greetings"]))
+            else:
+                self.rude_greetings.append(str(text["greetings"]))
