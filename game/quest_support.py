@@ -12,8 +12,7 @@ class QuestTypeNotExistException(Exception):
 
 
 def create_quests(hero):
-    if hero.race == 'Faerie':
-        quests_dict_entry = QUESTS.get(hero.race)
+    quests_dict_entry = QUESTS.get(hero.race)
     if quests_dict_entry:
         if hero.side == 'evil':
             parameters = quests_dict_entry.get('evil')
