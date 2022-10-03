@@ -21,6 +21,8 @@ class Npc(Character):
         self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.add_npc_to_hud = False
         self.can_talk = None
+        self.sprite_type = 'npc'
+        self.groups = groups
         self.nice_greetings = []
         self.rude_greetings = []
         self.load_greetings()
@@ -30,7 +32,7 @@ class Npc(Character):
         print("I'm NPC")
 
     # Method for randomly moving the npc
-    def move(self, direction="R", dx=0, dy=0):
+    def move(self, direction='R', dx=0, dy=0):
         step = 2
 
         # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
@@ -49,21 +51,21 @@ class Npc(Character):
                 # Moving right
                 if self.movement[1] == 0:
                     self.rect.x += step
-                    self.direction = "R"
+                    self.direction = 'R'
                 # Moving down
                 else:
                     self.rect.y += step
-                    self.direction = "D"
+                    self.direction = 'D'
             elif self.movement[0] < 0:
                 self.movement[0] += 1
                 # Moving left
                 if self.movement[1] == 0:
                     self.rect.x -= step
-                    self.direction = "L"
+                    self.direction = 'L'
                 # Moving right
                 else:
                     self.rect.y -= step
-                    self.direction = "U"
+                    self.direction = 'U'
             # Waiting by a number of randomly selected iteration, before another random call
             elif self.movement[0] == 0:
                 self.movement[2] -= 1
@@ -74,29 +76,128 @@ class Npc(Character):
         self.rect.x += dx
         self.rect.y += dy
 
-    def throw(self, side, screen):
-        for i in range(1, 8):
-            if side == "R" or side == "D":
-                self.moveByFaerie("R", 50, -20)
-            else:
-                self.moveByFaerie("L", -50, -20)
-            screen.blit()
-            pygame.display.flip()
-
-        for i in range(1, 16):
-            self.moveByFaerie("D", 0, 10)
-            screen.blit()
-            pygame.display.flip()
-
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
         x = self.rect.x - 100
         y = self.rect.y
-        self.kill()
         for artifact in self.artifacts:
             x += 50
             artifact.show(x, y, all_artifacts, screen)
-        print("dead")
+
+    # One common function for throwing out particles for all NPC's
+    def fight_npc(self, screen, hero, npcs):
+        counter = random.randint(1, 25)
+        if counter == 4:
+            if self.attack_type is None:
+                self.attack_type = self.npc_attack
+
+                if hero.direction == 'D':
+                    self.attack_type.rect.x = self.rect.x
+                    self.attack_type.rect.y = self.rect.y - 30
+                    self.attack_type.image = self.attack_type.image_up
+                elif hero.direction == 'U':
+                    self.attack_type.rect.x = self.rect.x
+                    self.attack_type.rect.y = self.rect.y + 30
+                    self.attack_type.image = self.attack_type.image_down
+                elif hero.direction == 'R':
+                    self.attack_type.rect.x = self.rect.x - 30
+                    self.attack_type.rect.y = self.rect.y
+                    self.attack_type.image = self.attack_type.image_left
+                else:
+                    self.attack_type.rect.x = self.rect.x + 30
+                    self.attack_type.rect.y = self.rect.y
+                    self.attack_type.image = self.attack_type.image_right
+                self.attack_type.size = 50
+                self.attack_type.acceleration = 0.1
+                self.attack_type.start_x = self.attack_type.rect.x
+                self.attack_type.start_y = self.attack_type.rect.y
+
+            self.attack(screen, hero, counter, npcs)
+
+    def attack(self, screen, hero, counter, npcs):
+        if counter == 4 and self.life > 0:
+            self.attack_type.move_attack()
+            if self.attack_type.size < 200:
+                # move particles to the down
+                if self.attack_type.image == self.attack_type.image_down:
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, 50, self.attack_type.size))
+                    self.attack_type.rect.bottomleft = [self.attack_type.start_x,
+                                                        self.attack_type.start_y + self.attack_type.size]
+                # move particles to the up
+                elif self.attack_type.image == self.attack_type.image_up:
+                    self.attack_type.rect.topleft = [self.attack_type.start_x,
+                                                     self.attack_type.start_y - self.attack_type.size]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, 50, self.attack_type.size))
+
+                # move particles to the left
+                elif self.attack_type.image == self.attack_type.image_left:
+                    self.attack_type.rect.topleft = [self.attack_type.start_x - self.attack_type.size,
+                                                     self.attack_type.start_y]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, self.attack_type.size, 50))
+
+                # move particles to the right
+                else:
+                    self.attack_type.rect.topright = [self.attack_type.start_x + self.attack_type.size,
+                                                      self.attack_type.start_y]
+                    screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
+                                (0, 0, self.attack_type.size, 50))
+
+            # check if hero had collision with attack
+            self.attack_type.check_attack_hero_collision(self, hero, npcs)
+
+        else:
+            if self.life > 0:
+                counter == 4
+
+    # function for NPC' movement while fighting
+    def move_in_fight(self, hero):
+        step = random.randint(1, 4)
+        if hero.direction == 'L':
+            if hero.mana > 0:
+                self.rect.x += step
+                self.direction = 'R'
+            else:
+                step *= 2
+                self.rect.x -= step
+                self.direction = 'L'
+        elif hero.direction == 'U':
+            if hero.mana > 0:
+                self.rect.y += step
+                self.direction = 'D'
+            else:
+                step *= 2
+                self.rect.y -= step
+                self.direction = 'U'
+        elif hero.direction == 'R':
+            if hero.mana > 0:
+                self.direction = 'L'
+                self.rect.x -= step
+            else:
+                step *= 2
+                self.direction = 'R'
+                self.rect.x += step
+        else:
+            if hero.mana > 0:
+                self.direction = 'U'
+                self.rect.y -= step
+            else:
+                step *= 2
+                self.direction = 'D'
+                self.rect.y += step
+
+    def take_gift(self, hero, artifact):
+        self.artifacts.add(artifact)
+        if hero.active_quest is not None \
+                and hero.active_quest.npc == self.race \
+                and hero.active_quest.artifacts == artifact.name:
+            print(self.race + ": Your quest is completed!")
+            hero.points += hero.active_quest.points
+            hero.active_quest.is_done = True
+        else:
+            print(self.race + ": Thank you for your gift")
 
     def load_greetings(self):
         dataset = pd.read_csv(

@@ -41,25 +41,21 @@ class Faerie(Character):
                 self.add_life(20)
 
             if self.direction == 'U' and not option == 3:
-                self.attack_direction = 0
                 self.attack_type.rect.x = self.rect.x
                 self.attack_type.rect.y = self.rect.y - 30
                 self.attack_type.image = self.attack_type.image_up
 
             elif self.direction == 'D' or option == 3:
-                self.attack_direction = 1
                 self.attack_type.rect.x = self.rect.x
                 self.attack_type.rect.y = self.rect.y + 30
                 self.attack_type.image = self.attack_type.image_down
 
             elif self.direction == 'L' and not option == 3:
-                self.attack_direction = 2
                 self.attack_type.rect.x = self.rect.x - 30
                 self.attack_type.rect.y = self.rect.y
                 self.attack_type.image = self.attack_type.image_left
             else:
                 if not option == 3:
-                    self.attack_direction = 3
                     self.attack_type.rect.x = self.rect.x + 30
                     self.attack_type.rect.y = self.rect.y
                     self.attack_type.image = self.attack_type.image_right
@@ -77,17 +73,17 @@ class Faerie(Character):
         self.attack(screen, npcs)
 
     def fire_spell_attack(self, npc):
-        if self.attack_direction == 'D':
+        if self.direction == 'D':
             expected_y = npc.rect.y + 200
             while npc.rect.y < expected_y:
                 npc.rect.y += 2
 
-        elif self.attack_direction == 'U':
+        elif self.direction == 'U':
             expected_y = npc.rect.y - 200
             while npc.rect.y > expected_y:
                 npc.rect.y -= 2
 
-        elif self.attack_direction == 'L':
+        elif self.direction == 'L':
             expected_x = npc.rect.x - 200
             while npc.rect.x > expected_x:
                 npc.rect.x -= 2

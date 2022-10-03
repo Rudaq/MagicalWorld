@@ -1,7 +1,8 @@
 import pygame
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
-from game.fight_support import set_fight_parameters
+import random
 from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES
+from game.npc_settings import RANDOM_ANSWERS
 
 
 # Function to limit the length of text input in the dialog and its formatting (moves text to the next line after 220
@@ -102,7 +103,6 @@ def talk(hero, chosen_npc):
         print("START TALKING!!")
 
 
-
 def stop_talk(hero, chosen_npc):
     chosen_npc.is_talking = False
     hero.in_dialog = False
@@ -114,8 +114,8 @@ def stop_talk(hero, chosen_npc):
     print("STOP TALKING!!")
 
 
+# function for taking random answers for NPC's who cannot talk
 def generate_random_answer():
-
-    text = "Cant talk"
-    return text
-
+    i = random.randint(1, len(RANDOM_ANSWERS))
+    print(len(RANDOM_ANSWERS))
+    return RANDOM_ANSWERS[i]

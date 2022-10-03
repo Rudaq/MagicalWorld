@@ -6,38 +6,42 @@ from datetime import datetime
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
-from game.Button import Button
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
-    stop_talk
-from game.game_support import hero_in_dialog_or_talk
-from game.fight_support import set_fight_parameters, stop_fight
+    stop_talk, talk
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
+from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
 from game.game_support import create_npc
-from game.hero.Character import Character
 from game.hud_component import update_hud
+from game.map.CameraGroup import CameraGroup
+from game.map.map_support import create_map
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero, show_chest_to_hero, show_equipment_name
+from game.quest_support import show_quest_to_hero, create_quest
+from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
+    show_table_to_hero, give_artifact_to_npc
 from settings import *
+from npc_settings import *
+from quest_settings import *
 import pygame
 from settings import GUI_IMAGES, MAP_IMAGES
 from _csv import reader
 import os
 from pathlib import Path
+from artifacts.MockNpc import MockNpc
 
 '''
 Main game loop
 '''
 
-TILESIZE = 32
-
 current = os.path.dirname(os.path.realpath(__file__))
-print("Current Directory", current)
+# print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-print(path)
+# print(path)
 
-
+'''
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, sprite_type, inflation, surface=pygame.Surface((32, 32))):
+    def __init__(self, pos, arrays, groups, sprite_type, inflation=(0, 0),
+                 surface=pygame.Surface((TILE_SIZE, TILE_SIZE))):
         super(Tile, self).__init__(groups)
         self.sprite_type = sprite_type
         self.image = surface
@@ -58,55 +62,26 @@ class CameraGroup(pygame.sprite.Group):
 
         # camera offset
         self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] // 2
-        self.half_h = self.display_surf.get_size()[1] // 2
+        self.half_w = self.display_surf.get_size()[0] / 2
+        self.half_h = self.display_surf.get_size()[1] / 2
 
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+        self.ground_offset = 0
 
+    def custom_draw(self, hero, npcs, screen):
 
-    def custom_draw(self, hero, npcs):
-
-        if hero.rect.centerx <= 750:
-            self.offset.x = 0
-        else:
-            print("AHOJ")
-            self.offset.x = hero.rect.centerx - self.half_w
-            if hero.set_start_centerx:
-                hero.set_start_centerx = False
-                hero.start_centerx = hero.rect.centerx
-            for npc in npcs:
-                difference = hero.rect.centerx - hero.start_centerx
-                npc.rect.centerx = npc.start_centerx - difference
-                npc.start_centerx = npc.rect.centerx
-            hero.start_centerx = hero.rect.centerx
-
-        if hero.rect.centery <= 400:
-            self.offset.y = 0
-        else:
-            print("OLE")
-            self.offset.y = hero.rect.centery - self.half_h
-            if hero.set_start_centery:
-                hero.set_start_centery = False
-                hero.start_centery = hero.rect.centery
-
-            for npc in npcs:
-                difference = hero.rect.centery - hero.start_centery
-                npc.rect.centery = npc.start_centery - difference
-                npc.start_centery = npc.rect.centery
-            hero.start_centery = hero.rect.centery
-
-
-        # ground
+            # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)
 
-        print("HERO: ", hero.rect.centerx,  " , ", hero.rect.centery)
         # active elements
-        # for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            # offset_position = sprite.rect.topleft - self.offset
-            # self.display_surf.blit(sprite.image, offset_position)
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
+                self.display_surf.blit(sprite.image, sprite.rect.topleft)
+
+        self.display_surf.blit(hero.image, hero.rect.topleft)
 
 
 def create_map(all_sprites_group, collision_sprites):
@@ -126,48 +101,52 @@ def create_map(all_sprites_group, collision_sprites):
                 if tile != '-1':
                     x = col_index * 16
                     y = row_index * 16
-                    if style == 'boundary_hero':
-                        # print(x, y)
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+                    # if style == 'boundary_hero':
+                    #     # print(x, y)
+                    #     # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
+                    #     Tile((x, y), collision_sprites, 'invisible', (-5, -4), bound)
 
                     if style == 'object':
                         surf = graphics['objects'][int(tile)]
                         Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
-
+'''
 
 # Main game function
 def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1500, 800))
     print("Screen size", screen.get_size()[0])
     WIDTH_GAME = screen.get_size()[0]
     HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
     npcs = []
+    sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
-    # all_sprites_group = pygame.sprite.Group()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
-
-    # Test quest
-    quest = Quest(
-        "Go to the place where you found the stone, pour raven blood over it, burn the sage in the sacred fire, release mermaid’s voice and say the incantation to summon the god.",
-        50, [], [])
-    hero.active_quest = quest
+    npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
-    all_npcs = pygame.sprite.Group()
 
     dx = 0
     dy = 0
     direct = "U"
     moving = False
+
+    mov = False
+    dir_opposite = 'R'
+    mov_x = 0
+    mov_y = 0
+    sign = 1
+    movement = 'horizontal'
+
     pressed = False
     prev = False
     npc_dialog_thread = None
@@ -175,10 +154,14 @@ def game(hero):
     npc_dialog_thread.start()
     show_quest = False
     show_chest = False
+    chest_opened = False
+    show_table = False
+    chosen_artifact = None
     restore_life = False
     restore_mana = False
     restore_life_time_passed = None
     restore_mana_time_passed = None
+    restore = None
     option = 1
     npc_clicked = False
     chosen_npc = None
@@ -189,39 +172,63 @@ def game(hero):
     arrow_down = ButtonClass(25, 25, 'arrow_down')
     scroll_button = ButtonClass(30, 40, 'scroll_button')
     chest_button = ButtonClass(30, 40, 'chest_button')
-    fight_button = Button(100, 50, GUI_IMAGES['fight_button'], 0.8)
-    talk_button = Button(100, 50, GUI_IMAGES['talk_button'], 0.8)
+    fight_button = ButtonClass(80, 40, 'fight_button')
+    talk_button = ButtonClass(80, 40, 'talk_button')
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
+    # list of NPC's from which hero can select to who give an artifact
+    npcs_to_choose = pygame.sprite.Group()
+    npcs_to_choose.update()
+    npcs_to_choose.draw(screen)
+    mock_npcs_to_choose = pygame.sprite.Group()
+    mock_npcs_to_choose.update()
+    mock_npcs_to_choose.draw(screen)
+
     # Creating npcs
     for npc_entity in NPCs:
-        # create_npc(npc_entity, [npcs], [all_npcs], collision_sprites)
-        create_npc(npc_entity, [npcs], [all_sprites_group], collision_sprites)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
 
-    create_map(all_sprites_group, collision_sprites)
+    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
+    # Test quest
+
+    #
+    # quest = create_quest(DarkWizard, "true_in_blood")
+    # hero.active_quest = quest
+    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
+        npc.collision_sprites = npc_boundaries
 
-    # Main game loop
+        mock_npc = MockNpc(npc)
+        npcs_to_choose.add(mock_npc)
+        mock_npcs_to_choose.add(mock_npc)
+        sprites_to_move_opposite.extend(npc.artifacts)
+
+    hero.rect.centerx = screen.get_size()[0]/2
+    hero.rect.centery = screen.get_size()[1]/2
+    all_sprites_group.offset.x = 0
+    all_sprites_group.offset.y = 0
+
+
     while True:
         screen.fill(GREEN)
 
-        all_sprites_group.custom_draw(hero, npcs)
-
+        all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
 
-        all_sprites_group.update()
-        hero.update()
-        all_sprites_group.draw(screen)
-        all_npcs.update()
-        all_npcs.draw(screen)
+        # hero.update()
+        # all_sprites_group.draw(screen)
+
+        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                   restore_mana_time_passed,
+                   restore_life_time_passed, chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
@@ -243,26 +250,40 @@ def game(hero):
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+
                 elif event.key == pygame.K_UP or event.key == pygame.K_w:
-                    direct = "U"
-                    dx = 0
-                    dy = -5
+                    hero.direction = 'U'
+                    movement = 'vertical'
                     moving = True
+                    dir_opposite = 'D'
+                    mov_x = 0
+                    mov_y = HERO_SPEED
+                    sign = (-1)
+
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    direct = "D"
-                    dx = 0
-                    dy = 5
+                    hero.direction = 'D'
+                    movement = 'vertical'
                     moving = True
+                    dir_opposite = 'U'
+                    mov_x = 0
+                    mov_y = HERO_SPEED
+                    sign = 1
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    direct = "R"
-                    dx = 5
-                    dy = 0
+                    hero.direction = 'R'
+                    movement = 'horizontal'
                     moving = True
+                    dir_opposite = 'L'
+                    mov_x = HERO_SPEED
+                    mov_y = 0
+                    sign = 1
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    direct = "L"
-                    dx = -5
-                    dy = 0
+                    hero.direction = 'L'
+                    movement = 'horizontal'
                     moving = True
+                    dir_opposite = 'R'
+                    mov_x = HERO_SPEED
+                    mov_y = 0
+                    sign = (-1)
                 elif event.key == pygame.K_1 and hero.in_fight_mode:
                     option = 1
                     set_fight_parameters(hero)
@@ -310,13 +331,13 @@ def game(hero):
                             hero.hero_turn = False
                             update_positions_and_transparency(hero.text_history)
 
-        # Moving hero
         if moving:
-            hero.move(direct, dx, dy)
+            hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
+                      sprites_to_move_opposite)
 
         # Random movement of npcs if not in dialog
         for npc in npcs:
-            if not npc.is_talking and not npc.is_fighting:
+            if not npc.is_talking and not npc.in_fight_mode:
                 npc.move()
 
         # Getting the state of mouse buttons - pressed or not
@@ -334,39 +355,54 @@ def game(hero):
 
         # Checking if mouse pressed
         if pressed:
+            # check if hero have collected an artifact
             for artifact in all_artifacts:
                 if artifact.rect.collidepoint(mouse_point):
-                    hero.collect_artifact(artifact)
-                    all_artifacts.remove(artifact)
-                    all_artifacts.update()
-                    all_artifacts.draw(screen)
+                    # change the chest image in the hud to open chest
+                    chest_opened = True
+                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                               restore_mana_time_passed,
+                               restore_life_time_passed, chosen_npc, chest_opened)
+                    # remove the artifact from the surface
+                    remove_artifact(hero, all_artifacts, artifact, screen)
+                    # time to chest icon to be opened
+                    restore = datetime.now()
 
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
-                    counter += 1
-                    if counter % 2 == 1:
-                        chosen_npc = npc
-                        npc_clicked = True
-                        chosen_npc.add_npc_to_hud = True
-                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                   restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc)
-                        all_sprites_group.update()
+                    # checking if hero is in npc's range in order to interact
+                    if npc_in_interaction_range(npc, hero):
+                        counter += 1
+                        # check if NPC is clicked or / unclicked
+                        if counter % 2 == 1:
+                            chosen_npc = npc
+                            npc_clicked = True
+                            # show NPC's life on hud
+                            chosen_npc.add_npc_to_hud = True
+                            if hero.active_quest is None:
+                                create_quest(chosen_npc, hero)
 
-                    else:
-                        npc_clicked = False
-                        chosen_npc.add_npc_to_hud = False
-                        if chosen_npc.is_talking:
-                            stop_talk(hero, chosen_npc)
+                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                                       restore_mana_time_passed,
+                                       restore_life_time_passed, chosen_npc, chest_opened)
+                            all_sprites_group.update()
 
-                        if chosen_npc.is_fighting:
-                            stop_fight(hero, chosen_npc)
+                        else:
+                            npc_clicked = False
+                            # remove NPC's life from hud
+                            chosen_npc.add_npc_to_hud = False
+                            # Stop talking or fighting
+                            if chosen_npc.is_talking:
+                                stop_talk(hero, chosen_npc)
 
-                        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                   restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc)
-                        all_sprites_group.update()
+                            if chosen_npc.in_fight_mode:
+                                stop_fight(hero, chosen_npc)
+
+                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                                       restore_mana_time_passed,
+                                       restore_life_time_passed, chosen_npc, chest_opened)
+                            all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -376,60 +412,89 @@ def game(hero):
                 show_quest = not show_quest
             elif chest_button.rect.collidepoint(mouse_point):
                 show_chest = not show_chest
+                if not show_chest:
+                    show_table = False
+            elif fight_button.rect.collidepoint(mouse_point):
+                fight(hero, chosen_npc)
+            elif talk_button.rect.collidepoint(mouse_point):
+                talk(hero, chosen_npc)
+
+            if show_chest:
+                for equipment in equipment_buttons:
+                    if equipment.rect.collidepoint(mouse_point):
+                        show_table = not show_table
+                        if show_table:
+                            chosen_artifact = equipment
+            for mock_npc in mock_npcs_to_choose:
+                if mock_npc.rect.collidepoint(mouse_point):
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
+                    show_table = False
 
         # Set previous state of left mouse button
         prev = left
+        # check the state of chest icon
+        if restore is not None:
+            if time_to_chest_be_opened(restore):
+                chest_opened = False
+                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                           restore_mana_time_passed,
+                           restore_life_time_passed, chosen_npc, chest_opened)
 
+        # check if NPC is still alive
         for npc in npcs:
-            if npc.life == 0:
-                stop_fight(hero, npc)
-                npc_clicked = False
+            if npc.life == 0 or npc.life < 0:
+                if npc == chosen_npc:
+                    stop_fight(hero, npc)
+                    stop_talk(hero, npc)
+                    npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
-                npcs.remove(npc)
-                all_sprites_group.remove(npc)
-                all_sprites_group.update()
-                all_sprites_group.draw(screen)
-                all_npcs.update()
-                all_npcs.draw(screen)
+                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc)
+                           restore_life_time_passed, chosen_npc, chest_opened)
                 all_sprites_group.update()
-                all_npcs.update()
 
         if hero.in_attack:
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
-            all_npcs.update()
+
+        if chosen_npc is not None:
+            if chosen_npc.in_fight_mode:
+                chosen_npc.move_in_fight(hero)
+                chosen_npc.attack_type = None
+                chosen_npc.fight_npc(screen, hero, npcs)
+                all_sprites_group.update()
 
         if npc_clicked:
-            if not chosen_npc.is_talking and not chosen_npc.is_fighting:
+            if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
-                all_npcs.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
             all_sprites_group.update()
-            all_npcs.update()
-
-        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
-                   restore_life_time_passed, chosen_npc)
 
         if show_quest:
             show_quest_to_hero(screen, hero)
 
+        # show the chest with the hero's equipment
         if show_chest:
             show_chest_to_hero(screen, hero, equipment_buttons)
             for equipment in equipment_buttons:
                 if equipment.rect.collidepoint(mouse_point):
                     show_equipment_name(screen, equipment)
 
+        # show the table with NPC's from which hero can choose while giving a gift
+        if show_table:
+            show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
+        if hero.active_quest is not None:
+            if hero.active_quest.is_done:
+                hero.active_quest = None
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True
@@ -441,15 +506,9 @@ def game(hero):
         if hero.life == 0 and not restore_life:
             restore_life = True
             restore_life_time_passed = datetime.now()
-        elif hero.mana > 0:
+        elif hero.life > 0:
             restore_life = False
 
-        # for npc in npcs:
-        #     if type(npc) == Mermaid:
-        #         print("X: ", npc.rect.x, " Y: ", npc.rect.y)
-        #         break
-
         all_sprites_group.update()
-        all_npcs.update()
         pygame.display.update()
         clock.tick(60)
