@@ -16,19 +16,15 @@ class IceMonster(Npc):
         self.race = "Ice Monster"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG"))
-        self.mermaid_blood = Artifact(blood_image, 10, 'Mermaid Blood')
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_blood.PNG"))
         tusk_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_tusk.PNG"))
         ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
         self.blood = Artifact(blood_image, 10, 'Ice Monster Blood')
         self.tusk = Artifact(tusk_image, 15, 'Ice Monster Tusk')
-        self.artifacts.add(self.tusk, self.blood, self.mermaid_blood)
+        self.artifacts.add(self.tusk, self.blood)
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice monster attack')
 
-   # Method move to stop mermaid from moving (not moving; on the beach)
-    def move(self, direction="R", dx=0, dy=0):
-        pass
+
 
 
 

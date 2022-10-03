@@ -10,7 +10,13 @@ import copy
 
 
 def show_equipment_name(screen, equipment):
-    draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
+    if equipment.name == 'Shovel':
+        text = 'Good job. As you have the shovel, now you need to find the Pandas skull. It is said to be buried 5 ' \
+               'steps to the right from a big tree in the Enchanted Forest. Find this place and use the shovel to dig ' \
+               'out the skull. '
+        draw_text(text, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
+    else:
+        draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
 
 
 def show_chest_to_hero(screen, hero, equipment_buttons):

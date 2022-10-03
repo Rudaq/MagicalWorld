@@ -1,5 +1,6 @@
+import random
 import pygame
-from game.quest_support import show_quest_to_hero
+
 SPRITE_SIZE = 50
 
 

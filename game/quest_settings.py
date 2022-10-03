@@ -167,17 +167,158 @@ BIG_WOLVES_QUESTS = {
 QUESTS = {
     # Faerie
     'Faerie': {
-        # Quest 1
         'good': {
+            # Quest 1
+            'safe_snowman': {
+                'name': 'safe_snowman',
+                'description': 'You have to prove that you have a good heart. There is someone in trouble.. '
+                               'Go to the Elf to get to know how to save the life of poor Snowman.',
+                'points': 20,
+                'tasks': [
+                    {
+                        'name': 'yeti_horn',
+                        'description': 'Elf: Poor Snowman is in trouble.. The Ice Monster is haunting on him! Kill '
+                                       'the Ice '
+                                       'Monster and give his horn to a Snowman to prove that his life is safe.',
+                        'artefact': 'Yeti Horn',
+                        'points': 15,
+                        'npc_give_task': 'Elf',
+                        'npc_take_artifact': 'Friendly Snowman',
+                        'next_npc': None,
+                        'gift': None
+                    }
+                ]
+            },
+            # Quest 2
+            'gain_recognition': {
+                'name': 'gain_recognition',
+                'description': 'You are a great hero! You gain more and more fame. To gain even greater recognition, '
+                               'go to the Smith, he will have a task for you!',
+                'points': 50,
+                'tasks': [
+                    {
+                        'name': 'gold',
+                        'description': 'Smith: I need some gold for my work... Please go to the Leprechaun and '
+                                       'convince him to give you a gold bar and bring it back to me.',
+                        'artefact': 'Gold Bar',
+                        'points': 15,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': 'Leprechaun',
+                        'gift': None
+                    },
+                    {
+                        'name': 'rainbow',
+                        'description': 'Leprechaun: Find a rainbow and bring it back to the me! Little tip - you can '
+                                       'find rainbows in the land where the Elves live',
+                        'artefact': 'Rainbow',
+                        'points': 20,
+                        'npc_give_task': 'Leprechaun',
+                        'npc_take_artifact': 'Leprechaun',
+                        'next_npc': None,
+                        'gift': 'Gold Bar'
+                    }
+
+                ]
+            },
+            # Quest 3
+            'mermaid_voice': {
+                'name': 'mermaid_voice',
+                'description': 'The Smith is an influential man, thanks to the fact that you helped him, '
+                               'your fame spread across all lands. Mermaid came for help. There is one problem .. The '
+                               'Dark Wizard has stolen the mermaids voice. Go to Druid, he will tell you '
+                               'how you can get a task from Mermaid.',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'kill_dark_wizard',
+                        'description': 'The Dark Wizard has stolen the mermaids voice. In order for her to assign a '
+                                       'task to you, you must first kill the Dark Wizard and bring her voice back!',
+                        'artefact': 'Mermaid Voice',
+                        'points': 20,
+                        'npc_give_task': 'Druid',
+                        'npc_take_artifact': 'Mermaid',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'rainbow',
+                        'description': 'Mermaid: Oh no, poor Panda. Her ball got stuck on a bamboo tree. Find the '
+                                       'ball and give it to the Panda so she can play again.',
+                        'artefact': 'Ball',
+                        'points': 20,
+                        'npc_give_task': 'Mermaid',
+                        'npc_take_artifact': 'Panda',
+                        'next_npc': None,
+                        'gift': None
+                    }
+                ]
+            },
+            # Quest 4
+            'immortality_flower': {
+                'name': 'immortality_flower',
+                'description': 'Now you are ready for the greatest mission .. You have to help the Fairies regain '
+                               'immortality back. Go to the Little Fairies for more details',
+                'points': 70,
+                'tasks': [
+                    {
+                        'name': 'lost_piece_of_paper',
+                        'description': 'Little Faeries: Find the lost Flower of Immortality, which was stolen by the '
+                                       'Dwarf years ago .. Allegedly a Friendly Snowman wrote down on a piece of '
+                                       'paper where there might be a hidden flower. Go to him for a help.',
+                        'artefact': 'Immortality Flower',
+                        'points': 20,
+                        'npc_give_task': 'Faerie',
+                        'npc_take_artifact': 'Faerie',
+                        'next_npc': 'Snowman',
+                        'gift': None
+                    },
+                    {
+                        'name': 'snowman_nose',
+                        'description': 'Friendly Snowman: Yes, I wrote down where I saw the Dwarf with the Flower.. '
+                                       'but I have lost this paper.. Find this paper and bring it back to me - you '
+                                       'will not be able to write the content of this paper by yourself.',
+                        'artefact': 'Paper',
+                        'points': 15,
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'snowman_nose',
+                        'description': 'Friendly Snowman: I will read the contents of this paper for you, but first '
+                                       'you have to help me .. The Donkey took my carrot nose and wants to eat it .. '
+                                       'Please go to him, get my nose back and bring it back to me',
+                        'artefact': 'Carrot Nose',
+                        'points': 15,
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
+                        'next_npc': 'Donkey',
+                        'gift': None
+                    },
+                    {
+                        'name': 'orc_blood',
+                        'description': 'The Orc keeps attacking me and the poor rats, kill him and bring his blood '
+                                       'as evidence and you will get the carrot back.',
+                        'artefact': 'Orc Blood',
+                        'points': 15,
+                        'npc_give_task': 'Donkey',
+                        'npc_take_artifact': 'Donkey',
+                        'next_npc': None,
+                        'gift': 'Carrot Nose'
+                    }
+                ]
+            }
 
         },
         'evil': {
-            # Quest 1 - Power and disruption
+            # Quest 1
             'kill_unicorn': {
                 'name': 'kill_unicorn',
                 'description': 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to '
                                'do it.',
-                'points': 10,
+                'points': 20,
                 'tasks': [
                     {
                         'name': 'unicorn_horn',
@@ -193,46 +334,136 @@ QUESTS = {
                     }
                 ]
             },
-            # Quest 2 - Money, money, money…
-            'money_money': {
+            # Quest 2
+            'smiths_tools': {
                 'name': 'smiths_tools',
                 'description': 'You are a brave warrior. You can gain great fame by helping creatures in all lands. '
-                               'The Druid has a job for you, go to him for the rest of the details.',
+                               'The Dark Elf has a job for you, go to him for the rest of the details',
                 'points': 50,
                 'tasks': [
                     {
                         'name': 'tools',
-                        'description': 'Druid: I need Mermaid Blood to work... I used to have them, but a Ice Monster '
-                                       'stole them from me! Go to him and tell him to give the Mermaid Blood back!',
-                        'artefact': 'Mermaid Blood',
+                        'description': 'Dark Elf: I need tools to work... I used to have them, but a Smith stole them '
+                                       'from me! '
+                                       'Go to Smith and tell him to give the tools back! ',
+                        'artefact': 'Smith Tools',
                         'points': 10,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Ice Monster',
+                        'npc_give_task': 'Dark Elf',
+                        'npc_take_artifact': 'Dark Elf',
+                        'next_npc': 'Smith',
                         'gift': None
                     },
                     {
-                        'name': 'dark_wizard_blood',
-                        'description': 'Ice Monster: I will give you my Mermaid Blood, but first you need to help me '
-                                       'with the Dark Wizard. He stole the Mermaids necklace from me, bring me back '
-                                       'it from him!',
-                        'artefact': 'Mermaid Necklace',
+                        'name': 'farmer_blood',
+                        'description': 'Smith: I will give you my tools, but first you need to help me with the '
+                                       'Farmer. He recently sold me poisoned potatoes. As revenge, you must kill him '
+                                       'and bring me back his blood',
+                        'artefact': 'Farmer Blood',
                         'points': 10,
-                        'npc_give_task': 'Ice Monster',
-                        'npc_take_artifact': 'Ice Monster',
-                        'next_npc': 'Dark Wizard',
-                        'gift': 'Mermaid Blood',
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': 'Smith Tools',
 
+                    }
+                ]
+            },
+            # Quest 3
+            'prove_bravery': {
+                'name': 'prove_bravery',
+                'description': 'Well done, the Dark Elf spreads the word about your strength. Apparently, Big Ravens '
+                               'know how you can prove your bravery, go to him for details',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'tools',
+                        'description': 'Big Ravens: We will tell you how you can prove your bravery, but first bring '
+                                       'us food. We feed on the skin of a snake, I think you know what to do..',
+                        'artefact': 'Snake Skin',
+                        'points': 15,
+                        'npc_give_task': 'Big Ravens',
+                        'npc_take_artifact': 'Big Ravens',
+                        'next_npc': 'Big Ravens',
+                        'gift': None
                     },
                     {
-                        'name': 'mermaid_necklace',
-                        'description': 'Dark Wizard: I will give you a necklace, but first you need to go to the Orc and bring me his blood back!',
-                        'artefact': 'Orc Blood',
+                        'name': 'mermaid_blood',
+                        'description': 'Vampires are powerful creatures. You can gain fame by giving them a favor. '
+                                       'Vampires need Mermaid blood to live. Bring it to them and tell everyone about'
+                                       ' your bravery',
+                        'artefact': 'Mermaid Blood',
+                        'points': 15,
+                        'npc_give_task': 'Big Ravens',
+                        'npc_take_artifact': 'Vampire',
+                        'next_npc': None,
+                        'gift': None,
+
+                    }
+                ]
+            },
+            # Quest 4
+            'bamboo_island': {
+                'name': 'bamboo_island',
+                'description': 'Great, everyone has heard about you now. Even the Big Monkey from Bamboo Island. He '
+                               'has a task fot you, go to the Bamboo Island and ask for the details.',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'pandas_skull',
+                        'description': 'Big Monke: Someone like you can help me! I lost a panda skull somewhere .. '
+                                       'Someone buried it. You will need a shovel to dig it. First, go to the Smith '
+                                       'for a shovel, and when you get it, you will get further tips. Go back to me '
+                                       'with the Pandas skull',
+                        'artefact': 'Pandas Skull',
+                        'points': 15,
+                        'npc_give_task': 'Big Monke',
+                        'npc_take_artifact': 'Big Monke',
+                        'next_npc': 'Smith',
+                        'gift': None
+                    },
+                    {
+                        'name': 'tigers_fur',
+                        'description': 'Smith: It is getting colder .. I need a Tiger fur keep warm. Bring it to me '
+                                       'and I will give you a shovel',
+                        'artefact': 'Tiger Fur',
+                        'points': 15,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': 'Shovel',
+
+                    }
+                ]
+            },
+            # Quest 5
+            'kill_dragon': {
+                'name': 'kill_dragon',
+                'description': 'Now you are ready for the biggest mission... Go to Dar Wizard for the details!',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'pandas_skull',
+                        'description': 'Dark Wizard: Now you are ready for the biggest mission... The dragon has been '
+                                       'tormenting the people of the land for too long. Put an end to his bestiality '
+                                       'and kill him. Be careful though, the dragon is not so easy to defeat. To '
+                                       'prove that the dragons reign is over, bring his blood to the me.',
+                        'artefact': 'Dragons Blood',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
                         'next_npc': None,
-                        'gift': 'Mermaid Necklace'
+                        'gift': None
+                    },
+                    {
+                        'name': 'tigers_fur',
+                        'description': 'Smith: It is getting colder .. I need a Tiger fur keep warm. Bring it to me '
+                                       'and I will give you a shovel',
+                        'artefact': 'Tiger Fur',
+                        'points': 15,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': 'Shovel',
 
                     }
                 ]

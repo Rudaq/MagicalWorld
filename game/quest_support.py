@@ -16,16 +16,18 @@ def create_quests(hero):
     if quests_dict_entry:
         if hero.side == 'evil':
             parameters = quests_dict_entry.get('evil')
-            for p in parameters:
-                tasks = []
-                task_parameters = parameters[p].get('tasks')
-                for t in task_parameters:
-                    task = Task(t.get('name'), t.get('description'), t.get('artefact'), t.get('points'), t.get('npc_give_task'), t.get('npc_take_artifact'), t.get('next_npc'), t.get('gift'), hero, False)
-                    tasks.append(task)
+        else:
+            parameters = quests_dict_entry.get('good')
+        for p in parameters:
+            tasks = []
+            task_parameters = parameters[p].get('tasks')
+            for t in task_parameters:
+                task = Task(t.get('name'), t.get('description'), t.get('artefact'), t.get('points'), t.get('npc_give_task'), t.get('npc_take_artifact'), t.get('next_npc'), t.get('gift'), hero, False)
+                tasks.append(task)
 
-                quest = Quest(parameters[p].get('name'), parameters[p].get('description'), parameters[p].get('points'), tasks, hero, False)
-                hero.quests.append(quest)
-            hero.set_active_quest()
+            quest = Quest(parameters[p].get('name'), parameters[p].get('description'), parameters[p].get('points'), tasks, hero, False)
+            hero.quests.append(quest)
+        hero.set_active_quest()
     else:
         raise QuestTypeNotExistException
 

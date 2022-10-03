@@ -16,11 +16,8 @@ class DarkWizard(Npc):
         self.race = "Dark Wizard"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
-        self.necklace = Artifact(necklace_image, 15, 'Mermaid Necklace')
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Dark Wizard Blood')
-        self.artifacts.add(self.blood, self.necklace)
+        self.artifacts.add(self.blood)
         dark_wizard_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
-

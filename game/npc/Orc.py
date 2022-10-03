@@ -15,12 +15,6 @@ class Orc(Npc):
         self.race = "Orc"
         self.collision_sprites = collision_sprites
         self.can_talk = False
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Orc Blood')
-        self.artifacts.add(self.blood)
         ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice attack')
 
-   # Method move to stop mermaid from moving (not moving; on the beach)
-    def move(self, direction="R", dx=0, dy=0):
-        pass
