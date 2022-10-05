@@ -103,19 +103,6 @@ WIZARD_SPELLS = {
     'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
 }
 
-DWARVES_ACTIONS = {
-    'braids': pygame.image.load(os.path.join(path, "resources/graphics/particles", "braids.PNG")),
-    'axe': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
-    'sleep': pygame.image.load(os.path.join(path, "resources/graphics/particles", "sleep.PNG"))
-}
-
-WIZARD_SPELLS = {
-    'wind': pygame.image.load(os.path.join(path, "resources/graphics/particles", "wind.PNG")),
-    'magic_ball': pygame.image.load(os.path.join(path, "resources/graphics/particles", "magic_ball.PNG")),
-    'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
-    'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
-}
-
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
     'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),

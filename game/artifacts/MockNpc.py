@@ -2,6 +2,7 @@ import pygame
 
 import pygame.sprite
 
+
 # class for making icons for NPC while choosing them to give a gift
 class MockNpc(pygame.sprite.Sprite):
     def __init__(self, npc):
@@ -14,4 +15,3 @@ class MockNpc(pygame.sprite.Sprite):
         self.rect.y = 0
         self.clicked = False
         self.clicked_counter = 0
-
