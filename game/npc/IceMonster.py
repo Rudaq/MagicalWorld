@@ -14,6 +14,7 @@ class IceMonster(Npc):
         self.rect.x = x
         self.rect.y = y
         self.race = "Ice Monster"
+        self.side = "evil"
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_blood.PNG"))
@@ -23,6 +24,7 @@ class IceMonster(Npc):
         self.tusk = Artifact(tusk_image, 15, 'Ice Monster Tusk')
         self.artifacts.add(self.tusk, self.blood)
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice monster attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()
 
 
 

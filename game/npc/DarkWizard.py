@@ -14,6 +14,7 @@ class DarkWizard(Npc):
         self.rect.x = x
         self.rect.y = y
         self.race = "Dark Wizard"
+        self.side = "evil"
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
@@ -21,3 +22,4 @@ class DarkWizard(Npc):
         self.artifacts.add(self.blood)
         dark_wizard_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()

@@ -18,6 +18,7 @@ class Druid(Npc):
         self.rect.x = x
         self.rect.y = y
         self.race = "Druid"
+        self.side = "good"
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
@@ -25,5 +26,6 @@ class Druid(Npc):
         self.artifacts.add(self.blood)
         druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()
 
 

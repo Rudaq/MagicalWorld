@@ -16,6 +16,7 @@ class Mermaid(Npc):
         self.rect.x = x
         self.rect.y = y
         self.race = "Mermaid"
+        self.side = "good"
         self.collision_sprites = collision_sprites
         self.can_talk = False
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG"))
@@ -25,6 +26,7 @@ class Mermaid(Npc):
         self.artifacts.add(self.necklace, self.blood)
         mermaid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mermaid_attack.PNG"))
         self.npc_attack = AttackClass(mermaid_attack, 20, 10, 'mermaid attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()
 
 
     # Method move to stop mermaid from moving (not moving; on the beach)

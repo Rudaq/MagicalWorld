@@ -13,8 +13,10 @@ class Orc(Npc):
         self.rect.x = x
         self.rect.y = y
         self.race = "Orc"
+        self.side = "evil"
         self.collision_sprites = collision_sprites
         self.can_talk = False
         ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()
 

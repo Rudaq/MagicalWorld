@@ -205,7 +205,7 @@ class Npc(Character):
                 names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
 
         for key, text in dataset.iterrows():
-            if text["sentiment"] == '1':
+            if text["sentiment"] == 1:
                 self.nice_greetings.append(str(text["greetings"]))
             else:
                 self.rude_greetings.append(str(text["greetings"]))

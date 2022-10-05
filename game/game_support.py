@@ -29,7 +29,7 @@ class NPCTypeNotExistException(Exception):
     pass
 
 
-def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=None):
+def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, collision_for, name=None):
     npc_dict_entry = NPCs.get(npc_race)
     if npc_dict_entry:
         if name is None:
@@ -46,10 +46,13 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
                                               y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
                                               inflation=(0, -10), collision_sprites=collision_sprites)
 
+
         for array in sprite_arrays:
             array.append(entity)
         for group in sprite_groups:
             group.add(entity)
+
+        collision_for.add(entity)
     else:
         raise NPCTypeNotExistException
 

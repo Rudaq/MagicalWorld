@@ -16,7 +16,7 @@ from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
 from game.npc.Npc import Npc
 from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero, create_quest
+# from game.quest_support import show_quest_to_hero, create_quest
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
@@ -189,9 +189,9 @@ def game(hero):
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], [npc_boundaries], collision_sprites)
 
-    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
+    # create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
     # Test quest
 
     #
@@ -380,8 +380,8 @@ def game(hero):
                             npc_clicked = True
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
-                            if hero.active_quest is None:
-                                create_quest(chosen_npc, hero)
+                            # if hero.active_quest is None:
+                            #     create_quest(chosen_npc, hero)
 
                             update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                        restore_mana_time_passed,
@@ -478,8 +478,8 @@ def game(hero):
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
             all_sprites_group.update()
 
-        if show_quest:
-            show_quest_to_hero(screen, hero)
+        # if show_quest:
+        #     show_quest_to_hero(screen, hero)
 
         # show the chest with the hero's equipment
         if show_chest:
@@ -492,9 +492,9 @@ def game(hero):
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
-        if hero.active_quest is not None:
-            if hero.active_quest.is_done:
-                hero.active_quest = None
+        # if hero.active_quest is not None:
+        #     if hero.active_quest.is_done:
+        #         hero.active_quest = None
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True
