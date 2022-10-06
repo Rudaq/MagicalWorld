@@ -1,12 +1,10 @@
-from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
 from game.settings import GUI_IMAGES, BLACK
 import pygame
 import math
-from artifacts.MockNpc import MockNpc
+from artifacts.Artifact import Artifact
 from datetime import datetime
 from game_support import npc_in_interaction_range
-import copy
 
 
 def show_equipment_name(screen, equipment):
@@ -121,3 +119,8 @@ def remove_artifact(hero, all_artifacts, artifact, screen):
         all_artifacts.remove(artifact)
         all_artifacts.update()
         all_artifacts.draw(screen)
+
+
+def collect_map_artifact(hero, map_artifact, image, screen):
+    artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+    hero.collect_artifact(artifact)

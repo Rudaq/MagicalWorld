@@ -132,5 +132,7 @@ GUI_IMAGES = {
 }
 
 MAP_IMAGES = {
-    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png"))
+    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_big.png")),
+    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png"))
 }

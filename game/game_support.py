@@ -16,6 +16,8 @@ from npc_settings import NPCs
 from settings import BLACK
 from math import dist
 from re import compile, split
+from artifacts.Artifact import Artifact
+from settings import MAP_IMAGES
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 current_path = Path(__file__).resolve().parent.parent
@@ -133,3 +135,10 @@ def npc_in_interaction_range(chosen_npc, hero):
         return False
     else:
         return True
+
+
+def add_map_artifacts(map_artifacts):
+    rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
+    rainbow.rect.x = 600
+    rainbow.rect.y = 600
+    map_artifacts.add(rainbow)

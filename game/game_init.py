@@ -10,21 +10,16 @@ from game.dialog_support import hero_in_dialog, update_positions_and_transparenc
     stop_talk, talk
 from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
-from game.game_support import create_npc
+from game.game_support import create_npc, add_map_artifacts
 from game.hud_component import update_hud
 from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
-from game.npc.Npc import Npc
-from game.quest.Task import Task
 from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
 from npc_settings import *
-from quest_settings import *
 import pygame
-from settings import GUI_IMAGES, MAP_IMAGES
-from _csv import reader
 import os
 from pathlib import Path
 from artifacts.MockNpc import MockNpc
@@ -37,6 +32,8 @@ Main game loop
 current = os.path.dirname(os.path.realpath(__file__))
 # print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
+
+
 # print(path)
 
 
@@ -105,10 +102,15 @@ def game(hero):
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
+    # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
+    map_artifacts = pygame.sprite.Group()
+    add_map_artifacts(map_artifacts)
+
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
     npcs_to_choose.update()
     npcs_to_choose.draw(screen)
+
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
@@ -117,14 +119,6 @@ def game(hero):
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
 
-    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
-    # Test quest
-    create_quests(hero)
-
-
-    #
-    # quest = create_quest(DarkWizard, "true_in_blood")
-    # hero.active_quest = quest
     create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
 
     for npc in npcs:
@@ -138,29 +132,28 @@ def game(hero):
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
+        sprites_to_move_opposite.extend(map_artifacts)
 
-    hero.rect.centerx = screen.get_size()[0]/2
-    hero.rect.centery = screen.get_size()[1]/2
+    hero.rect.centerx = screen.get_size()[0] / 2
+    hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
-
-
+    create_quests(hero)
 
     while True:
         screen.blit(SEA, (0, 0))
 
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
-
-        # hero.update()
-        # all_sprites_group.draw(screen)
-
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                    restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
+        map_artifacts.update()
+        map_artifacts.draw(screen)
+
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -297,6 +290,18 @@ def game(hero):
                     # time to chest icon to be opened
                     restore = datetime.now()
 
+            for map_artifact in map_artifacts:
+                if map_artifact.rect.collidepoint(mouse_point):
+                    print('map')
+                    # change the chest image in the hud to open chest
+                    chest_opened = True
+                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                               restore_mana_time_passed,
+                               restore_life_time_passed, chosen_npc, chest_opened)
+                    hero.collect_map_artifact(map_artifact)
+                    # time to chest icon to be opened
+                    restore = datetime.now()
+
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
@@ -312,7 +317,6 @@ def game(hero):
                             buttons.remove(talk_button)
                             buttons.update()
                             buttons.draw(screen)
-
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -422,9 +426,6 @@ def game(hero):
             restore_life_time_passed = datetime.now()
         elif hero.life > 0:
             restore_life = False
-
-
-
 
         all_sprites_group.update()
         pygame.display.update()

@@ -169,8 +169,8 @@ QUESTS = {
     'Faerie': {
         'good': {
             # Quest 1
-            'safe_snowman': {
-                'name': 'safe_snowman',
+            'save_snowman': {
+                'name': 'save_snowman',
                 'description': 'You have to prove that you have a good heart. There is someone in trouble.. '
                                'Go to the Elf to get to know how to save the life of poor Snowman.',
                 'points': 20,
@@ -179,8 +179,8 @@ QUESTS = {
                         'name': 'yeti_horn',
                         'description': 'Elf: Poor Snowman is in trouble.. The Ice Monster is haunting on him! Kill '
                                        'the Ice '
-                                       'Monster and give his horn to a Snowman to prove that his life is safe.',
-                        'artefact': 'Yeti Horn',
+                                       'Monster and give his tusk to a Snowman to prove that his life is safe.',
+                        'artefact': 'Ice Monster Tusk',
                         'points': 15,
                         'npc_give_task': 'Elf',
                         'npc_take_artifact': 'Friendly Snowman',
@@ -232,7 +232,7 @@ QUESTS = {
                 'tasks': [
                     {
                         'name': 'kill_dark_wizard',
-                        'description': 'The Dark Wizard has stolen the mermaids voice. In order for her to assign a '
+                        'description': 'The Dark Wizard has stolen the Mermaids necklace, without it. In order for her to assign a '
                                        'task to you, you must first kill the Dark Wizard and bring her voice back!',
                         'artefact': 'Mermaid Voice',
                         'points': 20,
