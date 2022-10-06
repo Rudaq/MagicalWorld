@@ -134,6 +134,174 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png"))
     },
+    'image_faerie': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png"))
+    },
+    'image_farmer': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png"))
+    },
+    'image_fire_elemental': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "FireElemental.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "FireElemental.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "FireElemental.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "FireElemental.png"))
+    },
+    'image_big_monke': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Gorilla.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Gorilla.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Gorilla.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Gorilla.png"))
+    },
+    'image_leprechaun': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Leprechaun.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Leprechaun.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Leprechaun.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Leprechaun.png"))
+    },
+    'image_panda': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png"))
+    },
+    'image_snake': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
+    },
+    'image_snowman': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png"))
+    },
+    'image_spider': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png"))
+    },
+    'image_tiger': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Tiger.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Tiger.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Tiger.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Tiger.png"))
+    },
+    'image_treant': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png"))
+    },
+    'image_unicorn': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png"))
+    },
+    'image_vampire': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Vampire.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Vampire.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Vampire.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Vampire.png"))
+    },
+    'image_wheat_monster': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png"))
+    },
+    'image_wolf': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wolf.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wolf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wolf.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wolf.png"))
+    },
+    'image_elf': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png"))
+    },
+    'image_lemur': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Lemur.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Lemur.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Lemur.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Lemur.png"))
+    },
+    'image_big_raven': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigRaven.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigRaven.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigRaven.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigRaven.png"))
+    },
+    'image_amazon': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Amazon.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Amazon.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Amazon.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Amazon.png"))
+    },
+    'image_big_fish': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFish.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFish.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFish.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFish.png"))
+    },
+    'image_smith': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Blacksmith.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Blacksmith.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Blacksmith.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Blacksmith.png"))
+    },
+    'image_blind_rat': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRat.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRat.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRat.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRat.png"))
+    },
+    'image_escaping_vegetable': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Carrot.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Carrot.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Carrot.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Carrot.png"))
+    },
+    'image_crab': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png"))
+    },
+    'image_dark_elf': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "DarkElf.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "DarkElf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "DarkElf.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "DarkElf.png"))
+    },
+    'image_donkey': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Donkey.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Donkey.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Donkey.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Donkey.png"))
+    },
+    'image_dragon': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Dragon.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Dragon.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Dragon.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Dragon.png"))
+    },
+    'image_earth_elemental': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png"))
+    },
     # which picture
     'image_faerie': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
@@ -250,104 +418,134 @@ NPC_FIGHTS = {
 }
 
 # preferences -> name : side, artifacts, quests, x, y
+# enchanted forest:
+# x: 70 - 3870
+# y: 3160 - 7100
 DRUIDS = {
-    'Leaf': ["good", None, None, 700, 300]
-}
-DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 400, 500]
-}
-ICE_MONSTERS = {
-    'Icelius': ["evil", None, None, 200, 700]
-}
-MERMAIDS = {
-    'Arielle': ["good", None, None, 400, 500]
-}
-ORCS = {
-    'Stinker': ["evil", None, None, 800, 50]
+    'Leaf': ["good", None, None, 1670, 5700]
 }
 ELVES = {
-    'Manance': ["good", None, None, 700, 300]
+    'Manance': ["good", None, None, 2920, 6800]
 }
 TREANTS = {
-    'Oak': ["good", None, None, 450, 550]
+    'Oak': ["good", None, None, 170, 4550]
 }
-DONKEYS = {
-    'Ponkey': ["good", None, None, 270, 600]
-}
-BLIND_RATS = {
-    'Mousey': ["evil", None, None, 400, 500]
-}
-SMITHS = {
-    'Gavin': ["good", None, None, 800, 50]
-}
-FARMERS = {
-    'Harwin': ["good", None, None, 700, 300]
-}
-BIG_RAVENS = {
-    'Feather': ["evil", None, None, 400, 500]
-}
-ESCAPING_VEGETABLES = {
-    'Parsley': ["evil", None, None, 200, 700]
-}
-WHEAT_MONSTERS = {
-    'Wheater': ["evil", None, None, 300, 550]
-}
-BIG_WOLVES = {
-    'Furry': ["evil", None, None, 800, 50]
-}
-FRIENDLY_SNOWMEN = {
-    'Olaf': ["good", None, None, 700, 300]
-}
-CRABS = {
-    'Craberus': ["good", None, None, 400, 500]
-}
-BIG_FISHES = {
-    'Gul': ["evil", None, None, 250, 680]
-}
-PANDAS = {
-    'Wanda': ["good", None, None, 450, 550]
-}
-LEMURS = {
-    'Julian': ["good", None, None, 800, 50]
-}
-BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 400, 360]
-}
-UNICORNS = {
-    'Pony': ["good", None, None, 400, 500]
-}
-FAERIES = {
-    'Lovely': ["good", None, None, 230, 750]
-}
-LEPRECHAUNS = {
-    'Goldey': ["evil", None, None, 400, 500]
-}
-AMAZONS = {
-    'Wilderina': ["good", None, None, 700, 150]
-}
-SNAKES = {
-    'Anaconde': ["evil", None, None, 700, 300]
-}
-TIGERS = {
-    'Lionel': ["evil", None, None, 400, 500]
-}
-SPIDERS = {
-    'Venom': ["evil", None, None, 200, 700]
-}
-VAMPIRES = {
-    'Bloody': ["evil", None, None, 400, 200]
-}
-DARK_ELVES = {
-    'Baldwin': ["evil", None, None, 800, 50]
+# desolation of abdomination:
+# x: 3590 - 6710
+# y: 140 - 1820
+DARK_WIZARDS = {
+    'Sarus': ["evil", None, None, 3900, 1320]
 }
 DRAGONS = {
-    'Drogon': ["evil", None, None, 700, 300]
+    'Drogon': ["evil", None, None, 5700, 800]
 }
 FIRE_ELEMENTALS = {
-    'Firenzo': ["evil", None, None, 400, 500]
+    'Firenzo': ["evil", None, None, 6100, 700]
 }
 EARTH_ELEMENTALS = {
-    'Earthenzo': ["evil", None, None, 200, 700]
+    'Earthenzo': ["evil", None, None, 5200, 1000]
+}
+# FROZEN EMPIRE
+# x: 70 - 3290
+# y: 140 - 2960
+ICE_MONSTERS = {
+    'Icelius': ["evil", None, None, 2300, 1850]
+}
+BIG_WOLVES = {
+    'Furry': ["evil", None, None, 120, 2500]
+}
+FRIENDLY_SNOWMEN = {
+    'Olaf': ["good", None, None, 1200, 380]
+}
+# LAKE
+# x: 9450 - 12850 (M:10050, BF: 9930)
+# y: 7020 - 11000 (9720, 7360)
+MERMAIDS = {
+    'Arielle': ["good", None, None, 10030, 9720]
+}
+CRABS = {
+    'Craberus': ["good", None, None, 11700, 10400]
+}
+BIG_FISHES = {
+    'Gul': ["evil", None, None, 9930, 7360]
+}
+# SWAMP:
+# x: 7070-10590
+# y: 140-1900
+ORCS = {
+    'Stinker': ["evil", None, None, 8300, 950]
+}
+DONKEYS = {
+    'Ponkey': ["good", None, None, 7900, 320]
+}
+BLIND_RATS = {
+    'Mousey': ["evil", None, None, 9250, 1700]
+}
+# MEDIEVILLE:
+# 8090 - 12850 (WM:8430 - 9350)
+# 2400 - 6260 (WM:2760 - 3260)
+SMITHS = {
+    'Gavin': ["good", None, None, 11200, 3000]
+}
+FARMERS = {
+    'Harwin': ["good", None, None, 9000, 4500]
+}
+BIG_RAVENS = {
+    'Feather': ["evil", None, None, 8790, 2720]
+}
+ESCAPING_VEGETABLES = {
+    'Parsley': ["evil", None, None, 10500, 3400]
+}
+WHEAT_MONSTERS = {
+    'Wheater': ["evil", None, None, 9150, 2750]
+}
+# COAST:
+# 10570 - 12850 (10730-12850)
+# 140 - 4840 (140-4300)
+PANDAS = {
+    'Wanda': ["good", None, None, 11400, 2550]
+}
+LEMURS = {
+    'Julian': ["good", None, None, 11510, 4340]
+}
+BIG_MONKES = {
+    'Gorilla': ["evil", None, None, 12600, 1300]
+}
+# LOVEY DOVEY:
+# 70 - 4890
+# 7880 - 11000
+UNICORNS = {
+    'Pony': ["good", None, None, 100, 8600]
+}
+FAERIES = {
+    'Lovely': ["good", None, None, 3000, 10500]
+}
+LEPRECHAUNS = {
+    'Goldey': ["evil", None, None, 4600, 9840]
+}
+# BUSH:
+# x: 3470 - 5250 if higher ~ 7500
+# y: 2900 - 6520
+AMAZONS = {
+    'Wilderina': ["good", None, None, 5900, 3750]
+}
+SNAKES = {
+    'Anaconde': ["evil", None, None, 3900, 5000]
+}
+TIGERS = {
+    'Lionel': ["evil", None, None, 5000, 3000]
+}
+# DREARY:
+# x: 5690 - 9100
+# y: 7720 - 11000
+SPIDERS = {
+    'Venom': ["evil", None, None, 6200, 8400]
+}
+VAMPIRES = {
+    'Bloody': ["evil", None, None, 6800, 10200]
+}
+DARK_ELVES = {
+    'Baldwin': ["evil", None, None, 8400, 8050]
 }
 
 RANDOM_ANSWERS = {

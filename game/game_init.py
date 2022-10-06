@@ -54,6 +54,7 @@ def game(hero):
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
+    all_sprites_group.add(all_artifacts)
     npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
@@ -105,6 +106,9 @@ def game(hero):
     # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
     map_artifacts = pygame.sprite.Group()
     add_map_artifacts(map_artifacts)
+    sprites_to_move_opposite.extend(map_artifacts)
+    all_sprites_group.add(map_artifacts)
+    collision_sprites.add(map_artifacts)
 
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
@@ -114,6 +118,7 @@ def game(hero):
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
+
 
     # Creating npcs
     for npc_entity in NPCs:
@@ -132,7 +137,9 @@ def game(hero):
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
-        sprites_to_move_opposite.extend(map_artifacts)
+        all_sprites_group.add(npc)
+        collision_sprites.add(npc)
+        collision_sprites.add(npc.artifacts)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -153,7 +160,6 @@ def game(hero):
         all_artifacts.draw(screen)
         map_artifacts.update()
         map_artifacts.draw(screen)
-
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -260,7 +266,7 @@ def game(hero):
         # Random movement of npcs if not in dialog
         for npc in npcs:
             if not npc.is_talking and not npc.in_fight_mode:
-                npc.move()
+                npc.move(all_sprites_group)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -301,6 +307,8 @@ def game(hero):
                     hero.collect_map_artifact(map_artifact)
                     # time to chest icon to be opened
                     restore = datetime.now()
+                    if map_artifact.name == 'Ball':
+                        map_artifact.image = MAP_IMAGES['bamboo_tree']
 
             for npc in npcs:
                 # Checking mouse point collision with npc
@@ -377,7 +385,7 @@ def game(hero):
 
         if chosen_npc is not None:
             if chosen_npc.in_fight_mode:
-                chosen_npc.move_in_fight(hero)
+                chosen_npc.move_in_fight(hero, all_sprites_group)
                 chosen_npc.attack_type = None
                 chosen_npc.fight_npc(screen, hero, npcs)
                 all_sprites_group.update()

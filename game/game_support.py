@@ -139,6 +139,12 @@ def npc_in_interaction_range(chosen_npc, hero):
 
 def add_map_artifacts(map_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
-    rainbow.rect.x = 600
-    rainbow.rect.y = 600
-    map_artifacts.add(rainbow)
+    rainbow.rect.x = 3000
+    rainbow.rect.y = 6580
+
+    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
+
+    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
+    bamboo_tree.rect.x = 13000
+    bamboo_tree.rect.y = 14000
+    map_artifacts.add(rainbow, bamboo_tree)

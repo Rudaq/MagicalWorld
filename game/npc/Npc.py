@@ -27,49 +27,46 @@ class Npc(Character):
         print("I'm NPC")
 
     # Method for randomly moving the npc
-    def move(self, direction='R', dx=0, dy=0):
-        step = 2
+    def move(self, all_sprites_group):
+        is_collision, all_sprites_group = self.collision(all_sprites_group)
 
-        # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
-        # and time to wait between next movements (self.movement[2])
-        if self.movement[0] == 0 and self.movement[2] == 0:
-            distance = random.randint(-100, 100)
-            axis = random.randint(0, 1)
-            wait = random.randint(0, 30)
-            self.movement = [distance, axis, wait]
+        if not is_collision:
+            step = 2
 
-        # Increasing/Decreasing the value of x or y coordinates,
-        # depending on the chosen axis of movement (up-down, left-right)
-        else:
-            if self.movement[0] > 0:
-                self.movement[0] -= 1
-                # Moving right
-                if self.movement[1] == 0:
-                    self.rect.x += step
-                    self.direction = 'R'
-                # Moving down
-                else:
-                    self.rect.y += step
-                    self.direction = 'D'
-            elif self.movement[0] < 0:
-                self.movement[0] += 1
-                # Moving left
-                if self.movement[1] == 0:
-                    self.rect.x -= step
-                    self.direction = 'L'
-                # Moving right
-                else:
-                    self.rect.y -= step
-                    self.direction = 'U'
-            # Waiting by a number of randomly selected iteration, before another random call
-            elif self.movement[0] == 0:
-                self.movement[2] -= 1
+            # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
+            # and time to wait between next movements (self.movement[2])
+            if self.movement[0] == 0 and self.movement[2] == 0:
+                distance = random.randint(-100, 100)
+                axis = random.randint(0, 1)
+                wait = random.randint(0, 30)
+                self.movement = [distance, axis, wait]
 
-    # move npc to a given place
-    def moveByFaerie(self, direction, dx, dy):
-        self.direction = direction
-        self.rect.x += dx
-        self.rect.y += dy
+            # Increasing/Decreasing the value of x or y coordinates,
+            # depending on the chosen axis of movement (up-down, left-right)
+            else:
+                if self.movement[0] > 0:
+                    self.movement[0] -= 1
+                    # Moving right
+                    if self.movement[1] == 0:
+                        self.rect.x += step
+                        self.direction = 'R'
+                    # Moving down
+                    else:
+                        self.rect.y += step
+                        self.direction = 'D'
+                elif self.movement[0] < 0:
+                    self.movement[0] += 1
+                    # Moving left
+                    if self.movement[1] == 0:
+                        self.rect.x -= step
+                        self.direction = 'L'
+                    # Moving right
+                    else:
+                        self.rect.y -= step
+                        self.direction = 'U'
+                # Waiting by a number of randomly selected iteration, before another random call
+                elif self.movement[0] == 0:
+                    self.movement[2] -= 1
 
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
@@ -81,6 +78,7 @@ class Npc(Character):
 
     # One common function for throwing out particles for all NPC's
     def fight_npc(self, screen, hero, npcs):
+
         counter = random.randint(1, 25)
         if counter == 4:
             if self.attack_type is None:
@@ -148,40 +146,43 @@ class Npc(Character):
                 counter == 4
 
     # function for NPC' movement while fighting
-    def move_in_fight(self, hero):
+    def move_in_fight(self, hero, all_sprites_group):
         step = random.randint(1, 4)
-        if hero.direction == 'L':
-            if hero.mana > 0:
-                self.rect.x += step
-                self.direction = 'R'
+        is_collision, all_sprites_group = self.collision(all_sprites_group)
+
+        if not is_collision:
+            if hero.direction == 'L':
+                if hero.mana > 0:
+                    self.rect.x += step
+                    self.direction = 'R'
+                else:
+                    step *= 2
+                    self.rect.x -= step
+                    self.direction = 'L'
+            elif hero.direction == 'U':
+                if hero.mana > 0:
+                    self.rect.y += step
+                    self.direction = 'D'
+                else:
+                    step *= 2
+                    self.rect.y -= step
+                    self.direction = 'U'
+            elif hero.direction == 'R':
+                if hero.mana > 0:
+                    self.direction = 'L'
+                    self.rect.x -= step
+                else:
+                    step *= 2
+                    self.direction = 'R'
+                    self.rect.x += step
             else:
-                step *= 2
-                self.rect.x -= step
-                self.direction = 'L'
-        elif hero.direction == 'U':
-            if hero.mana > 0:
-                self.rect.y += step
-                self.direction = 'D'
-            else:
-                step *= 2
-                self.rect.y -= step
-                self.direction = 'U'
-        elif hero.direction == 'R':
-            if hero.mana > 0:
-                self.direction = 'L'
-                self.rect.x -= step
-            else:
-                step *= 2
-                self.direction = 'R'
-                self.rect.x += step
-        else:
-            if hero.mana > 0:
-                self.direction = 'U'
-                self.rect.y -= step
-            else:
-                step *= 2
-                self.direction = 'D'
-                self.rect.y += step
+                if hero.mana > 0:
+                    self.direction = 'U'
+                    self.rect.y -= step
+                else:
+                    step *= 2
+                    self.direction = 'D'
+                    self.rect.y += step
 
     def take_gift(self, hero, artifact, npcs):
         self.artifacts.add(artifact)
@@ -195,12 +196,9 @@ class Npc(Character):
             print(self.race + ": Thank you for your gift")
 
     def give_quest(self, hero):
-        if hero.active_quest.active_task is not None:
-            print(hero.active_quest.active_task.name)
         if hero.active_quest.active_task is None \
                 and hero.active_quest.tasks[0].npc_give_task == self.race:
             hero.active_quest.set_active_task()
         elif hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.next_npc == self.race:
-            print(hero.active_quest.active_task.name)
             hero.active_quest.set_next_active_task()

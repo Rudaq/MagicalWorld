@@ -232,9 +232,10 @@ QUESTS = {
                 'tasks': [
                     {
                         'name': 'kill_dark_wizard',
-                        'description': 'The Dark Wizard has stolen the Mermaids necklace, without it. In order for her to assign a '
-                                       'task to you, you must first kill the Dark Wizard and bring her voice back!',
-                        'artefact': 'Mermaid Voice',
+                        'description': 'The Dark Wizard has stolen the Mermaids necklace, without it she cannot talk. '
+                                       'In order for her to assign a task for you, you must first kill the Dark '
+                                       'Wizard and bring her voice back!',
+                        'artefact': 'Mermaid Necklace',
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Mermaid',

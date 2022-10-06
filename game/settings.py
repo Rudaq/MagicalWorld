@@ -105,19 +105,6 @@ WIZARD_SPELLS = {
     'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
 }
 
-DWARVES_ACTIONS = {
-    'braids': pygame.image.load(os.path.join(path, "resources/graphics/particles", "braids.PNG")),
-    'axe': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "axe.PNG")),
-    'sleep': pygame.image.load(os.path.join(path, "resources/graphics/particles", "sleep.PNG"))
-}
-
-WIZARD_SPELLS = {
-    'wind': pygame.image.load(os.path.join(path, "resources/graphics/particles", "wind.PNG")),
-    'magic_ball': pygame.image.load(os.path.join(path, "resources/graphics/particles", "magic_ball.PNG")),
-    'healing': pygame.image.load(os.path.join(path, "resources/graphics/particles", "healing_spell.PNG")),
-    'sparks': pygame.image.load(os.path.join(path, "resources/graphics/particles", "special_sparks.PNG"))
-}
-
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
     'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),
@@ -133,6 +120,8 @@ GUI_IMAGES = {
 
 MAP_IMAGES = {
     'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
+    'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
     'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_big.png")),
     'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png"))
 }
