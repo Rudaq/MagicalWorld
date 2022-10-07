@@ -184,7 +184,7 @@ class Npc(Character):
                     self.direction = 'D'
                     self.rect.y += step
 
-    def take_gift(self, hero, artifact, npcs):
+    def take_gift(self, hero, artifact, npcs, screen):
         self.artifacts.add(artifact)
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \

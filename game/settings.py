@@ -122,6 +122,10 @@ MAP_IMAGES = {
     'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
     'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
     'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
-    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_big.png")),
-    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png"))
+    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow.png")),
+    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png")),
+    'paper': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "paper.png")),
+    'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
+    'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png"))
+
 }

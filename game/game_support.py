@@ -137,14 +137,32 @@ def npc_in_interaction_range(chosen_npc, hero):
         return True
 
 
-def add_map_artifacts(map_artifacts):
+def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
     rainbow.rect.x = 3000
     rainbow.rect.y = 6580
 
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
-
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
-    bamboo_tree.rect.x = 13000
-    bamboo_tree.rect.y = 14000
-    map_artifacts.add(rainbow, bamboo_tree)
+    bamboo_tree.rect.x = 12270
+    bamboo_tree.rect.y = 10540
+
+    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
+    big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
+    big_tree.rect.x = 5630
+    big_tree.rect.y = 10680
+
+    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
+    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
+    paper.rect.x = 410
+    paper.rect.y = 1200
+    all_artifacts.add(paper)
+
+    map_artifacts.add(rainbow, bamboo_tree, big_tree)
+
+
+def check_map_artifact(map_artifact):
+    if map_artifact.name == 'Ball':
+        map_artifact.image = MAP_IMAGES['bamboo_tree']
+    elif map_artifact.name == 'Immortality Flower':
+        map_artifact.image = MAP_IMAGES['big_tree']

@@ -277,8 +277,9 @@ QUESTS = {
                     {
                         'name': 'snowman_nose',
                         'description': 'Friendly Snowman: Yes, I wrote down where I saw the Dwarf with the Flower.. '
-                                       'but I have lost this paper.. Find this paper and bring it back to me - you '
-                                       'will not be able to write the content of this paper by yourself.',
+                                       'but I have lost this paper somewhere in my Land.. Find this paper and bring '
+                                       'it back to me - you will not be able to write the content of this paper by '
+                                       'yourself.',
                         'artefact': 'Paper',
                         'points': 15,
                         'npc_give_task': 'Friendly Snowman',
@@ -291,7 +292,7 @@ QUESTS = {
                         'description': 'Friendly Snowman: I will read the contents of this paper for you, but first '
                                        'you have to help me .. The Donkey took my carrot nose and wants to eat it .. '
                                        'Please go to him, get my nose back and bring it back to me',
-                        'artefact': 'Carrot Nose',
+                        'artefact': 'Snowman Nose',
                         'points': 15,
                         'npc_give_task': 'Friendly Snowman',
                         'npc_take_artifact': 'Friendly Snowman',
@@ -307,7 +308,7 @@ QUESTS = {
                         'npc_give_task': 'Donkey',
                         'npc_take_artifact': 'Donkey',
                         'next_npc': None,
-                        'gift': 'Carrot Nose'
+                        'gift': 'Snowman Nose'
                     }
                 ]
             }

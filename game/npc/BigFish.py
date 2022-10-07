@@ -23,6 +23,5 @@ class BigFish(Npc):
         self.blood = Artifact(blood_image, 10, 'Big Fish Blood', None)
         self.artifacts.add(self.blood)
 
-        # big_fish_attack = pygame.image.load(
-        #     os.path.join(path, "resources/graphics/particles", "bubble.PNG"))
-        # self.npc_attack = AttackClass(big_fish_attack, 20, 10, 'big fish attack')
+        big_fish_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
+        self.npc_attack = AttackClass(big_fish_attack, 20, 10, 'big fish attack')

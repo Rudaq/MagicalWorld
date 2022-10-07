@@ -26,7 +26,6 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     counter = 0
 
     for eq in hero.equipment:
-        # eq = ButtonClass(60, 60, i.name)
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
         eq.rect.x = x
@@ -94,9 +93,9 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
         draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
 
-def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs):
+def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs, screen):
     npc = mock_npc.npc
-    npc.take_gift(hero, artifact, npcs)
+    npc.take_gift(hero, artifact, npcs, screen)
     for e in hero.equipment:
         if e.name == artifact.name:
             hero.equipment.remove(e)
@@ -121,6 +120,6 @@ def remove_artifact(hero, all_artifacts, artifact, screen):
         all_artifacts.draw(screen)
 
 
-def collect_map_artifact(hero, map_artifact, image, screen):
+def collect_map_artifact(hero, map_artifact):
     artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
     hero.collect_artifact(artifact)

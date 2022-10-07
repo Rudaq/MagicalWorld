@@ -253,8 +253,12 @@ class Character(pygame.sprite.Sprite):
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
             self.equipment.append(artifact)
             self.points += artifact.points
+
             return True
 
     def collect_map_artifact(self, map_artifact):
@@ -262,10 +266,13 @@ class Character(pygame.sprite.Sprite):
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
-            artifact = Artifact(map_artifact.small_image,  map_artifact.points, map_artifact.name, None)
-            self.equipment.append(artifact)
-            self.points += artifact.points
-            return True
+            if map_artifact.small_image is not None:
+                artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                self.equipment.append(artifact)
+                self.points += artifact.points
+                return True
+            else:
+                return False
 
     def take_gift_from_npc(self, npc, npcs, gift):
         for n in npcs:
@@ -291,5 +298,3 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
-
-
