@@ -17,10 +17,10 @@ print(path)
 
 NPC_IMAGES = {
     'image_druid': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "druid_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Druid.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "druid_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "druid_right.png"))
     },
     'image_dark_wizard': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wizard_dark.png")),
@@ -35,16 +35,16 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Mermaid.PNG"))
     },
     'image_ice_monster': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "IceMonster.PNG")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "ice_monster_back.PNG")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "IceMonster.PNG")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "IceMonster.PNG")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "IceMonster.PNG"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "ice_monster_left.PNG")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "ice_monster_right.PNG"))
     },
     'image_orc': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Orc.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "orc_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Orc.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Orc.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Orc.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "orc_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "orc_right.png"))
     }
 }
 

@@ -78,6 +78,15 @@ class Character(pygame.sprite.Sprite):
                     sprite.rect.centery += mov_y * sign * (-1)
                 sprite.direction = dir_opposite
 
+        if self.direction == 'U':
+            self.image = self.images['up']
+        elif self.direction == 'D':
+            self.image = self.images['down']
+        elif self.direction == 'L':
+            self.image = self.images['left']
+        else:
+            self.image = self.images['right']
+
     def collision(self, all_sprites_group):
         is_collision = False
         collision_occurred = False

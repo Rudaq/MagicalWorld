@@ -122,7 +122,7 @@ def game(hero):
     WIDTH_GAME = screen.get_size()[0]
     HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
-
+    game = True
     npcs = []
     sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
@@ -191,7 +191,6 @@ def game(hero):
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], [npc_boundaries], collision_sprites)
 
-    # create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
     # Test quest
 
     #
@@ -217,7 +216,7 @@ def game(hero):
     all_sprites_group.offset.y = 0
 
 
-    while True:
+    while game:
         screen.fill(GREEN)
 
         all_sprites_group.custom_draw(hero, npcs, screen)
@@ -239,7 +238,11 @@ def game(hero):
         # Event support - quiting, movement
         for event in pygame.event.get():
             if event.type == QUIT:
+                # game = False
+                # pygame.quit()
+                # sys.exit()
                 pygame.quit()
+                # npc_dialog_thread.join()
                 sys.exit()
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a or event.key == pygame.K_RIGHT \
@@ -248,8 +251,12 @@ def game(hero):
                     moving = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    # game = False
                     pygame.quit()
+                    # npc_dialog_thread.join()
                     sys.exit()
+                    # pygame.quit()
+                    # sys.exit()
 
                 elif event.key == pygame.K_UP or event.key == pygame.K_w:
                     hero.direction = 'U'
@@ -512,3 +519,8 @@ def game(hero):
         all_sprites_group.update()
         pygame.display.update()
         clock.tick(60)
+
+
+    # npc_dialog_thread.join()
+    # pygame.quit()
+    # sys.exit()
