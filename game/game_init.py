@@ -292,9 +292,10 @@ def game(hero):
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
                     # remove the artifact from the surface
-                    remove_artifact(hero, all_artifacts, artifact, screen)
-                    # time to chest icon to be opened
-                    restore = datetime.now()
+                    if hero.collect_artifact(artifact):
+                        remove_artifact(all_artifacts, artifact, screen)
+                        # time to chest icon to be opened
+                        restore = datetime.now()
 
             for map_artifact in map_artifacts:
                 if map_artifact.rect.collidepoint(mouse_point):
@@ -303,10 +304,10 @@ def game(hero):
                     update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
-                    hero.collect_map_artifact(map_artifact)
-                    check_map_artifact(map_artifact)
-                    # time to chest icon to be opened
-                    restore = datetime.now()
+                    if hero.collect_map_artifact(map_artifact):
+                        # time to chest icon to be opened
+                        restore = datetime.now()
+                        check_map_artifact(map_artifact)
 
             for npc in npcs:
                 # Checking mouse point collision with npc

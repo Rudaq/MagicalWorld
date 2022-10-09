@@ -36,40 +36,15 @@ class FriendlySnowman(Npc):
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
-            print(self.race + ": Your quest is completed!")
-            if hero.active_quest.active_task.name == 'snowman_nose' and artifact.name == 'Snowman Nose':
-                self.give_hint(screen)
+            print(self.race + ": Your task is completed!")
             hero.active_quest.task_completed(hero, npcs)
-        else:
-            print(self.race + ": Thank you for your gift")
+
+        elif len(hero.active_quest.skipped_tasks) > 0:
+            for task in hero.active_quest.skipped_tasks:
+                if task.artifact == artifact.name \
+                        and task.npc_take_artifact == self.race:
+                    print(self.race + ": Thank you for your gift")
 
         if artifact.name == 'Snowman Nose':
-            self.image =  pygame.image.load(
-            os.path.join(path, "resources/graphics/npc", "snowman_nose.PNG"))
-
-    def give_hint(self, screen):
-        screen_width = math.floor(screen.get_size()[0])
-        quest_top_right = screen_width - 400
-        restore = datetime.now()
-        time_diff = datetime.now() - restore
-        time_sec = time_diff.total_seconds()
-
-        time_to_display = 30 - time_sec
-        while time_to_display > 0:
-            screen.blit(GUI_IMAGES['scroll'], (quest_top_right, 100))
-            w = 200
-            h = quest_top_right + 110
-            text = "Pay attention, this information will be read only once...  The Immortality Flower was last seen in " \
-                   "the Dreary Forest below the Great Tree.. "
-
-
-            text_list = wrap_text(text, 25, False)
-            for text in text_list:
-                draw_text(text, h, w, 14, BLACK, screen)
-                w += 20
-                if h == 1170:
-                     h += 5
-                else:
-                    h -= 5
-
-
+            self.image = pygame.image.load(
+                os.path.join(path, "resources/graphics/npc", "snowman_nose.PNG"))

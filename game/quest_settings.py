@@ -265,31 +265,20 @@ QUESTS = {
                     {
                         'name': 'lost_piece_of_paper',
                         'description': 'Little Faeries: Find the lost Flower of Immortality, which was stolen by the '
-                                       'Dwarf years ago .. Allegedly a Friendly Snowman wrote down on a piece of '
-                                       'paper where there might be a hidden flower. Go to him for a help.',
-                        'artefact': 'Immortality Flower',
+                                       'Dwarf years ago .. Friendly Snowman wrote down on a piece of '
+                                       'paper where the flower is, but he has lost this paper '
+                                       'somewhere in his Land.. Find this paper and give it to him and ask for '
+                                       'reading of its content!',
+                        'artefact': 'Paper',
                         'points': 20,
                         'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': 'Snowman',
-                        'gift': None
-                    },
-                    {
-                        'name': 'snowman_nose',
-                        'description': 'Friendly Snowman: Yes, I wrote down where I saw the Dwarf with the Flower.. '
-                                       'but I have lost this paper somewhere in my Land.. Find this paper and bring '
-                                       'it back to me - you will not be able to write the content of this paper by '
-                                       'yourself.',
-                        'artefact': 'Paper',
-                        'points': 15,
-                        'npc_give_task': 'Friendly Snowman',
                         'npc_take_artifact': 'Friendly Snowman',
-                        'next_npc': None,
+                        'next_npc': 'Friendly Snowman',
                         'gift': None
                     },
                     {
                         'name': 'snowman_nose',
-                        'description': 'Friendly Snowman: I will read the contents of this paper for you, but first '
+                        'description': 'Friendly Snowman: I will read the content of this paper for you, but first '
                                        'you have to help me .. The Donkey took my carrot nose and wants to eat it .. '
                                        'Please go to him, get my nose back and bring it back to me',
                         'artefact': 'Snowman Nose',
@@ -302,14 +291,26 @@ QUESTS = {
                     {
                         'name': 'orc_blood',
                         'description': 'The Orc keeps attacking me and the poor rats, kill him and bring his blood '
-                                       'as evidence and you will get the carrot back.',
+                                       'as an evidence and you will get the carrot back.',
                         'artefact': 'Orc Blood',
                         'points': 15,
                         'npc_give_task': 'Donkey',
                         'npc_take_artifact': 'Donkey',
                         'next_npc': None,
                         'gift': 'Snowman Nose'
+                    },
+                    {
+                        'name': 'flower',
+                        'description': 'Content of the Paper: "The Immortality Flower is hidden in the Great Tree in '
+                                       'the Dreary Forest.." Find the Flower and give it back to Faeries!',
+                        'artefact': 'Immortality Flower',
+                        'points': 15,
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Faerie',
+                        'next_npc': None,
+                        'gift': None
                     }
+
                 ]
             }
 

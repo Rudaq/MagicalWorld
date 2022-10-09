@@ -166,3 +166,4 @@ def check_map_artifact(map_artifact):
         map_artifact.image = MAP_IMAGES['bamboo_tree']
     elif map_artifact.name == 'Immortality Flower':
         map_artifact.image = MAP_IMAGES['big_tree']
+    map_artifact.small_image = None

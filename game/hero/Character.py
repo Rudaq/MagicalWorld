@@ -1,7 +1,6 @@
 import random
 import pygame
 from artifacts.Artifact import Artifact
-
 SPRITE_SIZE = 50
 
 

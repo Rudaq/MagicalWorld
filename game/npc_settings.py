@@ -302,13 +302,13 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "EarthElemental.png"))
     },
-    # which picture
-    'image_faerie': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png"))
-    },
+    # # which picture
+    # 'image_faerie': {
+    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png")),
+    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Crab.png"))
+    # },
     'image_farmer': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Farmer.png")),
@@ -475,9 +475,11 @@ BIG_FISHES = {
 ORCS = {
     'Stinker': ["evil", None, None, 8300, 950]
 }
+
 DONKEYS = {
     'Ponkey': ["good", None, None, 7900, 320]
 }
+
 BLIND_RATS = {
     'Mousey': ["evil", None, None, 9250, 1700]
 }
@@ -485,7 +487,7 @@ BLIND_RATS = {
 # 8090 - 12850 (WM:8430 - 9350)
 # 2400 - 6260 (WM:2760 - 3260)
 SMITHS = {
-    'Gavin': ["good", None, None, 11200, 3000]
+    'Gavin': ["good", None, None, 10890, 3060]
 }
 FARMERS = {
     'Harwin': ["good", None, None, 9000, 4500]
@@ -520,6 +522,7 @@ UNICORNS = {
 FAERIES = {
     'Lovely': ["good", None, None, 3000, 10500]
 }
+
 LEPRECHAUNS = {
     'Goldey': ["evil", None, None, 4600, 9840]
 }

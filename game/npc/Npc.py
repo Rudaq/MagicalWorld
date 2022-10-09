@@ -26,47 +26,49 @@ class Npc(Character):
     def talk(self):
         print("I'm NPC")
 
-    # Method for randomly moving the npc
     def move(self, all_sprites_group):
-        is_collision, all_sprites_group = self.collision(all_sprites_group)
-
-        if not is_collision:
-            step = 2
-
-            # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
-            # and time to wait between next movements (self.movement[2])
-            if self.movement[0] == 0 and self.movement[2] == 0:
-                distance = random.randint(-100, 100)
-                axis = random.randint(0, 1)
-                wait = random.randint(0, 30)
-                self.movement = [distance, axis, wait]
-
-            # Increasing/Decreasing the value of x or y coordinates,
-            # depending on the chosen axis of movement (up-down, left-right)
-            else:
-                if self.movement[0] > 0:
-                    self.movement[0] -= 1
-                    # Moving right
-                    if self.movement[1] == 0:
-                        self.rect.x += step
-                        self.direction = 'R'
-                    # Moving down
-                    else:
-                        self.rect.y += step
-                        self.direction = 'D'
-                elif self.movement[0] < 0:
-                    self.movement[0] += 1
-                    # Moving left
-                    if self.movement[1] == 0:
-                        self.rect.x -= step
-                        self.direction = 'L'
-                    # Moving right
-                    else:
-                        self.rect.y -= step
-                        self.direction = 'U'
-                # Waiting by a number of randomly selected iteration, before another random call
-                elif self.movement[0] == 0:
-                    self.movement[2] -= 1
+        pass
+    # Method for randomly moving the npc
+    # def move(self, all_sprites_group):
+    #     is_collision, all_sprites_group = self.collision(all_sprites_group)
+    #
+    #     if not is_collision:
+    #         step = 2
+    #
+    #         # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
+    #         # and time to wait between next movements (self.movement[2])
+    #         if self.movement[0] == 0 and self.movement[2] == 0:
+    #             distance = random.randint(-100, 100)
+    #             axis = random.randint(0, 1)
+    #             wait = random.randint(0, 30)
+    #             self.movement = [distance, axis, wait]
+    #
+    #         # Increasing/Decreasing the value of x or y coordinates,
+    #         # depending on the chosen axis of movement (up-down, left-right)
+    #         else:
+    #             if self.movement[0] > 0:
+    #                 self.movement[0] -= 1
+    #                 # Moving right
+    #                 if self.movement[1] == 0:
+    #                     self.rect.x += step
+    #                     self.direction = 'R'
+    #                 # Moving down
+    #                 else:
+    #                     self.rect.y += step
+    #                     self.direction = 'D'
+    #             elif self.movement[0] < 0:
+    #                 self.movement[0] += 1
+    #                 # Moving left
+    #                 if self.movement[1] == 0:
+    #                     self.rect.x -= step
+    #                     self.direction = 'L'
+    #                 # Moving right
+    #                 else:
+    #                     self.rect.y -= step
+    #                     self.direction = 'U'
+    #             # Waiting by a number of randomly selected iteration, before another random call
+    #             elif self.movement[0] == 0:
+    #                 self.movement[2] -= 1
 
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
@@ -190,10 +192,16 @@ class Npc(Character):
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
-            print(self.race + ": Your quest is completed!")
+            print(self.race + ": Your task is completed!")
             hero.active_quest.task_completed(hero, npcs)
-        else:
-            print(self.race + ": Thank you for your gift")
+
+        elif len(hero.active_quest.skipped_tasks) > 0:
+            for task in hero.active_quest.skipped_tasks:
+                if task.artifact == artifact.name \
+                and task.npc_take_artifact == self.race:
+                    print(self.race + ": Thank you for your gift")
+
+
 
     def give_quest(self, hero):
         if hero.active_quest.active_task is None \

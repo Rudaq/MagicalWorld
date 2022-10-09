@@ -24,6 +24,8 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     x = pos + 40
     y = 220
     counter = 0
+    equipment_buttons.update()
+    equipment_buttons.draw(screen)
 
     for eq in hero.equipment:
         image = pygame.transform.scale(eq.image, (60, 60))
@@ -113,11 +115,10 @@ def time_to_chest_be_opened(restore_time_passed):
         return False
 
 
-def remove_artifact(hero, all_artifacts, artifact, screen):
-    if hero.collect_artifact(artifact):
-        all_artifacts.remove(artifact)
-        all_artifacts.update()
-        all_artifacts.draw(screen)
+def remove_artifact(all_artifacts, artifact, screen):
+    all_artifacts.remove(artifact)
+    all_artifacts.update()
+    all_artifacts.draw(screen)
 
 
 def collect_map_artifact(hero, map_artifact):
