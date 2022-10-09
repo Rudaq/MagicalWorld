@@ -21,7 +21,9 @@ class Tiger(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Tiger Blood', None)
-        self.artifacts.add(self.blood)
+        fur_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tigers_fur.PNG"))
+        self.fur = Artifact(blood_image, 20, 'Tiger Fur', None)
+        self.artifacts.add(self.blood, self.fur)
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')

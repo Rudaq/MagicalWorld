@@ -456,18 +456,6 @@ QUESTS = {
                         'npc_take_artifact': 'Dark Wizard',
                         'next_npc': None,
                         'gift': None
-                    },
-                    {
-                        'name': 'tigers_fur',
-                        'description': 'Smith: It is getting colder .. I need a Tiger fur keep warm. Bring it to me '
-                                       'and I will give you a shovel',
-                        'artefact': 'Tiger Fur',
-                        'points': 15,
-                        'npc_give_task': 'Smith',
-                        'npc_take_artifact': 'Smith',
-                        'next_npc': None,
-                        'gift': 'Shovel',
-
                     }
                 ]
             }
