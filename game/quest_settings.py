@@ -163,3 +163,63 @@ BIG_WOLVES_QUESTS = {
     'sacrifice': ["Sacrifice one of your belongings in order to get through the pack of wolves", 100, None, "Dwarf",
                   "evil", False, 1]
 }
+
+QUESTS = {
+    'Faerie': {
+        'evil': {
+                1: ['kill_unicorn', 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to do it.', 50,
+                     [['unicorn_horn', "Unicorns are powerful creatures... They are friendly, but who knows ... Maybe then they will use their power against us. Better not let that happen! Go and kill the unicorn and bring its horn back to me", 'Unicorn Horn', 'Dark Wizard', 'Dark Wizard', None, None, 5]],
+                     ],
+                2: ['smiths_tools', 'You are a brave warrior. You can gain great fame by helping creatures in all lands. The Druid has a job for you, go to him for the rest of the details.', 50,
+                    [['tools', 'Druid: I need Mermaid Blood to work... I used to have them, but a Ice Monster stole them from me! Go to him and tell him to give the Mermaid Blood back!', 'Mermaid Blood', 'Druid', 'Druid', 'Ice Monster', None, 10],
+                    ['dark_wizard_blood', 'Ice Monster: I will give you my Mermaid Blood, but first you need to help me with the Dark Wizard. He stole the Mermaids necklace from me, bring me back it from him!', 'Mermaid Necklace', 'Ice Monster', 'Ice Monster', 'Dark Wizard', 'Mermaid Blood', 10],
+                     ['mermaid_necklace', 'Dark Wizard: I will give you a necklace, but first you need to go to the Orc and bring me his blood back!', 'Orc Blood', 'Dark Wizard', 'Dark Wizard', None, 'Mermaid Necklace', 15]]
+                    ]
+
+            },
+        'good': {
+
+        }
+    },
+    'Dwarf': {
+        'evil': {
+            1: ['kill_unicorn',
+                'You have to prove on which side you are ... go to the Dark Wizard for tips on how to do it.', 50,
+                [['unicorn_horn',
+                  "Unicorns are powerful creatures... They are friendly, but who knows ... Maybe then they will use their power against us. Better not let that happen! Go and kill the unicorn and bring its horn back to me",
+                  'Unicorn Horn', 'Dark Wizard', 'Dark Wizard', None, None, 5]],
+                ],
+            2: ['smiths_tools',
+                'You are a brave warrior. You can gain great fame by helping creatures in all lands. The Druid has a job for you, go to him for the rest of the details.',
+                50,
+                [['tools',
+                  'Druid: I need Mermaid Blood to work... I used to have them, but a Ice Monster stole them from me! Go to him and tell him to give the Mermaid Blood back!',
+                  'Mermaid Blood', 'Druid', 'Druid', 'Ice Monster', None, 10],
+                 ['dark_wizard_blood',
+                  'Ice Monster: I will give you my Mermaid Blood, but first you need to help me with the Dark Wizard. He stole the Mermaids necklace from me, bring me back it from him!',
+                  'Mermaid Necklace', 'Ice Monster', 'Ice Monster', 'Dark Wizard', 'Mermaid Blood', 10],
+                 ['mermaid_necklace',
+                  'Dark Wizard: I will give you a necklace, but first you need to go to the Orc and bring me his blood back!',
+                  'Orc Blood', 'Dark Wizard', 'Dark Wizard', None, 'Mermaid Necklace', 15]]
+                ]
+
+        },
+        'good': {
+            1: ['artisanal_skill',
+                'Learn how to craft - find a Smith and ask him to teach you.', 50,
+                [['own_hammer',
+                  "Get your own hammer from the Farmer",
+                  'Hammer', 'Smith', 'Farmer', None, None, 5],
+                 ['kill_ravens',
+                  "Kill the ravens destroying farmer's crops",
+                  'Hammer', 'Dark Wizard', 'Dark Wizard', None, None, 5],
+                 ['obtain_food',
+                  "We need energy. Kill the Wheat monster.",
+                  'Hammer', 'Dark Wizard', 'Dark Wizard', None, None, 5]
+                 ],
+                ],
+
+        }
+
+    }
+}

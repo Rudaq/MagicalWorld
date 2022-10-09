@@ -286,7 +286,10 @@ BIG_WOLVES = {
     'Furry': ["evil", None, None, 120, 2500]
 }
 FRIENDLY_SNOWMEN = {
-    'Olaf': ["good", None, None, 1200, 380]
+    'Olaf': ["good", None, None, 1200, 380],
+    'Olaf1': ["good", None, None, 1200, 380],
+    'Olaf2': ["good", None, None, 1200, 380],
+    'Olaf3': ["good", None, None, 1200, 380]
 }
 # LAKE
 # x: 9450 - 12850 (M:10050, BF: 9930)
@@ -295,10 +298,14 @@ MERMAIDS = {
     'Arielle': ["good", None, None, 10030, 9720]
 }
 CRABS = {
-    'Craberus': ["good", None, None, 11700, 10400]
+    'Craberus': ["good", None, None, 11700, 10400],
+    'Crabemus': ["good", None, None, 10900, 10400],
+    'Craperus': ["good", None, None, 11100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 9930, 7360]
+    'Gul': ["evil", None, None, 9930, 7360],
+    'Bul': ["evil", None, None, 9630, 7160],
+    'Dul': ["evil", None, None, 9930, 7360]
 }
 # SWAMP:
 # x: 7070-10590
@@ -395,8 +402,7 @@ NPCs = {
         'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_druid'],
-        'dict': DRUIDS,
-        # 'quests': DRUID_QUESTS
+        'dict': DRUIDS
     },
     'dark_wizard': {
         'class_name': DarkWizard,

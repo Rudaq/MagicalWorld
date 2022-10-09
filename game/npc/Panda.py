@@ -22,6 +22,7 @@ class Panda(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Dark Wizard Blood')
         self.artifacts.add(self.blood)
+        # bez ataku
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
