@@ -21,7 +21,7 @@ class Druid(Npc):
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Druid Blood')
+        self.blood = Artifact(blood_image, 10, 'Druid Blood', None)
         self.artifacts.add(self.blood)
         druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')

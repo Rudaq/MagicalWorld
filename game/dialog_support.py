@@ -95,7 +95,7 @@ def hero_in_dialog(surf, screen, arrow_up, arrow_down, hero):
 
 # sey the settings of dialog
 def talk(hero, chosen_npc):
-    if not chosen_npc.is_talking:
+    if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
         chosen_npc.is_talking = True
         hero.in_dialog = True
         hero.hero_turn = False
@@ -117,5 +117,4 @@ def stop_talk(hero, chosen_npc):
 # function for taking random answers for NPC's who cannot talk
 def generate_random_answer():
     i = random.randint(1, len(RANDOM_ANSWERS))
-    print(len(RANDOM_ANSWERS))
     return RANDOM_ANSWERS[i]

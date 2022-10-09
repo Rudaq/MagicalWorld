@@ -19,8 +19,8 @@ class IceMonster(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_blood.PNG"))
         tusk_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_tusk.PNG"))
         ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Ice Monster Blood')
-        self.tusk = Artifact(tusk_image, 15, 'Ice Monster Tusk')
+        self.blood = Artifact(blood_image, 10, 'Ice Monster Blood', None)
+        self.tusk = Artifact(tusk_image, 15, 'Ice Monster Tusk', None)
         self.artifacts.add(self.tusk, self.blood)
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice monster attack')
 

@@ -10,24 +10,20 @@ from game.dialog_support import hero_in_dialog, update_positions_and_transparenc
     stop_talk, talk
 from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
-from game.game_support import create_npc
+from game.game_support import create_npc, add_map_artifacts
 from game.hud_component import update_hud
 from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
-from game.npc.Npc import Npc
-from game.quest.Quest import Quest
-from game.quest_support import show_quest_to_hero, create_quest
+from game.quest_support import show_quest_to_hero
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_to_chest_be_opened, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
 from npc_settings import *
-from quest_settings import *
 import pygame
-from settings import GUI_IMAGES, MAP_IMAGES
-from _csv import reader
 import os
 from pathlib import Path
 from artifacts.MockNpc import MockNpc
+from quest_support import create_quests
 
 '''
 Main game loop
@@ -36,80 +32,9 @@ Main game loop
 current = os.path.dirname(os.path.realpath(__file__))
 # print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
+
+
 # print(path)
-
-'''
-class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, arrays, groups, sprite_type, inflation=(0, 0),
-                 surface=pygame.Surface((TILE_SIZE, TILE_SIZE))):
-        super(Tile, self).__init__(groups)
-        self.sprite_type = sprite_type
-        self.image = surface
-        self.inflation = inflation
-        # inflate - take the rect and change the size
-        self.groups = groups
-        if sprite_type == 'object':
-            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILESIZE))
-        else:
-            self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(inflation[0], inflation[1])
-
-
-class CameraGroup(pygame.sprite.Group):
-    def __init__(self):
-        super(CameraGroup, self).__init__()
-        self.display_surf = pygame.display.get_surface()
-
-        # camera offset
-        self.offset = pygame.math.Vector2()
-        self.half_w = self.display_surf.get_size()[0] / 2
-        self.half_h = self.display_surf.get_size()[1] / 2
-
-        # ground
-        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
-        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
-        self.ground_offset = 0
-
-    def custom_draw(self, hero, npcs, screen):
-
-            # ground
-        ground_offset = self.ground_rect.topleft - self.offset
-        self.display_surf.blit(self.ground_surf, ground_offset)
-
-        # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            if hasattr(sprite,'sprite_type') and sprite.sprite_type != 'hero':
-                self.display_surf.blit(sprite.image, sprite.rect.topleft)
-
-        self.display_surf.blit(hero.image, hero.rect.topleft)
-
-
-def create_map(all_sprites_group, collision_sprites):
-    layouts = {
-        'boundary_hero': import_csv_layout('resources/map/tilesets/v3_constraints.csv'),
-        'object': import_csv_layout('resources/map/tilesets/v3_objects.csv'),
-    }
-    graphics = {
-        'objects': import_folder('../resources/graphics/objects')
-    }
-
-    bound = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/player_blocker.png'))
-
-    for style, layout in layouts.items():
-        for row_index, row in enumerate(layout):
-            for col_index, tile in enumerate(row):
-                if tile != '-1':
-                    x = col_index * 16
-                    y = row_index * 16
-                    # if style == 'boundary_hero':
-                    #     # print(x, y)
-                    #     # Tile((x, y), (all_sprites_group, collision_sprites), 'invisible', (-5, -4), bound)
-                    #     Tile((x, y), collision_sprites, 'invisible', (-5, -4), bound)
-
-                    if style == 'object':
-                        surf = graphics['objects'][int(tile)]
-                        Tile((x, y), (all_sprites_group, collision_sprites), 'object', (-10, -16), surf)
-'''
 
 
 # Main game function
@@ -129,6 +54,7 @@ def game(hero):
     all_sprites_group = CameraGroup()
     collision_sprites = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
+    all_sprites_group.add(all_artifacts)
     npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
@@ -136,12 +62,8 @@ def game(hero):
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
 
-    dx = 0
-    dy = 0
-    direct = "U"
     moving = False
 
-    mov = False
     dir_opposite = 'R'
     mov_x = 0
     mov_y = 0
@@ -175,29 +97,33 @@ def game(hero):
     chest_button = ButtonClass(30, 40, 'chest_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
+    buttons = pygame.sprite.Group()
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
     equipment_buttons.draw(screen)
 
+    # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
+    map_artifacts = pygame.sprite.Group()
+    add_map_artifacts(map_artifacts)
+    sprites_to_move_opposite.extend(map_artifacts)
+    all_sprites_group.add(map_artifacts)
+    collision_sprites.add(map_artifacts)
+
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
     npcs_to_choose.update()
     npcs_to_choose.draw(screen)
+
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
+
 
     # Creating npcs
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
 
-    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
-    # Test quest
-
-    #
-    # quest = create_quest(DarkWizard, "true_in_blood")
-    # hero.active_quest = quest
     create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
 
     for npc in npcs:
@@ -211,27 +137,29 @@ def game(hero):
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
+        all_sprites_group.add(npc)
+        collision_sprites.add(npc)
+        collision_sprites.add(npc.artifacts)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
+    create_quests(hero)
 
     while True:
-        screen.fill(GREEN)
+        screen.blit(SEA, (0, 0))
 
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
-
-        # hero.update()
-        # all_sprites_group.draw(screen)
-
         update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                    restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
+        map_artifacts.update()
+        map_artifacts.draw(screen)
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()
@@ -339,7 +267,7 @@ def game(hero):
         # Random movement of npcs if not in dialog
         for npc in npcs:
             if not npc.is_talking and not npc.in_fight_mode:
-                npc.move()
+                npc.move(all_sprites_group)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -369,41 +297,35 @@ def game(hero):
                     # time to chest icon to be opened
                     restore = datetime.now()
 
+            for map_artifact in map_artifacts:
+                if map_artifact.rect.collidepoint(mouse_point):
+                    print('map')
+                    # change the chest image in the hud to open chest
+                    chest_opened = True
+                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                               restore_mana_time_passed,
+                               restore_life_time_passed, chosen_npc, chest_opened)
+                    hero.collect_map_artifact(map_artifact)
+                    # time to chest icon to be opened
+                    restore = datetime.now()
+                    if map_artifact.name == 'Ball':
+                        map_artifact.image = MAP_IMAGES['bamboo_tree']
+
             for npc in npcs:
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
                     # checking if hero is in npc's range in order to interact
                     if npc_in_interaction_range(npc, hero):
-                        counter += 1
-                        # check if NPC is clicked or / unclicked
-                        if counter % 2 == 1:
-                            chosen_npc = npc
-                            npc_clicked = True
-                            # show NPC's life on hud
-                            chosen_npc.add_npc_to_hud = True
-                            if hero.active_quest is None:
-                                create_quest(chosen_npc, hero)
-
-                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
-                            all_sprites_group.update()
-
-                        else:
-                            npc_clicked = False
-                            # remove NPC's life from hud
-                            chosen_npc.add_npc_to_hud = False
-                            # Stop talking or fighting
-                            if chosen_npc.is_talking:
-                                stop_talk(hero, chosen_npc)
-
-                            if chosen_npc.in_fight_mode:
-                                stop_fight(hero, chosen_npc)
-
-                            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
-                            all_sprites_group.update()
+                        npc_clicked = not npc_clicked
+                        chosen_npc = npc
+                        chosen_npc.add_npc_to_hud = not chosen_npc.add_npc_to_hud
+                        if not npc_clicked:
+                            stop_talk(hero, chosen_npc)
+                            stop_fight(hero, chosen_npc)
+                            buttons.remove(fight_button)
+                            buttons.remove(talk_button)
+                            buttons.update()
+                            buttons.draw(screen)
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -428,7 +350,7 @@ def game(hero):
                             chosen_artifact = equipment
             for mock_npc in mock_npcs_to_choose:
                 if mock_npc.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons)
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs)
                     show_table = False
 
         # Set previous state of left mouse button
@@ -464,15 +386,20 @@ def game(hero):
 
         if chosen_npc is not None:
             if chosen_npc.in_fight_mode:
-                chosen_npc.move_in_fight(hero)
+                chosen_npc.move_in_fight(hero, all_sprites_group)
                 chosen_npc.attack_type = None
                 chosen_npc.fight_npc(screen, hero, npcs)
                 all_sprites_group.update()
 
         if npc_clicked:
+            chosen_npc.give_quest(hero)
+            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                       restore_mana_time_passed,
+                       restore_life_time_passed, chosen_npc, chest_opened)
+            all_sprites_group.update()
             if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
-                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
 
         if hero.in_dialog:

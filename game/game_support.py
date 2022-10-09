@@ -1,5 +1,4 @@
 import random
-import re
 
 import pygame
 from _csv import reader
@@ -7,7 +6,6 @@ from os import walk
 import os
 from pathlib import Path
 
-from game.map.Tile import Tile
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
 from hero.Elf import Elf
@@ -17,9 +15,9 @@ from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
 from npc_settings import NPCs
 from settings import BLACK
 from math import dist
-from dialog_support import talk
-from fight_support import fight
 from re import compile, split
+from artifacts.Artifact import Artifact
+from settings import MAP_IMAGES
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 current_path = Path(__file__).resolve().parent.parent
@@ -32,24 +30,25 @@ class NPCTypeNotExistException(Exception):
 def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=None):
     npc_dict_entry = NPCs.get(npc_race)
     if npc_dict_entry:
-        if name is None:
-            # rand choose one of the entities from its dict
-            name, parameters = random.choice(list(npc_dict_entry['dict'].items()))  # "DRUIDS
-        else:
-            # specific entity
-            parameters = npc_dict_entry['dict'][name]
+        # for every object of type npc_dict_entry create a npc
+        for item in npc_dict_entry['dict'].items():
+            if name is None:
+                name, parameters = item
+            else:
+                # specific entity
+                parameters = npc_dict_entry['dict'][name]
 
-        # creating npc object with its parameters
-        entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
-                                              life=npc_dict_entry['life'], images=npc_dict_entry['images'],
-                                              artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                              y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
-                                              inflation=(0, -10), collision_sprites=collision_sprites)
+            # creating npc object with its parameters
+            entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
+                                                  life=npc_dict_entry['life'], images=npc_dict_entry['images'],
+                                                  artifacts=parameters[1], quests=parameters[2], x=parameters[3],
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
+                                                  inflation=(0, -10), collision_sprites=collision_sprites)
 
-        for array in sprite_arrays:
-            array.append(entity)
-        for group in sprite_groups:
-            group.add(entity)
+            for array in sprite_arrays:
+                array.append(entity)
+            for group in sprite_groups:
+                group.add(entity)
     else:
         raise NPCTypeNotExistException
 
@@ -108,12 +107,12 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
+def hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
 
     # create buttons 'Fight' and 'Talk'
-    buttons = pygame.sprite.Group()
+    # buttons = pygame.sprite.Group()
     fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
     fight_button.rect.x = chosen_npc.rect.x - 40
     fight_button.rect.y = chosen_npc.rect.y - 50
@@ -129,8 +128,6 @@ def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, her
     buttons.draw(screen)
 
 
-
-
 # checking the distance between hero and chosen npc
 def npc_in_interaction_range(chosen_npc, hero):
     distance = dist((chosen_npc.rect.x, chosen_npc.rect.y), (hero.rect.centerx, hero.rect.centery))
@@ -139,3 +136,16 @@ def npc_in_interaction_range(chosen_npc, hero):
         return False
     else:
         return True
+
+
+def add_map_artifacts(map_artifacts):
+    rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
+    rainbow.rect.x = 3000
+    rainbow.rect.y = 6580
+
+    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
+
+    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
+    bamboo_tree.rect.x = 13000
+    bamboo_tree.rect.y = 14000
+    map_artifacts.add(rainbow, bamboo_tree)

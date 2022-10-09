@@ -20,7 +20,7 @@ class BigFish(Npc):
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Big Fish water')
+        self.blood = Artifact(blood_image, 10, 'Big Fish Blood', None)
         self.artifacts.add(self.blood)
         big_fish_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "bubble.PNG"))

@@ -15,6 +15,8 @@ HEIGHT_GAME = 800
 DIALOG_START = 100
 TILES_SIZE = 64
 
+SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
+
 HERO_SPEED = 20
 
 BLACK = (0, 0, 0)
@@ -111,10 +113,15 @@ GUI_IMAGES = {
     'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
+    'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
 
 }
 
 MAP_IMAGES = {
-    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png"))
+    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
+    'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
+    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_big.png")),
+    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png"))
 }

@@ -1,16 +1,20 @@
-from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
 from game.settings import GUI_IMAGES, BLACK
 import pygame
 import math
-from artifacts.MockNpc import MockNpc
+from artifacts.Artifact import Artifact
 from datetime import datetime
 from game_support import npc_in_interaction_range
-import copy
 
 
 def show_equipment_name(screen, equipment):
-    draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
+    if equipment.name == 'Shovel':
+        text = 'Good job. As you have the shovel, now you need to find the Pandas skull. It is said to be buried 5 ' \
+               'steps to the right from a big tree in the Enchanted Forest. Find this place and use the shovel to dig ' \
+               'out the skull. '
+        draw_text(text, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
+    else:
+        draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
 
 
 def show_chest_to_hero(screen, hero, equipment_buttons):
@@ -90,9 +94,9 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
         draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
 
-def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons):
+def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs):
     npc = mock_npc.npc
-    npc.take_gift(hero, artifact)
+    npc.take_gift(hero, artifact, npcs)
     for e in hero.equipment:
         if e.name == artifact.name:
             hero.equipment.remove(e)
@@ -115,3 +119,8 @@ def remove_artifact(hero, all_artifacts, artifact, screen):
         all_artifacts.remove(artifact)
         all_artifacts.update()
         all_artifacts.draw(screen)
+
+
+def collect_map_artifact(hero, map_artifact, image, screen):
+    artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+    hero.collect_artifact(artifact)

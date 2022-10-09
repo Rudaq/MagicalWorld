@@ -20,7 +20,7 @@ class Treant(Npc):
         self.collision_sprites = collision_sprites
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Dark Wizard Blood')
+        self.blood = Artifact(blood_image, 10, 'Treant Blood', None)
         self.artifacts.add(self.blood)
         treant_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(treant_attack, 20, 10, 'treant attack')
