@@ -10,7 +10,7 @@ tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
 
 # conv_model_name="facebook/blenderbot-400M-distill"
 conv_output = pipeline('conversational')
-sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
+# sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
 
 model_name_qa = "deepset/roberta-base-squad2"
 qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_name_qa)
@@ -57,7 +57,7 @@ def produce_response(hero, npc):
         if question:
             sentence = replace_in_text(sentence, 'I', 'hero.race')
             sentence = replace_in_text(sentence, 'you', npc.race)
-            final_text = sent_output(sentence)
+            # final_text = sent_output(sentence)
             # if final_text[0]["label"] == 'LABEL_1':
             # context = Path("C:\\Inżynierka\\MagicalWorld\\NLP\\dialog_generation\\DarkWizardContext.txt").read_text()
 
