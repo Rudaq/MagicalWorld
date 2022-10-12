@@ -161,7 +161,11 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
     paper.rect.x = 350
     paper.rect.y = 1200
-    all_artifacts.add(paper)
+
+    pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
+    pot.rect.x = rainbow.rect.x + 200
+    pot.rect.y = rainbow.rect.y - 50
+    all_artifacts.add(paper, pot)
 
     map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
 

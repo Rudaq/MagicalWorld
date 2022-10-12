@@ -1,7 +1,3 @@
-import pygame
-import os
-import copy
-
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import FAERIE_SPELLS

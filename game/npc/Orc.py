@@ -21,6 +21,8 @@ class Orc(Npc):
         self.can_talk = False
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Orc Blood', None)
-        self.artifacts.add(self.blood)
+        mace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_mace.PNG"))
+        self.mace = Artifact(mace_image, 10, 'Orc Mace', None)
+        self.artifacts.add(self.blood, self.mace)
         ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice attack')

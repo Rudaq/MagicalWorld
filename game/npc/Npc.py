@@ -21,6 +21,7 @@ class Npc(Character):
         self.sprite_type = 'npc'
         self.groups = groups
         self.race = 'npc'
+        self.gifts = pygame.sprite.Group()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -28,6 +29,7 @@ class Npc(Character):
 
     def move(self, all_sprites_group):
         pass
+
     # Method for randomly moving the npc
     # def move(self, all_sprites_group):
     #     is_collision, all_sprites_group = self.collision(all_sprites_group)
@@ -187,9 +189,7 @@ class Npc(Character):
                     self.rect.y += step
 
     def take_gift(self, hero, artifact, npcs, screen):
-        self.artifacts.add(artifact)
-        print(self.name)
-        print(artifact.name)
+        self.gifts.add(artifact)
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \
@@ -200,10 +200,8 @@ class Npc(Character):
         elif len(hero.active_quest.skipped_tasks) > 0:
             for task in hero.active_quest.skipped_tasks:
                 if task.artifact == artifact.name \
-                and task.npc_take_artifact == self.race:
+                        and task.npc_take_artifact == self.race:
                     print(self.race + ": Thank you for your gift")
-
-
 
     def give_quest(self, hero):
         if hero.active_quest.active_task is None \

@@ -289,10 +289,10 @@ class Character(pygame.sprite.Sprite):
     def take_gift_from_npc(self, npc, npcs, gift):
         for n in npcs:
             if n.race == npc:
-                for artifact in n.artifacts:
-                    if artifact.name == gift:
-                        n.artifacts.remove(artifact)
-                        self.collect_artifact(artifact)
+                for g in n.gifts:
+                    if g.name == gift:
+                        n.gifts.remove(g)
+                        self.collect_artifact(g)
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

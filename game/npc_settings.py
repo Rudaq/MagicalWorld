@@ -520,7 +520,7 @@ UNICORNS = {
     'Pony': ["good", None, None, 200, 200]
 }
 FAERIES = {
-    'Lovely': ["good", None, None, 3000, 10500]
+    'Lovely': ["good", None, None, 300, 800]
 }
 
 LEPRECHAUNS = {
@@ -542,7 +542,7 @@ TIGERS = {
 # x: 5690 - 9100
 # y: 7720 - 11000
 SPIDERS = {
-    'Venom': ["evil", None, None, 6200, 8400]
+    'Venom': ["evil", None, None, 600, 800]
 }
 VAMPIRES = {
     'Bloody': ["evil", None, None, 500, 400]

@@ -21,7 +21,11 @@ class Spider(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Spider Blood', None)
-        self.artifacts.add(self.blood)
+        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "spider_fang.PNG"))
+        self.fang = Artifact(fang_image, 5, 'Spider Fang', None)
+        self.fang1 = Artifact(fang_image, 5, 'Spider Fang', None)
+        self.fang2 = Artifact(fang_image, 5, 'Spider Fang', None)
+        self.artifacts.add(self.blood, self.fang, self.fang1, self.fang2)
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')

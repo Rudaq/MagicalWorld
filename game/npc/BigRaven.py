@@ -19,9 +19,11 @@ class BigRaven(Npc):
         self.race = "Big Raven"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Big Raven Blood', None)
-        self.artifacts.add(self.blood)
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_meat.PNG"))
+        self.meat = Artifact(blood_image, 10, 'Raven Meat', None)
+        feather_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_feather.PNG"))
+        self.feather = Artifact(feather_image, 10, 'Raven Feathers', None)
+        self.artifacts.add(self.meat, self.feather)
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')

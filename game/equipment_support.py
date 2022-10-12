@@ -20,9 +20,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     counter = 0
     equipment_buttons.update()
     equipment_buttons.draw(screen)
-    print("---")
     for eq in hero.equipment:
-        print(eq.name)
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
         eq.rect.x = x
@@ -95,6 +93,10 @@ def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs, scre
     npc.take_gift(hero, artifact, npcs, screen)
     for e in hero.equipment:
         if e.name == artifact.name:
+            if hero.active_quest.active_task == 'feed_wild_tiger' \
+                    and artifact.name == 'Raven Meat' \
+                    and npc.name == 'Tiger':
+                hero.add_life(10)
             hero.equipment.remove(e)
     equipment_buttons.remove(artifact)
 

@@ -20,6 +20,10 @@ class DarkWizard(Npc):
         self.blood = Artifact(blood_image, 10, 'Dark Wizard Blood', None)
         necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
         self.necklace = Artifact(necklace_image, 15, 'Mermaid Necklace', None)
-        self.artifacts.add(self.blood)
+        self.artifacts.add(self.blood, self.necklace)
+        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_potion.PNG"))
+        self.potion = Artifact(potion_image, 15, 'Magic Potion', None)
+        self.gifts.add(self.potion)
+
         dark_wizard_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
