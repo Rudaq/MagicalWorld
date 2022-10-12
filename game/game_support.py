@@ -139,27 +139,27 @@ def npc_in_interaction_range(chosen_npc, hero):
 
 def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
-    rainbow.rect.x = 3000
-    rainbow.rect.y = 6580
+    rainbow.rect.x = 150
+    rainbow.rect.y = 3050
 
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
-    bamboo_tree.rect.x = 12270
-    bamboo_tree.rect.y = 10540
+    bamboo_tree.rect.x = 9770
+    bamboo_tree.rect.y = 3600
 
     flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
     big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
-    big_tree.rect.x = 300
-    big_tree.rect.y = 300
+    big_tree.rect.x = 6050
+    big_tree.rect.y = 4780
 
     skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG"))
     dig_ground = Artifact(MAP_IMAGES['dig_ground'], 30, 'Pandas Skull', skull)
     dig_ground.rect.x = big_tree.rect.x + 250
-    dig_ground.rect.y = big_tree.rect.x + 150
+    dig_ground.rect.y = big_tree.rect.y + 150
 
     snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
     paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
-    paper.rect.x = 410
+    paper.rect.x = 350
     paper.rect.y = 1200
     all_artifacts.add(paper)
 
