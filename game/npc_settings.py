@@ -434,10 +434,10 @@ TREANTS = {
 # x: 3590 - 6710
 # y: 140 - 1820
 DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 3900, 1320]
+    'Sarus': ["evil", None, None, 200, 400]
 }
 DRAGONS = {
-    'Drogon': ["evil", None, None, 5700, 800]
+    'Drogon': ["evil", None, None, 900, 800]
 }
 FIRE_ELEMENTALS = {
     'Firenzo': ["evil", None, None, 6100, 700]
@@ -461,7 +461,7 @@ FRIENDLY_SNOWMEN = {
 # x: 9450 - 12850 (M:10050, BF: 9930)
 # y: 7020 - 11000 (9720, 7360)
 MERMAIDS = {
-    'Arielle': ["good", None, None, 10030, 9720]
+    'Arielle': ["good", None, None, 800, 700]
 }
 CRABS = {
     'Craberus': ["good", None, None, 11700, 10400]
@@ -487,13 +487,13 @@ BLIND_RATS = {
 # 8090 - 12850 (WM:8430 - 9350)
 # 2400 - 6260 (WM:2760 - 3260)
 SMITHS = {
-    'Gavin': ["good", None, None, 10890, 3060]
+    'Gavin': ["good", None, None, 700, 600]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 9000, 4500]
+    'Harwin': ["good", None, None, 700, 700]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 8790, 2720]
+    'Feather': ["evil", None, None, 700, 500]
 }
 ESCAPING_VEGETABLES = {
     'Parsley': ["evil", None, None, 10500, 3400]
@@ -511,13 +511,13 @@ LEMURS = {
     'Julian': ["good", None, None, 11510, 4340]
 }
 BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 12600, 1300]
+    'Gorilla': ["evil", None, None, 850, 600]
 }
 # LOVEY DOVEY:
 # 70 - 4890
 # 7880 - 11000
 UNICORNS = {
-    'Pony': ["good", None, None, 100, 8600]
+    'Pony': ["good", None, None, 200, 200]
 }
 FAERIES = {
     'Lovely': ["good", None, None, 3000, 10500]
@@ -533,10 +533,10 @@ AMAZONS = {
     'Wilderina': ["good", None, None, 5900, 3750]
 }
 SNAKES = {
-    'Anaconde': ["evil", None, None, 3900, 5000]
+    'Anaconde': ["evil", None, None, 700, 900]
 }
 TIGERS = {
-    'Lionel': ["evil", None, None, 5000, 3000]
+    'Lionel': ["evil", None, None, 700, 800]
 }
 # DREARY:
 # x: 5690 - 9100
@@ -545,10 +545,10 @@ SPIDERS = {
     'Venom': ["evil", None, None, 6200, 8400]
 }
 VAMPIRES = {
-    'Bloody': ["evil", None, None, 6800, 10200]
+    'Bloody': ["evil", None, None, 500, 400]
 }
 DARK_ELVES = {
-    'Baldwin': ["evil", None, None, 8400, 8050]
+    'Baldwin': ["evil", None, None, 500, 500]
 }
 
 RANDOM_ANSWERS = {

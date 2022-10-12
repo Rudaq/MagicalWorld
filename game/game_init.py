@@ -286,26 +286,25 @@ def game(hero):
             # check if hero have collected an artifact
             for artifact in all_artifacts:
                 if artifact.rect.collidepoint(mouse_point):
-                    # change the chest image in the hud to open chest
-                    chest_opened = True
+
                     update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
                     # remove the artifact from the surface
                     if hero.collect_artifact(artifact):
+                        # change the chest image in the hud to open chest
+                        chest_opened = True
                         remove_artifact(all_artifacts, artifact, screen)
                         # time to chest icon to be opened
                         restore = datetime.now()
 
             for map_artifact in map_artifacts:
                 if map_artifact.rect.collidepoint(mouse_point):
-                    # change the chest image in the hud to open chest
-                    chest_opened = True
                     update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
-                    if hero.collect_map_artifact(map_artifact):
-                        # time to chest icon to be opened
+                    if hero.collect_map_artifact(map_artifact, equipment_buttons):
+                        chest_opened = True
                         restore = datetime.now()
                         check_map_artifact(map_artifact)
 

@@ -316,7 +316,7 @@ QUESTS = {
 
         },
         'evil': {
-            # Quest 1
+            # # Quest 1
             'kill_unicorn': {
                 'name': 'kill_unicorn',
                 'description': 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to '
@@ -349,7 +349,7 @@ QUESTS = {
                         'description': 'Dark Elf: I need tools to work... I used to have them, but a Smith stole them '
                                        'from me! '
                                        'Go to Smith and tell him to give the tools back! ',
-                        'artefact': 'Smith Tools',
+                        'artefact': 'Tools',
                         'points': 10,
                         'npc_give_task': 'Dark Elf',
                         'npc_take_artifact': 'Dark Elf',
@@ -366,12 +366,12 @@ QUESTS = {
                         'npc_give_task': 'Smith',
                         'npc_take_artifact': 'Smith',
                         'next_npc': None,
-                        'gift': 'Smith Tools',
+                        'gift': 'Tools',
 
                     }
                 ]
             },
-            # Quest 3
+           # Quest 3
             'prove_bravery': {
                 'name': 'prove_bravery',
                 'description': 'Well done, the Dark Elf spreads the word about your strength. Apparently, Big Ravens '
@@ -379,13 +379,13 @@ QUESTS = {
                 'points': 60,
                 'tasks': [
                     {
-                        'name': 'tools',
+                        'name': 'feed_ravens',
                         'description': 'Big Ravens: We will tell you how you can prove your bravery, but first bring '
                                        'us food. We feed on the skin of a snake, I think you know what to do..',
                         'artefact': 'Snake Skin',
                         'points': 15,
-                        'npc_give_task': 'Big Ravens',
-                        'npc_take_artifact': 'Big Ravens',
+                        'npc_give_task': 'Big Raven',
+                        'npc_take_artifact': 'Big Raven',
                         'next_npc': 'Big Ravens',
                         'gift': None
                     },
@@ -396,7 +396,7 @@ QUESTS = {
                                        ' your bravery',
                         'artefact': 'Mermaid Blood',
                         'points': 15,
-                        'npc_give_task': 'Big Ravens',
+                        'npc_give_task': 'Big Raven',
                         'npc_take_artifact': 'Vampire',
                         'next_npc': None,
                         'gift': None,
@@ -414,8 +414,10 @@ QUESTS = {
                     {
                         'name': 'pandas_skull',
                         'description': 'Big Monke: Someone like you can help me! I lost a panda skull somewhere .. '
-                                       'Someone buried it. You will need a shovel to dig it. First, go to the Smith '
-                                       'for a shovel, and when you get it, you will get further tips. Go back to me '
+                                       'Someone buried it. It is said to be buried 5 meters on the right from the Big '
+                                       'Tree in the Dreary Forest. You will need a shovel to dig it. First, '
+                                       'go to the Smith '
+                                       'for a shovel, and then find skull. Go back to me '
                                        'with the Pandas skull',
                         'artefact': 'Pandas Skull',
                         'points': 15,
@@ -445,12 +447,12 @@ QUESTS = {
                 'points': 60,
                 'tasks': [
                     {
-                        'name': 'pandas_skull',
+                        'name': 'dragon_blood',
                         'description': 'Dark Wizard: Now you are ready for the biggest mission... The dragon has been '
                                        'tormenting the people of the land for too long. Put an end to his bestiality '
                                        'and kill him. Be careful though, the dragon is not so easy to defeat. To '
                                        'prove that the dragons reign is over, bring his blood to the me.',
-                        'artefact': 'Dragons Blood',
+                        'artefact': 'Dragon Blood',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
@@ -467,7 +469,8 @@ QUESTS = {
             'true_barbarian': {
                 'name': 'true_barbarian',
                 'side': 'good',
-                'description': 'You have just become a newly trained Barbarian. You are young and strong, but you are missing '
+                'description': 'You have just become a newly trained Barbarian. You are young and strong, but you are '
+                               'missing '
                                'a certain thing that will make you a true barbarian. It is time for you to get your own '
                                'powerful weapon that will accompany you to the end of your days. To find out more, '
                                'find a blacksmith in the village and ask him for details.',

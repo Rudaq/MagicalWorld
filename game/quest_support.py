@@ -36,7 +36,7 @@ def show_quest_to_hero(screen, hero):
     screen_width = math.floor(screen.get_size()[0])
     quest_top_right = screen_width - 400
     screen.blit(GUI_IMAGES['scroll'], (quest_top_right, 100))
-    w = 200
+    w = 150
     h = quest_top_right + 110
     if hero.active_quest is not None:
         if hero.active_quest.active_task is not None:

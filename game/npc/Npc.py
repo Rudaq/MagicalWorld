@@ -188,6 +188,8 @@ class Npc(Character):
 
     def take_gift(self, hero, artifact, npcs, screen):
         self.artifacts.add(artifact)
+        print(self.name)
+        print(artifact.name)
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \

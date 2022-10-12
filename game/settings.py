@@ -126,6 +126,7 @@ MAP_IMAGES = {
     'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png")),
     'paper': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "paper.png")),
     'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
-    'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png"))
+    'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
+    'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png"))
 
 }

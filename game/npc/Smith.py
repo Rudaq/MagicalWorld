@@ -22,8 +22,10 @@ class Smith(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Smith Blood', None)
         tools_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tools.PNG"))
-        self.tools = Artifact(tools_image, 10, 'Smith Tools', None)
-        self.artifacts.add(self.blood, self.tools)
+        self.tools = Artifact(tools_image, 10, 'Tools', None)
+        shovel_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "shovel.PNG"))
+        self.shovel = Artifact(shovel_image, 10, 'Shovel', None)
+        self.artifacts.add(self.blood, self.tools, self.shovel)
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')

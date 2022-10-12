@@ -1,8 +1,10 @@
-import random
 import pygame
 from artifacts.Artifact import Artifact
 SPRITE_SIZE = 50
-
+import os
+from pathlib import Path
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 
 # Class with characteristics common to all races, from which race classes inherit
 class Character(pygame.sprite.Sprite):
@@ -257,28 +259,37 @@ class Character(pygame.sprite.Sprite):
                 artifact.small_image = None
             self.equipment.append(artifact)
             self.points += artifact.points
-
             return True
 
-    def collect_map_artifact(self, map_artifact):
+    def collect_map_artifact(self, map_artifact, equipment_buttons):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
             if map_artifact.small_image is not None:
-                artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
-                self.equipment.append(artifact)
-                self.points += artifact.points
-                return True
+                if map_artifact.name == 'Pandas Skull':
+                    for e in self.equipment:
+                        if e.name == 'Shovel':
+                            self.equipment.remove(e)
+                            equipment_buttons.remove(e)
+
+                            artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                            self.equipment.append(artifact)
+                            self.points += artifact.points
+                            return True
+                    return False
+                else:
+                    artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                    self.equipment.append(artifact)
+                    self.points += artifact.points
+                    return True
             else:
                 return False
 
     def take_gift_from_npc(self, npc, npcs, gift):
         for n in npcs:
-            print(n.race)
             if n.race == npc:
                 for artifact in n.artifacts:
-                    print(artifact)
                     if artifact.name == gift:
                         n.artifacts.remove(artifact)
                         self.collect_artifact(artifact)

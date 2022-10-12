@@ -30,7 +30,7 @@ class Mermaid(Npc):
     def move(self, direction="R", dx=0, dy=0):
         pass
 
-    def move_in_fight(self, hero):
+    def move_in_fight(self, hero, all_sprites_group):
         pass
 
     # make that mermaid can talk only if she has a mermaid necklace in her equipment
