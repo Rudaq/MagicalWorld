@@ -22,6 +22,6 @@ class Elf(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Elf Blood', None)
         self.artifacts.add(self.blood)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        elf_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
+        self.npc_attack = AttackClass(elf_attack, 20, 10, 'elf attack')

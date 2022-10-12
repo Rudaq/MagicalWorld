@@ -463,6 +463,355 @@ QUESTS = {
             }
         }
     },
+    'Dwarf': {
+        'good': {
+            # Quest 1
+            'artisanal_skill': {
+                'name': 'artisanal_skill',
+                'description': 'Dwarves are known for their great ability in crafting. Find a Smith and learn it.',
+                'points': 20,
+                'tasks': [
+                    {
+                        'name': 'own_hammer',
+                        'description': 'Smith: First you need to have your own hammer. Go find a Farmer and ask him '
+                                       'for it.',
+                        'artefact': 'Hammer',
+                        'points': 15,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': None,
+                        'next_npc': 'Farmer',
+                        'gift': None
+                    },
+                    {
+                        'name': 'kill_ravens',
+                        'description': 'Farmer: You need a hammer? Well, nothing comes for free. Kill bastards '
+                                       'destroying my crops and bring me their feathers back.',
+                        'artefact': 'Raven feathers',
+                        'points': 15,
+                        'npc_give_task': 'Farmer',
+                        'npc_take_artifact': 'Farmer',
+                        'next_npc': 'Smith',
+                        'gift': 'Hammer'
+                    },
+                    {
+                        'name': 'nutritious_food',
+                        'description': 'Smith: Fine, now that you own a hammer, we need a lot of energy. Kill wheat '
+                                       'monster so that we have something to eat.',
+                        'artefact': 'Food',
+                        'points': 15,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': 'Hammer'
+                    }
+                ]
+                # outcome: Learning for 30 seconds, improved attack
+            },
+            # Quest 2
+            'primaeval_help': {
+                'name': 'primaeval_help',
+                'description': 'Now that you learnt how to craft, it’s time to make yourself useful. Help the amazons.',
+                'points': 50,
+                'tasks': [
+                    {
+                        'name': 'gold',
+                        'description': 'Amazon: We want to improve our weapons with the fangs of our greatest enemies '
+                                       'killing animals from our bush. Kill vampires and bring their fangs back. ',
+                        'artefact': 'Vampire fang',
+                        'points': 15,
+                        'npc_give_task': 'Amazon',
+                        'npc_take_artifact': 'Amazon',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'weapon_help',
+                        'description': 'Amazon: Now, please help us improve our weapon.',
+                        'artefact': None,
+                        'points': 20,
+                        'npc_give_task': 'Amazon',
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': 'Banana' # you will need this to kill Big Monke
+                    }
+
+                ]
+            },
+            # Quest 3
+            'home_sweet_home': {
+                'name': 'home_sweet_home',
+                'description': 'Time to go home, you dwarf! The Frozen Empire is waiting for you to make it safe '
+                               'again! See the Snowman',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'kill_yeti',
+                        'description': 'Snowman: You have to help me my friend! Since those of your kind are no longer '
+                                       'here, the place is haunted by the Ice Monster... They call it Yeti. Please kill'
+                                       'it.',
+                        'artefact': 'Yetis fur',
+                        'points': 20,
+                        'npc_give_task': 'Snowman',
+                        'npc_take_artifact': 'Snowman',
+                        'next_npc': None,
+                        'gift': 'Yetis fur'
+                    },
+                    {
+                        'name': 'kill_wolves',
+                        'description': 'Snowman: Great! Now please kill a pack of wolves. There are many hungry '
+                                       'wolves here!',
+                        'artefact': 'Wolves fangs',
+                        'points': 20,
+                        'npc_give_task': 'Snowman',
+                        'npc_take_artifact': 'Snowman',
+                        'next_npc': None,
+                        'gift': 'Wolves fangs'
+                    }
+                ]
+            },
+            # Quest 4
+            'brace_yourself': {
+                'name': 'brace_yourself',
+                'description': 'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
+                               'friends with magic itself. Find a Dark Wizard.',
+                'points': 70,
+                'tasks': [
+                    {
+                        'name': 'gold_for_wizard',
+                        'description': 'Dark Wizard: Well, well, well. As they say - Nothing comes for free my dwarf.'
+                                       'Bring me some gold which you will probably obtain by dealing with Leprechaun...',
+                        'artefact': 'Gold Bar',
+                        'points': 20,
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'potion_making',
+                        'description': 'Dark Wizard: Back to the business. Now kill the unicorn so that we have '
+                                       'unicorns horn.',
+                        'artefact': 'Unicorn horn',
+                        'points': 20,
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'bring_fire',
+                        'description': 'Dark Wizard: Now we need a flame. Deal with Fire Elemental to obtain it.',
+                        'artefact': 'Flame',
+                        'points': 20,
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'bring_fire',
+                        'description': 'Dark Wizard: And the last thing we need is hair of a vampire. Kill it and '
+                                       'bring what we need.',
+                        'artefact': 'Vampire hair',
+                        'points': 20,
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': None,
+                        'gift': None
+                    }
+                ]
+            },
+            # Quest 5
+            'dwarven_empire_mistery': {
+                'name': 'dwarven_empire_mistery',
+                'description': 'There we are. It’s time to solve the greatest mistery of the dwarves. Find the thief '
+                               'of the Greatest Gem of the Dwarven Empire. See Druid for clues.',
+                'points': 100,
+                'tasks': [
+                    {
+                        'name': 'find_witness',
+                        'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
+                                       'Empire. You had better find him.',
+                        'artefact': None,
+                        'points': 20,
+                        'npc_give_task': 'Druid',
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'the_snowman',
+                        'description': 'Snowman: I will help you as long as you bring me my nose! Kill escaping '
+                                       'vegetables so I can get a carrot.',
+                        'artefact': 'Carrot',
+                        'points': 20,
+                        'npc_give_task': 'Snowman',
+                        'npc_take_artifact': 'Snowman',
+                        'next_npc': 'Big Monke',
+                        'gift': None
+                    },
+                    {
+                        'name': 'bring_fire',
+                        'description': 'Big Monke: You can kill me, but so that you know - I am not a thief.'
+                                       'I am just a keeper. You wanna know who is the thief? Give me something that I '
+                                       'sense you you have.',
+                        'artefact': 'Banana',
+                        'points': 20,
+                        'npc_give_task': 'Big Monke',
+                        'npc_take_artifact': 'Big Monke',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'banana',
+                        'description': 'Big Monke: Follow the flame into the desolation of abomination. Kill the '
+                                       'creature.',
+                        'artefact': 'Dragons fang',
+                        'points': 20,
+                        'npc_give_task': 'Big Monke',
+                        'npc_take_artifact': 'Big Monke',
+                        'next_npc': None,
+                        'gift': 'The greatest gem of dwarven empire'
+                    }
+                ]
+            }
+        },
+        'evil': {
+            # Quest 1
+            'destroy_primeval_bush': {
+                'name': 'destroy_primeval_bush',
+                'description': 'Your journey here will focus on doing bad, bad things... Lets start with eliminating '
+                               'some of your enemies so that you can gain their weapon. Go kill the tigers first.',
+                'points': 20,
+                'tasks': [
+                    {
+                        'name': 'kill_tigers',
+                        'description': 'Kill the tigers so that you have their fur.',
+                        'artefact': 'Tigers fur',
+                        'points': 15,
+                        'npc_give_task': None,
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'kill_snakes',
+                        'description': 'Kill the snakes so that you have their skin.',
+                        'artefact': 'Snakes skin',
+                        'points': 15,
+                        'npc_give_task': None,
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'kill_amazons',
+                        'description': 'The last thing you need to do to take over the primaeval bush is to... Kill '
+                                       'its keepers! Amazons! Kill them and take their weapon. You may need it '
+                                       'later..',
+                        'artefact': 'Amazons spare',
+                        'points': 15,
+                        'npc_give_task': None,
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': 'Amazons spare'
+                    }
+                ]
+            },
+            # Quest 2
+            'trade_weapons': {
+                'name': 'trade_weapons',
+                'description': 'Congratulations. Now you have a leverage. Trade your javelin with the Smith.',
+                'points': 50,
+                'tasks': [
+                    {
+                        'name': 'trade',
+                        'description': 'Smith: Well... I will improve your weapons strength only if you bring me '
+                                       'gold. You will get it by killing the leprechaun. You seem shady lad. ',
+                        'artefact': 'Gold',
+                        'points': 10,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'bring_food',
+                        'description': 'Smith: Okay. I have the gold. But I am hungry you know. I would like to eat '
+                                       'something. Maybe a fish?',
+                        'artefact': 'Fish',
+                        'points': 10,
+                        'npc_give_task': 'Smith',
+                        'npc_take_artifact': 'Smith',
+                        'next_npc': None,
+                        'gift': 'Weapon', # improved strength
+
+                    }
+                ]
+            },
+            # Quest 3
+            'trick_orcs': {
+                'name': 'prove_bravery',
+                'description': 'Now your task is to trick orcs into giving you more power. See them for the clues.',
+                'points': 60,
+                'tasks': [
+                    {
+                        'name': 'clean_feet',
+                        'description': 'Orcs: You want what? Regain your life? Ha ha ha... Fine, but you have to do '
+                                       'couple '
+                                       'of things first. For example... Clean my feet! Take water from Specular Lake.',
+                        'artefact': 'Water',
+                        'points': 15,
+                        'npc_give_task': 'Orc',
+                        'npc_take_artifact': 'Orc',
+                        'next_npc': None,
+                        'gift': 'Life potion'
+                    }
+                ]
+            },
+            # Quest 4
+            'steal_treasure': {
+                'name': 'steal_treasure',
+                'description': 'There we are. It’s time to solve the greatest mistery of the dwarves. Find the thief '
+                               'of the Greatest Gem of the Dwarven Empire. See Druid for clues.',
+                'points': 100,
+                'tasks': [
+                    {
+                        'name': 'find_witness',
+                        'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
+                                       'Empire. You had better find him.',
+                        'artefact': None,
+                        'points': 20,
+                        'npc_give_task': 'Druid',
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'the_snowman',
+                        'description': 'Snowman: I will help you as long as you bring me my nose! Kill escaping '
+                                       'vegetables so I can get a carrot.',
+                        'artefact': 'Carrot',
+                        'points': 20,
+                        'npc_give_task': 'Snowman',
+                        'npc_take_artifact': 'Snowman',
+                        'next_npc': 'Big Monke',
+                        'gift': None
+                    },
+                    {
+                        'name': 'bring_fire',
+                        'description': 'Big Monke: You want the treasure? It wont be easy for you little one.',
+                        'artefact': None,
+                        'points': 20,
+                        'npc_give_task': 'Big Monke',
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': 'The Greatest Gem of Dwarven Empire'
+                    }
+                ]
+            }
+        }
+    },
     'Barbarian': {
         # Quest 1 - True Barbarian
         'good': {

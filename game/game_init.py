@@ -263,6 +263,7 @@ def game(hero):
             hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
                       sprites_to_move_opposite)
 
+        # -----------------------------------------------------------------------------------------------
         # Random movement of npcs if not in dialog
         for npc in npcs:
             if not npc.is_talking and not npc.in_fight_mode:

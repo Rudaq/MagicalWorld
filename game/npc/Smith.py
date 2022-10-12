@@ -32,7 +32,7 @@ class Smith(Npc):
         self.gem = Artifact(gem_image, 10, 'Purple Gem', None)
 
         self.gifts.add(self.tools, self.shovel, self.new_sword, self.gem)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        smith_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/weapon", "axe.png"))
+        self.npc_attack = AttackClass(smith_attack, 20, 10, 'weapon attack')
 

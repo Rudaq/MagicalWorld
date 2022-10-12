@@ -26,6 +26,5 @@ class Spider(Npc):
         self.fang1 = Artifact(fang_image, 5, 'Spider Fang', None)
         self.fang2 = Artifact(fang_image, 5, 'Spider Fang', None)
         self.artifacts.add(self.blood, self.fang, self.fang1, self.fang2)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+
+        self.npc_attack = None

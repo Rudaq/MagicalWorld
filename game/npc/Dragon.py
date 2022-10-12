@@ -27,3 +27,6 @@ class Dragon(Npc):
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 35, 10, 'dark wizard attack')
+        dragon_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "fire.png"))
+        self.npc_attack = AttackClass(dragon_attack, 20, 10, 'dragon attack')

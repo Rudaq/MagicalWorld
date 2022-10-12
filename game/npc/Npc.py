@@ -27,50 +27,47 @@ class Npc(Character):
     def talk(self):
         print("I'm NPC")
 
-    def move(self, all_sprites_group):
-        pass
-
     # Method for randomly moving the npc
-    # def move(self, all_sprites_group):
-    #     is_collision, all_sprites_group = self.collision(all_sprites_group)
-    #
-    #     if not is_collision:
-    #         step = 2
-    #
-    #         # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
-    #         # and time to wait between next movements (self.movement[2])
-    #         if self.movement[0] == 0 and self.movement[2] == 0:
-    #             distance = random.randint(-100, 100)
-    #             axis = random.randint(0, 1)
-    #             wait = random.randint(0, 30)
-    #             self.movement = [distance, axis, wait]
-    #
-    #         # Increasing/Decreasing the value of x or y coordinates,
-    #         # depending on the chosen axis of movement (up-down, left-right)
-    #         else:
-    #             if self.movement[0] > 0:
-    #                 self.movement[0] -= 1
-    #                 # Moving right
-    #                 if self.movement[1] == 0:
-    #                     self.rect.x += step
-    #                     self.direction = 'R'
-    #                 # Moving down
-    #                 else:
-    #                     self.rect.y += step
-    #                     self.direction = 'D'
-    #             elif self.movement[0] < 0:
-    #                 self.movement[0] += 1
-    #                 # Moving left
-    #                 if self.movement[1] == 0:
-    #                     self.rect.x -= step
-    #                     self.direction = 'L'
-    #                 # Moving right
-    #                 else:
-    #                     self.rect.y -= step
-    #                     self.direction = 'U'
-    #             # Waiting by a number of randomly selected iteration, before another random call
-    #             elif self.movement[0] == 0:
-    #                 self.movement[2] -= 1
+    def move(self, all_sprites_group):
+        is_collision, all_sprites_group = self.collision(all_sprites_group)
+
+        if not is_collision:
+            step = 2
+
+            # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
+            # and time to wait between next movements (self.movement[2])
+            if self.movement[0] == 0 and self.movement[2] == 0:
+                distance = random.randint(-100, 100)
+                axis = random.randint(0, 1)
+                wait = random.randint(0, 30)
+                self.movement = [distance, axis, wait]
+
+            # Increasing/Decreasing the value of x or y coordinates,
+            # depending on the chosen axis of movement (up-down, left-right)
+            else:
+                if self.movement[0] > 0:
+                    self.movement[0] -= 1
+                    # Moving right
+                    if self.movement[1] == 0:
+                        self.rect.x += step
+                        self.direction = 'R'
+                    # Moving down
+                    else:
+                        self.rect.y += step
+                        self.direction = 'D'
+                elif self.movement[0] < 0:
+                    self.movement[0] += 1
+                    # Moving left
+                    if self.movement[1] == 0:
+                        self.rect.x -= step
+                        self.direction = 'L'
+                    # Moving right
+                    else:
+                        self.rect.y -= step
+                        self.direction = 'U'
+                # Waiting by a number of randomly selected iteration, before another random call
+                elif self.movement[0] == 0:
+                    self.movement[2] -= 1
 
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
@@ -84,7 +81,7 @@ class Npc(Character):
     def fight_npc(self, screen, hero, npcs):
 
         counter = random.randint(1, 25)
-        if counter == 4:
+        if counter == 4 and self.npc_attack is not None:
             if self.attack_type is None:
                 self.attack_type = self.npc_attack
 
@@ -151,6 +148,44 @@ class Npc(Character):
 
     # function for NPC' movement while fighting
     def move_in_fight(self, hero, all_sprites_group):
+        step = random.randint(1, 4)
+        is_collision, all_sprites_group = self.collision(all_sprites_group)
+
+        if not is_collision:
+            if hero.direction == 'L':
+                if hero.mana > 0:
+                    self.rect.x += step
+                    self.direction = 'R'
+                else:
+                    step *= 2
+                    self.rect.x -= step
+                    self.direction = 'L'
+            elif hero.direction == 'U':
+                if hero.mana > 0:
+                    self.rect.y += step
+                    self.direction = 'D'
+                else:
+                    step *= 2
+                    self.rect.y -= step
+                    self.direction = 'U'
+            elif hero.direction == 'R':
+                if hero.mana > 0:
+                    self.direction = 'L'
+                    self.rect.x -= step
+                else:
+                    step *= 2
+                    self.direction = 'R'
+                    self.rect.x += step
+            else:
+                if hero.mana > 0:
+                    self.direction = 'U'
+                    self.rect.y -= step
+                else:
+                    step *= 2
+                    self.direction = 'D'
+                    self.rect.y += step
+
+    def run(self, hero, all_sprites_group):
         step = random.randint(1, 4)
         is_collision, all_sprites_group = self.collision(all_sprites_group)
 

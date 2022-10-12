@@ -22,6 +22,6 @@ class BlindRat(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Blind Rat Blood', None)
         self.artifacts.add(self.blood)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        blind_rat_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "laser.PNG"))
+        self.npc_attack = AttackClass(blind_rat_attack, 20, 10, 'blind rat attack')

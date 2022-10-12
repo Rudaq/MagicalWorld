@@ -30,24 +30,25 @@ class NPCTypeNotExistException(Exception):
 def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=None):
     npc_dict_entry = NPCs.get(npc_race)
     if npc_dict_entry:
-        if name is None:
-            # rand choose one of the entities from its dict
-            name, parameters = random.choice(list(npc_dict_entry['dict'].items()))  # "DRUIDS
-        else:
-            # specific entity
-            parameters = npc_dict_entry['dict'][name]
+        # for every object of type npc_dict_entry create a npc
+        for item in npc_dict_entry['dict'].items():
+            if name is None:
+                name, parameters = item
+            else:
+                # specific entity
+                parameters = npc_dict_entry['dict'][name]
 
-        # creating npc object with its parameters
-        entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
-                                              life=npc_dict_entry['life'], images=npc_dict_entry['images'],
-                                              artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                              y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
-                                              inflation=(0, -10), collision_sprites=collision_sprites)
+            # creating npc object with its parameters
+            entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
+                                                  life=npc_dict_entry['life'], images=npc_dict_entry['images'],
+                                                  artifacts=parameters[1], quests=parameters[2], x=parameters[3],
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
+                                                  inflation=(0, -10), collision_sprites=collision_sprites)
 
-        for array in sprite_arrays:
-            array.append(entity)
-        for group in sprite_groups:
-            group.add(entity)
+            for array in sprite_arrays:
+                array.append(entity)
+            for group in sprite_groups:
+                group.add(entity)
     else:
         raise NPCTypeNotExistException
 

@@ -27,3 +27,7 @@ class EarthElemental(Npc):
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        self.artifacts.add(self.blood)
+        earth_elemental_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "mud.PNG"))
+        self.npc_attack = AttackClass(earth_elemental_attack, 20, 10, 'earth elemental attack')

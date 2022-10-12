@@ -428,22 +428,28 @@ ELVES = {
     'Manance': ["good", None, None, 2920, 6800]
 }
 TREANTS = {
-    'Oak': ["good", None, None, 170, 4550]
+    'Oak': ["good", None, None, 170, 4550],
+    'Sequoia': ["good", None, None, 1570, 3700],
+    'Bambus': ["good", None, None, 1170, 5120],
+    'Maple': ["good", None, None, 2200, 6010]
 }
 # desolation of abdomination:
 # x: 3590 - 6710
 # y: 140 - 1820
 DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 200, 400]
+    'Sarus': ["evil", None, None, 3900, 1320]
 }
 DRAGONS = {
-    'Drogon': ["evil", None, None, 900, 800]
+    'Drogon': ["evil", None, None, 5700, 800]
 }
 FIRE_ELEMENTALS = {
-    'Firenzo': ["evil", None, None, 6100, 700]
+    'Firenzo': ["evil", None, None, 6100, 700],
+    'Fireball': ["evil", None, None, 4750, 1450],
+    'Damian': ["evil", None, None, 3605, 230]
 }
 EARTH_ELEMENTALS = {
-    'Earthenzo': ["evil", None, None, 5200, 1000]
+    'Earthenzo': ["evil", None, None, 5200, 1000],
+    'Patrick': ["evil", None, None, 3820, 2500]
 }
 # FROZEN EMPIRE
 # x: 70 - 3290
@@ -452,22 +458,32 @@ ICE_MONSTERS = {
     'Icelius': ["evil", None, None, 2300, 1850]
 }
 BIG_WOLVES = {
-    'Furry': ["evil", None, None, 120, 2500]
+    'Furry': ["evil", None, None, 1170, 600],
+    'Murry': ["evil", None, None, 290, 1800],
+    'Durry': ["evil", None, None, 2270, 2100],
+    'Bamburry': ["evil", None, None, 870, 1200]
 }
 FRIENDLY_SNOWMEN = {
-    'Olaf': ["good", None, None, 1200, 380]
+    'Olaf': ["good", None, None, 1100, 280],
+    'Bodak': ["good", None, None, 2300, 990],
+    'Benjamin': ["good", None, None, 250, 1480],
+    'Dinerdo': ["good", None, None, 1200, 2180]
 }
 # LAKE
 # x: 9450 - 12850 (M:10050, BF: 9930)
 # y: 7020 - 11000 (9720, 7360)
 MERMAIDS = {
-    'Arielle': ["good", None, None, 800, 700]
+    'Arielle': ["good", None, None, 10030, 9720]
 }
 CRABS = {
-    'Craberus': ["good", None, None, 11700, 10400]
+    'Craberus': ["good", None, None, 11700, 10400],
+    'Crabemus': ["good", None, None, 10900, 10400],
+    'Craperus': ["good", None, None, 11100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 9930, 7360]
+    'Gul': ["evil", None, None, 9930, 7360],
+    'Bul': ["evil", None, None, 9630, 7160],
+    'Dul': ["evil", None, None, 8930, 7360]
 }
 # SWAMP:
 # x: 7070-10590
@@ -475,54 +491,67 @@ BIG_FISHES = {
 ORCS = {
     'Stinker': ["evil", None, None, 8300, 950]
 }
-
 DONKEYS = {
-    'Ponkey': ["good", None, None, 7900, 320]
+    'Ponkey': ["good", None, None, 7900, 320],
+    'Conkey': ["good", None, None, 10000, 1200],
+    'Ponkey': ["good", None, None, 8830, 975],
 }
-
 BLIND_RATS = {
-    'Mousey': ["evil", None, None, 9250, 1700]
+    'Mousey': ["evil", None, None, 9250, 790],
+    'Wousey': ["evil", None, None, 8250, 1000],
+    'Busy': ["evil", None, None, 7700, 1300]
 }
 # MEDIEVILLE:
 # 8090 - 12850 (WM:8430 - 9350)
 # 2400 - 6260 (WM:2760 - 3260)
 SMITHS = {
-    'Gavin': ["good", None, None, 700, 600]
+    'Gavin': ["good", None, None, 11200, 3000]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 700, 700]
+    'Harwin': ["good", None, None, 9000, 4500]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 700, 500]
+    'Feather': ["evil", None, None, 8790, 2720],
+    'Crow': ["evil", None, None, 8850, 2920],
+    'Nights': ["evil", None, None, 8900, 2970],
 }
 ESCAPING_VEGETABLES = {
-    'Parsley': ["evil", None, None, 10500, 3400]
+    'Parsley': ["evil", None, None, 10600, 4400],
+    'Sage': ["evil", None, None, 9500, 3700],
+    'Rosemary': ["evil", None, None, 10000, 2950],
+    'Thyme': ["evil", None, None, 11200, 3100]
 }
 WHEAT_MONSTERS = {
-    'Wheater': ["evil", None, None, 9150, 2750]
+    'Wheater': ["evil", None, None, 9150, 2750],
+    'Skipper': ["evil", None, None, 9250, 3200],
+    'Daphne': ["evil", None, None, 9400, 2950]
 }
 # COAST:
 # 10570 - 12850 (10730-12850)
 # 140 - 4840 (140-4300)
 PANDAS = {
-    'Wanda': ["good", None, None, 11400, 2550]
+    'Wanda': ["good", None, None, 11400, 2550],
+    'Banda': ["good", None, None, 12400, 900],
+    'Bamboo': ["good", None, None, 10790, 1250]
 }
 LEMURS = {
-    'Julian': ["good", None, None, 11510, 4340]
+    'Julian': ["good", None, None, 11550, 4340],
+    'Moris': ["good", None, None, 12010, 2000],
 }
 BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 850, 600]
+    'Gorilla': ["evil", None, None, 12600, 1300]
 }
 # LOVEY DOVEY:
 # 70 - 4890
 # 7880 - 11000
 UNICORNS = {
-    'Pony': ["good", None, None, 200, 200]
+    'Pony': ["good", None, None, 100, 8600]
 }
 FAERIES = {
-    'Lovely': ["good", None, None, 300, 800]
+    'Lovely': ["good", None, None, 3000, 10500],
+    'Dovey': ["good", None, None, 4000, 8900],
+    'Priscilla': ["good", None, None, 1290, 9600]
 }
-
 LEPRECHAUNS = {
     'Goldey': ["evil", None, None, 4600, 9840]
 }
@@ -533,22 +562,26 @@ AMAZONS = {
     'Wilderina': ["good", None, None, 5900, 3750]
 }
 SNAKES = {
-    'Anaconde': ["evil", None, None, 700, 900]
+    'Anaconde': ["evil", None, None, 3900, 4900],
+    'Bamboo': ["evil", None, None, 5200, 3950],
+    'Snack': ["evil", None, None, 6200, 6200]
 }
 TIGERS = {
-    'Lionel': ["evil", None, None, 700, 800]
+    'Lionel': ["evil", None, None, 5000, 3000]
 }
 # DREARY:
 # x: 5690 - 9100
 # y: 7720 - 11000
 SPIDERS = {
-    'Venom': ["evil", None, None, 600, 800]
+    'Venom': ["evil", None, None, 6200, 8400],
+    'Bradley': ["evil", None, None, 5770, 7970],
+    'Duncan': ["evil", None, None, 8700, 10400]
 }
 VAMPIRES = {
-    'Bloody': ["evil", None, None, 500, 400]
+    'Bloody': ["evil", None, None, 6800, 10200]
 }
 DARK_ELVES = {
-    'Baldwin': ["evil", None, None, 500, 500]
+    'Baldwin': ["evil", None, None, 8400, 8050]
 }
 
 RANDOM_ANSWERS = {
@@ -567,8 +600,7 @@ NPCs = {
         'life': 100,
         'inflate': (-10, -10),
         'images': NPC_IMAGES['image_druid'],
-        'dict': DRUIDS,
-        # 'quests': DRUID_QUESTS
+        'dict': DRUIDS
     },
     'dark_wizard': {
         'class_name': DarkWizard,

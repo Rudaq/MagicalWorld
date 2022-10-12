@@ -9,7 +9,7 @@ current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
 
-# Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
+# Class for a npc of type Wheat Monster, inherits from Npc class inheriting from Character class
 class WheatMonster(Npc):
     def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation,
                  collision_sprites):
@@ -22,6 +22,6 @@ class WheatMonster(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Wheat Monster Blood', None)
         self.artifacts.add(self.blood)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        wheat_monster_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "wheat_monster_attack.PNG"))
+        self.npc_attack = AttackClass(wheat_monster_attack, 20, 10, 'wheat monster attack')

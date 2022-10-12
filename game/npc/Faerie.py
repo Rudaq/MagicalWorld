@@ -29,3 +29,6 @@ class Faerie(Npc):
         dark_wizard_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        faerie_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "spell.PNG"))
+        self.npc_attack = AttackClass(faerie_attack, 20, 10, 'faerie attack')
