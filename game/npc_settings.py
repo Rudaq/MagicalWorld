@@ -448,7 +448,7 @@ FIRE_ELEMENTALS = {
     'Damian': ["evil", None, None, 3605, 230]
 }
 EARTH_ELEMENTALS = {
-    'Earthenzo': ["evil", None, None, 5200, 1000],
+    'Earthenzo': ["evil", None, None, 600, 500],
     'Patrick': ["evil", None, None, 3820, 2500]
 }
 # FROZEN EMPIRE
@@ -505,13 +505,13 @@ BLIND_RATS = {
 # 8090 - 12850 (WM:8430 - 9350)
 # 2400 - 6260 (WM:2760 - 3260)
 SMITHS = {
-    'Gavin': ["good", None, None, 11200, 3000]
+    'Gavin': ["good", None, None, 300, 400]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 9000, 4500]
+    'Harwin': ["good", None, None, 700, 500]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 8790, 2720],
+    'Feather': ["evil", None, None, 700, 600],
     'Crow': ["evil", None, None, 8850, 2920],
     'Nights': ["evil", None, None, 8900, 2970],
 }
@@ -548,7 +548,7 @@ UNICORNS = {
     'Pony': ["good", None, None, 100, 8600]
 }
 FAERIES = {
-    'Lovely': ["good", None, None, 3000, 10500],
+    'Lovely': ["good", None, None, 300, 500],
     'Dovey': ["good", None, None, 4000, 8900],
     'Priscilla': ["good", None, None, 1290, 9600]
 }
@@ -559,21 +559,21 @@ LEPRECHAUNS = {
 # x: 3470 - 5250 if higher ~ 7500
 # y: 2900 - 6520
 AMAZONS = {
-    'Wilderina': ["good", None, None, 5900, 3750]
+    'Wilderina': ["good", None, None, 300, 700]
 }
 SNAKES = {
-    'Anaconde': ["evil", None, None, 3900, 4900],
+    'Anaconde': ["evil", None, None, 600, 600],
     'Bamboo': ["evil", None, None, 5200, 3950],
     'Snack': ["evil", None, None, 6200, 6200]
 }
 TIGERS = {
-    'Lionel': ["evil", None, None, 5000, 3000]
+    'Lionel': ["evil", None, None, 300, 800]
 }
 # DREARY:
 # x: 5690 - 9100
 # y: 7720 - 11000
 SPIDERS = {
-    'Venom': ["evil", None, None, 6200, 8400],
+    'Venom': ["evil", None, None, 500, 600],
     'Bradley': ["evil", None, None, 5770, 7970],
     'Duncan': ["evil", None, None, 8700, 10400]
 }

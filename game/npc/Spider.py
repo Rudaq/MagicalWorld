@@ -23,8 +23,5 @@ class Spider(Npc):
         self.blood = Artifact(blood_image, 10, 'Spider Blood', None)
         fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "spider_fang.PNG"))
         self.fang = Artifact(fang_image, 5, 'Spider Fang', None)
-        self.fang1 = Artifact(fang_image, 5, 'Spider Fang', None)
-        self.fang2 = Artifact(fang_image, 5, 'Spider Fang', None)
-        self.artifacts.add(self.blood, self.fang, self.fang1, self.fang2)
-
+        self.artifacts.add(self.blood, self.fang)
         self.npc_attack = None

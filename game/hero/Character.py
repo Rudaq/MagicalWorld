@@ -293,6 +293,7 @@ class Character(pygame.sprite.Sprite):
                     if g.name == gift:
                         n.gifts.remove(g)
                         self.collect_artifact(g)
+                break
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

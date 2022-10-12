@@ -11,7 +11,7 @@ class Barbarian(Character):
         self.race = "Barbarian"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 15, 10, 'sword_attack')
+        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 50, 10, 'sword_attack')
         self.fury = AttackClass(BARBARIAN_ACTIONS['fury'], 15, 5, 'fury_attack')
         self.resistance = AttackClass(BARBARIAN_ACTIONS['resistance'], 0, 10, 'resistance_to_damage')
 

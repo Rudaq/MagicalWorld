@@ -24,6 +24,6 @@ class Orc(Npc):
         mace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_mace.PNG"))
         self.mace = Artifact(mace_image, 10, 'Orc Mace', None)
         self.artifacts.add(self.blood, self.mace)
-      mud_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mud.PNG"))
+        mud_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mud.PNG"))
         self.npc_attack = AttackClass(mud_image, 20, 10, 'orc attack')
 
