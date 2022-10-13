@@ -24,11 +24,11 @@ class Faerie(Npc):
         self.artifacts.add(self.blood)
         magical_crystal_image = pygame.image.load(
             os.path.join(path, "resources/graphics/artifacts", "magical_crystal.PNG"))
-        magical_crystal = Artifact(magical_crystal_image, 15, 'Magical Crystal', None)
-        self.gifts.add(magical_crystal)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        self.magical_crystal = Artifact(magical_crystal_image, 15, 'Magical Crystal', None)
+        magic_dust_image = pygame.image.load(
+            os.path.join(path, "resources/graphics/artifacts", "magic_dust.PNG"))
+        self.magic_dust = Artifact(magic_dust_image, 20, 'Magic Dust', None)
+        self.gifts.add(self.magical_crystal, self.magic_dust)
         faerie_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spell.PNG"))
         self.npc_attack = AttackClass(faerie_attack, 20, 10, 'faerie attack')

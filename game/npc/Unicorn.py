@@ -23,7 +23,9 @@ class Unicorn(Npc):
         self.blood = Artifact(blood_image, 10, 'Unicorn Blood', None)
         horn_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "horn.PNG"))
         self.horn = Artifact(horn_image, 10, 'Unicorn Horn', None)
-        self.artifacts.add(self.blood, self.horn)
+        heart_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "unicorn_heart.PNG"))
+        self.heart = Artifact(heart_image, 10, 'Unicorn Heart', None)
+        self.artifacts.add(self.blood, self.horn, self.heart)
         unicorn_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spell.PNG"))
         self.npc_attack = AttackClass(unicorn_attack, 20, 10, 'unicorn attack')

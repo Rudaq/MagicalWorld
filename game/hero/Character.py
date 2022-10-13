@@ -1,10 +1,13 @@
 import pygame
 from artifacts.Artifact import Artifact
+
 SPRITE_SIZE = 50
 import os
 from pathlib import Path
+
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
+
 
 # Class with characteristics common to all races, from which race classes inherit
 class Character(pygame.sprite.Sprite):
@@ -249,7 +252,7 @@ class Character(pygame.sprite.Sprite):
         print("HELLO")
 
     # Placeholder. Method to add the found or obtained weapon to the equipment.
-    def collect_artifact(self, artifact):
+    def collect_artifact(self, artifact, npcs):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
@@ -267,22 +270,10 @@ class Character(pygame.sprite.Sprite):
             return False
         else:
             if map_artifact.small_image is not None:
-                if map_artifact.name == 'Pandas Skull':
-                    for e in self.equipment:
-                        if e.name == 'Shovel':
-                            self.equipment.remove(e)
-                            equipment_buttons.remove(e)
-
-                            artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
-                            self.equipment.append(artifact)
-                            self.points += artifact.points
-                            return True
-                    return False
-                else:
-                    artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
-                    self.equipment.append(artifact)
-                    self.points += artifact.points
-                    return True
+                artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                self.equipment.append(artifact)
+                self.points += artifact.points
+                return True
             else:
                 return False
 
@@ -292,8 +283,9 @@ class Character(pygame.sprite.Sprite):
                 for g in n.gifts:
                     if g.name == gift:
                         n.gifts.remove(g)
-                        self.collect_artifact(g)
+                        self.collect_artifact(g, npcs)
                 break
+
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

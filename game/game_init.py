@@ -292,7 +292,7 @@ def game(hero):
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
                     # remove the artifact from the surface
-                    if hero.collect_artifact(artifact):
+                    if hero.collect_artifact(artifact, npcs):
                         # change the chest image in the hud to open chest
                         chest_opened = True
                         remove_artifact(all_artifacts, artifact, screen)
@@ -304,7 +304,7 @@ def game(hero):
                     update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
-                    if hero.collect_map_artifact(map_artifact, equipment_buttons):
+                    if hero.collect_map_artifact(map_artifact, equipment_buttons, npcs):
                         chest_opened = True
                         restore = datetime.now()
                         check_map_artifact(map_artifact)

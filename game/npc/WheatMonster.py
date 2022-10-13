@@ -19,9 +19,9 @@ class WheatMonster(Npc):
         self.race = "Wheat Monster"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Wheat Monster Blood', None)
-        self.artifacts.add(self.blood)
+        wheat_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "wheat.PNG"))
+        self.wheat = Artifact(wheat_image, 10, 'Wheat', None)
+        self.artifacts.add(self.wheat)
         wheat_monster_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "wheat_monster_attack.PNG"))
         self.npc_attack = AttackClass(wheat_monster_attack, 20, 10, 'wheat monster attack')

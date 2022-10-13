@@ -118,6 +118,6 @@ def remove_artifact(all_artifacts, artifact, screen):
     all_artifacts.draw(screen)
 
 
-def collect_map_artifact(hero, map_artifact):
+def collect_map_artifact(hero, map_artifact, npcs):
     artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
-    hero.collect_artifact(artifact)
+    hero.collect_artifact(artifact, npcs)

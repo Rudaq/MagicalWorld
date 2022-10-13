@@ -21,7 +21,9 @@ class BigMonke(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Monke Blood', None)
-        self.artifacts.add(self.blood)
+        heart_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "monke_heart.PNG"))
+        self.heart = Artifact(heart_image, 10, 'Monke Heart', None)
+        self.artifacts.add(self.blood, self.heart)
         big_monke_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "banana.PNG"))
         self.npc_attack = AttackClass(big_monke_attack, 20, 10, 'big monke attack')

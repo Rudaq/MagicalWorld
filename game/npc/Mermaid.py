@@ -21,8 +21,10 @@ class Mermaid(Npc):
 
         self.can_talk = False
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG"))
+        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
+        self.necklace = Artifact(necklace_image, 10, 'Mermaid Necklace', None)
         self.blood = Artifact(blood_image, 10, 'Mermaid Blood', None)
-        self.artifacts.add(self.blood)
+        self.artifacts.add(self.blood, self.necklace)
         mermaid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mermaid_attack.PNG"))
         self.npc_attack = AttackClass(mermaid_attack, 20, 10, 'mermaid attack')
 
