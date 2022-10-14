@@ -52,16 +52,18 @@ def game(hero):
     npcs = []
     sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
-    collision_sprites = pygame.sprite.Group()
+    collision_sprites_hero = pygame.sprite.Group()
+    collision_sprites_npc = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
     all_sprites_group.add(all_artifacts)
     npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
-    hero.collision_sprites = collision_sprites
+    hero.collision_sprites = collision_sprites_hero
     hero.groups = all_sprites_group
-    # chyba trzeba zrobić osobne collision_sprites do move dla NPC i hero, bo hero musi mieć NPC  w sprite a NPC hero
     all_sprites_group.add(hero)
+
+
     moving = False
 
     dir_opposite = 'R'
@@ -109,7 +111,10 @@ def game(hero):
     sprites_to_move_opposite.extend(map_artifacts)
     sprites_to_move_opposite.extend(all_artifacts)
     all_sprites_group.add(map_artifacts)
-    collision_sprites.add(map_artifacts)
+    collision_sprites_hero.add(map_artifacts)
+    collision_sprites_npc.add(map_artifacts)
+    collision_sprites_npc.add(npc_boundaries)
+    collision_sprites_npc.add(hero)
 
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
@@ -119,27 +124,33 @@ def game(hero):
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
+    all_sprites_group.add(collision_sprites_npc)
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites_npc)
 
-    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
+
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
-        npc.collision_sprites = npc_boundaries
 
         mock_npc = MockNpc(npc)
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
+        collision_sprites_hero.add(npc.artifacts)
+        collision_sprites_npc.add(npc.artifacts)
+
+        npc.collision_sprites = collision_sprites_npc
+        npc.groups = all_sprites_group
         all_sprites_group.add(npc)
-        collision_sprites.add(npc)
-        collision_sprites.add(npc.artifacts)
+        collision_sprites_hero.add(npc)
+
+    create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2

@@ -3,11 +3,7 @@ import pygame
 from artifacts.Artifact import Artifact
 import os
 from pathlib import Path
-from artifacts.AttackClass import AttackClass
-from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
-from game.settings import GUI_IMAGES, BLACK
-import math
-from datetime import datetime
+
 
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
@@ -44,5 +40,11 @@ class FriendlySnowman(Npc):
                     print(self.race + ": Thank you for your gift")
 
         if artifact.name == 'Snowman Nose':
-            self.image = pygame.image.load(
-                os.path.join(path, "resources/graphics/npc", "snowman_nose.PNG"))
+            image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png"))
+            image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png"))
+            image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png"))
+            image_right = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
+            self.images['up'] = image_back
+            self.images['down'] = image_front
+            self.images['right'] = image_right
+            self.images['left'] = image_left

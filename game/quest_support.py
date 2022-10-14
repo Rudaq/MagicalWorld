@@ -7,6 +7,7 @@ from quest.Quest import Quest
 from quest.Task import Task
 
 
+
 class QuestTypeNotExistException(Exception):
     pass
 
@@ -54,3 +55,4 @@ def show_quest_to_hero(screen, hero):
             h += 5
         else:
             h -= 5
+

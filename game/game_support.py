@@ -18,6 +18,7 @@ from math import dist
 from re import compile, split
 from artifacts.Artifact import Artifact
 from settings import MAP_IMAGES
+from game.npc_settings import NPC_IMAGES
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 current_path = Path(__file__).resolve().parent.parent
@@ -177,3 +178,6 @@ def check_map_artifact(map_artifact):
     elif map_artifact.name == 'Immortality Flower':
         map_artifact.image = MAP_IMAGES['big_tree']
     map_artifact.small_image = None
+
+def change_image(npc):
+    npc.images = NPC_IMAGES['image_snowman_nose']

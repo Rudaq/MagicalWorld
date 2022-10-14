@@ -51,20 +51,24 @@ class Npc(Character):
                     if self.movement[1] == 0:
                         self.rect.x += step
                         self.direction = 'R'
+                        self.image = self.images['right']
                     # Moving down
                     else:
                         self.rect.y += step
                         self.direction = 'D'
+                        self.image = self.images['down']
                 elif self.movement[0] < 0:
                     self.movement[0] += 1
                     # Moving left
                     if self.movement[1] == 0:
                         self.rect.x -= step
                         self.direction = 'L'
+                        self.image = self.images['left']
                     # Moving right
                     else:
                         self.rect.y -= step
                         self.direction = 'U'
+                        self.image = self.images['up']
                 # Waiting by a number of randomly selected iteration, before another random call
                 elif self.movement[0] == 0:
                     self.movement[2] -= 1
