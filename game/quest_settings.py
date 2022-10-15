@@ -1212,7 +1212,7 @@ QUESTS = {
                         },
                         {
                             'name': 'get_sacred_fire',
-                            'description': "Dark Wizard deemed you worthy. The gift that you received will help you get "
+                            'description': "Amazons offered you their help when you did them a favour. The sage they gave you will help you get "
                                            "some sacred fire from the Druids. Beware they are the balance keepers and "
                                            "they serve the powers of light. If you want to live, you better drink the "
                                            "potion.",
