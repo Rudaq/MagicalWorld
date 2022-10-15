@@ -1020,15 +1020,15 @@ QUESTS = {
         }
     },
     'Elf': {
-        # Quest 1
         'good': {
-            'give_gold_wizard ': {
-                'name': 'give_gold_wizard',
+            # Quest 1
+            'get_healing_potion ': {
+                'name': 'get_healing_potion',
                 'description': 'It is not too late to safe the sacred oak and the land of Magic. You can be the hero '
                                'that is so needed, but you’ll have too show your bravery, wisdom and cleverness. The '
                                'first step of your journey is the dreary Forest were the Dark Wizard prepares the '
                                'healing potion you’ll need.',
-                'points': 20,
+                'points': 40,
                 'tasks': [
                     {
                         'name': 'gold_leprechaun_fight',
@@ -1052,17 +1052,9 @@ QUESTS = {
                         'points': 10,
                         'npc_give_task ': 'Leprechaun',
                         'npc_take_artifact ': 'Leprechaun',
-                        'next_npc ': None,
+                        'next_npc ': 'Dark Wizard',
                         'gift': 'Gold Bar'
-                    }
-
-                ]
-            },
-            'get_dragon_eyeballs ': {
-                'name': 'get_dragon_eyeballs',
-                'description': '', # TODO description
-                'points': 20,
-                'tasks': [
+                    },
                     {
                         'name': 'fight_the_dragon',
                         'description': 'Now that you’ve paid, the Dark Wizard will judge if you are worthy of his '
@@ -1073,16 +1065,9 @@ QUESTS = {
                         'points': 25,
                         'npc_give_task ': 'Dark Wizard',
                         'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': None,
+                        'next_npc ': 'Fairies',
                         'gift': None
-                    }
-                ]
-            },
-            'get_fairy_dust ': {
-                'name': 'get_fairy_dust',
-                'description': '',
-                'points': 20,
-                'tasks': [
+                    },
                     {
                         'name': 'fairies_magic_dust',
                         'description': 'Fairies are often dismissed as small and weak, but their magic is powerfull. '
@@ -1092,8 +1077,8 @@ QUESTS = {
                         'points': 20,
                         'npc_give_task ': 'Dark Wizard',
                         'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': None,
-                        'gift': None
+                        'next_npc ': 'Dark Wizard',
+                        'gift': 'Healing Potion'
                     },
                     {
                         'name': 'kill_the_gorilla',
@@ -1105,173 +1090,170 @@ QUESTS = {
                         'points': 20,
                         'npc_give_task ': 'Faerie',
                         'npc_take_artifact ': 'Faerie',
-                        'next_npc ': None,
+                        'next_npc ': 'Treant',
                         'gift': 'Magic Dust'
-                    }
-                ]
-            },
-            'save_the_oak ': {
-                'name': 'save_the_oak',
-                'description': 'You completed all the difficult challenges that required the strength, skill and '
-                               'heart. You’ve become proclaimed worthy. The healing potion is yours. Its power is '
-                               'greatest than any other potion known to any elf, druid of wizard. Use it wisely.',
-                'points': 20,
-                'tasks': [
+                    },
                     {
                         'name': 'pour_potion_oak',
                         'description': 'You now have a potion that can stop the illness of the sacred oak. Find the '
-                                       'tree and pour the potion on it.',
+                                       'treant and pour the potion on it.',
                         'artefact': 'Healing Potion',
                         'points': 20,
-                        'npc_give_task ': None,
+                        'npc_give_task ': 'Treant',
                         'npc_take_artifact ': 'Treant',
                         'next_npc ': None,
                         'gift': None
-                    },
-                    {
-                        'name': 'get_freedom_dark',
-                        'description': 'Healing of the oak brings the god to thank you for saving the sacred tree and '
-                                       'restoring its Health. For that reason it decides to heal all dark elves from '
-                                       'the demons under the rebelious god control.',
-                        'artefact': None,
-                        'points': 20,
-                        'npc_give_task ': None,
-                        'npc_take_artifact ': None,
-                        'next_npc ': None,
-                        'gift': None
                     }
 
                 ]
+            },
+            # Quest 2
+                'help_restore_land ': {
+                    'name': 'help_restore_land',
+                    'description': 'You may have healed the sacred Treant that keeps the balance of good and evil, but harm was already done. The crops suffered and soon people of Medieville will starve. Help them and their Farmers.',
+                    'points': 25,
+                    'tasks': [
+                        {
+                            'name': 'talk_to_farmer',
+                            'description': 'All the crops are destroyed. The dark fire burnt them to the ground. There is nothing to eat, nothing to sow. But there still is hope. Wheat monsters have wheat that with a little soil can grow and save us.',
+                            'artefact': 'Wheat',
+                            'points': 20,
+                            'npc_give_task ': 'Farmer',
+                            'npc_take_artifact ': None,
+                            'next_npc ': 'Farmer',
+                            'gift': None
+                        },
+                        {
+                            'name': 'get_some_wheat',
+                            'description': 'The wheat will be useful for sure. But we cannot only eat bread. Some vegetables would be better for our well being as well as health. Find the running vegetables and bring them to us.',
+                            'artefact': '',
+                            'points': 20,
+                            'npc_give_task ': 'Farmer',
+                            'npc_take_artifact ': 'Farmer',
+                            'next_npc ': None,
+                            'gift': 'Vegetables'
+                        }
+                    ]
+                }
+            },
+            'evil': {
+                'get_incantation_scroll': {
+                    'name': 'get_incantation_scroll',
+                    'description': "You decided to come to the dark side. But you are still new in the ways of evil. You are gonna need some teaching and a person to do that would be a Dark Elf, who once was in your place.",
+                    'points': 40,
+                    'tasks': [
+                        {
+                            'name': 'get_the_incantation',
+                            'description': "The evil incantation that you're preparing yourself to perform won't happen "
+                                           "without the spell you need to cast. But right now its the Dark Wizard who "
+                                           "has the scroll you need. Find him.",
+                            'artefact': 'Incantation Scroll',
+                            'points': 10,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Dark Elf',
+                            'next_npc ': 'Dark Wizard',
+                            'gift': None
+                        },
+                        {
+                            'name': 'kill_the_tiger',
+                            'description': "The Dark Wizard knows the scroll you want well. He learnt everything from it by heart a long time ago. He does not need it anymore, but nothing is free in this world. He will give you the scroll in exchange for the necklace that is guarded by the Tiger.",
+                            'artefact': 'Tiger Necklace',
+                            'points': 10,
+                            'npc_give_task ': 'Dark Wizard',
+                            'npc_take_artifact ': 'Dark Wizard',
+                            'next_npc ': None,
+                            'gift': 'Incantation Scroll'
+                        }
+                    ]
+                },
+                'get_immortality ': {
+                    'name': 'get_immortality',
+                    'description': "Whispers say you seek immortality. The road to it is long and not easy. You'll face "
+                                   "challenges, fight enemies from the nightmares, face the god of destruction, "
+                                   "but if you have what it takes, you'll get what you want. The Dark Elf, as creatures of "
+                                   "the night can help you start your journey.",
+                    'points': 40,
+                    'tasks': [
+                        {
+                            'name': 'kill_the_raven',
+                            'description': 'Vampire knows only one way of gaining immortality, besides being born with '
+                                           'it. It requires a dangerous ritual, that many tried to follow, but failed. '
+                                           'But if you will persevere you will be rewarded. But first, you need to get '
+                                           'the blood of a big Raven scaring the people of Medieville.',
+                            'artefact': 'Raven Blood',
+                            'points': 20,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Dark Elf',
+                            'next_npc ': 'Vampire',
+                            'gift': None
+                        },
+                        {
+                            'name': 'sage_from_forest',
+                            'description': "Blood was just a first step of many on your way. But not every of them "
+                                           "requires you to dirty your hands. This time your predator instincts won't be "
+                                           "needed. All you need to do is asked the Amazon for some sage, because it's "
+                                           "not news that plants have powerful magic capabilities. Then you need to give it to the Druid for their sacred fire",
+                            'artefact': None,
+                            'points': 10,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Dark Elf',
+                            'next_npc ': 'Amazon',
+                            'gift': None,
+                        },
+                        {
+                            'name': 'kill_yeti',
+                            'description': "Sage is one of the gifts of the wild. Amazon can not only give it to you, they can show you when to look for it, but you need pay the price for that useful gift and lesson and the price is a skin of yeti.",
+                            'artefact': 'Yeti Skin',
+                            'points': 10,
+                            'npc_give_task ': 'Amazon',
+                            'npc_take_artifact ': 'Amazon',
+                            'next_npc ': 'Druid',
+                            'gift': 'Sage',
+                        },
+                        {
+                            'name': 'get_sacred_fire',
+                            'description': "Dark Wizard deemed you worthy. The gift that you received will help you get "
+                                           "some sacred fire from the Druids. Beware they are the balance keepers and "
+                                           "they serve the powers of light. If you want to live, you better drink the "
+                                           "potion.",
+                            'artefact': 'Sage',
+                            'points': 10,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Druid',
+                            'next_npc ': 'Dark Elf',
+                            'gift': 'Sacred Fire'
+                        },
+                        {
+                            'name': 'voice_of_mermaid',
+                            'description': "You're almost there. Keep going and don't loose courage. Find the beaches of "
+                                           "the lake and those who live there. Their voice can maim you, but it's power "
+                                           "is exactly what you're going to need. Steal the creatures necklace, "
+                                           "cause it hides the true magic of their voice.",
+                            'artefact': 'Mermaid Necklace',
+                            'points': 10,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Dark Elf',
+                            'next_npc ': 'Dark Elf',
+                            'gift': 'Magic Blood'
+                        },
+                        {
+                            'name': 'voice_of_mermaid',
+                            'description': "You brought everything needed to make a magic blood for a Vampire that is the only one that can give you the immortality. We will now prepare it according to the recipe on the scroll you obtained. When its ready, take it to the Vampire and exchange for your immortality.",
+                            'artefact': 'Magic Blood',
+                            'points': 10,
+                            'npc_give_task ': 'Dark Elf',
+                            'npc_take_artifact ': 'Vampire',
+                            'next_npc ': None,
+                            'gift': 'Immortality Potion'
+                        }
+
+                    ]
+                }
             }
-        },
-        'evil': {
-            'get_immortality ': {
-                'name': 'get_immortality',
-                'description': "Whispers say you seek immortality. The road to it is long and not easy. You'll face "
-                               "challenges, fight enemies from the nightmares, face the god of destruction, "
-                               "but if you have what it takes, you'll get what you want. The Vampire, as creatures of "
-                               "the night can help you start your journey.",
-                'points': 25,
-                'tasks': [
-                    {
-                        'name': 'kill_the_raven',
-                        'description': 'Vampire knows only one way of gaining immortality, besides being born with '
-                                       'it. It requires a dangerous ritual, that many tried to follow, but failed. '
-                                       'But if you will persevere you will be rewarded. But first, you need to get '
-                                       'the blood of a big Raven scaring the people of Medieville.',
-                        'artefact': 'Raven Blood',
-                        'points': 20,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'sage_from_forest',
-                        'description': "Blood was just a first step of many on your way. But not every of them "
-                                       "requires you to dirty your hands. This time your predator instincts won't be "
-                                       "needed. All you need to do is asked the Amazon for some sage, because it's "
-                                       "not news that plants have powerful magic capabilities.",
-                        'artefact': 'Sage',
-                        'points': 10,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None,
-                    },
-                    {
-                        'name': 'liar_potion_wizard',
-                        'description': "Not all of the beings that you meet are against you. The Dark Wizard may "
-                                       "become one of your allies. And if he likes you enough, he'll prepare a liars "
-                                       "potion for you. But the potion requires sage you were to collect. So remember "
-                                       "to take it to him. You're gonna need the potion later.",
-                        'artefact': 'Sage',
-                        'points': 10,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': 'Dark Wizard',
-                        'gift': 'Liar Potion'
-                    },
-                    {
-                        'name': 'get_sacred_fire',
-                        'description': "Dark Wizard deemed you worthy. The gift that you received will help you get "
-                                       "some sacred fire from the Druids. Beware they are the balance keepers and "
-                                       "they serve the powers of light. If you want to live, you better drink the "
-                                       "potion.",
-                        'artefact': 'Sacred Fire',
-                        'points': 10,
-                        'npc_give_task ': 'Dark Wizard',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'voice_of_mermaid',
-                        'description': "You're halfway there. Keep going and don't loose courage. Find the beaches of "
-                                       "the lake and those who live there. Their voice can maim you, but it's power "
-                                       "is exactly what you're going to need. Steal the creatures necklace, "
-                                       "cause it hides the true magic of their voice.",
-                        'artefact': 'Mermaid Necklace',
-                        'points': 10,
-                        'npc_give_task ': 'Dark Wizard',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'get_the_incantation',
-                        'description': "The incantation that you're preparing yourself to perform won't happen "
-                                       "without the spell you need to cast. But its not Vampire nor Dark Wizard who "
-                                       "has the scroll with it, its the Dark Elf, because he was the one who used it "
-                                       "before. Find him.",
-                        'artefact': 'Incantation Scroll',
-                        'points': 10,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'heart_of_unicorn',
-                        'description': "Immortality means saying godbye to your good side and the last rays of light "
-                                       "that you may bear in your heart. To kill the lasts of innocence in you, "
-                                       "you must kill the most pure creature of them all - a unicorn. It's horn and "
-                                       "heart are powerful, you may need it.",
-                        'artefact': 'Unicorn Heart',
-                        'points': 10,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'summon_the_god',
-                        'description': "Find the old runical stone that is the remain of the old temple where you "
-                                       "ancestors made sacrifices for the gods and pour the raven blood, sacred fire "
-                                       "and mermaid's voice on the stone to summon the old god.",
-                        'artefact': 'Runical Stone',
-                        'points': 10,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    },
-                    {
-                        'name': 'kill_the_god',
-                        'description': "The god doesn't want to give you the gift of immortality. He doesn't think "
-                                       "you deserve it. But your heart is fully covered by shadows now and you'll do "
-                                       "anything to get it. Your only option is to stand into a fight and defeat him. "
-                                       "But before you do that, eat the unicorn's heart to gain more power.",
-                        'artefact': 'Unicorn Heart',
-                        'points': 30,
-                        'npc_give_task ': 'Vampire',
-                        'npc_take_artifact ': None,
-                        'next_npc ': 'Vampire',
-                        'gift': None
-                    }
-                ]
-            }
-        }
     }
-
 }
+
+
+
+
+
