@@ -1237,7 +1237,7 @@ QUESTS = {
                             'gift': 'Magic Blood'
                         },
                         {
-                            'name': 'voice_of_mermaid',
+                            'name': 'prepare_magic_blood',
                             'description': "You brought everything needed to make a magic blood for a Vampire that is the only one that can give you the immortality. We will now prepare it according to the recipe on the scroll you obtained. When its ready, take it to the Vampire and exchange for your immortality.",
                             'artefact': 'Magic Blood',
                             'points': 10,
