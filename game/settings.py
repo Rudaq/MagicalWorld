@@ -84,7 +84,7 @@ FAERIE_SPELLS = {
 
 BARBARIAN_ACTIONS = {
     'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG")),
-    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "leaf.PNG")),
+    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fury_2.PNG")),
     'fury_flames': [pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_1.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_2.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_3.PNG")),

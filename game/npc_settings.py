@@ -2,7 +2,6 @@ import os
 import pygame
 from pathlib import Path
 
-from game.quest_settings import DRUID_QUESTS
 from npc.DarkWizard import DarkWizard
 from npc.Druid import Druid
 from npc.IceMonster import IceMonster
