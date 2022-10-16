@@ -474,8 +474,8 @@ QUESTS = {
                     {
                         'name': 'find_witness',
                         'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
-                                       'Empire. You had better find him.',
-                        'artefact': None,
+                                       'Empire. You had better find him. He is hidden next to an ice ball.',
+                        'artefact': 'Ice ball',
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': None,
@@ -622,8 +622,8 @@ QUESTS = {
                     {
                         'name': 'find_witness',
                         'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
-                                       'Empire. You had better find him.',
-                        'artefact': None,
+                                       'Empire. You had better find him. If you are looking for clues, find the ice ball first.',
+                        'artefact': 'Ice ball',
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': None,
@@ -644,7 +644,7 @@ QUESTS = {
                     {
                         'name': 'bring_fire',
                         'description': 'Big Monke: You want the treasure? It wont be easy for you little one.',
-                        'artefact': None,
+                        'artefact': 'The Greatest Gem of Dwarven Empire', # nie wiem, obojetnie co no
                         'points': 20,
                         'npc_give_task': 'Big Monke',
                         'npc_take_artifact': None,
@@ -711,7 +711,7 @@ QUESTS = {
                         'description': 'Donkey: I am so lonely! I want to travel the world with you! But you have to '
                                        'find a way to put me in your backpack! I think you should ask the Dark Elves '
                                        'to help you... ',
-                        'artefact': None,
+                        'artefact': 'Mud',
                         'points': 15,
                         'npc_give_task': 'Donkey',
                         'npc_take_artifact': None,
