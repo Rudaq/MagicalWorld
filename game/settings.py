@@ -46,28 +46,28 @@ HERO_ANIMATIONS = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png"))
     },
     'Dwarf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_right.png"))
     },
     'Wizard': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_right.png"))
     },
     'Elf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_right.png"))
     },
     'Faerie': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_right.png"))
     }
 }
 

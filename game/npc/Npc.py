@@ -37,6 +37,14 @@ class Npc(Character):
     # Method for randomly moving the npc
     def move(self, all_sprites_group):
         is_collision, all_sprites_group = self.collision(all_sprites_group)
+        if self.direction == 'R':
+            self.image = self.images['right']
+        elif self.direction == 'L':
+            self.image = self.images['left']
+        elif self.direction == 'U':
+            self.image = self.images['up']
+        else:
+            self.image = self.images['down']
 
         if not is_collision:
             step = 2

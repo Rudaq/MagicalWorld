@@ -17,13 +17,16 @@ qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_
 
 
 def check_if_question(sentence):
-    question_starters = ["What", "Who", "Can", "Why", "Could", "Would", "Will", "Did", "Do", "Does", "Shall", "Where", "When", "Are", "Were", "Is", "Was", "Have", "Had"]
+    question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where", "when", "are", "were", "is", "was", "have", "had", "how"]
 
     is_question = False
-
+    splitted = sentence.split(' ', 1)[1]
+    start = splitted.split(' ', 1)[0]
+    start = start.lower()
+    print("Start: ", start)
     if sentence.endswith('?') or "give" in sentence.lower():
         is_question = True
-    elif sentence.split(' ', 1)[0] in question_starters:
+    elif start in question_starters:
         is_question = True
 
     return is_question
@@ -76,6 +79,7 @@ def produce_response(hero, npc):
             final_result = replace_in_text(final_result, npc.race+'s', 'We')
             final_result = replace_in_text(final_result, npc.race, 'I')
             final_result = replace_in_text(final_result, 'hero.race', 'you')
+            final_result = replace_in_text(final_result, 'them', 'us')
             final_result = final_result[0].upper() + final_result[1:]
             return final_result
         else:
