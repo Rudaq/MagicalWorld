@@ -32,3 +32,4 @@ class Faerie(Npc):
         faerie_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spell.PNG"))
         self.npc_attack = AttackClass(faerie_attack, 20, 10, 'faerie attack')
+        self.context = Path("../NLP/context/FairiesContext.txt").read_text()

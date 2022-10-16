@@ -28,3 +28,4 @@ class Leprechaun(Npc):
         leprechaun_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "coin.PNG"))
         self.npc_attack = AttackClass(leprechaun_attack, 20, 10, 'leprechaun attack')
+        self.context = Path("../NLP/context/LeprechaunContext.txt").read_text()

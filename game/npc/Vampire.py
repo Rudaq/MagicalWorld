@@ -25,3 +25,4 @@ class Vampire(Npc):
         vampire_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "vampire_attack.PNG"))
         self.npc_attack = AttackClass(vampire_attack, 20, 10, 'vampire attack')
+        self.context = Path("../NLP/context/VampireContext.txt").read_text()

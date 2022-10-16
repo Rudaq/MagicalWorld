@@ -25,3 +25,4 @@ class Farmer(Npc):
         farmer_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "grabie.PNG"))
         self.npc_attack = AttackClass(farmer_attack, 20, 10, 'farmer attack')
+        self.context = Path("../NLP/context/FarmerContext.txt").read_text()

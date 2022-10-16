@@ -1,4 +1,6 @@
 import random
+
+import pandas as pd
 import pygame
 from hero.Character import Character
 
@@ -22,6 +24,11 @@ class Npc(Character):
         self.groups = groups
         self.race = 'npc'
         self.gifts = pygame.sprite.Group()
+        self.context = ''
+        self.nice_greetings = []
+        self.rude_greetings = []
+        self.load_greetings()
+
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -249,3 +256,14 @@ class Npc(Character):
         elif hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.next_npc == self.race:
             hero.active_quest.set_next_active_task()
+
+    def load_greetings(self):
+        dataset = pd.read_csv(
+                "C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\Greetings.csv",
+                names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
+
+        for key, text in dataset.iterrows():
+            if text["sentiment"] == 1:
+                self.nice_greetings.append(str(text["greetings"]))
+            else:
+                self.rude_greetings.append(str(text["greetings"]))

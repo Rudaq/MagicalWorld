@@ -28,3 +28,4 @@ class Amazon(Npc):
         amazon_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spear.PNG"))
         self.npc_attack = AttackClass(amazon_attack, 20, 10, 'amazon attack')
+        self.context = Path("../NLP/context/AmazonContext.txt").read_text()

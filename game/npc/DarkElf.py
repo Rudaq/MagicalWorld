@@ -28,3 +28,4 @@ class DarkElf(Npc):
         dark_elf_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
         self.npc_attack = AttackClass(dark_elf_attack, 20, 10, 'dark elf attack')
+        self.context = Path("../NLP/context/DarkElfContext.txt").read_text()
