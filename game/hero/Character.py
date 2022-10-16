@@ -1,8 +1,12 @@
-import random
 import pygame
 from artifacts.Artifact import Artifact
 
 SPRITE_SIZE = 50
+import os
+from pathlib import Path
+
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 
 
 # Class with characteristics common to all races, from which race classes inherit
@@ -63,7 +67,6 @@ class Character(pygame.sprite.Sprite):
         self.quests = []
         self.active_quest = None
         self.skipped_quests = []
-
     # method to return active quest
     def set_active_quest(self):
         if len(self.quests) > 0:
@@ -89,8 +92,8 @@ class Character(pygame.sprite.Sprite):
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
 
-          #  print(all_sprites_group.offset.x + self.rect.centerx)
-          #  print(all_sprites_group.offset.y + self.rect.centery)
+            print(all_sprites_group.offset.x + self.rect.centerx)
+            print(all_sprites_group.offset.y + self.rect.centery)
 
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':
@@ -248,34 +251,40 @@ class Character(pygame.sprite.Sprite):
         print("HELLO")
 
     # Placeholder. Method to add the found or obtained weapon to the equipment.
-    def collect_artifact(self, artifact):
+    def collect_artifact(self, artifact, npcs):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
             self.equipment.append(artifact)
             self.points += artifact.points
             return True
 
-    def collect_map_artifact(self, map_artifact):
+    def collect_map_artifact(self, map_artifact, equipment_buttons):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
         else:
-            artifact = Artifact(map_artifact.small_image,  map_artifact.points, map_artifact.name, None)
-            self.equipment.append(artifact)
-            self.points += artifact.points
-            return True
+            if map_artifact.small_image is not None:
+                artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                self.equipment.append(artifact)
+                self.points += artifact.points
+                return True
+            else:
+                return False
 
     def take_gift_from_npc(self, npc, npcs, gift):
         for n in npcs:
-            print(n.race)
             if n.race == npc:
-                for artifact in n.artifacts:
-                    print(artifact)
-                    if artifact.name == gift:
-                        n.artifacts.remove(artifact)
-                        self.collect_artifact(artifact)
+                for g in n.gifts:
+                    if g.name == gift:
+                        n.gifts.remove(g)
+                        self.collect_artifact(g, npcs)
+                break
+
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):
@@ -291,5 +300,3 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
-
-

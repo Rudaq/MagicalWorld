@@ -21,7 +21,9 @@ class Snake(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Snake Blood', None)
-        self.artifacts.add(self.blood)
+        skin_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "snake_skin.PNG"))
+        self.skin = Artifact(skin_image, 10, 'Snake Skin', None)
+        self.artifacts.add(self.blood, self.skin)
         snake_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(snake_attack, 20, 10, 'snake attack')

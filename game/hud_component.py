@@ -27,7 +27,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
         return 1
 
 
-def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
+def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana, restore_mana_time_passed,
                restore_life_time_passed, chosen_npc, chest_opened):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
@@ -89,6 +89,17 @@ def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_
     chest_button.rect.x = multiplicator * distance + 125
     chest_button.rect.y = 40
     chest_surface.blit(chest_button.image, (chest_button.rect.x, chest_button.rect.y))
+    multiplicator += 1
+
+    # MAPA IKONA
+    draw_text("Map ", multiplicator * distance + 50, 25, 12, BLACK, screen)
+    map_surface = pygame.Surface((30, 230))
+    map_image = GUI_IMAGES['map_icon']
+    screen.blit(map_image, (multiplicator * distance + 35, 225))
+    map_button.image = map_image
+    map_button.rect.x = multiplicator * distance + 125
+    map_button.rect.y = 40
+    map_surface.blit(map_button.image, (map_button.rect.x, map_button.rect.y))
     multiplicator += 1
 
     draw_text("Points ", multiplicator * distance + 50, 25, 12, BLACK, screen)

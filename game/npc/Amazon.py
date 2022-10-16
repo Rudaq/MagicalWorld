@@ -22,6 +22,9 @@ class Amazon(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Amazon Blood', None)
         self.artifacts.add(self.blood)
+        sage_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sage.PNG"))
+        self.sage = Artifact(sage_image, 10, 'Sage', None)
+        self.gifts.add(self.sage)
         amazon_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spear.PNG"))
         self.npc_attack = AttackClass(amazon_attack, 20, 10, 'amazon attack')

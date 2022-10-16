@@ -3,7 +3,7 @@ import pygame
 from artifacts.Artifact import Artifact
 import os
 from pathlib import Path
-from artifacts.AttackClass import AttackClass
+
 
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
@@ -23,3 +23,28 @@ class FriendlySnowman(Npc):
         self.blood = Artifact(blood_image, 10, 'Friendly Snowman Blood', None)
         self.artifacts.add(self.blood)
         self.npc_attack = None
+
+    def take_gift(self, hero, artifact, npcs, screen):
+        self.artifacts.add(artifact)
+        if hero.active_quest is not None \
+                and hero.active_quest.active_task is not None \
+                and hero.active_quest.active_task.artifact == artifact.name \
+                and hero.active_quest.active_task.npc_take_artifact == self.race:
+            print(self.race + ": Your task is completed!")
+            hero.active_quest.task_completed(hero, npcs)
+
+        elif len(hero.active_quest.skipped_tasks) > 0:
+            for task in hero.active_quest.skipped_tasks:
+                if task.artifact == artifact.name \
+                        and task.npc_take_artifact == self.race:
+                    print(self.race + ": Thank you for your gift")
+
+        if artifact.name == 'Snowman Nose':
+            image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png"))
+            image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png"))
+            image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png"))
+            image_right = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
+            self.images['up'] = image_back
+            self.images['down'] = image_front
+            self.images['right'] = image_right
+            self.images['left'] = image_left

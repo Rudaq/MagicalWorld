@@ -23,6 +23,9 @@ class Druid(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Druid Blood', None)
         self.artifacts.add(self.blood)
+        fire_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sacred_fire.PNG"))
+        self.fire = Artifact(fire_image, 20, 'Sacred Fire', None)
+        self.gifts.add(self.blood)
         druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')
 

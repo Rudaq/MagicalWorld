@@ -18,6 +18,7 @@ from math import dist
 from re import compile, split
 from artifacts.Artifact import Artifact
 from settings import MAP_IMAGES
+from game.npc_settings import NPC_IMAGES
 
 path2 = os.path.dirname(os.path.realpath(__file__))
 current_path = Path(__file__).resolve().parent.parent
@@ -34,9 +35,10 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
         for item in npc_dict_entry['dict'].items():
             if name is None:
                 name, parameters = item
+                # print(parameters)
             else:
                 # specific entity
-                parameters = npc_dict_entry['dict'][name]
+                name, parameters = item
 
             # creating npc object with its parameters
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
@@ -138,14 +140,45 @@ def npc_in_interaction_range(chosen_npc, hero):
         return True
 
 
-def add_map_artifacts(map_artifacts):
+def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
-    rainbow.rect.x = 3000
-    rainbow.rect.y = 6580
+    rainbow.rect.x = 150
+    rainbow.rect.y = 3050
 
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
-
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
-    bamboo_tree.rect.x = 13000
-    bamboo_tree.rect.y = 14000
-    map_artifacts.add(rainbow, bamboo_tree)
+    bamboo_tree.rect.x = 9770
+    bamboo_tree.rect.y = 3600
+
+    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
+    big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
+    big_tree.rect.x = 6050
+    big_tree.rect.y = 4780
+
+    skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG"))
+    dig_ground = Artifact(MAP_IMAGES['dig_ground'], 30, 'Pandas Skull', skull)
+    dig_ground.rect.x = big_tree.rect.x + 250
+    dig_ground.rect.y = big_tree.rect.y + 150
+
+    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
+    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
+    paper.rect.x = 350
+    paper.rect.y = 1200
+
+    pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
+    pot.rect.x = rainbow.rect.x + 200
+    pot.rect.y = rainbow.rect.y - 50
+    all_artifacts.add(paper, pot)
+
+    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
+
+
+def check_map_artifact(map_artifact):
+    if map_artifact.name == 'Ball':
+        map_artifact.image = MAP_IMAGES['bamboo_tree']
+    elif map_artifact.name == 'Immortality Flower':
+        map_artifact.image = MAP_IMAGES['big_tree']
+    map_artifact.small_image = None
+
+def change_image(npc):
+    npc.images = NPC_IMAGES['image_snowman_nose']

@@ -8,7 +8,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk, talk
-from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
 from game.game_support import create_npc, add_map_artifacts
 from game.hud_component import update_hud
@@ -52,15 +52,17 @@ def game(hero):
     npcs = []
     sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
-    collision_sprites = pygame.sprite.Group()
+    collision_sprites_hero = pygame.sprite.Group()
+    collision_sprites_npc = pygame.sprite.Group()
     all_artifacts = pygame.sprite.Group()
     all_sprites_group.add(all_artifacts)
     npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
-    hero.collision_sprites = collision_sprites
+    hero.collision_sprites = collision_sprites_hero
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
+
 
     moving = False
 
@@ -95,6 +97,7 @@ def game(hero):
     arrow_down = ButtonClass(25, 25, 'arrow_down')
     scroll_button = ButtonClass(30, 40, 'scroll_button')
     chest_button = ButtonClass(30, 40, 'chest_button')
+    map_button = ButtonClass(230, 240, 'map_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
     buttons = pygame.sprite.Group()
@@ -105,10 +108,14 @@ def game(hero):
 
     # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
     map_artifacts = pygame.sprite.Group()
-    add_map_artifacts(map_artifacts)
+    add_map_artifacts(map_artifacts, all_artifacts)
     sprites_to_move_opposite.extend(map_artifacts)
+    sprites_to_move_opposite.extend(all_artifacts)
     all_sprites_group.add(map_artifacts)
-    collision_sprites.add(map_artifacts)
+    collision_sprites_hero.add(map_artifacts)
+    collision_sprites_npc.add(map_artifacts)
+    collision_sprites_npc.add(npc_boundaries)
+    collision_sprites_npc.add(hero)
 
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
@@ -118,28 +125,33 @@ def game(hero):
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
-
+    all_sprites_group.add(collision_sprites_npc)
 
     # Creating npcs
     for npc_entity in NPCs:
-        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], npc_boundaries)
+        create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites_npc)
 
-    create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite)
+
 
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False
         npc.set_start_centery = False
-        npc.collision_sprites = npc_boundaries
 
         mock_npc = MockNpc(npc)
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
         sprites_to_move_opposite.extend(npc.artifacts)
+        collision_sprites_hero.add(npc.artifacts)
+        collision_sprites_npc.add(npc.artifacts)
+
+        npc.collision_sprites = collision_sprites_npc
+        npc.groups = all_sprites_group
         all_sprites_group.add(npc)
-        collision_sprites.add(npc)
-        collision_sprites.add(npc.artifacts)
+        collision_sprites_hero.add(npc)
+
+    create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -152,7 +164,7 @@ def game(hero):
 
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
-        update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+        update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
                    restore_life_time_passed, chosen_npc, chest_opened)
 
@@ -287,29 +299,27 @@ def game(hero):
             # check if hero have collected an artifact
             for artifact in all_artifacts:
                 if artifact.rect.collidepoint(mouse_point):
-                    # change the chest image in the hud to open chest
-                    chest_opened = True
-                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+
+                    update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
                     # remove the artifact from the surface
-                    remove_artifact(hero, all_artifacts, artifact, screen)
-                    # time to chest icon to be opened
-                    restore = datetime.now()
+                    if hero.collect_artifact(artifact, npcs):
+                        # change the chest image in the hud to open chest
+                        chest_opened = True
+                        remove_artifact(all_artifacts, artifact, screen)
+                        # time to chest icon to be opened
+                        restore = datetime.now()
 
             for map_artifact in map_artifacts:
                 if map_artifact.rect.collidepoint(mouse_point):
-                    print('map')
-                    # change the chest image in the hud to open chest
-                    chest_opened = True
-                    update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                    update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
-                    hero.collect_map_artifact(map_artifact)
-                    # time to chest icon to be opened
-                    restore = datetime.now()
-                    if map_artifact.name == 'Ball':
-                        map_artifact.image = MAP_IMAGES['bamboo_tree']
+                    if hero.collect_map_artifact(map_artifact, equipment_buttons, npcs):
+                        chest_opened = True
+                        restore = datetime.now()
+                        check_map_artifact(map_artifact)
 
             for npc in npcs:
                 # Checking mouse point collision with npc
@@ -350,7 +360,7 @@ def game(hero):
                             chosen_artifact = equipment
             for mock_npc in mock_npcs_to_choose:
                 if mock_npc.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs)
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen)
                     show_table = False
 
         # Set previous state of left mouse button
@@ -359,7 +369,7 @@ def game(hero):
         if restore is not None:
             if time_to_chest_be_opened(restore):
                 chest_opened = False
-                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc, chest_opened)
 
@@ -375,7 +385,7 @@ def game(hero):
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
-                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                            restore_mana_time_passed,
                            restore_life_time_passed, chosen_npc, chest_opened)
                 all_sprites_group.update()
@@ -393,7 +403,7 @@ def game(hero):
 
         if npc_clicked:
             chosen_npc.give_quest(hero)
-            update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+            update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                        restore_mana_time_passed,
                        restore_life_time_passed, chosen_npc, chest_opened)
             all_sprites_group.update()

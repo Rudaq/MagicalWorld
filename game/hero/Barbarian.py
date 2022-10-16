@@ -11,7 +11,7 @@ class Barbarian(Character):
         self.race = "Barbarian"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 15, 10, 'sword_attack')
+        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 50, 10, 'sword_attack')
         self.fury = AttackClass(BARBARIAN_ACTIONS['fury'], 15, 5, 'fury_attack')
         self.resistance = AttackClass(BARBARIAN_ACTIONS['resistance'], 0, 10, 'resistance_to_damage')
 
@@ -74,6 +74,23 @@ class Barbarian(Character):
 
         elif option == 2:
             self.attack(screen, npcs)
+
+
+
+    def collect_artifact(self, artifact):
+        if len(self.equipment) == 6:
+            print("You can't collect more equipment! Your backpack is full!")
+            return False
+        else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
+            self.equipment.append(artifact)
+            self.points += artifact.points
+            if artifact.name == 'New Sword':
+                self.sword_attack = AttackClass(artifact.image, 25, 10, 'sword_attack')
+            return True
+
 
 
 

@@ -21,6 +21,7 @@ class Npc(Character):
         self.sprite_type = 'npc'
         self.groups = groups
         self.race = 'npc'
+        self.gifts = pygame.sprite.Group()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -50,20 +51,24 @@ class Npc(Character):
                     if self.movement[1] == 0:
                         self.rect.x += step
                         self.direction = 'R'
+                        self.image = self.images['right']
                     # Moving down
                     else:
                         self.rect.y += step
                         self.direction = 'D'
+                        self.image = self.images['down']
                 elif self.movement[0] < 0:
                     self.movement[0] += 1
                     # Moving left
                     if self.movement[1] == 0:
                         self.rect.x -= step
                         self.direction = 'L'
+                        self.image = self.images['left']
                     # Moving right
                     else:
                         self.rect.y -= step
                         self.direction = 'U'
+                        self.image = self.images['up']
                 # Waiting by a number of randomly selected iteration, before another random call
                 elif self.movement[0] == 0:
                     self.movement[2] -= 1
@@ -140,6 +145,10 @@ class Npc(Character):
 
             # check if hero had collision with attack
             self.attack_type.check_attack_hero_collision(self, hero, npcs)
+
+        else:
+            if self.life > 0:
+                counter == 4
 
     # function for NPC' movement while fighting
     def move_in_fight(self, hero, all_sprites_group):
@@ -218,16 +227,20 @@ class Npc(Character):
                     self.direction = 'D'
                     self.rect.y += step
 
-    def take_gift(self, hero, artifact, npcs):
-        self.artifacts.add(artifact)
+    def take_gift(self, hero, artifact, npcs, screen):
+        self.gifts.add(artifact)
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
-            print(self.race + ": Your quest is completed!")
+            print(self.race + ": Your task is completed!")
             hero.active_quest.task_completed(hero, npcs)
-        else:
-            print(self.race + ": Thank you for your gift")
+
+        elif len(hero.active_quest.skipped_tasks) > 0:
+            for task in hero.active_quest.skipped_tasks:
+                if task.artifact == artifact.name \
+                        and task.npc_take_artifact == self.race:
+                    print(self.race + ": Thank you for your gift")
 
     def give_quest(self, hero):
         if hero.active_quest.active_task is None \

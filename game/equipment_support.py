@@ -8,13 +8,7 @@ from game_support import npc_in_interaction_range
 
 
 def show_equipment_name(screen, equipment):
-    if equipment.name == 'Shovel':
-        text = 'Good job. As you have the shovel, now you need to find the Pandas skull. It is said to be buried 5 ' \
-               'steps to the right from a big tree in the Enchanted Forest. Find this place and use the shovel to dig ' \
-               'out the skull. '
-        draw_text(text, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
-    else:
-        draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
+    draw_text(equipment.name, equipment.rect.x - 2, equipment.rect.y, 12, BLACK, screen)
 
 
 def show_chest_to_hero(screen, hero, equipment_buttons):
@@ -24,9 +18,9 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     x = pos + 40
     y = 220
     counter = 0
-
+    equipment_buttons.update()
+    equipment_buttons.draw(screen)
     for eq in hero.equipment:
-        # eq = ButtonClass(60, 60, i.name)
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
         eq.rect.x = x
@@ -94,11 +88,15 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
         draw_text(text, pos + 10, 110, 13, BLACK, screen)
 
 
-def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs):
+def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs, screen):
     npc = mock_npc.npc
-    npc.take_gift(hero, artifact, npcs)
+    npc.take_gift(hero, artifact, npcs, screen)
     for e in hero.equipment:
         if e.name == artifact.name:
+            if hero.active_quest.active_task == 'feed_wild_tiger' \
+                    and artifact.name == 'Raven Meat' \
+                    and npc.name == 'Tiger':
+                hero.add_life(10)
             hero.equipment.remove(e)
     equipment_buttons.remove(artifact)
 
@@ -114,13 +112,12 @@ def time_to_chest_be_opened(restore_time_passed):
         return False
 
 
-def remove_artifact(hero, all_artifacts, artifact, screen):
-    if hero.collect_artifact(artifact):
-        all_artifacts.remove(artifact)
-        all_artifacts.update()
-        all_artifacts.draw(screen)
+def remove_artifact(all_artifacts, artifact, screen):
+    all_artifacts.remove(artifact)
+    all_artifacts.update()
+    all_artifacts.draw(screen)
 
 
-def collect_map_artifact(hero, map_artifact, image, screen):
+def collect_map_artifact(hero, map_artifact, npcs):
     artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
-    hero.collect_artifact(artifact)
+    hero.collect_artifact(artifact, npcs)

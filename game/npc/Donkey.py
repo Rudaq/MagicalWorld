@@ -22,4 +22,10 @@ class Donkey(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Donkey Blood', None)
         self.artifacts.add(self.blood)
+        carrot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "small_carrot.PNG"))
+        self.carrot = Artifact(carrot_image, 15, 'Snowman Nose', None)
+        self.gifts.add(self.carrot)
+        dark_wizard_attack = pygame.image.load(
+            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
+        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
         self.npc_attack = None

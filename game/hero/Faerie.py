@@ -1,7 +1,3 @@
-import pygame
-import os
-import copy
-
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import FAERIE_SPELLS
@@ -93,6 +89,32 @@ class Faerie(Character):
                 npc.rect.x += 2
 
         npc.life -= self.attack_type.strength
+
+
+    def collect_map_artifact(self, map_artifact, equipment_buttons):
+        if len(self.equipment) == 6:
+            print("You can't collect more equipment! Your backpack is full!")
+            return False
+        else:
+            if map_artifact.small_image is not None:
+                if map_artifact.name == 'Pandas Skull':
+                    for e in self.equipment:
+                        if e.name == 'Shovel':
+                            self.equipment.remove(e)
+                            equipment_buttons.remove(e)
+
+                            artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                            self.equipment.append(artifact)
+                            self.points += artifact.points
+                            return True
+                    return False
+                else:
+                    artifact = Artifact(map_artifact.small_image, map_artifact.points, map_artifact.name, None)
+                    self.equipment.append(artifact)
+                    self.points += artifact.points
+                    return True
+            else:
+                return False
 
 
 

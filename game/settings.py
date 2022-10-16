@@ -17,7 +17,7 @@ TILES_SIZE = 64
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 20
+HERO_SPEED = 60
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -114,7 +114,8 @@ GUI_IMAGES = {
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
-    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
+    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
 
 }
 
@@ -122,6 +123,12 @@ MAP_IMAGES = {
     'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
     'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
     'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
-    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_big.png")),
-    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png"))
+    'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow.png")),
+    'rainbow_small': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow_part.png")),
+    'paper': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "paper.png")),
+    'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
+    'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
+    'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png")),
+    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot.png"))
+
 }

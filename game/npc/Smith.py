@@ -22,6 +22,17 @@ class Smith(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Smith Blood', None)
         self.artifacts.add(self.blood)
+        tools_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tools.PNG"))
+        self.tools = Artifact(tools_image, 10, 'Tools', None)
+        shovel_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "shovel.PNG"))
+        self.shovel = Artifact(shovel_image, 10, 'Shovel', None)
+        sword_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "new_sword.PNG"))
+        self.new_sword = Artifact(sword_image, 10, 'New Sword', None)
+        gem_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "purple_gem.PNG"))
+        self.gem = Artifact(gem_image, 10, 'Purple Gem', None)
+
+        self.gifts.add(self.tools, self.shovel, self.new_sword, self.gem)
         smith_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "axe.png"))
         self.npc_attack = AttackClass(smith_attack, 20, 10, 'weapon attack')
+
