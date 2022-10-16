@@ -176,12 +176,12 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
-    'image_snowman': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png"))
-    },
+    # 'image_snowman': {
+    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png"))
+    # },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -338,19 +338,19 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
-    'image_snowman': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right.png"))
-    },
-
-    'image_snowman_nose': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
-    },
+    # 'image_snowman': {
+    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
+    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman.png")),
+    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left.png")),
+    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right.png"))
+    # },
+    #
+    # 'image_snowman_nose': {
+    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
+    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png")),
+    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png")),
+    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
+    # },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -706,14 +706,14 @@ NPCs = {
         'images': NPC_IMAGES['image_wheat_monster'],
         'dict': WHEAT_MONSTERS
     },
-    'friendly_snowman': {
-        'class_name': FriendlySnowman,
-        'mana': 300,
-        'life': 100,
-        'inflate': (-10, -10),
-        'images': NPC_IMAGES['image_snowman'],
-        'dict': FRIENDLY_SNOWMEN
-    },
+    # 'friendly_snowman': {
+    #     'class_name': FriendlySnowman,
+    #     'mana': 300,
+    #     'life': 100,
+    #     'inflate': (-10, -10),
+    #     'images': NPC_IMAGES['image_snowman'],
+    #     'dict': FRIENDLY_SNOWMEN
+    # },
     'crab': {
         'class_name': Crab,
         'mana': 700,
