@@ -482,14 +482,15 @@ QUESTS = {
                         'points': 20,
                         'npc_give_task': 'Snowman',
                         'npc_take_artifact': 'Snowman',
-                        'next_npc': 'Big Monke',
+                        'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'bring_fire',
-                        'description': 'Big Monke: You can kill me, but so that you know - I am not a thief.'
+                        'description': 'Big Monke: Come find me! You can kill me, but so that you know - I am not a '
+                                       'thief. '
                                        'I am just a keeper. You wanna know who is the thief? Give me something that I '
-                                       'sense you you have.',
+                                       'sense you have.',
                         'artefact': 'Banana',
                         'points': 20,
                         'npc_give_task': 'Big Monke',

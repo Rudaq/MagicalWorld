@@ -14,6 +14,7 @@ WIDTH_GAME = 1500
 HEIGHT_GAME = 800
 DIALOG_START = 100
 TILES_SIZE = 64
+SCALE = 700/12928
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
@@ -115,8 +116,8 @@ GUI_IMAGES = {
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
-    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
-
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png")),
+    'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png"))
 }
 
 MAP_IMAGES = {
