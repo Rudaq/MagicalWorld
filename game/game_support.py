@@ -108,12 +108,12 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero):
+def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
 
     # create buttons 'Fight' and 'Talk'
-    # buttons = pygame.sprite.Group()
+    buttons = pygame.sprite.Group()
     fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
     fight_button.rect.x = chosen_npc.rect.x - 40
     fight_button.rect.y = chosen_npc.rect.y - 50
