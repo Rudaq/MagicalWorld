@@ -24,6 +24,28 @@ class Tiger(Npc):
         fur_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tigers_fur.PNG"))
         self.fur = Artifact(fur_image, 20, 'Tiger Fur', None)
         self.artifacts.add(self.blood, self.fur)
+        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tiger_necklace.PNG"))
+        self.magic_necklace = Artifact(necklace_image, 20, 'Magic Necklace', None)
+        self.gifts.add(self.magic_necklace)
         tiger_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "tiger_attack.PNG"))
         self.npc_attack = AttackClass(tiger_attack, 20, 10, 'tiger attack')
+
+    def take_gift(self, hero, artifact, npcs, screen):
+        self.gifts.add(artifact)
+
+        if hero.active_quest is not None \
+                and hero.active_quest.active_task is not None \
+                and hero.active_quest.active_task.artifact == artifact.name \
+                and hero.active_quest.active_task.npc_take_artifact == self.race:
+            if hero.active_quest.active_task == 'feed_wild_tiger' \
+                    and artifact.name == 'Raven Meat':
+                hero.add_life(20)
+            print(self.race + ": Your task is completed!")
+            hero.active_quest.task_completed(hero, npcs)
+
+        elif len(hero.active_quest.skipped_tasks) > 0:
+            for task in hero.active_quest.skipped_tasks:
+                if task.artifact == artifact.name \
+                        and task.npc_take_artifact == self.race:
+                    print(self.race + ": Thank you for your gift")

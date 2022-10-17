@@ -817,7 +817,6 @@ QUESTS = {
         'good': {
             'true_barbarian': {
                 'name': 'true_barbarian',
-                'side': 'good',
                 'description': 'You have just become a newly trained Barbarian. You are young and strong, but you are '
                                'missing a certain thing that will make you a true barbarian. It is time for you to '
                                'get your own '
@@ -859,8 +858,10 @@ QUESTS = {
             'prove_worth': {
                 'name': 'prove_worth',
                 'side': 'good',
-                'description': 'Now that you have a powerful weapon, it\'s time to make use of it. Head to the nearby lands '
-                               'and see if you can be of some service to the people there, starting with the village of the '
+                'description': 'Now that you have a powerful weapon, it\'s time to make use of it. Head to the nearby '
+                               'lands '
+                               'and see if you can be of some service to the people there, starting with the village '
+                               'of the '
                                'Great People.',
                 'points': 40,
                 'tasks': [
@@ -886,8 +887,8 @@ QUESTS = {
                         'artefact': 'Raven Feathers',
                         'points': 15,
                         'npc_give_task': 'Farmer',
-                        'npc_take_artifact ': 'Farmer',
-                        'next_npc ': None,
+                        'npc_take_artifact': 'Farmer',
+                        'next_npc': None,
                         'gift': None
                     },
                     {
@@ -935,58 +936,63 @@ QUESTS = {
         },
         'evil': {
             # Quest 1 - Power and disruption
-            'power_and_disruption': {
-                'name': 'power_and_disruption',
-                'side': 'evil',
-                'description': '',
-                'points': 30,
-                'tasks': [
-                    {
-                        'name': 'berserk_blessing',
-                        'description': 'To stay in touch with the source of your supernatural power, you must regularly '
-                                       'sacrifice the most venomous snake. No one knows where their hiding place is... except '
-                                       'the Dark Wizard. Go to him and find out more, try not to come back with a curse. If '
-                                       'you would finish the task, your power will increase by 10.',
-                        'artefact': 'Snake Skin',
-                        'points': 15,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Dark Wizard',
-                        'gift': None
-                    },
-                    {
-                        'name': 'prove_strength',
-                        'description': 'News of your power has spread throughout the land, but there will be those who do not '
-                                       'believe it without proof.... Prove the Dark Wizard, one of the most powerful dark '
-                                       'beings, wrong, defeat the dragon and bring him his eyeball. If you\'ll achieve it, '
-                                       'maybe he will fulfil one of your wishes.',
-                        'artefact': 'Dragon Eyeball',
-                        'points': 20,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': 'Snake Skin'
-                    },
-                    {
-                        'name': 'evil_and_allies',
-                        'description': 'Your greatest enemy is the good barbarians, they spread goodness and help... The '
-                                       'opposite of what you represent. Don\'t let them be the ones to win this eternal war '
-                                       'between the sides of good and evil. Go to the wilderness, find a tiger and bring its '
-                                       'fur to the Orc who is your ally.',
-                        'artefact': 'Tiger Fur',
-                        'points': 15,
-                        'npc_give_task': 'Orc',
-                        'npc_take_artifact': 'Orc',
-                        'next_npc': None,
-                        'gift': 'Unicorn Horn'
-                    }
-                ]
-            },
+            # 'power_and_disruption': {
+            #     'name': 'power_and_disruption',
+            #     'description': 'You are the evil, powerful Barbarian, why would you keep yourself from spreading the '
+            #                    'darkness to the world? No one can stop you. Go to the world and show everybody that '
+            #                    'they should fear you! Find the Druid in the Enchanted Forest and talk to him, '
+            #                    'remember to not kill him!',
+            #     'points': 30,
+            #     'tasks': [
+            #         {
+            #             'name': 'berserk_blessing',
+            #             'description': 'To stay in touch with the source of your supernatural power, you must regularly '
+            #                            'sacrifice the most venomous snake. No one knows where their hiding place '
+            #                            'is... except '
+            #                            'the Dark Wizard. Go to him and find out more, try not to come back with a '
+            #                            'curse.',
+            #             'artefact': 'Snake Skin',
+            #             'points': 15,
+            #             'npc_give_task': 'Druid',
+            #             'npc_take_artifact': 'Druid',
+            #             'next_npc': 'Dark Wizard',
+            #             'gift': None
+            #         },
+            #         {
+            #             'name': 'prove_strength',
+            #             'description': 'News of your power has spread throughout the land, but there will be those '
+            #                            'who do not '
+            #                            'believe it without proof.... Prove the Dark Wizard, one of the most powerful dark '
+            #                            'beings, wrong, defeat the dragon and bring him his eyeball. If you\'ll '
+            #                            'achieve it, '
+            #                            'maybe he will fulfil one of your wishes.',
+            #             'artefact': 'Dragon Eyeball',
+            #             'points': 20,
+            #             'npc_give_task': 'Dark Wizard',
+            #             'npc_take_artifact': 'Dark Wizard',
+            #             'next_npc': None,
+            #             'gift': 'Snake Skin'
+            #         },
+            #         {
+            #             'name': 'evil_and_allies',
+            #             'description': 'Your greatest enemy is the good barbarians, they spread goodness and help... The '
+            #                            'opposite of what you represent. Don\'t let them be the ones to win this eternal war '
+            #                            'between the sides of good and evil. Go to the wilderness, find a tiger and bring its '
+            #                            'fur to the Orc who is your ally.',
+            #             'artefact': 'Tiger Fur',
+            #             'points': 15,
+            #             'npc_give_task': 'Orc',
+            #             'npc_take_artifact': 'Orc',
+            #             'next_npc': None,
+            #             'gift': 'Unicorn Horn'
+            #         }
+            #     ]
+            # },
             # Quest 2 - Money, money, money…
             'money_money': {
                 'name': 'money_money',
                 'side': 'evil',
-                'description': '',
+                'description': 'You are jobless so you don’t have money. Maybe there is some other way to get them? Stealing sounds like a good option… Let’s start with talking to Smith! ',
                 'points': 25,
                 'tasks': [
                     {
@@ -1037,9 +1043,9 @@ QUESTS = {
                                        'you’ll have to get it.',
                         'artefact': 'Gold Bar',
                         'points': 10,
-                        'npc_give_task ': 'Dark Wizard',
-                        'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': 'Leprechaun',
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': 'Leprechaun',
                         'gift': None
                     },
                     {
@@ -1050,9 +1056,9 @@ QUESTS = {
                                        'from the wheat monsters and you will get the gold.',
                         'artefact': 'Wheat',
                         'points': 10,
-                        'npc_give_task ': 'Leprechaun',
-                        'npc_take_artifact ': 'Leprechaun',
-                        'next_npc ': 'Dark Wizard',
+                        'npc_give_task': 'Leprechaun',
+                        'npc_take_artifact': 'Leprechaun',
+                        'next_npc': 'Dark Wizard',
                         'gift': 'Gold Bar'
                     },
                     {
@@ -1063,9 +1069,9 @@ QUESTS = {
                                        'dragon’s eyeballs for the potion, find it and kill.',
                         'artefact': 'Dragon Eyeball',
                         'points': 25,
-                        'npc_give_task ': 'Dark Wizard',
-                        'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': 'Fairies',
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': 'Faerie',
                         'gift': None
                     },
                     {
@@ -1075,9 +1081,9 @@ QUESTS = {
                                        'ask them for a sprinkle of their magic  dust.',
                         'artefact': 'Magic Dust',
                         'points': 20,
-                        'npc_give_task ': 'Dark Wizard',
-                        'npc_take_artifact ': 'Dark Wizard',
-                        'next_npc ': 'Dark Wizard',
+                        'npc_give_task': 'Dark Wizard',
+                        'npc_take_artifact': 'Dark Wizard',
+                        'next_npc': 'Faerie',
                         'gift': 'Healing Potion'
                     },
                     {
@@ -1088,9 +1094,9 @@ QUESTS = {
                                        'gorilla to save them from becoming its food, and bring its heart as a totem.',
                         'artefact': 'Monke Heart',
                         'points': 20,
-                        'npc_give_task ': 'Faerie',
-                        'npc_take_artifact ': 'Faerie',
-                        'next_npc ': 'Treant',
+                        'npc_give_task': 'Faerie',
+                        'npc_take_artifact': 'Faerie',
+                        'next_npc': 'Treant',
                         'gift': 'Magic Dust'
                     },
                     {
@@ -1099,9 +1105,9 @@ QUESTS = {
                                        'treant and pour the potion on it.',
                         'artefact': 'Healing Potion',
                         'points': 20,
-                        'npc_give_task ': 'Treant',
-                        'npc_take_artifact ': 'Treant',
-                        'next_npc ': None,
+                        'npc_give_task': 'Treant',
+                        'npc_take_artifact': 'Treant',
+                        'next_npc': None,
                         'gift': None
                     }
 
@@ -1115,135 +1121,138 @@ QUESTS = {
                     'tasks': [
                         {
                             'name': 'talk_to_farmer',
-                            'description': 'All the crops are destroyed. The dark fire burnt them to the ground. There is nothing to eat, nothing to sow. But there still is hope. Wheat monsters have wheat that with a little soil can grow and save us.',
+                            'description': 'All the crops are destroyed. The dark fire burnt them to the ground. '
+                                           'There is nothing to eat, nothing to sow. But there still is hope. Wheat '
+                                           'monsters have wheat that with a little soil can grow and save us.',
                             'artefact': 'Wheat',
                             'points': 20,
-                            'npc_give_task ': 'Farmer',
-                            'npc_take_artifact ': None,
-                            'next_npc ': 'Farmer',
+                            'npc_give_task': 'Farmer',
+                            'npc_take_artifact': 'Farmer',
+                            'next_npc': None,
                             'gift': None
                         },
                         {
                             'name': 'get_some_wheat',
-                            'description': 'The wheat will be useful for sure. But we cannot only eat bread. Some vegetables would be better for our well being as well as health. Find the running vegetables and bring them to us.',
-                            'artefact': '',
+                            'description': 'The wheat will be useful for sure. But we cannot only eat bread. Some '
+                                           'vegetables would be better for our well being as well as health. Find the '
+                                           'running vegetables and bring them to us.',
+                            'artefact': 'Vegetables',
                             'points': 20,
-                            'npc_give_task ': 'Farmer',
-                            'npc_take_artifact ': 'Farmer',
+                            'npc_give_task': 'Farmer',
+                            'npc_take_artifact': 'Farmer',
                             'next_npc ': None,
-                            'gift': 'Vegetables'
+                            'gift': None
                         }
                     ]
                 }
             },
             'evil': {
-                'get_incantation_scroll': {
-                    'name': 'get_incantation_scroll',
-                    'description': "You decided to come to the dark side. But you are still new in the ways of evil. You are gonna need some teaching and a person to do that would be a Dark Elf, who once was in your place.",
-                    'points': 40,
-                    'tasks': [
-                        {
-                            'name': 'get_the_incantation',
-                            'description': "The evil incantation that you're preparing yourself to perform won't happen "
-                                           "without the spell you need to cast. But right now its the Dark Wizard who "
-                                           "has the scroll you need. Find him.",
-                            'artefact': 'Incantation Scroll',
-                            'points': 10,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Dark Elf',
-                            'next_npc ': 'Dark Wizard',
-                            'gift': None
-                        },
-                        {
-                            'name': 'kill_the_tiger',
-                            'description': "The Dark Wizard knows the scroll you want well. He learnt everything from it by heart a long time ago. He does not need it anymore, but nothing is free in this world. He will give you the scroll in exchange for the necklace that is guarded by the Tiger.",
-                            'artefact': 'Tiger Necklace',
-                            'points': 10,
-                            'npc_give_task ': 'Dark Wizard',
-                            'npc_take_artifact ': 'Dark Wizard',
-                            'next_npc ': None,
-                            'gift': 'Incantation Scroll'
-                        }
-                    ]
-                },
+                # 'get_incantation_scroll': {
+                #     'name': 'get_incantation_scroll',
+                #     'description': "You decided to come to the dark side. But you are still new in the ways of evil. "
+                #                    "You are gonna need some teaching and a person to do that would be a Dark Elf, "
+                #                    "who once was in your place.",
+                #     'points': 40,
+                #     'tasks': [
+                #         {
+                #             'name': 'get_the_incantation',
+                #             'description': "The evil incantation that you're preparing yourself to perform won't "
+                #                            "happen "
+                #                            "without the spell you need to cast. But right now its the Dark Wizard who "
+                #                            "has the scroll you need. Find him.",
+                #             'artefact': 'Incantation Scroll',
+                #             'points': 10,
+                #             'npc_give_task': 'Dark Elf',
+                #             'npc_take_artifact': 'Dark Elf',
+                #             'next_npc': 'Dark Wizard',
+                #             'gift': None
+                #         },
+                #         {
+                #             'name': 'kill_the_tiger',
+                #             'description': "The Dark Wizard knows the scroll you want well. He learnt everything from "
+                #                            "it by heart a long time ago. He does not need it anymore, but nothing is "
+                #                            "free in this world. He will give you the scroll in exchange for the "
+                #                            "necklace that is guarded by the Tiger.",
+                #             'artefact': 'Magic Necklace',
+                #             'points': 10,
+                #             'npc_give_task': 'Dark Wizard',
+                #             'npc_take_artifact': 'Dark Wizard',
+                #             'next_npc': None,
+                #             'gift': 'Incantation Scroll'
+                #         }
+                #     ]
+                # },
                 'get_immortality ': {
                     'name': 'get_immortality',
-                    'description': "Whispers say you seek immortality. The road to it is long and not easy. You'll face "
-                                   "challenges, fight enemies from the nightmares, face the god of destruction, "
-                                   "but if you have what it takes, you'll get what you want. The Dark Elf, as creatures of "
-                                   "the night can help you start your journey.",
+                    'description': "Whispers say you seek immortality. The road to it is long and not easy. You'll "
+                                   "face challenges, fight enemies from the nightmares, face the god of destruction, "
+                                   "but if you have what it takes, you'll get what you want. The Dark Elf, "
+                                   "as creatures of the night can help you start your journey.",
                     'points': 40,
                     'tasks': [
-                        {
-                            'name': 'kill_the_raven',
-                            'description': 'Vampire knows only one way of gaining immortality, besides being born with '
-                                           'it. It requires a dangerous ritual, that many tried to follow, but failed. '
-                                           'But if you will persevere you will be rewarded. But first, you need to get '
-                                           'the blood of a big Raven scaring the people of Medieville.',
-                            'artefact': 'Raven Blood',
-                            'points': 20,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Dark Elf',
-                            'next_npc ': 'Vampire',
-                            'gift': None
-                        },
-                        {
-                            'name': 'sage_from_forest',
-                            'description': "Blood was just a first step of many on your way. But not every of them "
-                                           "requires you to dirty your hands. This time your predator instincts won't be "
-                                           "needed. All you need to do is asked the Amazon for some sage, because it's "
-                                           "not news that plants have powerful magic capabilities. Then you need to give it to the Druid for their sacred fire",
-                            'artefact': None,
-                            'points': 10,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Dark Elf',
-                            'next_npc ': 'Amazon',
-                            'gift': None,
-                        },
-                        {
-                            'name': 'kill_yeti',
-                            'description': "Sage is one of the gifts of the wild. Amazon can not only give it to you, they can show you when to look for it, but you need pay the price for that useful gift and lesson and the price is a skin of yeti.",
-                            'artefact': 'Yeti Skin',
-                            'points': 10,
-                            'npc_give_task ': 'Amazon',
-                            'npc_take_artifact ': 'Amazon',
-                            'next_npc ': 'Druid',
-                            'gift': 'Sage',
-                        },
-                        {
-                            'name': 'get_sacred_fire',
-                            'description': "Amazons offered you their help when you did them a favour. The sage they gave you will help you get "
-                                           "some sacred fire from the Druids. Beware they are the balance keepers and "
-                                           "they serve the powers of light. If you want to live, you better drink the "
-                                           "potion.",
-                            'artefact': 'Sage',
-                            'points': 10,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Druid',
-                            'next_npc ': 'Dark Elf',
-                            'gift': 'Sacred Fire'
-                        },
+                        # {
+                        #     'name': 'kill_the_raven',
+                        #     'description': 'Vampire knows only one way of gaining immortality, besides being born with '
+                        #                    'it. It requires a dangerous ritual, that many tried to follow, but failed. '
+                        #                    'But if you will persevere you will be rewarded. But first, you need to get '
+                        #                    'the blood of a big Raven scaring the people of Medieville.',
+                        #     'artefact': 'Raven Blood',
+                        #     'points': 20,
+                        #     'npc_give_task': 'Dark Elf',
+                        #     'npc_take_artifact': 'Vampire',
+                        #     'next_npc': None,
+                        #     'gift': None
+                        # },
+                        # {
+                        #     'name': 'sage_from_forest',
+                        #     'description': "Blood was just a first step of many on your way. But not every of them "
+                        #                    "requires you to dirty your hands. This time your predator instincts won't "
+                        #                    "be needed. All you need to do is asked the Amazon for some sage, because "
+                        #                    "it's not news that plants have powerful magic capabilities. Then you need "
+                        #                    "to give it to the Druid for their sacred fire",
+                        #     'artefact': 'Sage',
+                        #     'points': 10,
+                        #     'npc_give_task': 'Dark Elf',
+                        #     'npc_take_artifact': 'Druid',
+                        #     'next_npc': 'Amazon',
+                        #     'gift': None,
+                        # },
+                        # {
+                        #     'name': 'kill_yeti',
+                        #     'description': "Sage is one of the gifts of the wild. Amazon can not only give it to you, "
+                        #                    "they can show you when to look for it, but you need pay the price for "
+                        #                    "that useful gift and lesson and the price is a skin of yeti.",
+                        #     'artefact': 'Ice Monster Skin',
+                        #     'points': 10,
+                        #     'npc_give_task': 'Amazon',
+                        #     'npc_take_artifact': 'Amazon',
+                        #     'next_npc': None,
+                        #     'gift': 'Sage',
+                        # },
                         {
                             'name': 'voice_of_mermaid',
-                            'description': "You're almost there. Keep going and don't loose courage. Find the beaches of "
-                                           "the lake and those who live there. Their voice can maim you, but it's power "
-                                           "is exactly what you're going to need. Steal the creatures necklace, "
+                            'description': "You're almost there. Keep going and don't loose courage. Find the beaches "
+                                           "of the lake and those who live there. Their voice can maim you, but it's "
+                                           "power is exactly what you're going to need. Steal the creatures necklace, "
                                            "cause it hides the true magic of their voice.",
                             'artefact': 'Mermaid Necklace',
                             'points': 10,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Dark Elf',
-                            'next_npc ': 'Dark Elf',
+                            'npc_give_task': 'Dark Elf',
+                            'npc_take_artifact': 'Dark Elf',
+                            'next_npc': None,
                             'gift': 'Magic Blood'
                         },
                         {
                             'name': 'prepare_magic_blood',
-                            'description': "You brought everything needed to make a magic blood for a Vampire that is the only one that can give you the immortality. We will now prepare it according to the recipe on the scroll you obtained. When its ready, take it to the Vampire and exchange for your immortality.",
+                            'description': "You brought everything needed to make a magic blood for a Vampire that is "
+                                           "the only one that can give you the immortality. We will now prepare it "
+                                           "according to the recipe on the scroll you obtained. When its ready, "
+                                           "take it to the Vampire and exchange for your immortality.",
                             'artefact': 'Magic Blood',
                             'points': 10,
-                            'npc_give_task ': 'Dark Elf',
-                            'npc_take_artifact ': 'Vampire',
-                            'next_npc ': None,
+                            'npc_give_task': 'Dark Elf',
+                            'npc_take_artifact': 'Vampire',
+                            'next_npc': None,
                             'gift': 'Immortality Potion'
                         }
 

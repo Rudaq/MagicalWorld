@@ -31,7 +31,6 @@ class Quest:
             hero.take_gift_from_npc(self.active_task.npc_take_artifact, npcs, self.active_task.gift)
 
         self.tasks.remove(self.active_task)
-
         if len(self.skipped_tasks) > 0:
             index = len(self.skipped_tasks) - 1
             self.active_task = self.skipped_tasks[index]

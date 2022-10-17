@@ -141,6 +141,7 @@ def game(hero):
         mock_npc = MockNpc(npc)
         npcs_to_choose.add(mock_npc)
         mock_npcs_to_choose.add(mock_npc)
+
         sprites_to_move_opposite.extend(npc.artifacts)
         collision_sprites_hero.add(npc.artifacts)
         collision_sprites_npc.add(npc.artifacts)
@@ -428,10 +429,10 @@ def game(hero):
         # show the table with NPC's from which hero can choose while giving a gift
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
-
-        if hero.active_quest is not None:
-            if hero.active_quest.is_done:
-                hero.active_quest = None
+        #
+        # if hero.active_quest is not None:
+        #     if hero.active_quest.is_done:
+        #         hero.active_quest = None
 
         if hero.mana == 0 and not restore_mana:
             restore_mana = True

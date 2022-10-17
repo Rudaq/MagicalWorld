@@ -422,13 +422,13 @@ NPC_FIGHTS = {
 # x: 70 - 3870
 # y: 3160 - 7100
 DRUIDS = {
-    'Leaf': ["good", None, None, 1670, 5700]
+    'Leaf': ["good", None, None, 700, 600]
 }
 ELVES = {
     'Manance': ["good", None, None, 2920, 6800]
 }
 TREANTS = {
-    'Oak': ["good", None, None, 170, 4550],
+    'Oak': ["good", None, None, 500, 600],
     'Sequoia': ["good", None, None, 1570, 3700],
     'Bambus': ["good", None, None, 1170, 5120],
     'Maple': ["good", None, None, 2200, 6010]
@@ -437,7 +437,7 @@ TREANTS = {
 # x: 3590 - 6710
 # y: 140 - 1820
 DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 3900, 1320]
+    'Sarus': ["evil", None, None, 800, 800]
 }
 DRAGONS = {
     'Drogon': ["evil", None, None, 5700, 800]
@@ -448,7 +448,7 @@ FIRE_ELEMENTALS = {
     'Damian': ["evil", None, None, 3605, 230]
 }
 EARTH_ELEMENTALS = {
-    'Earthenzo': ["evil", None, None, 600, 500],
+    'Earthenzo': ["evil", None, None, 9000, 500],
     'Patrick': ["evil", None, None, 3820, 2500]
 }
 # FROZEN EMPIRE
@@ -459,7 +459,7 @@ ICE_MONSTERS = {
 }
 BIG_WOLVES = {
     'Furry': ["evil", None, None, 1170, 600],
-    'Murry': ["evil", None, None, 290, 1800],
+    'Murry': ["evil", None, None, 2900, 1800],
     'Durry': ["evil", None, None, 2270, 2100],
     'Bamburry': ["evil", None, None, 870, 1200]
 }
@@ -489,7 +489,7 @@ BIG_FISHES = {
 # x: 7070-10590
 # y: 140-1900
 ORCS = {
-    'Stinker': ["evil", None, None, 8300, 950]
+    'Stinker': ["evil", None, None, 9000, 9500]
 }
 DONKEYS = {
     'Ponkey': ["good", None, None, 7900, 320],
@@ -505,13 +505,12 @@ BLIND_RATS = {
 # 8090 - 12850 (WM:8430 - 9350)
 # 2400 - 6260 (WM:2760 - 3260)
 SMITHS = {
-    'Gavin': ["good", None, None, 300, 400]
+    'Gavin': ["good", None, None, 3000, 400]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 700, 500]
+    'Harwin': ["good", None, None, 8000, 600]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 700, 600],
     'Crow': ["evil", None, None, 8850, 2920],
     'Nights': ["evil", None, None, 8900, 2970],
 }
@@ -522,7 +521,7 @@ ESCAPING_VEGETABLES = {
     'Thyme': ["evil", None, None, 11200, 3100]
 }
 WHEAT_MONSTERS = {
-    'Wheater': ["evil", None, None, 9150, 2750],
+    'Wheater': ["evil", None, None, 9000, 9000],
     'Skipper': ["evil", None, None, 9250, 3200],
     'Daphne': ["evil", None, None, 9400, 2950]
 }
@@ -545,43 +544,42 @@ BIG_MONKES = {
 # 70 - 4890
 # 7880 - 11000
 UNICORNS = {
-    'Pony': ["good", None, None, 100, 8600]
+    'Pony': ["good", None, None, 1000, 8600]
 }
 FAERIES = {
-    'Lovely': ["good", None, None, 300, 500],
+    'Lovely': ["good", None, None, 6000, 600],
     'Dovey': ["good", None, None, 4000, 8900],
     'Priscilla': ["good", None, None, 1290, 9600]
 }
 LEPRECHAUNS = {
-    'Goldey': ["evil", None, None, 4600, 9840]
+    'Goldey': ["evil", None, None, 1000, 3000]
 }
 # BUSH:
 # x: 3470 - 5250 if higher ~ 7500
 # y: 2900 - 6520
 AMAZONS = {
-    'Wilderina': ["good", None, None, 300, 700]
+    'Wilderina': ["good", None, None, 400, 800]
 }
 SNAKES = {
-    'Anaconde': ["evil", None, None, 600, 600],
+    'Anaconde': ["evil", None, None, 6000, 6000],
     'Bamboo': ["evil", None, None, 5200, 3950],
     'Snack': ["evil", None, None, 6200, 6200]
 }
 TIGERS = {
-    'Lionel': ["evil", None, None, 300, 800]
+    'Lionel': ["evil", None, None, 8000, 1000]
 }
 # DREARY:
 # x: 5690 - 9100
 # y: 7720 - 11000
 SPIDERS = {
-    'Venom': ["evil", None, None, 500, 600],
     'Bradley': ["evil", None, None, 5770, 7970],
     'Duncan': ["evil", None, None, 8700, 10400]
 }
 VAMPIRES = {
-    'Bloody': ["evil", None, None, 6800, 10200]
+    'Bloody': ["evil", None, None, 700, 700]
 }
 DARK_ELVES = {
-    'Baldwin': ["evil", None, None, 8400, 8050]
+    'Baldwin': ["evil", None, None, 600, 600]
 }
 
 RANDOM_ANSWERS = {

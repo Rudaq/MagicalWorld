@@ -90,15 +90,12 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
 
 def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs, screen):
     npc = mock_npc.npc
-    npc.take_gift(hero, artifact, npcs, screen)
+
     for e in hero.equipment:
         if e.name == artifact.name:
-            if hero.active_quest.active_task == 'feed_wild_tiger' \
-                    and artifact.name == 'Raven Meat' \
-                    and npc.name == 'Tiger':
-                hero.add_life(10)
             hero.equipment.remove(e)
     equipment_buttons.remove(artifact)
+    npc.take_gift(hero, artifact, npcs, screen)
 
 
 def time_to_chest_be_opened(restore_time_passed):
