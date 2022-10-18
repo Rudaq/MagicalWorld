@@ -30,8 +30,9 @@ class Smith(Npc):
         self.new_sword = Artifact(sword_image, 10, 'New Sword', None)
         gem_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "purple_gem.PNG"))
         self.gem = Artifact(gem_image, 10, 'Purple Gem', None)
-
-        self.gifts.add(self.tools, self.shovel, self.new_sword, self.gem)
+        banana_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "banana.PNG"))
+        self.banana = Artifact(banana_image, 10, 'Banana', None)
+        self.gifts.add(self.tools, self.shovel, self.new_sword, self.gem, self.banana)
         smith_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "axe.png"))
         self.npc_attack = AttackClass(smith_attack, 20, 10, 'weapon attack')

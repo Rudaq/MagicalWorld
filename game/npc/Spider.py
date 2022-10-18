@@ -21,7 +21,7 @@ class Spider(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Spider Blood', None)
-        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "spider_fang.PNG"))
+        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "fang.PNG"))
         self.fang = Artifact(fang_image, 5, 'Spider Fang', None)
         self.artifacts.add(self.blood, self.fang)
         self.npc_attack = None

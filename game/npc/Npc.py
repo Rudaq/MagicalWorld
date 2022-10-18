@@ -245,7 +245,10 @@ class Npc(Character):
     def give_quest(self, hero):
         if hero.active_quest.active_task is None \
                 and hero.active_quest.tasks[0].npc_give_task == self.race:
+            hero.active_quest.is_started = True
             hero.active_quest.set_active_task()
         elif hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.next_npc == self.race:
+            hero.active_quest.is_started = True
             hero.active_quest.set_next_active_task()
+

@@ -2,12 +2,6 @@ import pygame
 from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import BARBARIAN_ACTIONS, HERO_ANIMATIONS
-from artifacts.Artifact import Artifact
-import os
-from pathlib import Path
-
-current = os.path.dirname(os.path.realpath(__file__))
-path = Path(__file__).resolve().parent.parent.parent
 
 
 # Class for a hero of race Barbarian, inherits from Character class
@@ -94,3 +88,10 @@ class Barbarian(Character):
             if artifact.name == 'New Sword':
                 self.sword_attack = AttackClass(artifact.image, 25, 10, 'sword_attack')
             return True
+
+    def take_next_quest(self):
+        self.points += self.active_quest.points
+        if self.acive_quest == 'artisanal_skill':
+            self.sword_attack.strength += 10
+        self.quests.remove(self.active_quest)
+        self.set_active_quest()

@@ -39,7 +39,7 @@ class FriendlySnowman(Npc):
                         and task.npc_take_artifact == self.race:
                     print(self.race + ": Thank you for your gift")
 
-        if artifact.name == 'Snowman Nose':
+        if artifact.name == 'Snowman Nose' or artifact.name == 'Carrot':
             image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png"))
             image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png"))
             image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png"))

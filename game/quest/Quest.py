@@ -9,6 +9,7 @@ class Quest:
         self.interactions = []
         self.active_task = None
         self.active_task = None
+        self.is_started = False
         self.sentiment = "Neutral"
         # task 'skipped' because hero needs to et something for this task
         self.skipped_tasks = []
@@ -19,9 +20,6 @@ class Quest:
     def set_active_task(self):
         if len(self.tasks) > 0:
             self.active_task = self.tasks[0]
-        else:
-            self.hero.take_next_quest()
-            self.active_task = None
 
     def task_completed(self, hero, npcs):
         hero.points += self.active_task.points
@@ -31,12 +29,16 @@ class Quest:
             hero.take_gift_from_npc(self.active_task.npc_take_artifact, npcs, self.active_task.gift)
 
         self.tasks.remove(self.active_task)
+
         if len(self.skipped_tasks) > 0:
             index = len(self.skipped_tasks) - 1
             self.active_task = self.skipped_tasks[index]
             self.skipped_tasks.remove(self.active_task)
+        elif not len(self.tasks) > 0:
+            self.hero.take_next_quest()
+            self.active_task = None
         else:
-            self.set_active_task()
+            self.active_task = None
 
     def set_next_active_task(self):
         self.skipped_tasks.append(self.active_task)

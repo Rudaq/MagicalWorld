@@ -17,7 +17,7 @@ TILES_SIZE = 64
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 20
+HERO_SPEED = 60
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -84,7 +84,7 @@ FAERIE_SPELLS = {
 
 BARBARIAN_ACTIONS = {
     'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG")),
-    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "leaf.PNG")),
+    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fury_2.PNG")),
     'fury_flames': [pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_1.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_2.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_3.PNG")),
@@ -114,7 +114,8 @@ GUI_IMAGES = {
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
-    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
+    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
 
 }
 

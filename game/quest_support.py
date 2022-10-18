@@ -7,7 +7,6 @@ from quest.Quest import Quest
 from quest.Task import Task
 
 
-
 class QuestTypeNotExistException(Exception):
     pass
 
@@ -23,10 +22,13 @@ def create_quests(hero):
             tasks = []
             task_parameters = parameters[p].get('tasks')
             for t in task_parameters:
-                task = Task(t.get('name'), t.get('description'), t.get('artefact'), t.get('points'), t.get('npc_give_task'), t.get('npc_take_artifact'), t.get('next_npc'), t.get('gift'), hero, False)
+                task = Task(t.get('name'), t.get('description'), t.get('artefact'), t.get('points'),
+                            t.get('npc_give_task'), t.get('npc_take_artifact'), t.get('next_npc'), t.get('gift'), hero,
+                            False)
                 tasks.append(task)
 
-            quest = Quest(parameters[p].get('name'), parameters[p].get('description'), parameters[p].get('points'), tasks, hero, False)
+            quest = Quest(parameters[p].get('name'), parameters[p].get('description'), parameters[p].get('points'),
+                          tasks, hero, False)
             hero.quests.append(quest)
         hero.set_active_quest()
     else:
@@ -42,6 +44,9 @@ def show_quest_to_hero(screen, hero):
     if hero.active_quest is not None:
         if hero.active_quest.active_task is not None:
             text = hero.active_quest.active_task.description
+        elif hero.active_quest.active_task is None \
+                and hero.active_quest.is_started:
+            text = "Find a correct character to get a next task!"
         else:
             text = hero.active_quest.description
     else:
@@ -55,4 +60,3 @@ def show_quest_to_hero(screen, hero):
             h += 5
         else:
             h -= 5
-

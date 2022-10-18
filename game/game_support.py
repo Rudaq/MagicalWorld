@@ -35,9 +35,10 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
         for item in npc_dict_entry['dict'].items():
             if name is None:
                 name, parameters = item
+                # print(parameters)
             else:
                 # specific entity
-                parameters = npc_dict_entry['dict'][name]
+                name, parameters = item
 
             # creating npc object with its parameters
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
@@ -141,8 +142,8 @@ def npc_in_interaction_range(chosen_npc, hero):
 
 def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
-    rainbow.rect.x = 150
-    rainbow.rect.y = 3050
+    rainbow.rect.x = 900
+    rainbow.rect.y = 5500
 
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
@@ -165,8 +166,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     paper.rect.y = 1200
 
     pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
-    pot.rect.x = rainbow.rect.x + 200
-    pot.rect.y = rainbow.rect.y
+    pot.rect.x = rainbow.rect.x + 198
+    pot.rect.y = rainbow.rect.y + 30
     all_artifacts.add(paper, pot)
 
     map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
