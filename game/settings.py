@@ -129,6 +129,6 @@ MAP_IMAGES = {
     'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
     'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
     'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png")),
-    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot.png"))
+    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.png"))
 
 }

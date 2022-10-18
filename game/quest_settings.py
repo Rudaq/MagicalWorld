@@ -456,7 +456,7 @@ QUESTS = {
                     {
                         'name': 'the_snowman',
                         'description': 'Snowman: I will help you as long as you bring me my nose! Kill escaping '
-                                       'vegetables so I can get a carrot.',
+                                       'vegetables so I can get a carrot. Then go to Big Monke..',
                         'artefact': 'Carrot',
                         'points': 20,
                         'npc_give_task': 'Snowman',
@@ -496,25 +496,25 @@ QUESTS = {
             'destroy_primeval_bush': {
                 'name': 'destroy_primeval_bush',
                 'description': 'Your journey here will focus on doing bad, bad things... Lets start with eliminating '
-                               'some of your enemies so that you can gain their weapon. Go kill the tigers first.',
+                               'some of your enemies so that you can gain their weapon. Go to Dark Elf for tips..',
                 'points': 20,
                 'tasks': [
                     {
                         'name': 'kill_tigers',
-                        'description': 'Kill the tigers so that you have their fur.',
+                        'description': 'Kill the tigers so that you have their fur. Then go to Dark Wizard for another hint.',
                         'artefact': 'Tiger Fur',
                         'points': 15,
-                        'npc_give_task': None,
+                        'npc_give_task': 'Dark Elf',
                         'npc_take_artifact': None,
                         'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'kill_snakes',
-                        'description': 'Kill the snakes so that you have their skin.',
+                        'description': 'Kill the snakes so that you have their skin. Then go to Vampire, he knows your last enemy.',
                         'artefact': 'Snake Skin',
                         'points': 15,
-                        'npc_give_task': None,
+                        'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': None,
                         'next_npc': None,
                         'gift': None
@@ -524,12 +524,12 @@ QUESTS = {
                         'description': 'The last thing you need to do to take over the primaeval bush is to... Kill '
                                        'its keepers! Amazons! Kill them and take their weapon. You may need it '
                                        'later..',
-                        'artefact': 'Amazons spare', #TODO
+                        'artefact': 'Amazon Spare',
                         'points': 15,
-                        'npc_give_task': None,
+                        'npc_give_task': 'Vampire',
                         'npc_take_artifact': None,
                         'next_npc': None,
-                        'gift': 'Amazons spare'
+                        'gift': None
                     }
                 ]
             },
@@ -554,12 +554,12 @@ QUESTS = {
                         'name': 'bring_food',
                         'description': 'Smith: Okay. I have the gold. But I am hungry you know. I would like to eat '
                                        'something. Maybe a fish?',
-                        'artefact': 'Fish', #TODO
+                        'artefact': 'Dead Fish',
                         'points': 10,
                         'npc_give_task': 'Smith',
                         'npc_take_artifact': 'Smith',
                         'next_npc': None,
-                        'gift': 'Weapon',  # improved strength
+                        'gift': 'New Sword',
 
                     }
                 ]
@@ -575,12 +575,12 @@ QUESTS = {
                         'description': 'Orcs: You want what? Regain your life? Ha ha ha... Fine, but you have to do '
                                        'couple '
                                        'of things first. For example... Clean my feet! Take water from Specular Lake.',
-                        'artefact': 'Water',
+                        'artefact': 'Water', #TODO check Milena if jest tak jak ma być - nba brzegu jezioroa jest kawałek wody na który się klika xd sprawdz to, nie miała fantazji na to
                         'points': 15,
                         'npc_give_task': 'Orc',
                         'npc_take_artifact': 'Orc',
                         'next_npc': None,
-                        'gift': 'Life potion'
+                        'gift': 'Life Potion'
                     }
                 ]
             },
@@ -588,20 +588,9 @@ QUESTS = {
             'steal_treasure': {
                 'name': 'steal_treasure',
                 'description': 'There we are. It’s time to solve the greatest mistery of the dwarves. Find the thief '
-                               'of the Greatest Gem of the Dwarven Empire. See Druid for clues.',
+                               'of the Greatest Gem of the Dwarven Empire. See Snowman for clues.',
                 'points': 100,
                 'tasks': [
-                    {
-                        'name': 'find_witness',
-                        'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
-                                       'Empire. You had better find him. If you are looking for clues, find the ice ball first.',
-                        'artefact': 'Ice ball',
-                        'points': 20,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': None,
-                        'next_npc': None,
-                        'gift': None
-                    },
                     {
                         'name': 'the_snowman',
                         'description': 'Snowman: I will help you as long as you bring me my nose! Kill escaping '
@@ -610,18 +599,18 @@ QUESTS = {
                         'points': 20,
                         'npc_give_task': 'Snowman',
                         'npc_take_artifact': 'Snowman',
-                        'next_npc': 'Big Monke',
+                        'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'bring_fire',
-                        'description': 'Big Monke: You want the treasure? It wont be easy for you little one.',
-                        'artefact': 'The Greatest Gem of Dwarven Empire', # nie wiem, obojetnie co no
+                        'description': 'Big Monke: You want the treasure? It wont be easy for you little one.', #TODO tu to nie wiem o co kaman XD w sensie on ma zabić Big Bonk? or what
+                        'artefact': 'Dwarven Gem', # nie wiem, obojetnie co no
                         'points': 20,
                         'npc_give_task': 'Big Monke',
                         'npc_take_artifact': None,
                         'next_npc': None,
-                        'gift': 'The Greatest Gem of Dwarven Empire'
+                        'gift': 'Dwarven Gem'
                     }
                 ]
             }
@@ -639,7 +628,7 @@ QUESTS = {
                     {
                         'name': 'find_a_tree',
                         'description': 'Druid: First you need to gain materials. Find a tree in Enchanted Forest and '
-                                       'take a stick from it..',
+                                       'take a stick from it..', #TODO narysowac drzewo w enchanted forest i żeby bo klinięciu w niego patyk sie dodawał do equipment
                         'artefact': 'Stick',
                         'points': 15,
                         'npc_give_task': 'Druid',
@@ -651,7 +640,7 @@ QUESTS = {
                         'name': 'kill_mermaid',
                         'description': 'Druid: I know you do not kill the innocent but we may have no other choice. '
                                        'Bring mermaids blood so that we can put magic into your wand.',
-                        'artefact': 'Mermaids blood',
+                        'artefact': 'Mermaid Blood',
                         'points': 15,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
@@ -662,7 +651,7 @@ QUESTS = {
                         'name': 'kill_vampire',
                         'description': 'Druid: There is one more thing we need. Do not get scared... Vampires fang. '
                                        'Kill the vampire and bring its venomous fang back.',
-                        'artefact': 'Vampires fang',
+                        'artefact': 'Vampire Fang',
                         'points': 15,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
@@ -695,12 +684,12 @@ QUESTS = {
                         'description': 'Dark Elf: Ohh... I know a solution to that. You have to give donkey so much '
                                        'mud that he will turn into stone. Mud? Oh thats orcs water. Find their land '
                                        'and you will find mud..',
-                        'artefact': 'Mud', # mud laying in the swamp to collect it
+                        'artefact': 'Mud', #TODO mud laying in the swamp to collect it
                         'points': 20,
                         'npc_give_task': 'Dark Elf',
                         'npc_take_artifact': 'Donkey',
                         'next_npc': 'Donkey', #?
-                        'gift': 'stone donkey'
+                        'gift': 'Stone donkey' #TODO NARYSOWAC TO
                     }
 
                 ]
@@ -724,7 +713,7 @@ QUESTS = {
                     {
                         'name': 'obtain_earth',
                         'description': 'Faerie: Great! Now please kill an earth elemental.',
-                        'artefact': 'Earth',
+                        'artefact': 'Earth', #TODO NARYSOWAĆ EARTH
                         'points': 20,
                         'npc_give_task': 'Faerie',
                         'npc_take_artifact': 'Faerie',
@@ -734,15 +723,15 @@ QUESTS = {
                     {
                         'name': 'powder_of_faeries',
                         'description': 'Faerie: Great! Now the trickiest one. Ask little faeries for their magic '
-                                       'powder.',
-                        'artefact': 'Magic powder',
+                                       'powder.', #TODO FAERIE KARZE ISC DO FAERIE? CHYBA TRZEBA ZMIENIC
+                        'artefact': 'Magic Dust',
                         'points': 20,
                         'npc_give_task': 'Faerie',
                         'npc_take_artifact': 'Faerie',
                         'next_npc': 'Little faeries',
-                        'gift': 'Healing potion'
+                        'gift': 'Healing Potion'
                     },
-                    { # tutaj chodzi o to, zeby byl dialog, po prostu prosisz i dostajesz powder i masz healing potion
+                    { # tutaj chodzi o to, zeby byl dialog, po prostu prosisz i dostajesz powder i masz healing potion #TODO chyba, zeby dostać cos trzeba najpierw dac coś NPC
                         'name': 'little_faeries',
                         'description': 'Little faerie: What do you want? I sense you are a good person.',
                         'artefact': 'Magic powder',
@@ -775,7 +764,7 @@ QUESTS = {
                     },
                     {  # dialog ?
                         'name': 'leprechaun_gold',
-                        'description': 'Leprechaun: I will give you gold if you ask me nicely...',
+                        'description': 'Leprechaun: I will give you gold if you ask me nicely...', #TODO chyba było ustalane że NPC daje gift w zamian za coś innego a nie tak po prosru
                         'artefact': 'Gold Bar',
                         'points': 20,
                         'npc_give_task': 'Leprechaun', #?
@@ -787,7 +776,7 @@ QUESTS = {
                         'name': 'bring_fire',
                         'description': 'Druid: Thank you for the gold. You have druids providence. Now lets find '
                                        'those bloody bastards. You should follow the spiders...',
-                        'artefact': 'spiders web',
+                        'artefact': 'spiders web', #TODO narysować
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
@@ -796,7 +785,7 @@ QUESTS = {
                     },
                     { # dialog
                         'name': 'follow_the_web',
-                        'description': 'Spider: You want to find dark wizards? Follow our web and kill them.',
+                        'description': 'Spider: You want to find dark wizards? Follow our web and kill them.', #TOD0 kill them czyli kogo?
                         'artefact': 'wand',
                         'points': 20,
                         'npc_give_task': 'Spider',
@@ -818,7 +807,7 @@ QUESTS = {
                     {
                         'name': 'kill_mermaid',
                         'description': 'Dark Wizard: Kill the mermaid so that you have their fur.',
-                        'artefact': 'Mermaid necklace',
+                        'artefact': 'Mermaid Necklace',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
@@ -828,7 +817,7 @@ QUESTS = {
                     {
                         'name': 'kill_big_fishes',
                         'description': 'Kill the big fish so that you have something to eat.',
-                        'artefact': 'fish',
+                        'artefact': 'Dead Fish',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
@@ -839,12 +828,12 @@ QUESTS = {
                         'name': 'kill_crabs',
                         'description': 'Last ones! The crabs! Kill the crabs and specular lakes will be completely '
                                        'under your surveillance. ',
-                        'artefact': 'crabs corpse',
+                        'artefact': 'crabs corpse', #TODO narysować
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
                         'next_npc': None,
-                        'gift': 'healing potion'
+                        'gift': 'Healing Potion'
                     }
                 ]
             },
@@ -858,7 +847,7 @@ QUESTS = {
                         'name': 'thief_gorilla',
                         'description': 'Dragon: Dragons love to be wealthy. You know what do do. First -  gorillas '
                                        'stolen gem.',
-                        'artefact': 'The Greatest Gem of Dwarven Empire',
+                        'artefact': 'Dwarven Gem', #TODO czyli gorilla ma ten gem i tzreba go zabić?
                         'points': 10,
                         'npc_give_task': 'Dragon',
                         'npc_take_artifact': 'Dragon',
@@ -867,8 +856,8 @@ QUESTS = {
                     },
                     {
                         'description': 'Dragon: Thank you for the gem. Next step -  mermaid.'
-                                       'stolen gem.',
-                        'artefact': 'mermaid necklace',
+                                       'stolen gem.', #TODO coś chyba ze skladania nie tka albo ja nie potrafie czytac xd ale nie wiem na co zmmienic
+                        'artefact': 'Mermaid Necklace',
                         'points': 10,
                         'npc_give_task': 'Dragon',
                         'npc_take_artifact': 'Dragon',
@@ -878,12 +867,12 @@ QUESTS = {
                     },
                     {
                         'description': 'Dragon: Lastly... gold... lots of gold. Leprechaun!',
-                        'artefact': 'pot of gold',
+                        'artefact': 'Pot of Gold',
                         'points': 10,
                         'npc_give_task': 'Dragon',
                         'npc_take_artifact': 'Dragon',
                         'next_npc': None,
-                        'gift': 'flame'
+                        'gift': 'Flame'
                     }
                 ]
             },
@@ -903,7 +892,7 @@ QUESTS = {
                         'npc_give_task': 'Orc',
                         'npc_take_artifact': 'Orc',
                         'next_npc': None,
-                        'gift': 'Life potion'
+                        'gift': 'Life Potion'
                     }
                 ]
             },
@@ -916,7 +905,7 @@ QUESTS = {
                     {
                         'name': 'find_leaves',
                         'description': 'Dark Wizard: Find the amazons. Next to them, there are leaves sealed '
-                                       'with dark magic. Kill the amazons, find the leaves and bring them to us.',
+                                       'with dark magic. Kill the amazons, find the leaves and bring them to us.', #TODO narysowac liście i umieścić na mapie?
                         'artefact': 'Leaf',
                         'points': 20,
                         'npc_give_task': 'Dark Wizard',
@@ -926,8 +915,8 @@ QUESTS = {
                     },
                     {
                         'name': 'bravery',
-                        'description': 'Dark Wizard: Now bring as much tigers meet as possible. We have to eat.',
-                        'artefact': 'Tigers Meat',
+                        'description': 'Dark Wizard: Now bring as much raven meet as possible. We have to eat.',
+                        'artefact': 'Raven Meat',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
