@@ -43,10 +43,10 @@ def game(hero):
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
     # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((1500, 800))
+    screen = pygame.display.set_mode((WIDTH_GAME, HEIGHT_GAME))
     print("Screen size", screen.get_size()[0])
-    WIDTH_GAME = screen.get_size()[0]
-    HEIGHT_GAME = screen.get_size()[1]
+   # WIDTH_GAME = screen.get_size()[0]
+   # HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
     npcs = []
@@ -149,6 +149,7 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
+    screen.blit(SEA, (0, 0))
     create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
@@ -158,7 +159,7 @@ def game(hero):
     create_quests(hero)
 
     while True:
-        screen.blit(SEA, (0, 0))
+      #  screen.blit(SEA, (0, 0))
 
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()

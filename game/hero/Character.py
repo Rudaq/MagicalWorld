@@ -67,6 +67,7 @@ class Character(pygame.sprite.Sprite):
         self.quests = []
         self.active_quest = None
         self.skipped_quests = []
+
     # method to return active quest
 
     def set_active_quest(self):
@@ -285,7 +286,6 @@ class Character(pygame.sprite.Sprite):
                         n.gifts.remove(g)
                         self.collect_artifact(g, npcs)
                 break
-
 
     # Placeholder. Method supporting hero fighting - diminishing mana and life.
     def fight(self, screen, option, npcs):

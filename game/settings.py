@@ -18,7 +18,7 @@ SCALE = 700/12928
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 60
+HERO_SPEED = 20
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -41,7 +41,7 @@ LETTERS_NUMBERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 
 HERO_ANIMATIONS = {
     'Barbarian': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianBackSmall.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png"))
