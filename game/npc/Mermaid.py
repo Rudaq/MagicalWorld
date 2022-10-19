@@ -46,9 +46,11 @@ class Mermaid(Npc):
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
             print(self.race + ": Your quest is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
         else:
             print(self.race + ": Thank you for your gift")
+        return False
 
     # Mermaid can only give quest if she can talk
     def give_quest(self, hero):

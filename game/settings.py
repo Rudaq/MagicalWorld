@@ -108,6 +108,7 @@ WIZARD_SPELLS = {
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
     'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),
+    'new_task_scroll': pygame.image.load(os.path.join(path, "resources/GUI", "new_task_scroll.png")),
     'fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight.png")),
     'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png")),
     'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),

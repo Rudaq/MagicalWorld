@@ -42,10 +42,13 @@ class Tiger(Npc):
                     and artifact.name == 'Raven Meat':
                 hero.add_life(20)
             print(self.race + ": Your task is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
 
         elif len(hero.active_quest.skipped_tasks) > 0:
             for task in hero.active_quest.skipped_tasks:
                 if task.artifact == artifact.name \
                         and task.npc_take_artifact == self.race:
                     print(self.race + ": Thank you for your gift")
+
+        return False

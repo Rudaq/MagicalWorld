@@ -36,9 +36,11 @@ class Quest:
             self.skipped_tasks.remove(self.active_task)
         elif not len(self.tasks) > 0:
             self.hero.take_next_quest()
+            return True
             self.active_task = None
         else:
             self.active_task = None
+        return False
 
     def set_next_active_task(self):
         self.skipped_tasks.append(self.active_task)

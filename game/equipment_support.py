@@ -95,14 +95,16 @@ def give_artifact_to_npc(hero, mock_npc, artifact, equipment_buttons, npcs, scre
         if e.name == artifact.name:
             hero.equipment.remove(e)
     equipment_buttons.remove(artifact)
-    npc.take_gift(hero, artifact, npcs, screen)
+    if npc.take_gift(hero, artifact, npcs, screen):
+        return True
+    return False
 
 
-def time_to_chest_be_opened(restore_time_passed):
+def time_measure(restore_time_passed, seconds):
     time_diff = datetime.now() - restore_time_passed
     time_sec = time_diff.total_seconds()
 
-    time_to_display = 1 - time_sec
+    time_to_display = seconds - time_sec
     if time_to_display <= 0:
         return True
     else:

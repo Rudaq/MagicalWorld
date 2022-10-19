@@ -31,7 +31,8 @@ class FriendlySnowman(Npc):
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
             print(self.race + ": Your task is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
 
         elif len(hero.active_quest.skipped_tasks) > 0:
             for task in hero.active_quest.skipped_tasks:
@@ -48,3 +49,5 @@ class FriendlySnowman(Npc):
             self.images['down'] = image_front
             self.images['right'] = image_right
             self.images['left'] = image_left
+
+        return False

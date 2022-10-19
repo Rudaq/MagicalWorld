@@ -234,21 +234,26 @@ class Npc(Character):
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
             print(self.race + ": Your task is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
 
         elif len(hero.active_quest.skipped_tasks) > 0:
             for task in hero.active_quest.skipped_tasks:
                 if task.artifact == artifact.name \
                         and task.npc_take_artifact == self.race:
                     print(self.race + ": Thank you for your gift")
+        return False
 
     def give_quest(self, hero):
         if hero.active_quest.active_task is None \
                 and hero.active_quest.tasks[0].npc_give_task == self.race:
             hero.active_quest.is_started = True
             hero.active_quest.set_active_task()
+            return True
         elif hero.active_quest.active_task is not None \
                 and hero.active_quest.active_task.next_npc == self.race:
             hero.active_quest.is_started = True
             hero.active_quest.set_next_active_task()
+            return True # idk
+        return False
 
