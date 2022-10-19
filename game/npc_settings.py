@@ -175,12 +175,6 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
-    'image_snowman': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png"))
-    },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
