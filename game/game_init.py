@@ -470,16 +470,16 @@ def game(hero):
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
-        if hero.mana == 0 and not restore_mana:
+        if hero.mana < 50 and not restore_mana:
             restore_mana = True
             restore_mana_time_passed = datetime.now()
-        elif hero.mana > 0:
+        elif hero.mana >= 50:
             restore_mana = False
 
-        if hero.life == 0 and not restore_life:
+        if hero.life < 50 and not restore_life:
             restore_life = True
             restore_life_time_passed = datetime.now()
-        elif hero.life > 0:
+        elif hero.life >= 50:
             restore_life = False
 
         all_sprites_group.update()

@@ -13,7 +13,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
     time_sec = time_diff.total_seconds()
     # print("time_start", restore_life_time_passed)
 
-    time_to_display = 30 - time_sec
+    time_to_display = 60 - time_sec
     minutes = int(time_to_display / 60)
     seconds = int(time_to_display % 60)
     draw_text(str(minutes) + ':', x, 50, 12, BLACK, screen)
