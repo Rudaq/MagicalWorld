@@ -145,8 +145,14 @@ def game(hero):
         sprites_to_move_opposite.extend(npc.artifacts)
         collision_sprites_hero.add(npc.artifacts)
         collision_sprites_npc.add(npc.artifacts)
+        npc_collision_with_npcs = pygame.sprite.Group()
+        for n in npcs:
+            if npc != n:
+                npc_collision_with_npcs.add(n)
 
+        all_sprites_group.add(npc_collision_with_npcs)
         npc.collision_sprites = collision_sprites_npc
+        npc.collision_sprites_npc = npc_collision_with_npcs
         npc.groups = all_sprites_group
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
@@ -159,9 +165,10 @@ def game(hero):
     all_sprites_group.offset.y = 0
     create_quests(hero)
 
-    while True:
-        screen.blit(SEA, (0, 0))
 
+    while True:
+
+        screen.blit(SEA, (0, 0))
         all_sprites_group.custom_draw(hero, npcs, screen)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,

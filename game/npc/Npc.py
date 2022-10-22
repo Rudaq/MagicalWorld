@@ -22,6 +22,7 @@ class Npc(Character):
         self.groups = groups
         self.race = 'npc'
         self.gifts = pygame.sprite.Group()
+        self.collision_sprites_npc = None
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -160,34 +161,42 @@ class Npc(Character):
                 if hero.mana > 0:
                     self.rect.x += step
                     self.direction = 'R'
+                    self.image = self.images['right']
                 else:
                     step *= 2
                     self.rect.x -= step
                     self.direction = 'L'
+                    self.image = self.images['left']
             elif hero.direction == 'U':
                 if hero.mana > 0:
                     self.rect.y += step
                     self.direction = 'D'
+                    self.image = self.images['down']
                 else:
                     step *= 2
                     self.rect.y -= step
                     self.direction = 'U'
+                    self.image = self.images['up']
             elif hero.direction == 'R':
                 if hero.mana > 0:
                     self.direction = 'L'
                     self.rect.x -= step
+                    self.image = self.images['left']
                 else:
                     step *= 2
                     self.direction = 'R'
                     self.rect.x += step
+                    self.image = self.images['right']
             else:
                 if hero.mana > 0:
                     self.direction = 'U'
                     self.rect.y -= step
+                    self.image = self.images['up']
                 else:
                     step *= 2
                     self.direction = 'D'
                     self.rect.y += step
+                    self.image = self.images['down']
 
     def run(self, hero, all_sprites_group):
         step = random.randint(1, 4)
@@ -256,4 +265,133 @@ class Npc(Character):
             hero.active_quest.set_next_active_task()
             return True # idk
         return False
+
+    def collision(self, all_sprites_group):
+        is_collision = False
+        collision_occurred = False
+
+        for sprite in self.collision_sprites:
+            if sprite.rect.colliderect(self.rect):
+                collision_occurred = True
+
+                if sprite not in self.sprite_colliding:
+
+                    if len(self.sprite_colliding) > 0:
+                        self.sprite_colliding.append(sprite)
+                        if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
+                            -2].rect.x == sprite.rect.x:
+                            if self.rect.left > sprite.rect.left:
+                                self.collisions_left.append(sprite)
+                                self.directions_of_collisions.append('L')
+                            elif self.rect.left < sprite.rect.left:
+                                self.collisions_right.append(sprite)
+                                self.directions_of_collisions.append('R')
+
+                        elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[
+                            -2].rect.y == sprite.rect.y:
+                            if self.rect.top > sprite.rect.top:
+                                self.collisions_up.append(sprite)
+                                self.directions_of_collisions.append('U')
+                            elif self.rect.top < sprite.rect.top:
+                                self.collisions_down.append(sprite)
+                                self.directions_of_collisions.append('D')
+                    else:
+                        self.sprite_colliding.append(sprite)
+                        self.directions_of_collisions.append(self.direction)
+                        if self.direction == 'L':
+                            self.collisions_left.append(sprite)
+                        elif self.direction == 'R':
+                            self.collisions_right.append(sprite)
+                        elif self.direction == 'U':
+                            self.collisions_up.append(sprite)
+                        elif self.direction == 'D':
+                            self.collisions_down.append(sprite)
+
+                if self.direction in self.directions_of_collisions:
+                    if self.direction == 'D' or self.direction == 'U':
+                        all_sprites_group.offset.y -= 0
+                    else:
+                        all_sprites_group.offset.x -= 0
+                    is_collision = True
+            else:
+                if sprite in self.sprite_colliding:
+                    if sprite in self.collisions_left:
+                        self.collisions_left.remove(sprite)
+                        self.directions_of_collisions.remove('L')
+                    elif sprite in self.collisions_right:
+                        self.collisions_right.remove(sprite)
+                        self.directions_of_collisions.remove('R')
+                    elif sprite in self.collisions_up:
+                        self.collisions_up.remove(sprite)
+                        self.directions_of_collisions.remove('U')
+                    elif sprite in self.collisions_down:
+                        self.collisions_down.remove(sprite)
+                        self.directions_of_collisions.remove('D')
+                    self.sprite_colliding.remove(sprite)
+
+        for sprite in self.collision_sprites_npc:
+            if sprite.rect.colliderect(self.rect):
+                collision_occurred = True
+
+                if sprite not in self.sprite_colliding:
+
+                    if len(self.sprite_colliding) > 0:
+                        self.sprite_colliding.append(sprite)
+                        if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
+                            -2].rect.x == sprite.rect.x:
+                            if self.rect.left > sprite.rect.left:
+                                self.collisions_left.append(sprite)
+                                self.directions_of_collisions.append('L')
+                            elif self.rect.left < sprite.rect.left:
+                                self.collisions_right.append(sprite)
+                                self.directions_of_collisions.append('R')
+
+                        elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[
+                            -2].rect.y == sprite.rect.y:
+                            if self.rect.top > sprite.rect.top:
+                                self.collisions_up.append(sprite)
+                                self.directions_of_collisions.append('U')
+                            elif self.rect.top < sprite.rect.top:
+                                self.collisions_down.append(sprite)
+                                self.directions_of_collisions.append('D')
+                    else:
+                        self.sprite_colliding.append(sprite)
+                        self.directions_of_collisions.append(self.direction)
+                        if self.direction == 'L':
+                            self.collisions_left.append(sprite)
+                        elif self.direction == 'R':
+                            self.collisions_right.append(sprite)
+                        elif self.direction == 'U':
+                            self.collisions_up.append(sprite)
+                        elif self.direction == 'D':
+                            self.collisions_down.append(sprite)
+
+                if self.direction in self.directions_of_collisions:
+                    if self.direction == 'D' or self.direction == 'U':
+                        all_sprites_group.offset.y -= 0
+                    else:
+                        all_sprites_group.offset.x -= 0
+                    is_collision = True
+            else:
+                if sprite in self.sprite_colliding:
+                    if sprite in self.collisions_left:
+                        self.collisions_left.remove(sprite)
+                        self.directions_of_collisions.remove('L')
+                    elif sprite in self.collisions_right:
+                        self.collisions_right.remove(sprite)
+                        self.directions_of_collisions.remove('R')
+                    elif sprite in self.collisions_up:
+                        self.collisions_up.remove(sprite)
+                        self.directions_of_collisions.remove('U')
+                    elif sprite in self.collisions_down:
+                        self.collisions_down.remove(sprite)
+                        self.directions_of_collisions.remove('D')
+                    self.sprite_colliding.remove(sprite)
+
+        self.had_collision = collision_occurred
+        if not collision_occurred:
+            self.sprite_colliding = []
+            self.directions_of_collisions = []
+
+        return is_collision, all_sprites_group
 
