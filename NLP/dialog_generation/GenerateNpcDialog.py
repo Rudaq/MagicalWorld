@@ -57,7 +57,7 @@ def produce_response(hero, npc):
         sentence = hero.my_text
         question = check_if_question(sentence)
 
-        if question:
+        if question and npc.context != '':
             sentence = replace_in_text(sentence, 'I', 'hero.race')
             sentence = replace_in_text(sentence, 'you', npc.race)
             # final_text = sent_output(sentence)

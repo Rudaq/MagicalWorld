@@ -24,6 +24,10 @@ class Npc(Character):
         self.groups = groups
         self.race = 'npc'
         self.gifts = pygame.sprite.Group()
+        self.context = ''
+        self.nice_greetings = []
+        self.rude_greetings = []
+        self.load_greetings()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):

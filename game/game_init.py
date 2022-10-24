@@ -271,8 +271,9 @@ def game(hero):
                             hero.text_history[len(hero.text_history) - 1].text = hero.my_text
                         # Deleting the last written letter
                         elif event.key == pygame.K_BACKSPACE or event.key == pygame.K_DELETE:
-                            hero.my_text = hero.my_text[:-1]
-                            hero.text_history[len(hero.text_history) - 1].text = hero.my_text
+                            if hero.my_text != '>> ':
+                                hero.my_text = hero.my_text[:-1]
+                                hero.text_history[len(hero.text_history) - 1].text = hero.my_text
                         # Detecting enter, finishing the input, turn is changed to npc
                         elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                             hero.hero_turn = False
