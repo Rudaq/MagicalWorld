@@ -35,7 +35,7 @@ def menu():
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
         draw_text_on_menu("Start", 350, 300, 40, WHITE, screen)
         draw_text_on_menu("Quit", 350, 400, 40, WHITE, screen)
-        draw_text_on_menu("Battle of the Realm", 200, 100, 40, WHITE, screen)
+        draw_text_on_menu("Adventures in the Realm", 150, 100, 40, WHITE, screen)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -288,7 +288,7 @@ def character_info(name, ch_type, side, image):
 # Calling menus in the right order
 menu()
 chosen_name, chosen_type, chosen_side, image, image_small = choose_character()
-# character_info(chosen_name, chosen_type, chosen_side, image)
+character_info(chosen_name, chosen_type, chosen_side, image)
 main_character = create_character(chosen_name, chosen_type, chosen_side)
 
 # Calling main game function with hero parameter

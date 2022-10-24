@@ -5,11 +5,8 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import ELF_SPELLS
 
-'''
-Class for a hero of race Elf, inherits from Character class
-'''
 
-
+# Class for a hero of race Elf, inherits from Character class
 class Elf(Character):
     def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
         super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
