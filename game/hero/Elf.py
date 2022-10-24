@@ -5,6 +5,9 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import ELF_SPELLS
 
+'''
+Class for a hero of race Elf, inherits from Character class
+'''
 
 # Class for a hero of race Elf, inherits from Character class
 class Elf(Character):

@@ -2,7 +2,6 @@ import os
 import pygame
 from pathlib import Path
 
-from game.quest_settings import DRUID_QUESTS
 from npc.DarkWizard import DarkWizard
 from npc.Druid import Druid
 from npc.IceMonster import IceMonster
@@ -176,12 +175,6 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
-    # 'image_snowman': {
-    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
-    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png"))
-    # },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -302,19 +295,19 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
-    # 'image_snowman': {
-    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
-    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman.png")),
-    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left.png")),
-    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right.png"))
-    # },
-    #
-    # 'image_snowman_nose': {
-    #     'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
-    #     'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png")),
-    #     'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png")),
-    #     'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
-    # },
+    'image_snowman': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right.png"))
+    },
+
+    'image_snowman_nose': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
+    },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -377,116 +370,116 @@ NPC_FIGHTS = {
 
 # preferences -> name : side, artifacts, quests, x, y
 # enchanted forest:
-# x: 70 - 3870
-# y: 3160 - 7100
+# X: 150 - 3350
+# Y: 2300 - 4500
 DRUIDS = {
-    'Leaf': ["good", None, None, 1670, 5700]
+    'Leaf': ["good", None, None, 1670, 3500]
 }
 ELVES = {
-    'Manance': ["good", None, None, 2920, 6800]
+    'Manance': ["good", None, None, 2920, 2900]
 }
 TREANTS = {
-    'Oak': ["good", None, None, 170, 4550],
-    'Sequoia': ["good", None, None, 1570, 3700],
-    'Bambus': ["good", None, None, 1170, 5120],
-    'Maple': ["good", None, None, 2200, 6010]
+    'Oak': ["good", None, None, 280, 4550],
+    'Sequoia': ["good", None, None, 1770, 3900],
+    'Bambus': ["good", None, None, 1170, 3520],
+    'Maple': ["good", None, None, 2500, 2910]
 }
 # desolation of abdomination:
-# x: 3590 - 6710
-# y: 140 - 1820
+# X: 3450 - 6600
+# Y: 250 - 1850
 DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 3900, 1320]
+    'Sarus': ["evil", None, None, 4300, 390]
 }
 DRAGONS = {
-    'Drogon': ["evil", None, None, 5700, 800]
+    'Drogon': ["evil", None, None, 5700, 1000]
 }
 FIRE_ELEMENTALS = {
-    'Firenzo': ["evil", None, None, 6100, 700],
-    'Fireball': ["evil", None, None, 4750, 1450],
-    'Damian': ["evil", None, None, 3605, 230]
+    'Firenzo': ["evil", None, None, 4400, 750],
+    'Fireball': ["evil", None, None, 4950, 1350],
+    'Damian': ["evil", None, None, 3705, 530]
 }
 EARTH_ELEMENTALS = {
-    'Earthenzo': ["evil", None, None, 600, 500],
-    'Patrick': ["evil", None, None, 3820, 2500]
+    'Earthenzo': ["evil", None, None, 4600, 900],
+    'Patrick': ["evil", None, None, 5820, 1500]
 }
 # FROZEN EMPIRE
-# x: 70 - 3290
-# y: 140 - 2960
+# X: 50 - 3350
+# Y: 200 - 2150
 ICE_MONSTERS = {
-    'Icelius': ["evil", None, None, 2300, 1850]
+    'Icelius': ["evil", None, None, 2300, 1650]
 }
 BIG_WOLVES = {
     'Furry': ["evil", None, None, 1170, 600],
-    'Murry': ["evil", None, None, 290, 1800],
-    'Durry': ["evil", None, None, 2270, 2100],
-    'Bamburry': ["evil", None, None, 870, 1200]
+    'Murry': ["evil", None, None, 290, 1600],
+    'Durry': ["evil", None, None, 2270, 1500],
+    'Bamburry': ["evil", None, None, 2870, 1200]
 }
 FRIENDLY_SNOWMEN = {
     'Olaf': ["good", None, None, 1100, 280],
     'Bodak': ["good", None, None, 2300, 990],
     'Benjamin': ["good", None, None, 250, 1480],
-    'Dinerdo': ["good", None, None, 1200, 2180]
+    'Dinerdo': ["good", None, None, 1200, 1880]
 }
 # LAKE
-# x: 9450 - 12850 (M:10050, BF: 9930)
-# y: 7020 - 11000 (9720, 7360)
+# X: 7400 - 11600
+# Y: 4250 - 5600
 MERMAIDS = {
     'Arielle': ["good", None, None, 10030, 9720]
 }
 CRABS = {
-    'Craberus': ["good", None, None, 11700, 10400],
-    'Crabemus': ["good", None, None, 10900, 10400],
-    'Craperus': ["good", None, None, 11100, 10400]
+    'Craberus': ["good", None, None, 10700, 10400],
+    'Crabemus': ["good", None, None, 8900, 10400],
+    'Craperus': ["good", None, None, 9100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 9930, 7360],
-    'Bul': ["evil", None, None, 9630, 7160],
-    'Dul': ["evil", None, None, 8930, 7360]
+    'Gul': ["evil", None, None, 8930, 4860],
+    'Bul': ["evil", None, None, 9930, 4660],
+    'Dul': ["evil", None, None, 8230, 5160]
 }
 # SWAMP:
-# x: 7070-10590
-# y: 140-1900
+# X: 7100 - 10350
+# Y: 250 - 1200
 ORCS = {
     'Stinker': ["evil", None, None, 8300, 950]
 }
 DONKEYS = {
-    'Ponkey': ["good", None, None, 7900, 320],
-    'Conkey': ["good", None, None, 10000, 1200],
-    'Ponkey': ["good", None, None, 8830, 975],
+    'Ponkey': ["good", None, None, 8300, 320],
+    'Conkey': ["good", None, None, 10000, 1000],
+    'Donkey': ["good", None, None, 9830, 975],
 }
 BLIND_RATS = {
-    'Mousey': ["evil", None, None, 9250, 790],
+    'Mousey': ["evil", None, None, 9250, 390],
     'Wousey': ["evil", None, None, 8250, 1000],
-    'Busy': ["evil", None, None, 7700, 1300]
+    'Busy': ["evil", None, None, 7700, 870]
 }
 # MEDIEVILLE:
-# 8090 - 12850 (WM:8430 - 9350)
-# 2400 - 6260 (WM:2760 - 3260)
+# X: 8400 - 11050
+# Y: 2250 - 4350
 SMITHS = {
-    'Gavin': ["good", None, None, 300, 400]
+    'Gavin': ["good", None, None, 8800, 2600]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 700, 500]
+    'Harwin': ["good", None, None, 9700, 3500]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 700, 600],
+    'Feather': ["evil", None, None, 10200, 3600],
     'Crow': ["evil", None, None, 8850, 2920],
-    'Nights': ["evil", None, None, 8900, 2970],
+    'Nights': ["evil", None, None, 8900, 3180],
 }
 ESCAPING_VEGETABLES = {
-    'Parsley': ["evil", None, None, 10600, 4400],
+    'Parsley': ["evil", None, None, 10600, 4000],
     'Sage': ["evil", None, None, 9500, 3700],
     'Rosemary': ["evil", None, None, 10000, 2950],
-    'Thyme': ["evil", None, None, 11200, 3100]
+    'Thyme': ["evil", None, None, 10200, 3100]
 }
 WHEAT_MONSTERS = {
     'Wheater': ["evil", None, None, 9150, 2750],
-    'Skipper': ["evil", None, None, 9250, 3200],
+    'Skipper': ["evil", None, None, 9250, 3700],
     'Daphne': ["evil", None, None, 9400, 2950]
 }
 # COAST:
-# 10570 - 12850 (10730-12850)
-# 140 - 4840 (140-4300)
+# X: 10350 - 12600
+# Y: 250 - 4600
 PANDAS = {
     'Wanda': ["good", None, None, 11400, 2550],
     'Banda': ["good", None, None, 12400, 900],
@@ -500,46 +493,46 @@ BIG_MONKES = {
     'Gorilla': ["evil", None, None, 12600, 1300]
 }
 # LOVEY DOVEY:
-# 70 - 4890
-# 7880 - 11000
+# X: 150 - 3900
+# Y: 4850 - 6400
 UNICORNS = {
-    'Pony': ["good", None, None, 100, 8600]
+    'Pony': ["good", None, None, 400, 8600]
 }
 FAERIES = {
-    'Lovely': ["good", None, None, 300, 500],
-    'Dovey': ["good", None, None, 4000, 8900],
-    'Priscilla': ["good", None, None, 1290, 9600]
+    'Lovely': ["good", None, None, 800, 6050],
+    'Dovey': ["good", None, None, 2500, 5900],
+    'Priscilla': ["good", None, None, 1290, 5600]
 }
 LEPRECHAUNS = {
-    'Goldey': ["evil", None, None, 4600, 9840]
+    'Goldey': ["evil", None, None, 3250, 5840]
 }
 # BUSH:
-# x: 3470 - 5250 if higher ~ 7500
-# y: 2900 - 6520
+# X: 3450 - 7400
+# Y: 2400 - 3800
 AMAZONS = {
-    'Wilderina': ["good", None, None, 300, 700]
+    'Wilderina': ["good", None, None, 3800, 2700]
 }
 SNAKES = {
-    'Anaconde': ["evil", None, None, 600, 600],
-    'Bamboo': ["evil", None, None, 5200, 3950],
-    'Snack': ["evil", None, None, 6200, 6200]
+    'Anaconde': ["evil", None, None, 5600, 3300],
+    'Bamboo': ["evil", None, None, 6200, 3150],
+    'Snack': ["evil", None, None, 5750, 2750]
 }
 TIGERS = {
-    'Lionel': ["evil", None, None, 300, 800]
+    'Lionel': ["evil", None, None, 4300, 2800]
 }
 # DREARY:
-# x: 5690 - 9100
-# y: 7720 - 11000
+# X: 3600 - 5400 (im wyzej tym dalej)
+# Y: 4500 - 6450
 SPIDERS = {
-    'Venom': ["evil", None, None, 500, 600],
-    'Bradley': ["evil", None, None, 5770, 7970],
-    'Duncan': ["evil", None, None, 8700, 10400]
+    'Venom': ["evil", None, None, 4500, 5600],
+    'Bradley': ["evil", None, None, 5570, 5970],
+    'Duncan': ["evil", None, None, 3900, 4920]
 }
 VAMPIRES = {
-    'Bloody': ["evil", None, None, 6800, 10200]
+    'Bloody': ["evil", None, None, 4800, 6080]
 }
 DARK_ELVES = {
-    'Baldwin': ["evil", None, None, 8400, 8050]
+    'Baldwin': ["evil", None, None, 5000, 5050]
 }
 
 RANDOM_ANSWERS = {
@@ -664,14 +657,14 @@ NPCs = {
         'images': NPC_IMAGES['image_wheat_monster'],
         'dict': WHEAT_MONSTERS
     },
-    # 'friendly_snowman': {
-    #     'class_name': FriendlySnowman,
-    #     'mana': 300,
-    #     'life': 100,
-    #     'inflate': (-10, -10),
-    #     'images': NPC_IMAGES['image_snowman'],
-    #     'dict': FRIENDLY_SNOWMEN
-    # },
+    'friendly_snowman': {
+        'class_name': FriendlySnowman,
+        'mana': 300,
+        'life': 100,
+        'inflate': (-10, -10),
+        'images': NPC_IMAGES['image_snowman'],
+        'dict': FRIENDLY_SNOWMEN
+    },
     'crab': {
         'class_name': Crab,
         'mana': 700,

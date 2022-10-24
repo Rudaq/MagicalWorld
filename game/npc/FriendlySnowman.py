@@ -31,7 +31,8 @@ class FriendlySnowman(Npc):
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
             print(self.race + ": Your task is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
 
         elif len(hero.active_quest.skipped_tasks) > 0:
             for task in hero.active_quest.skipped_tasks:
@@ -39,7 +40,7 @@ class FriendlySnowman(Npc):
                         and task.npc_take_artifact == self.race:
                     print(self.race + ": Thank you for your gift")
 
-        if artifact.name == 'Snowman Nose':
+        if artifact.name == 'Snowman Nose' or artifact.name == 'Carrot':
             image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png"))
             image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png"))
             image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png"))
@@ -48,3 +49,5 @@ class FriendlySnowman(Npc):
             self.images['down'] = image_front
             self.images['right'] = image_right
             self.images['left'] = image_left
+
+        return False

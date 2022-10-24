@@ -22,9 +22,9 @@ class DarkElf(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Dark Elf Blood', None)
         self.artifacts.add(self.blood)
-        scroll_image = pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.PNG"))
-        self.scroll = Artifact(scroll_image, 10, 'Incantation Scroll', None)
-
+        magic_blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_blood.PNG"))
+        self.magic_blood = Artifact(magic_blood_image, 10, 'Magic Blood', None)
+        self.gifts.add(self.magic_blood)
         dark_elf_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
         self.npc_attack = AttackClass(dark_elf_attack, 20, 10, 'dark elf attack')
