@@ -455,12 +455,12 @@ def game(hero):
 
 
         if npc_clicked:
-            if chosen_npc.give_quest(hero):
-                hero.new_task = True
-                hero.restore_new_task = datetime.now()
-                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
-                           restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+            # if chosen_npc.give_quest(hero):
+            #     hero.new_task = True
+            #     hero.restore_new_task = datetime.now()
+            #     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+            #                restore_mana_time_passed,
+            #                restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
             if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
