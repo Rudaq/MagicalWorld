@@ -17,7 +17,7 @@ TILES_SIZE = 64
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 20
+HERO_SPEED = 60
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -84,7 +84,7 @@ FAERIE_SPELLS = {
 
 BARBARIAN_ACTIONS = {
     'sword': pygame.image.load(os.path.join(path, "resources/graphics/weapon", "sword.PNG")),
-    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "leaf.PNG")),
+    'fury': pygame.image.load(os.path.join(path, "resources/graphics/particles", "fury_2.PNG")),
     'fury_flames': [pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_1.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_2.PNG")),
                     pygame.image.load(os.path.join(path, "resources/graphics/particles", "flame_3.PNG")),
@@ -108,13 +108,15 @@ WIZARD_SPELLS = {
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
     'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),
+    'new_task_scroll': pygame.image.load(os.path.join(path, "resources/GUI", "new_task_scroll.png")),
     'fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight.png")),
     'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png")),
     'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
-    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png"))
+    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
 
 }
 
@@ -128,6 +130,6 @@ MAP_IMAGES = {
     'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
     'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
     'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png")),
-    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot.png"))
+    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.png"))
 
 }

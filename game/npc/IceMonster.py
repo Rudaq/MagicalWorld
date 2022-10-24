@@ -18,10 +18,12 @@ class IceMonster(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_blood.PNG"))
         tusk_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "yeti_tusk.PNG"))
-        ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
+        skin_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ice_monster_skin.PNG"))
         self.blood = Artifact(blood_image, 10, 'Ice Monster Blood', None)
+        self.skin = Artifact(skin_image, 15, 'Ice Monster Skin', None)
         self.tusk = Artifact(tusk_image, 15, 'Ice Monster Tusk', None)
-        self.artifacts.add(self.tusk, self.blood)
+        self.artifacts.add(self.tusk, self.blood, self.skin)
+        ice_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "small_cube.PNG"))
         self.npc_attack = AttackClass(ice_image, 20, 10, 'ice monster attack')
 
 

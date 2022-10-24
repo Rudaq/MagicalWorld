@@ -21,7 +21,12 @@ class Vampire(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Vampire Blood', None)
-        self.artifacts.add(self.blood)
+        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "fang.PNG"))
+        self.fang = Artifact(fang_image, 5, 'Vampire Fang', None)
+        self.artifacts.add(self.blood, self.fang)
+        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "immortality_potion.PNG"))
+        self.potion = Artifact(potion_image, 50, 'Immortality Potion', None)
+        self.gifts.add(self.potion)
         vampire_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "vampire_attack.PNG"))
         self.npc_attack = AttackClass(vampire_attack, 20, 10, 'vampire attack')

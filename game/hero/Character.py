@@ -67,6 +67,7 @@ class Character(pygame.sprite.Sprite):
         self.quests = []
         self.active_quest = None
         self.skipped_quests = []
+
     # method to return active quest
     def set_active_quest(self):
         if len(self.quests) > 0:
@@ -91,9 +92,6 @@ class Character(pygame.sprite.Sprite):
                 all_sprites_group.offset.x += mov_x * sign
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
-
-            print(all_sprites_group.offset.x + self.rect.centerx)
-            print(all_sprites_group.offset.y + self.rect.centery)
 
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':

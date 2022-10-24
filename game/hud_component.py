@@ -13,7 +13,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
     time_sec = time_diff.total_seconds()
     # print("time_start", restore_life_time_passed)
 
-    time_to_display = 120 - time_sec
+    time_to_display = 60 - time_sec
     minutes = int(time_to_display / 60)
     seconds = int(time_to_display % 60)
     draw_text(str(minutes) + ':', x, 50, 12, BLACK, screen)
@@ -27,8 +27,8 @@ def time_to_restore(screen, restore_life_time_passed, x):
         return 1
 
 
-def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana, restore_mana_time_passed,
-               restore_life_time_passed, chosen_npc, chest_opened):
+def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana, restore_mana_time_passed,
+               restore_life_time_passed, chosen_npc, chest_opened, new_task):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
@@ -91,14 +91,31 @@ def update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_
     chest_surface.blit(chest_button.image, (chest_button.rect.x, chest_button.rect.y))
     multiplicator += 1
 
+
+
+    # MAPA IKONA
+    # draw_text("Map ", multiplicator * distance + 50, 25, 12, BLACK, screen)
+    # map_surface = pygame.Surface((30, 230))
+    # map_image = GUI_IMAGES['map_icon']
+    # screen.blit(map_image, (multiplicator * distance + 35, 225))
+    # map_button.image = map_image
+    # map_button.rect.x = multiplicator * distance + 125
+    # map_button.rect.y = 40
+    # map_surface.blit(map_button.image, (map_button.rect.x, map_button.rect.y))
+    # multiplicator += 1
+
     draw_text("Points ", multiplicator * distance + 50, 25, 12, BLACK, screen)
     draw_text(str(hero.points), multiplicator * distance + 100, 50, 12, BLACK, screen)
     scroll_surface = pygame.Surface((30, 30))
     multiplicator += 1
 
     draw_text("Quest ", multiplicator * distance + 50, 25, 12, BLACK, screen)
-    screen.blit(GUI_IMAGES['scroll_small'], (multiplicator * distance + 100, 50))
-    scroll_button.image = GUI_IMAGES['scroll_small']
+    if new_task:
+        screen.blit(GUI_IMAGES['new_task_scroll'], (multiplicator * distance + 100, 50))
+        scroll_button.image = GUI_IMAGES['new_task_scroll']
+    else:
+        screen.blit(GUI_IMAGES['scroll_small'], (multiplicator * distance + 100, 50))
+        scroll_button.image = GUI_IMAGES['scroll_small']
     scroll_button.rect.x = multiplicator * distance + 100
     scroll_button.rect.y = 50
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
