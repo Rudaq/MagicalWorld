@@ -17,6 +17,7 @@ pygame.init()
 pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT))
 clock = pygame.time.Clock()
+background = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/menu_background.png')).convert_alpha()
 
 '''
 Menu for choosing character race and other characteristics and starting the game
@@ -27,7 +28,9 @@ Menu for choosing character race and other characteristics and starting the game
 def menu():
     # Loop displaying the screen
     while True:
-        screen.fill(BLUE)
+        # screen.fill(BLUE)
+        screen.blit(background, (0, 0))
+
         # Creating buttons - rectangles, texts
         button_start = pygame.Rect(250, 300, 300, 50)
         button_quit = pygame.Rect(250, 400, 300, 50)
@@ -35,7 +38,7 @@ def menu():
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
         draw_text_on_menu("Start", 350, 300, 40, WHITE, screen)
         draw_text_on_menu("Quit", 350, 400, 40, WHITE, screen)
-        draw_text_on_menu("Battle of the Realm", 200, 100, 40, WHITE, screen)
+        draw_text_on_menu("Adventures of the Realm", 200, 100, 40, BLACK, screen)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()

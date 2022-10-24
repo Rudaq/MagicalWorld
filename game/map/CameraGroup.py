@@ -19,7 +19,7 @@ class CameraGroup(pygame.sprite.Group):
         self.half_h = self.display_surf.get_size()[1] / 2
 
         # ground
-        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
+        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/map.png')).convert_alpha()
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
         self.ground_offset = 0
 
