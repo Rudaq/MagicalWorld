@@ -117,7 +117,7 @@ GUI_IMAGES = {
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
-    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png")),
     'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png"))
 }
 
