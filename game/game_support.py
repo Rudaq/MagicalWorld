@@ -3,6 +3,7 @@ import random
 import pygame
 from _csv import reader
 from os import walk
+import math
 import os
 from pathlib import Path
 
@@ -11,7 +12,7 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
+from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE
 from npc_settings import NPCs
 from settings import BLACK
 from math import dist
@@ -44,7 +45,8 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]),
+                                                  groups=sprite_groups,
                                                   inflation=(0, -10), collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
@@ -140,6 +142,15 @@ def npc_in_interaction_range(chosen_npc, hero):
         return True
 
 
+def show_map_to_hero(screen, hero, all_sprites_group):
+    map_top_right = 20
+    screen.blit(GUI_IMAGES['map2'], (map_top_right, 100))
+
+    x_position_scaled = (hero.rect.centerx + all_sprites_group.offset.x) * SCALE
+    y_position_scaled = (hero.rect.centery + all_sprites_group.offset.y) * SCALE
+    pygame.draw.rect(screen, RED, pygame.Rect(x_position_scaled + map_top_right, y_position_scaled + 100, 5, 5))
+
+
 def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
     rainbow.rect.x = 900
@@ -185,6 +196,7 @@ def check_map_artifact(map_artifact):
     elif map_artifact.name == 'Immortality Flower':
         map_artifact.image = MAP_IMAGES['big_tree']
     map_artifact.small_image = None
+
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']

@@ -1,4 +1,4 @@
-from game.game_support import create_npc, import_csv_layout, import_folder
+from game.game_support import create_npc, import_csv_layout, import_folder, show_map_to_hero
 
 import sys
 import os
@@ -63,6 +63,7 @@ def game(hero):
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
 
+
     moving = False
 
     dir_opposite = 'R'
@@ -78,6 +79,7 @@ def game(hero):
     npc_dialog_thread.start()
     show_quest = False
     show_chest = False
+    show_map = False
     chest_opened = False
     show_table = False
     chosen_artifact = None
@@ -133,6 +135,8 @@ def game(hero):
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites_npc)
 
+
+
     for npc in npcs:
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
@@ -157,6 +161,7 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
+    screen.blit(SEA, (0, 0))
     create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
@@ -374,6 +379,8 @@ def game(hero):
                 show_chest = not show_chest
                 if not show_chest:
                     show_table = False
+            elif map_button.rect.collidepoint(mouse_point):
+                show_map = not show_map
             elif fight_button.rect.collidepoint(mouse_point):
                 fight(hero, chosen_npc)
             elif talk_button.rect.collidepoint(mouse_point):
@@ -466,6 +473,9 @@ def game(hero):
 
         if show_quest:
             show_quest_to_hero(screen, hero)
+
+        if show_map:
+            show_map_to_hero(screen, hero, all_sprites_group)
 
         # show the chest with the hero's equipment
         if show_chest:

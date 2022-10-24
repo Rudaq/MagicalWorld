@@ -14,10 +14,11 @@ WIDTH_GAME = 1500
 HEIGHT_GAME = 800
 DIALOG_START = 100
 TILES_SIZE = 64
+SCALE = 700/12928
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 60
+HERO_SPEED = 20
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -40,7 +41,7 @@ LETTERS_NUMBERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 
 HERO_ANIMATIONS = {
     'Barbarian': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianBackSmall.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png"))
@@ -117,7 +118,7 @@ GUI_IMAGES = {
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
     'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
-
+    'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png"))
 }
 
 MAP_IMAGES = {

@@ -175,6 +175,12 @@ NPC_IMAGES = {
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
     },
+    'image_snowman': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snowman.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right.png"))
+    },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -437,8 +443,8 @@ BIG_FISHES = {
     'Dul': ["evil", None, None, 8230, 5160]
 }
 # SWAMP:
-# X: 7100 - 10350
-# Y: 250 - 1200
+# x: 7070-10590
+# y: 140-1900
 ORCS = {
     'Stinker': ["evil", None, None, 8300, 950]
 }
