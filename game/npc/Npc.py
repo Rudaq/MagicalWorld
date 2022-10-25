@@ -7,22 +7,22 @@ from hero.Character import Character
 class Npc(Character):
     def __init__(self, name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites):
         super().__init__(name, side, mana, life, images, None, pos, groups, inflation, collision_sprites)
-        self.artifacts = pygame.sprite.Group()
-        self.is_talking = False
-        self.quests_to_give = quests
+        self.sprite_type = 'npc'
+        self.race = 'npc'
         self.movement = [0, 0, 0]
-        self.text = '> '
         self.image = self.images['down']
-        self.collision_sprites = collision_sprites
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
+        self.text = '> '
+        self.is_talking = False
         self.add_npc_to_hud = False
         self.can_talk = None
-        self.sprite_type = 'npc'
         self.groups = groups
-        self.race = 'npc'
-        self.gifts = pygame.sprite.Group()
+        self.collision_sprites = collision_sprites
         self.collision_sprites_npc = None
+        self.quests_to_give = quests
+        self.gifts = pygame.sprite.Group()
+        self.artifacts = pygame.sprite.Group()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -263,7 +263,7 @@ class Npc(Character):
                 and hero.active_quest.active_task.next_npc == self.race:
             hero.active_quest.is_started = True
             hero.active_quest.set_next_active_task()
-            return True # idk
+            return True  # idk
         return False
 
     def collision(self, all_sprites_group):
@@ -394,4 +394,3 @@ class Npc(Character):
             self.directions_of_collisions = []
 
         return is_collision, all_sprites_group
-

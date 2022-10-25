@@ -119,3 +119,8 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     scroll_button.rect.x = multiplicator * distance + 100
     scroll_button.rect.y = 50
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
+
+
+
+
+
