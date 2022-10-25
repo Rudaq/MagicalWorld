@@ -92,7 +92,6 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     multiplicator += 1
 
     # MAPA IKONA
-    # draw_text("Map ", 20, 735, 12, BLACK, screen)
     map_surface = pygame.Surface((20, 7/8 * HEIGHT_GAME))
     map_image = GUI_IMAGES['map_icon']
     screen.blit(map_image, (20, 7/8 * HEIGHT_GAME))
