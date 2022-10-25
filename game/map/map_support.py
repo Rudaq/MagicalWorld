@@ -5,7 +5,7 @@ from game.map.Tile import Tile
 from game.settings import TILE_SIZE
 
 
-def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite):
+def create_map(collision_sprites, npc_boundaries, sprites_to_move_opposite):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/_constraints_hero.csv'),
         'boundary_npc': import_csv_layout('resources/map/tilesets/_constraints_npc.csv')
@@ -21,7 +21,6 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
     #     'details_tiles': import_folder('../resources/graphics/objects/details')
     # }
 
-    bound = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
 
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
@@ -31,7 +30,7 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
                     y = row_index * TILE_SIZE
 
                     if style == 'boundary_hero':
-                        Tile((x, y), [sprites_to_move_opposite], [all_sprites_group, collision_sprites], 'invisible', (0,0), bound)
+                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible')
 
                     if style == 'boundary_npc':
                         Tile((x, y), [sprites_to_move_opposite], [npc_boundaries], 'invisible')

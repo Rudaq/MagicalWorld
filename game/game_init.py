@@ -30,23 +30,23 @@ Main game loop
 '''
 
 current = os.path.dirname(os.path.realpath(__file__))
-# print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-
-
-# print(path)
 
 
 # Main game function
 def game(hero):
+
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Battle of the Realm")
+
     # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     screen = pygame.display.set_mode((1500, 800))
     print("Screen size", screen.get_size()[0])
+
     WIDTH_GAME = screen.get_size()[0]
     HEIGHT_GAME = screen.get_size()[1]
+
     clock = pygame.time.Clock()
 
     npcs = []
@@ -157,7 +157,7 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
-    create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
+    create_map(collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -165,11 +165,10 @@ def game(hero):
     all_sprites_group.offset.y = 0
     create_quests(hero)
 
-
     while True:
         # screen.blit(SEA, (0, 0))
 
-        all_sprites_group.custom_draw(hero, npcs, screen)
+        all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
@@ -420,6 +419,7 @@ def game(hero):
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
+                pygame.display.flip()
 
         if first_iteration:
             new_task = True
