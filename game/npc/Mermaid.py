@@ -18,13 +18,14 @@ class Mermaid(Npc):
         self.rect.y = y
         self.race = "Mermaid"
         self.collision_sprites = collision_sprites
-
         self.can_talk = False
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_blood.PNG"))
         necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_necklace.PNG"))
         self.necklace = Artifact(necklace_image, 10, 'Mermaid Necklace', None)
+        hair_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "mermaid_hair.PNG"))
+        self.hair = Artifact(hair_image, 10, 'Mermaid Hair', None)
         self.blood = Artifact(blood_image, 10, 'Mermaid Blood', None)
-        self.artifacts.add(self.blood, self.necklace)
+        self.artifacts.add(self.blood, self.necklace, self.hair)
         mermaid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mermaid_attack.PNG"))
         self.npc_attack = AttackClass(mermaid_attack, 20, 10, 'mermaid attack')
 
@@ -45,9 +46,11 @@ class Mermaid(Npc):
                 and hero.active_quest.active_task.artifact == artifact.name \
                 and hero.active_quest.active_task.npc_take_artifact == self.race:
             print(self.race + ": Your quest is completed!")
-            hero.active_quest.task_completed(hero, npcs)
+            if hero.active_quest.task_completed(hero, npcs):
+                return True
         else:
             print(self.race + ": Thank you for your gift")
+        return False
 
     # Mermaid can only give quest if she can talk
     def give_quest(self, hero):

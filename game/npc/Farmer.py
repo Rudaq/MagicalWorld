@@ -22,6 +22,9 @@ class Farmer(Npc):
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Farmer Blood', None)
         self.artifacts.add(self.blood)
+        hemmer_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "hammer.PNG"))
+        self.hammer = Artifact(hemmer_image, 10, 'Hammer', None)
+        self.gifts.add(self.hammer)
         farmer_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "grabie.PNG"))
         self.npc_attack = AttackClass(farmer_attack, 20, 10, 'farmer attack')

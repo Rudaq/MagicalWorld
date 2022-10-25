@@ -109,6 +109,7 @@ WIZARD_SPELLS = {
 GUI_IMAGES = {
     'scroll_small': pygame.image.load(os.path.join(path, "resources/GUI", "scroll_small.png")),
     'scroll': pygame.image.load(os.path.join(path, "resources/GUI", "scroll.png")),
+    'new_task_scroll': pygame.image.load(os.path.join(path, "resources/GUI", "new_task_scroll.png")),
     'fight_button': pygame.image.load(os.path.join(path, "resources/GUI", "fight.png")),
     'talk_button': pygame.image.load(os.path.join(path, "resources/GUI", "talk.png")),
     'small_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_small.png")),
@@ -122,7 +123,10 @@ GUI_IMAGES = {
     'start': pygame.image.load(os.path.join(path, "resources/GUI", "Start.png")),
     'quit': pygame.image.load(os.path.join(path, "resources/GUI", "Quit.png")),
     'next': pygame.image.load(os.path.join(path, "resources/GUI", "Next.png")),
-    'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png"))
+    'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),
+    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
+
 }
 
 MAP_IMAGES = {
@@ -135,6 +139,6 @@ MAP_IMAGES = {
     'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
     'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
     'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png")),
-    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot.png"))
+    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.png"))
 
 }

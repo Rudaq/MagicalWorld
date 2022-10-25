@@ -21,7 +21,9 @@ class Amazon(Npc):
         self.can_talk = True
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Amazon Blood', None)
-        self.artifacts.add(self.blood)
+        spare_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "amazon_spare.PNG"))
+        self.spare = Artifact(spare_image, 10, 'Amazon Spare', None)
+        self.artifacts.add(self.blood, self.spare)
         sage_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sage.PNG"))
         self.sage = Artifact(sage_image, 10, 'Sage', None)
         self.gifts.add(self.sage)

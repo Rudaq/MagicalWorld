@@ -23,10 +23,7 @@ class Dragon(Npc):
         self.blood = Artifact(blood_image, 30, 'Dragon Blood', None)
         eyeball_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "dragon_eyeball.PNG"))
         self.eyeball = Artifact(eyeball_image, 10, 'Dragon Eyeball', None)
-        self.artifacts.add(self.blood)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 35, 10, 'dark wizard attack')
+        self.artifacts.add(self.blood, self.eyeball)
         dragon_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "fire.png"))
         self.npc_attack = AttackClass(dragon_attack, 20, 10, 'dragon attack')

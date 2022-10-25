@@ -84,3 +84,17 @@ class Dwarf(Character):
             self.attack_type.start_y = self.attack_type.rect.y
 
         self.attack(screen, npcs)
+
+    def collect_artifact(self, artifact, npcs):
+        if len(self.equipment) == 6:
+            print("You can't collect more equipment! Your backpack is full!")
+            return False
+        else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
+            if artifact.name == 'New Sword':
+                self.axe_attack.strength += 10
+            self.equipment.append(artifact)
+            self.points += artifact.points
+            return True

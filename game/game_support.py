@@ -112,12 +112,12 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, buttons, fight_button, talk_button, chosen_npc, hero):
+def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
     s.fill(BLACK)
     s.set_alpha(192)
 
     # create buttons 'Fight' and 'Talk'
-    # buttons = pygame.sprite.Group()
+    buttons = pygame.sprite.Group()
     fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
     fight_button.rect.x = chosen_npc.rect.x - 40
     fight_button.rect.y = chosen_npc.rect.y - 50
@@ -182,13 +182,13 @@ def show_map_to_hero(screen, hero, all_sprites_group):
 
 def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
-    rainbow.rect.x = 150
-    rainbow.rect.y = 3050
+    rainbow.rect.x = 900
+    rainbow.rect.y = 5500
 
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
-    bamboo_tree.rect.x = 9770
-    bamboo_tree.rect.y = 3600
+    bamboo_tree.rect.x = 11970
+    bamboo_tree.rect.y = 4180
 
     flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
     big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
@@ -206,9 +206,15 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     paper.rect.y = 1200
 
     pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
-    pot.rect.x = rainbow.rect.x + 200
-    pot.rect.y = rainbow.rect.y - 50
-    all_artifacts.add(paper, pot)
+    pot.rect.x = rainbow.rect.x + 198
+    pot.rect.y = rainbow.rect.y + 30
+
+    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
+    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
+    water = Artifact(water_on_map_image, 20, 'Water', water_image)
+    water.rect.x = 9200
+    water.rect.y = 4950
+    all_artifacts.add(paper, pot, water)
 
     map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
 

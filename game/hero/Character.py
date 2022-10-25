@@ -69,7 +69,6 @@ class Character(pygame.sprite.Sprite):
         self.skipped_quests = []
 
     # method to return active quest
-
     def set_active_quest(self):
         if len(self.quests) > 0:
             self.active_quest = self.quests[0]
