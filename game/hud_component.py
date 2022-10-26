@@ -28,7 +28,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
 
 
 def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana, restore_mana_time_passed,
-               restore_life_time_passed, chosen_npc, chest_opened, new_task):
+               restore_life_time_passed, chosen_npc, chest_opened):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
