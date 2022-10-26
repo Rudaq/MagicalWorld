@@ -314,7 +314,7 @@ def game(hero):
                     if hero.collect_artifact(artifact, npcs):
                         # change the chest image in the hud to open chest
                         chest_opened = True
-                        remove_artifact(all_artifacts, artifact, screen)
+                        remove_artifact(all_sprites_group, collision_sprites_hero, collision_sprites_npc, all_artifacts, artifact, screen)
                         # time to chest icon to be opened
                         restore = datetime.now()
 
@@ -419,7 +419,7 @@ def game(hero):
                     stop_talk(hero, npc)
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
-                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
+                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc, screen)
 
         if first_iteration:
             new_task = True
@@ -464,6 +464,10 @@ def game(hero):
             all_sprites_group.update()
 
         if show_quest:
+            if hero.active_quest.active_task is None and not hero.active_quest.is_opened:
+                hero.active_quest.is_opened = True
+            elif hero.active_quest.active_task is not None and not hero.active_quest.active_task.is_opened:
+                hero.active_quest.active_task.is_opened = True
             show_quest_to_hero(screen, hero)
 
         # show the chest with the hero's equipment

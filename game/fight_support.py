@@ -35,13 +35,20 @@ def stop_fight(hero, chosen_npc):
     print("STOP FIGHT")
 
 
-def remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen):
+def remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc, screen):
     npcs.remove(npc)
     for mock in npcs_to_choose:
         if mock.npc == npc:
             npcs_to_choose.remove(mock)
             npcs_to_choose.update()
+    for n in npcs:
+        if n != npc:
+            n.collision_sprites_npc.remove(npc)
     all_sprites_group.remove(npc)
+    collision_sprites_hero.remove(npc)
+    collision_sprites_npc.remove(npc)
     npc.kill()
+    collision_sprites_hero.update()
+    collision_sprites_npc.update()
     all_sprites_group.update()
     all_sprites_group.draw(screen)
