@@ -26,12 +26,7 @@ class BigRaven(Npc):
         feather_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_feather.PNG"))
         self.feather = Artifact(feather_image, 10, 'Raven Feathers', None)
         self.artifacts.add(self.meat, self.feather, self.blood)
-        dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
-        self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
-        self.blood = Artifact(blood_image, 10, 'Big Raven Blood', None)
-        self.artifacts.add(self.blood)
+
         big_raven_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "feather.PNG"))
         self.npc_attack = AttackClass(big_raven_attack, 20, 10, 'big raven attack')
