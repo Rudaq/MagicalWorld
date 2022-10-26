@@ -376,8 +376,7 @@ LEMURS = {
     'Moris': ["good", None, None, 12010, 2000],
 }
 BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 12600, 1300],
-    'Gorilla': ["evil", None, None, 300, 400]
+    'Gorilla': ["evil", None, None, 12600, 1300]
 }
 # LOVEY DOVEY:
 # X: 150 - 3900
