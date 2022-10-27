@@ -13,6 +13,8 @@ class Quest:
         self.sentiment = "Neutral"
         # task 'skipped' because hero needs to et something for this task
         self.skipped_tasks = []
+        # check if hero have seen the quest
+        self.is_opened = False
 
     def show_quest(self):
         print(self.description)

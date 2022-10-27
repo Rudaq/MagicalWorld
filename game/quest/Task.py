@@ -18,6 +18,8 @@ class Task:
         self.gift = gift
         self.interactions = []
         self.sentiment = "Neutral"
+        # check if hero have seen the task
+        self.is_opened = False
 
     def show_task(self):
         print(self.description)
