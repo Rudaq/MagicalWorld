@@ -5,7 +5,7 @@ from game.map.Tile import Tile
 from game.settings import TILE_SIZE
 
 
-def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_move_opposite):
+def create_map(collision_sprites, npc_boundaries, sprites_to_move_opposite):
     layouts = {
         'boundary_hero': import_csv_layout('resources/map/tilesets/_constraints_hero.csv'),
         'boundary_npc': import_csv_layout('resources/map/tilesets/_constraints_npc.csv')
