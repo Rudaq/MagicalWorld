@@ -8,6 +8,7 @@ path = Path(__file__).resolve().parent.parent.parent
 print("Current Directory", current)
 print(path)
 
+
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super(CameraGroup, self).__init__()
@@ -23,7 +24,7 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
         self.ground_offset = 0
 
-    def custom_draw(self, hero, npcs, screen):
+    def custom_draw(self, hero):
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)

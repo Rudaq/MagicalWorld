@@ -14,7 +14,7 @@ regular_block = pygame.image.load("../resources/graphics/tilemap/player_blocker.
 
 # Class with characteristics common to all races, from which race classes inherit
 class Character(pygame.sprite.Sprite):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites):
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites):
         super().__init__()
         height = SPRITE_SIZE
         width = SPRITE_SIZE
@@ -26,8 +26,6 @@ class Character(pygame.sprite.Sprite):
 
         self.collision_sprites = collision_sprites
         self.groups = groups
-        self.inflation = inflation
-        self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.speed = 5
 
         self.name = name

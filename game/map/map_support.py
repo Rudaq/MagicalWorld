@@ -31,7 +31,7 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
                     y = row_index * TILE_SIZE
 
                     if style == 'boundary_hero':
-                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible', (0,0), bound)
+                        Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible')
 
                     if style == 'boundary_npc':
                         Tile((x, y), [sprites_to_move_opposite], [npc_boundaries], 'invisible')
