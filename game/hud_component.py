@@ -28,7 +28,7 @@ def time_to_restore(screen, restore_life_time_passed, x):
 
 
 def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana, restore_mana_time_passed,
-               restore_life_time_passed, chosen_npc, chest_opened, new_task):
+               restore_life_time_passed, chosen_npc, chest_opened):
     hud = pygame.Rect(0, 0, screen.get_size()[0], 100)
     pygame.draw.rect(screen, HUD_YELLOW, hud, 0, 1)
 
@@ -106,7 +106,9 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     multiplicator += 1
 
     draw_text("Quest ", multiplicator * distance + 50, 25, 12, BLACK, screen)
-    if new_task:
+    if (hero.active_quest.active_task is not None
+        and not hero.active_quest.active_task.is_opened) or \
+            (hero.active_quest.active_task is None and not hero.active_quest.is_opened):
         screen.blit(GUI_IMAGES['new_task_scroll'], (multiplicator * distance + 100, 50))
         scroll_button.image = GUI_IMAGES['new_task_scroll']
     else:
@@ -115,3 +117,8 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     scroll_button.rect.x = multiplicator * distance + 100
     scroll_button.rect.y = 50
     scroll_surface.blit(scroll_button.image, (scroll_button.rect.x, scroll_button.rect.y))
+
+
+
+
+

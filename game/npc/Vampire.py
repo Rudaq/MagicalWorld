@@ -9,7 +9,6 @@ current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
 
-# Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class Vampire(Npc):
     def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation,
                  collision_sprites):

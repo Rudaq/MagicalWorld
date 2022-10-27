@@ -106,24 +106,12 @@ class Character(pygame.sprite.Sprite):
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
 
-          #  print(all_sprites_group.offset.x + self.rect.centerx)
-          #  print(all_sprites_group.offset.y + self.rect.centery)
-
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':
                     sprite.rect.centerx += mov_x * sign * (-1)
                 elif direction == 'vertical':
                     sprite.rect.centery += mov_y * sign * (-1)
                 sprite.direction = dir_opposite
-
-        if self.direction == 'U':
-            self.image = self.images['up']
-        elif self.direction == 'D':
-            self.image = self.images['down']
-        elif self.direction == 'L':
-            self.image = self.images['left']
-        else:
-            self.image = self.images['right']
 
     def collision(self, all_sprites_group):
         is_collision = False

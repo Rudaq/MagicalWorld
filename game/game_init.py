@@ -105,7 +105,6 @@ def game(hero):
     map_button = ButtonClass(230, 240, 'map_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
-    buttons = pygame.sprite.Group()
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
@@ -160,7 +159,6 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
-    screen.blit(SEA, (0, 0))
     create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
@@ -319,7 +317,8 @@ def game(hero):
                     if hero.collect_artifact(artifact, npcs):
                         # change the chest image in the hud to open chest
                         chest_opened = True
-                        remove_artifact(all_artifacts, artifact, screen)
+                        remove_artifact(all_sprites_group, collision_sprites_hero, collision_sprites_npc, all_artifacts,
+                                        artifact, screen)
                         # time to chest icon to be opened
                         restore = datetime.now()
 
@@ -391,15 +390,15 @@ def game(hero):
                         show_table = not show_table
                         if show_table:
                             chosen_artifact = equipment
-            for mock_npc in mock_npcs_to_choose:
-                if mock_npc.rect.collidepoint(mouse_point):
-                    if give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen):
-                        hero.new_task = True
-                        hero.restore_new_task = datetime.now()
-                        update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
-                                   restore_mana_time_passed,
-                                   restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
-                    show_table = False
+            # for mock_npc in mock_npcs_to_choose:
+            #     if mock_npc.rect.collidepoint(mouse_point):
+            #         if give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen):
+            #             hero.new_task = True
+            #             hero.restore_new_task = datetime.now()
+            #             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+            #                        restore_mana_time_passed,
+            #                        restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+            #         show_table = False
 
         # Set previous state of left mouse button
         prev = left
@@ -426,6 +425,8 @@ def game(hero):
                     stop_talk(hero, npc)
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
+                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
+                           screen)
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
 
         if first_iteration:
@@ -466,6 +467,10 @@ def game(hero):
             all_sprites_group.update()
 
         if show_quest:
+            if hero.active_quest.active_task is None and not hero.active_quest.is_opened:
+                hero.active_quest.is_opened = True
+            elif hero.active_quest.active_task is not None and not hero.active_quest.active_task.is_opened:
+                hero.active_quest.active_task.is_opened = True
             show_quest_to_hero(screen, hero)
 
         if show_map:
@@ -481,6 +486,10 @@ def game(hero):
         # show the table with NPC's from which hero can choose while giving a gift
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
+            for mock_npc in mock_npcs_to_choose:
+                if mock_npc.rect.collidepoint(mouse_point):
+                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen)
+                    show_table = False
 
         if hero.mana < 50 and not restore_mana:
             restore_mana = True

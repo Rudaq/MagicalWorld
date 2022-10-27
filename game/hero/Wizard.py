@@ -65,3 +65,24 @@ class Wizard(Character):
             self.attack_type.start_y = self.attack_type.rect.y
 
         self.attack(screen, npcs)
+
+    # Placeholder. Method to add the found or obtained weapon to the equipment.
+    def collect_artifact(self, artifact, npcs):
+        if len(self.equipment) == 6:
+            print("You can't collect more equipment! Your backpack is full!")
+            return False
+        else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
+
+            self.equipment.append(artifact)
+            self.points += artifact.points
+
+            if self.active_quest.active_task is not None \
+                    and self.active_quest.active_task.npc_take_artifact is None \
+                    and self.active_quest.active_task.artifact.name == artifact:
+
+                self.active_quest.task_completed(self, npcs)
+
+            return True
