@@ -285,7 +285,7 @@ def character_info(name, ch_type, side, image):
                     sys.exit()
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(30)
 
 
 # Calling menus in the right order

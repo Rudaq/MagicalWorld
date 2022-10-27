@@ -15,5 +15,6 @@ class Tile(pygame.sprite.Sprite):
 
         for array in arrays:
             array.append(self)
+
         for group in groups:
             group.add(self)

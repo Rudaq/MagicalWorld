@@ -10,7 +10,7 @@ MENU_HEIGHT = 600
 
 TILE_SIZE = 64
 
-WIDTH_GAME = 1200
+WIDTH_GAME = 1500
 HEIGHT_GAME = 800
 DIALOG_START = 100
 TILES_SIZE = 64
@@ -38,16 +38,21 @@ LETTERS_NUMBERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
                    'r', 's', 't', 'u', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
                    '8', '9']
 
+'''
+For testing purpose
+        # 'up': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
+        # 'down': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
+        # 'left': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
+        # 'right': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
+'''
+
+
 HERO_ANIMATIONS = {
     'Barbarian': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png"))
-        # 'up': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
-        # 'down': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
-        # 'left': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png"),
-        # 'right': pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
     },
     'Dwarf': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),

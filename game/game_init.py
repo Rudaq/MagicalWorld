@@ -166,7 +166,6 @@ def game(hero):
     create_quests(hero)
 
     while True:
-        # screen.blit(SEA, (0, 0))
 
         all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
@@ -419,7 +418,6 @@ def game(hero):
                     npc_clicked = False
                 npc.kill_npc(all_artifacts, screen)
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
-                pygame.display.flip()
 
         if first_iteration:
             new_task = True
@@ -491,4 +489,4 @@ def game(hero):
 
         all_sprites_group.update()
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(30)
