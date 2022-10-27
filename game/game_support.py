@@ -44,8 +44,8 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
-                                                  collision_sprites=collision_sprites)
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]),
+                                                  groups=sprite_groups, collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
                 array.append(entity)
@@ -169,7 +169,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
-    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
+    water_on_map_image = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
     water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
@@ -185,6 +186,7 @@ def check_map_artifact(map_artifact):
     elif map_artifact.name == 'Immortality Flower':
         map_artifact.image = MAP_IMAGES['big_tree']
     map_artifact.small_image = None
+
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']

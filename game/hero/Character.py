@@ -8,9 +8,11 @@ from pathlib import Path
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
-# For collision testing purpose
-# collision_block = pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
-# regular_block = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
+'''
+For testing collisions uncomment these lines:
+collision_block = pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
+regular_block = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
+'''
 
 
 # Class with characteristics common to all races, from which race classes inherit
@@ -24,7 +26,6 @@ class Character(pygame.sprite.Sprite):
         self.images = images
         self.image = self.images['down']
         self.rect = self.image.get_rect(topleft=pos)
-        # self.rect = self.rect.inflate(-10, -10)
 
         self.collision_sprites = collision_sprites
         self.groups = groups
@@ -109,8 +110,12 @@ class Character(pygame.sprite.Sprite):
 
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.rect):
-                # print(" Direction of collision: ", self.directions_of_collisions)
-                # sprite.image = collision_block
+                '''
+                For testing collisions uncomment these lines:
+                print(" Direction of collision: ", self.directions_of_collisions)
+                sprite.image = collision_block
+                '''
+
                 collision_occurred = True
 
                 if sprite not in self.sprite_colliding:
@@ -170,7 +175,10 @@ class Character(pygame.sprite.Sprite):
                         all_sprites_group.offset.x -= 0
                     is_collision = True
             else:
-                # sprite.image = regular_block
+                '''
+                For testing collisions uncomment this line:
+                sprite.image = regular_block
+                '''
                 if sprite in self.sprite_colliding:
                     if sprite in self.collisions_left:
                         self.collisions_left.remove(sprite)

@@ -1,7 +1,4 @@
-from game.game_support import create_npc, import_csv_layout, import_folder
-
 import sys
-import os
 from datetime import datetime
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass

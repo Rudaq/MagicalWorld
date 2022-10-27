@@ -21,6 +21,7 @@ class CameraGroup(pygame.sprite.Group):
 
         # ground
         self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/map.png')).convert_alpha()
+        # such coordinates because we have sea outside of the map so starting point is moved
         self.ground_rect = self.ground_surf.get_rect(topleft=(-640, -576))
         self.ground_offset = 0
 
