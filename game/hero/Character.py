@@ -8,6 +8,9 @@ from pathlib import Path
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
+collision_block = pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
+regular_block = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
+
 
 # Class with characteristics common to all races, from which race classes inherit
 class Character(pygame.sprite.Sprite):
@@ -106,12 +109,17 @@ class Character(pygame.sprite.Sprite):
 
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.rect):
+                # print(" Direction of collision: ", self.directions_of_collisions)
+                # sprite.image = collision_block
                 collision_occurred = True
 
                 if sprite not in self.sprite_colliding:
-
+                    # if the list is not empty (already has collision with some rect)
                     if len(self.sprite_colliding) > 0:
                         self.sprite_colliding.append(sprite)
+
+                        # case when: first collision is with x and then hero changes his y position,
+                        # so he has a long block of collision on the one side
                         if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
                             -2].rect.x == sprite.rect.x:
                             if self.rect.left > sprite.rect.left:
@@ -129,6 +137,20 @@ class Character(pygame.sprite.Sprite):
                             elif self.rect.top < sprite.rect.top:
                                 self.collisions_down.append(sprite)
                                 self.directions_of_collisions.append('D')
+
+                        # case when the rectangles are in diagonal collision (e.g. trees)
+                        else:
+                            self.directions_of_collisions.append(self.direction)
+                            if self.direction == 'D':
+                                self.collisions_down.append(sprite)
+                            elif self.direction == 'U':
+                                self.collisions_up.append(sprite)
+                            elif self.direction == 'R':
+                                self.collisions_right.append(sprite)
+                            else:
+                                self.collisions_left.append(sprite)
+
+                    # if this is the first collision
                     else:
                         self.sprite_colliding.append(sprite)
                         self.directions_of_collisions.append(self.direction)
@@ -148,6 +170,7 @@ class Character(pygame.sprite.Sprite):
                         all_sprites_group.offset.x -= 0
                     is_collision = True
             else:
+                # sprite.image = regular_block
                 if sprite in self.sprite_colliding:
                     if sprite in self.collisions_left:
                         self.collisions_left.remove(sprite)

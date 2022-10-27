@@ -12,10 +12,8 @@ class Tile(pygame.sprite.Sprite):
         self.inflation = inflation
         # inflate - take the rect and change the size
         self.groups = groups
-        if sprite_type == 'nature_object':
-            self.rect = self.image.get_rect(topleft=(pos[0], pos[1] - TILE_SIZE))
-        else:
-            self.rect = self.image.get_rect(topleft=pos)
+
+        self.rect = self.image.get_rect(topleft=pos)
 
         for array in arrays:
             array.append(self)
