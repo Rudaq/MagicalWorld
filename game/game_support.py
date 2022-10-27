@@ -15,6 +15,7 @@ from hero.Wizard import Wizard
 from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE
 from npc_settings import NPCs
 from settings import BLACK
+from menu_support import draw_text_on_menu
 from math import dist
 from re import compile, split
 from artifacts.Artifact import Artifact
@@ -149,6 +150,34 @@ def show_map_to_hero(screen, hero, all_sprites_group):
     x_position_scaled = (hero.rect.centerx + all_sprites_group.offset.x) * SCALE
     y_position_scaled = (hero.rect.centery + all_sprites_group.offset.y) * SCALE
     pygame.draw.rect(screen, RED, pygame.Rect(x_position_scaled + map_top_right, y_position_scaled + 100, 5, 5))
+
+    # Position of the mouse
+    x, y = pygame.mouse.get_pos()
+    print(x)
+    print(y)
+
+    # Hover over the realm biomes
+    if 27 < x < 190:
+        if 111 < y < 205:
+            draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
+        elif 233 < y < 330:
+            draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
+        elif 348 < y < 473:
+            draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
+    elif 208 < x < 379 and 112 < y < 198:
+        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
+    elif 208 < x < 420 and 234 < y < 303:
+        draw_text_on_menu("Primeval Bush", x, y, 15, BLACK, screen)
+    elif 478 < x < 634 and 221 < y < 320:
+        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
+    elif 405 < x < 557 and 113 < y < 179:
+        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
+    elif 403 < x < 650 and 361 < y < 415:
+        draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
+    elif (233 < x < 373 and 343 < y < 394) or (373 < x < 397 and 394 < y < 452):
+        draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
+    elif 626 < x < 713 and 109 < y < 294:
+        draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
 
 
 def add_map_artifacts(map_artifacts, all_artifacts):

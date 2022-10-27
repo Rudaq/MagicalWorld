@@ -43,8 +43,8 @@ HERO_ANIMATIONS = {
     'Barbarian': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianBackSmall.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianLeft.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianRight.png"))
     },
     'Dwarf': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_back.png")),
@@ -116,9 +116,15 @@ GUI_IMAGES = {
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
+    'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png")),
+    'title': pygame.image.load(os.path.join(path, "resources/GUI", "AdventuresInTheRealm.png")),
+    'start': pygame.image.load(os.path.join(path, "resources/GUI", "Start.png")),
+    'quit': pygame.image.load(os.path.join(path, "resources/GUI", "Quit.png")),
+    'next': pygame.image.load(os.path.join(path, "resources/GUI", "Next.png")),
+    'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
-    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png")),
-    'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png"))
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
+
 }
 
 MAP_IMAGES = {

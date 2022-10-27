@@ -7,7 +7,7 @@ from game_support import create_character
 from menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
-from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS
+from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS, GUI_IMAGES
 import os
 from pathlib import Path
 
@@ -29,13 +29,13 @@ def menu():
     while True:
         screen.fill(BLUE)
         # Creating buttons - rectangles, texts
-        button_start = pygame.Rect(250, 300, 300, 50)
-        button_quit = pygame.Rect(250, 400, 300, 50)
+        button_start = pygame.Rect(250, 320, 300, 50)
+        button_quit = pygame.Rect(250, 420, 300, 50)
         pygame.draw.rect(screen, BLACK, button_start, 0, 3)
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
-        draw_text_on_menu("Start", 350, 300, 40, WHITE, screen)
-        draw_text_on_menu("Quit", 350, 400, 40, WHITE, screen)
-        draw_text_on_menu("Adventures in the Realm", 150, 100, 40, WHITE, screen)
+        screen.blit(GUI_IMAGES['start'], (101, 202))
+        screen.blit(GUI_IMAGES['quit'], (103, 297))
+        screen.blit(GUI_IMAGES['title'], (115, 20))
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -44,12 +44,12 @@ def menu():
 
         # Checking if the mouse position is within the buttons
         if 250 < x < 550:
-            if 300 < y < 350:
+            if 320 < y < 370:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if left:
                     # "Start" clicked, loop ended, another menu function is called
                     break
-            elif 400 < y < 450:
+            elif 420 < y < 470:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if left:
                     # "Quit" clicked, program ended
@@ -76,7 +76,7 @@ def menu():
 # Method displaying the menu for choosing the character race
 def choose_character():
     # images to be displayed in the menu - (big, small)
-    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/barbarian.png")),
+    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian.png")),
                                    pygame.image.load(
                                        os.path.join(path, "resources/graphics/characters/barbarian_small.png"))),
                                   (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")),
@@ -107,7 +107,8 @@ def choose_character():
         # screen.blit(eligible_characters_images[index], (400, 150))
         screen.blit(eligible_characters_images[index][0], (250, 0))
 
-        draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
+        #draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
+        screen.blit(GUI_IMAGES['selection'], (105, 30))
 
         # Drawing arrows for character selection
         pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)], 5)
@@ -141,7 +142,7 @@ def choose_character():
         # Button for the next menu screen - "Next"
         button_next = pygame.Rect(600, 500, 200, 50)
         pygame.draw.rect(screen, WHITE, button_next, 0, 3)
-        draw_text_on_menu("Next", 650, 500, 40, BLACK, screen)
+        screen.blit(GUI_IMAGES['next'], (624, 502))
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()

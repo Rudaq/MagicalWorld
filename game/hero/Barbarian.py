@@ -75,7 +75,7 @@ class Barbarian(Character):
         elif option == 2:
             self.attack(screen, npcs)
 
-    def collect_artifact(self, artifact, NPCs):
+    def collect_artifact(self, artifact, npcs):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
             return False
