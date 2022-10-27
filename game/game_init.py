@@ -175,7 +175,7 @@ def game(hero):
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
-                   restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                   restore_life_time_passed, chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
@@ -312,7 +312,8 @@ def game(hero):
 
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
-                               restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                               restore_life_time_passed, chosen_npc, chest_opened)
+
                     # remove the artifact from the surface
                     if hero.collect_artifact(artifact, npcs):
                         # change the chest image in the hud to open chest
@@ -326,7 +327,7 @@ def game(hero):
                 if map_artifact.rect.collidepoint(mouse_point):
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
-                               restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                               restore_life_time_passed, chosen_npc, chest_opened)
                     if hero.collect_map_artifact(map_artifact, equipment_buttons):
                         chest_opened = True
                         restore = datetime.now()
@@ -345,9 +346,10 @@ def game(hero):
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
                             if hero.active_quest is None:
-                                update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
+                                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                                           restore_mana,
                                            restore_mana_time_passed,
-                                           restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                                           restore_life_time_passed, chosen_npc, chest_opened)
                                 all_sprites_group.update()
 
                         else:
@@ -364,7 +366,7 @@ def game(hero):
                             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                                        restore_mana,
                                        restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                                       restore_life_time_passed, chosen_npc, chest_opened)
                             all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
@@ -406,16 +408,18 @@ def game(hero):
         if restore is not None:
             if time_measure(restore, 1):
                 chest_opened = False
-                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                           restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                           restore_life_time_passed, chosen_npc, chest_opened)
 
         if hero.restore_new_task is not None:
             if time_measure(hero.restore_new_task, 5):
                 hero.new_task = False
-                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                           restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                           restore_life_time_passed, chosen_npc, chest_opened)
 
         # check if NPC is still alive
         for npc in npcs:
@@ -427,21 +431,22 @@ def game(hero):
                 npc.kill_npc(all_artifacts, screen)
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
                            screen)
-                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, screen)
 
         if first_iteration:
             hero.new_task = True
             hero.restore_new_task = datetime.now()
-            update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+            update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                       restore_mana,
                        restore_mana_time_passed,
-                       restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                       restore_life_time_passed, chosen_npc, chest_opened)
             first_iteration = False
 
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
-                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
+                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                           restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened, hero.new_task)
+                           restore_life_time_passed, chosen_npc, chest_opened)
                 all_sprites_group.update()
 
         if hero.in_attack:
