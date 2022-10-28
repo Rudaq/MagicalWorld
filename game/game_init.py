@@ -165,7 +165,7 @@ def game(hero):
     while True:
 
         screen.blit(SEA, (0, 0))
-        all_sprites_group.custom_draw(hero, npcs, screen)
+        all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
@@ -360,7 +360,7 @@ def game(hero):
                             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                                        restore_mana,
                                        restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened, new_task)
+                                       restore_life_time_passed, chosen_npc, chest_opened)
                             all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):

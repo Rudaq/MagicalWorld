@@ -16,8 +16,8 @@ DIALOG_START = 100
 TILES_SIZE = 64
 SCALE = 700/12928
 
-HERO_SPEED = 30
-# SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
+HERO_SPEED = 25
+SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)

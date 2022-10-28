@@ -1159,7 +1159,7 @@ QUESTS = {
                 'name': 'get_healing_potion',
                 'description': 'It is not too late to safe the sacred oak and the land of Magic. You can be the hero '
                                'that is so needed, but you’ll have too show your bravery, wisdom and cleverness. The '
-                               'first step of your journey is the dreary Forest were the Dark Wizard prepares the '
+                               'first step of your journey is the Dreary Forest were the Dark Wizard prepares the '
                                'healing potion you’ll need.',
                 'points': 40,
                 'tasks': [

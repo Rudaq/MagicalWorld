@@ -273,9 +273,7 @@ TREANTS = {
 # desolation of abdomination:
 # X: 3450 - 6600
 # Y: 250 - 1850
-DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 4300, 390]
-}
+
 DRAGONS = {
     'Drogon': ["evil", None, None, 5700, 1000]
 }
@@ -409,6 +407,11 @@ TIGERS = {
 # DREARY:
 # X: 3600 - 5400 (im wyzej tym dalej)
 # Y: 4500 - 6450
+
+DARK_WIZARDS = {
+    'Sarus': ["evil", None, None, 5300, 5700]
+}
+
 SPIDERS = {
     'Venom': ["evil", None, None, 4500, 5600],
     'Bradley': ["evil", None, None, 5570, 5970],

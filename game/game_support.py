@@ -47,7 +47,7 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
                                                   y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
-                                                  inflation=(0, -10), collision_sprites=collision_sprites)
+                                                  collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
                 array.append(entity)
