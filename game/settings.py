@@ -16,9 +16,8 @@ DIALOG_START = 100
 TILES_SIZE = 64
 SCALE = 700/12928
 
-SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
-
-HERO_SPEED = 20
+HERO_SPEED = 30
+# SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -128,7 +127,7 @@ GUI_IMAGES = {
 }
 
 MAP_IMAGES = {
-    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    # 'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
     'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
     'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
     'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow.png")),

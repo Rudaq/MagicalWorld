@@ -9,8 +9,8 @@ path = Path(__file__).resolve().parent.parent.parent
 
 # Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class DarkWizard(Npc):
-    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation, collision_sprites):
-        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, collision_sprites):
+        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, collision_sprites)
         self.rect.x = x
         self.rect.y = y
         self.race = "Dark Wizard"

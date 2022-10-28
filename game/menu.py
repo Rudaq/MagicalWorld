@@ -17,6 +17,7 @@ pygame.init()
 pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT))
 clock = pygame.time.Clock()
+background = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/menu_background.png')).convert_alpha()
 
 '''
 Menu for choosing character race and other characteristics and starting the game
@@ -27,7 +28,9 @@ Menu for choosing character race and other characteristics and starting the game
 def menu():
     # Loop displaying the screen
     while True:
-        screen.fill(BLUE)
+        # screen.fill(BLUE)
+        screen.blit(background, (0, 0))
+
         # Creating buttons - rectangles, texts
         button_start = pygame.Rect(250, 320, 300, 50)
         button_quit = pygame.Rect(250, 420, 300, 50)
@@ -283,7 +286,7 @@ def character_info(name, ch_type, side, image):
                     sys.exit()
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(30)
 
 
 # Calling menus in the right order

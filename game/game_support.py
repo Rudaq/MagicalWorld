@@ -46,8 +46,7 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                                  y=parameters[4], pos=(parameters[3], parameters[4]),
-                                                  groups=sprite_groups,
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
                                                   inflation=(0, -10), collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
@@ -62,18 +61,18 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
 
 def create_character(chosen_name, chosen_type, chosen_side):
     if chosen_type == "Elf":
-        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), (0, 0), [])
+        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), [])
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (0, 0),
+        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (),
                       [])
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (0, 0),
+        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (),
                       [])
     elif chosen_type == "Dwarf":
-        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), (0, 0), [])
+        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), [])
     else:
         hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (),
-                         (0, 0), [])
+                         [])
 
     return hero
 
@@ -209,7 +208,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
-    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
+    water_on_map_image = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
     water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200

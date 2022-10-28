@@ -6,8 +6,8 @@ from settings import DWARVES_ACTIONS
 # Class for a hero of race Dwarf, inherits from Character class
 # images = entries from HERO_ANIMATIONS['Dwarf'] dict
 class Dwarf(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.race = "Dwarf"
         self.attack_type = None
         self.collision_sprites = collision_sprites

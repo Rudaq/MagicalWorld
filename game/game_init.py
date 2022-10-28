@@ -1,7 +1,6 @@
 from game.game_support import create_npc, import_csv_layout, import_folder, show_map_to_hero
 
 import sys
-import os
 from datetime import datetime
 from pygame.locals import *
 from NLP.dialog_generation.ButtonClass import ButtonClass
@@ -30,11 +29,7 @@ Main game loop
 '''
 
 current = os.path.dirname(os.path.realpath(__file__))
-# print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-
-
-# print(path)
 
 
 # Main game function
@@ -159,14 +154,13 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
-    create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
+    create_map(collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
     all_sprites_group.offset.x = 0
     all_sprites_group.offset.y = 0
     create_quests(hero)
-
 
     while True:
 
@@ -366,7 +360,7 @@ def game(hero):
                             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                                        restore_mana,
                                        restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
+                                       restore_life_time_passed, chosen_npc, chest_opened, new_task)
                             all_sprites_group.update()
 
             if arrow_up.rect.collidepoint(mouse_point):
@@ -510,4 +504,4 @@ def game(hero):
 
         all_sprites_group.update()
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(30)
