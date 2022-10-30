@@ -131,7 +131,7 @@ NPC_IMAGES = {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_front.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_left.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_back.png"))
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_right.png"))
     },
     'image_fire_elemental': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "fire_elemental_back.png")),
@@ -342,7 +342,7 @@ BLIND_RATS = {
 # X: 8400 - 11050
 # Y: 2250 - 4350
 SMITHS = {
-    'Gavin': ["good", None, None, 8800, 2600]
+    'Gavin': ["good", None, None, 8810, 2600]
 }
 FARMERS = {
     'Harwin': ["good", None, None, 9700, 3500]
