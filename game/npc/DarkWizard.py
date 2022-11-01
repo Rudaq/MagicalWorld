@@ -9,8 +9,8 @@ path = Path(__file__).resolve().parent.parent.parent
 
 # Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class DarkWizard(Npc):
-    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation, collision_sprites):
-        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, collision_sprites):
+        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, collision_sprites)
         self.rect.x = x
         self.rect.y = y
         self.race = "Dark Wizard"
@@ -33,3 +33,4 @@ class DarkWizard(Npc):
 
         dark_wizard_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
+        self.context = Path("../NLP/context/DarkWizardContext.txt").read_text()

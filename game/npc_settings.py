@@ -176,10 +176,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "tiger_right.png"))
     },
     'image_treant': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "treant_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Treant.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "treant_left2.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "treant_right2.png"))
     },
     'image_unicorn': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
@@ -273,9 +273,7 @@ TREANTS = {
 # desolation of abdomination:
 # X: 3450 - 6600
 # Y: 250 - 1850
-DARK_WIZARDS = {
-    'Sarus': ["evil", None, None, 4300, 390]
-}
+
 DRAGONS = {
     'Drogon': ["evil", None, None, 5700, 1000]
 }
@@ -376,7 +374,7 @@ LEMURS = {
     'Moris': ["good", None, None, 12010, 2000],
 }
 BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 12600, 1300]
+    'Gorilla': ["evil", None, None, 9700, 3500]
 }
 # LOVEY DOVEY:
 # X: 150 - 3900
@@ -409,6 +407,11 @@ TIGERS = {
 # DREARY:
 # X: 3600 - 5400 (im wyzej tym dalej)
 # Y: 4500 - 6450
+
+DARK_WIZARDS = {
+    'Sarus': ["evil", None, None, 5300, 5700]
+}
+
 SPIDERS = {
     'Venom': ["evil", None, None, 4500, 5600],
     'Bradley': ["evil", None, None, 5570, 5970],

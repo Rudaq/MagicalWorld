@@ -8,6 +8,7 @@ path = Path(__file__).resolve().parent.parent.parent
 print("Current Directory", current)
 print(path)
 
+
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super(CameraGroup, self).__init__()
@@ -19,11 +20,12 @@ class CameraGroup(pygame.sprite.Group):
         self.half_h = self.display_surf.get_size()[1] / 2
 
         # ground
-        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/floor.png')).convert_alpha()
-        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+        self.ground_surf = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/map.png')).convert_alpha()
+        # such coordinates because we have sea outside of the map so starting point is moved
+        self.ground_rect = self.ground_surf.get_rect(topleft=(-640, -576))
         self.ground_offset = 0
 
-    def custom_draw(self, hero, npcs, screen):
+    def custom_draw(self, hero):
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
         self.display_surf.blit(self.ground_surf, ground_offset)

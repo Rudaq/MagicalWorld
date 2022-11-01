@@ -5,7 +5,7 @@ from PIL import Image
 import pygame
 
 from NLP.dialog_generation.GenerateNpcDialog import draw_text
-from game.settings import WIDTH_GAME, HUD_YELLOW, ALMOND, BLACK, LIGHT_GREEN, BLUE, GUI_IMAGES, RED
+from game.settings import WIDTH_GAME, HEIGHT_GAME, HUD_YELLOW, ALMOND, BLACK, LIGHT_GREEN, BLUE, GUI_IMAGES, RED
 
 
 def time_to_restore(screen, restore_life_time_passed, x):
@@ -91,18 +91,14 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     chest_surface.blit(chest_button.image, (chest_button.rect.x, chest_button.rect.y))
     multiplicator += 1
 
-
-
     # MAPA IKONA
-    # draw_text("Map ", multiplicator * distance + 50, 25, 12, BLACK, screen)
-    # map_surface = pygame.Surface((30, 230))
-    # map_image = GUI_IMAGES['map_icon']
-    # screen.blit(map_image, (multiplicator * distance + 35, 225))
-    # map_button.image = map_image
-    # map_button.rect.x = multiplicator * distance + 125
-    # map_button.rect.y = 40
-    # map_surface.blit(map_button.image, (map_button.rect.x, map_button.rect.y))
-    # multiplicator += 1
+    map_surface = pygame.Surface((20, 7/8 * HEIGHT_GAME))
+    map_image = GUI_IMAGES['map_icon']
+    screen.blit(map_image, (20, 7/8 * HEIGHT_GAME))
+    map_button.image = map_image
+    map_button.rect.x = 20
+    map_button.rect.y = 7/8 * HEIGHT_GAME
+    map_surface.blit(map_button.image, (map_button.rect.x, map_button.rect.y))
 
     draw_text("Points ", multiplicator * distance + 50, 25, 12, BLACK, screen)
     draw_text(str(hero.points), multiplicator * distance + 100, 50, 12, BLACK, screen)

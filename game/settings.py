@@ -10,14 +10,14 @@ MENU_HEIGHT = 600
 
 TILE_SIZE = 64
 
-WIDTH_GAME = 1500
-HEIGHT_GAME = 800
+WIDTH_GAME = 1000
+HEIGHT_GAME = 600
 DIALOG_START = 100
 TILES_SIZE = 64
+SCALE = 700/12928
 
+HERO_SPEED = 25
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
-
-HERO_SPEED = 20
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -115,13 +115,19 @@ GUI_IMAGES = {
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
+    'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png")),
+    'title': pygame.image.load(os.path.join(path, "resources/GUI", "AdventuresInTheRealm.png")),
+    'start': pygame.image.load(os.path.join(path, "resources/GUI", "Start.png")),
+    'quit': pygame.image.load(os.path.join(path, "resources/GUI", "Quit.png")),
+    'next': pygame.image.load(os.path.join(path, "resources/GUI", "Next.png")),
+    'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
     'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
 
 }
 
 MAP_IMAGES = {
-    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    # 'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
     'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
     'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
     'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow.png")),

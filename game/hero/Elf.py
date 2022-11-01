@@ -10,10 +10,10 @@ from game.settings import ELF_SPELLS
 Class for a hero of race Elf, inherits from Character class
 '''
 
-
+# Class for a hero of race Elf, inherits from Character class
 class Elf(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.earth_spell = AttackClass(ELF_SPELLS['earth'], 25, 20, 'earth_spell')
         self.heal_spell = AttackClass(ELF_SPELLS['healing'], -15, 30, 'heal_spell')
         self.shoot_arrow = AttackClass(ELF_SPELLS['arrow'], 20, 10, 'shoot_arrow')
@@ -28,7 +28,7 @@ class Elf(Character):
     # move the spell
     # check collision with npcs or other objects
     def heal_spell_attack(self, npc):
-        npc.life += self.attack_type.strength
+        npc.life -= self.attack_type.strength
         if npc.life > 100:
             npc.life = 100 - int(npc.life % 100)
 

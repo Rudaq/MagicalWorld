@@ -9,8 +9,8 @@ Class for a hero of race Elf, inherits from Character class
 
 
 class Faerie(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.race = "Faerie"
         self.collision_sprites = collision_sprites
         self.pos = pos

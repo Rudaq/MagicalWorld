@@ -6,14 +6,14 @@ from settings import DWARVES_ACTIONS
 # Class for a hero of race Dwarf, inherits from Character class
 # images = entries from HERO_ANIMATIONS['Dwarf'] dict
 class Dwarf(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.race = "Dwarf"
         self.attack_type = None
         self.collision_sprites = collision_sprites
         self.pos = pos
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
-        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 5, 'axe_attack')
+        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 25, 15, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
 
     # printing the attack onto the screen
@@ -41,6 +41,8 @@ class Dwarf(Character):
                 self.attack_type = self.braids_attack
             elif option == 3:
                 self.attack_type = self.sleep
+                self.add_life(20)
+
             # aqui - potentially TODO printing the attack from right, not left
             if self.direction == 'U':
                 self.attack_direction = 0

@@ -3,6 +3,7 @@ import random
 import pygame
 from _csv import reader
 from os import walk
+import math
 import os
 from pathlib import Path
 
@@ -11,9 +12,10 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE
+from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE
 from npc_settings import NPCs
 from settings import BLACK
+from menu_support import draw_text_on_menu
 from math import dist
 from re import compile, split
 from artifacts.Artifact import Artifact
@@ -45,7 +47,7 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
                                                   y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
-                                                  inflation=(0, -10), collision_sprites=collision_sprites)
+                                                  collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
                 array.append(entity)
@@ -59,18 +61,18 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
 
 def create_character(chosen_name, chosen_type, chosen_side):
     if chosen_type == "Elf":
-        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), (0, 0), [])
+        hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), [])
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), (0, 0),
+        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (),
                       [])
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), (0, 0),
+        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (),
                       [])
     elif chosen_type == "Dwarf":
-        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), (0, 0), [])
+        hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), [])
     else:
         hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (),
-                         (0, 0), [])
+                         [])
 
     return hero
 
@@ -140,6 +142,43 @@ def npc_in_interaction_range(chosen_npc, hero):
         return True
 
 
+def show_map_to_hero(screen, hero, all_sprites_group):
+    map_top_right = 20
+    screen.blit(GUI_IMAGES['map2'], (map_top_right, 100))
+
+    x_position_scaled = (hero.rect.centerx + all_sprites_group.offset.x) * SCALE
+    y_position_scaled = (hero.rect.centery + all_sprites_group.offset.y) * SCALE
+    pygame.draw.rect(screen, RED, pygame.Rect(x_position_scaled + map_top_right, y_position_scaled + 100, 5, 5))
+
+    # Position of the mouse
+    x, y = pygame.mouse.get_pos()
+    print(x)
+    print(y)
+
+    # Hover over the realm biomes
+    if 27 < x < 190:
+        if 111 < y < 205:
+            draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
+        elif 233 < y < 330:
+            draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
+        elif 348 < y < 473:
+            draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
+    elif 208 < x < 379 and 112 < y < 198:
+        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
+    elif 208 < x < 420 and 234 < y < 303:
+        draw_text_on_menu("Primeval Bush", x, y, 15, BLACK, screen)
+    elif 478 < x < 634 and 221 < y < 320:
+        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
+    elif 405 < x < 557 and 113 < y < 179:
+        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
+    elif 403 < x < 650 and 361 < y < 415:
+        draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
+    elif (233 < x < 373 and 343 < y < 394) or (373 < x < 397 and 394 < y < 452):
+        draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
+    elif 626 < x < 713 and 109 < y < 294:
+        draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
+
+
 def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
     rainbow.rect.x = 900
@@ -185,6 +224,7 @@ def check_map_artifact(map_artifact):
     elif map_artifact.name == 'Immortality Flower':
         map_artifact.image = MAP_IMAGES['big_tree']
     map_artifact.small_image = None
+
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
