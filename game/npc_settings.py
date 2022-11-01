@@ -316,9 +316,9 @@ CRABS = {
     'Craperus': ["good", None, None, 9100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 8930, 4860],
-    'Bul': ["evil", None, None, 9930, 4660],
-    'Dul': ["evil", None, None, 8230, 5160]
+    'Gul': ["evil", None, None, 11126, 4796],
+    # 'Bul': ["evil", None, None, 9930, 4660],
+    'Dul': ["evil", None, None, 11126, 5181]
 }
 # SWAMP:
 # x: 7070-10590
