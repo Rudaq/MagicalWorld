@@ -1,5 +1,5 @@
 import pygame
-from artifacts.Artifact import Artifact
+from game.artifacts.Artifact import Artifact
 
 SPRITE_SIZE = 50
 import os
@@ -74,6 +74,10 @@ class Character(pygame.sprite.Sprite):
 
         self.restore_new_task = None
         self.new_task = None
+
+        self.sound1 = None
+        self.sound2 = None
+        self.sound3 = None
 
     # method to return active quest
     def set_active_quest(self):
@@ -341,3 +345,8 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
+
+    def initialize_music(self, path1, path2, path3):
+        self.sound1 = pygame.mixer.Sound(path1)
+        self.sound2 = pygame.mixer.Sound(path2)
+        self.sound3 = pygame.mixer.Sound(path3)

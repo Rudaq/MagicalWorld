@@ -2,7 +2,7 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import FAERIE_SPELLS
 from artifacts.Artifact import Artifact
-
+import pygame
 '''
 Class for a hero of race Elf, inherits from Character class
 '''
@@ -17,6 +17,9 @@ class Faerie(Character):
         self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, 20, "fire_spell")
         self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, 10, "thrown_spell")
         self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, 20, "flower_spell")
+        self.sound3_path = "../resources/music/fairy_heal.wav"
+        self.sound2_path = "../resources/music/pushing.wav"
+        self.sound1_path = "../resources/music/fire-magic.wav"
 
     # load images
     # create class to manage spell objects
@@ -29,12 +32,13 @@ class Faerie(Character):
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.fire_spell
-
+                pygame.mixer.Sound.play(self.sound1)
             elif option == 2:
                 self.attack_type = self.thrown_spell
-
+                pygame.mixer.Sound.play(self.sound2)
             elif option == 3:
                 self.attack_type = self.flower_spell
+                pygame.mixer.Sound.play(self.sound3)
                 self.add_life(20)
 
             if self.direction == 'U' and not option == 3:

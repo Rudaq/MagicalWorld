@@ -24,3 +24,4 @@ class Treant(Npc):
         self.artifacts.add(self.blood)
         treant_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(treant_attack, 20, 10, 'treant attack')
+        self.context = Path("../NLP/context/TreantContext.txt").read_text()

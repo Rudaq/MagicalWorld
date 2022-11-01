@@ -332,7 +332,7 @@ QUESTS = {
                         'name': 'nutritious_food',
                         'description': 'Smith: Fine, now that you own a hammer, we need a lot of energy. Kill wheat '
                                        'monster so that we have something to eat.You will get something what may be '
-                                       'helpfull in the future..',
+                                       'helpful in the future..',
                         'artefact': 'Wheat',
                         'points': 15,
                         'npc_give_task': 'Smith',
@@ -807,7 +807,7 @@ QUESTS = {
                 'tasks': [
                     {
                         'name': 'kill_mermaid',
-                        'description': 'Dark Wizard: Kill the mermaid so that you have their fur.',
+                        'description': 'Dark Wizard: Kill the mermaid so that you have their necklace.',
                         'artefact': 'Mermaid Necklace',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
@@ -997,7 +997,7 @@ QUESTS = {
                         'description': 'Oh no! The Blacksmith has run out of materials with which to build a new '
                                        'house for the settlers, if he does not get stones as soon as possible, '
                                        'the villagers will get sick from lack of a roof over their heads or worse, '
-                                       'die…Stones… sound similar to the Earth Element remains from the Desolation of '
+                                       'die… Stones… sound similar to the Earth Elemental remains from the Desolation of '
                                        'Abomination, go and kill him.',
                         'artefact': 'Stones',
                         'points': 10,
@@ -1136,7 +1136,7 @@ QUESTS = {
                     },
                     {
                         'name': 'never_enough_gold',
-                        'description': 'You love gold, and it just so happens that the Leprikons have too much of it, '
+                        'description': 'You love gold, and it just so happens that the Leprechauns have too much of it, '
                                        'well why do they need so much anyway? If one pot disappears for them nothing '
                                        'will '
                                        'happen... Find a pot of gold that belongs to a Leprechaun and steal it, '
@@ -1348,7 +1348,7 @@ QUESTS = {
                             'name': 'kill_yeti',
                             'description': "Sage is one of the gifts of the wild. Amazon can not only give it to you, "
                                            "they can show you when to look for it, but you need pay the price for "
-                                           "that useful gift and lesson and the price is a skin of yeti.",
+                                           "that useful gift and lesson and the price is a skin of Ice Monster.",
                             'artefact': 'Ice Monster Skin',
                             'points': 10,
                             'npc_give_task': 'Amazon',

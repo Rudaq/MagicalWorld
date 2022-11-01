@@ -36,4 +36,5 @@ class Smith(Npc):
         smith_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "axe.png"))
         self.npc_attack = AttackClass(smith_attack, 20, 10, 'weapon attack')
+        self.context = Path("../NLP/context/SmithContext.txt").read_text()
 

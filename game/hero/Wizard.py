@@ -1,6 +1,7 @@
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import WIZARD_SPELLS
+import pygame
 
 
 # Class for a hero of race Wizard, inherits from Character class
@@ -13,6 +14,9 @@ class Wizard(Character):
         self.wind_spell = AttackClass(WIZARD_SPELLS['wind'], 10, 10, 'wind_spell')
         self.magic_ball_spell = AttackClass(WIZARD_SPELLS['magic_ball'], 20, 30, 'magic_ball_spell')
         self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 20, 'powerful_sparks')
+        self.sound3_path = "../resources/music/fairy_heal.wav"
+        self.sound2_path = "../resources/music/fire-magic.wav"
+        self.sound1_path = "../resources/music/healing_spell.wav"
 
     def attack(self, screen, npcs):
         if self.in_attack:
@@ -33,10 +37,13 @@ class Wizard(Character):
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.wind_spell
+                pygame.mixer.Sound.play(self.sound1)
             elif option == 2:
                 self.attack_type = self.magic_ball_spell
+                pygame.mixer.Sound.play(self.sound2)
             elif option == 3:
                 self.attack_type = self.powerful_sparks
+                pygame.mixer.Sound.play(self.sound3)
 
             if self.direction == 'U':
                 self.attack_direction = 0

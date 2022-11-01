@@ -1,5 +1,6 @@
 import pygame
 import os
+from pygame.locals import *
 
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
@@ -8,6 +9,7 @@ from game.settings import ELF_SPELLS
 '''
 Class for a hero of race Elf, inherits from Character class
 '''
+
 
 # Class for a hero of race Elf, inherits from Character class
 class Elf(Character):
@@ -19,6 +21,9 @@ class Elf(Character):
         self.race = "Elf"
         self.collision_sprites = collision_sprites
         self.pos = pos
+        self.sound3_path = "../resources/music/arrow.wav"
+        self.sound2_path = "../resources/music/healing_spell.wav"
+        self.sound1_path = "../resources/music/earth_spell.wav"
 
     # load images
     # create class to manage spell objects
@@ -32,13 +37,17 @@ class Elf(Character):
             npc.life = 100 - int(npc.life % 100)
 
     def fight(self, screen, option, npcs):
+
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.earth_spell
+                pygame.mixer.Sound.play(self.sound1)
             elif option == 2:
                 self.attack_type = self.heal_spell
+                pygame.mixer.Sound.play(self.sound2)
             else:
                 self.attack_type = self.shoot_arrow
+                pygame.mixer.Sound.play(self.sound3)
 
             if self.direction == 'U':
                 self.attack_type.rect.x = self.rect.x

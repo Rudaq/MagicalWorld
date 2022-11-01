@@ -28,5 +28,6 @@ class Druid(Npc):
         self.gifts.add(self.blood)
         druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')
+        self.context = Path("../NLP/context/DruidContext.txt").read_text()
 
 

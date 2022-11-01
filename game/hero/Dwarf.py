@@ -1,6 +1,7 @@
 from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import DWARVES_ACTIONS
+import pygame
 
 
 # Class for a hero of race Dwarf, inherits from Character class
@@ -15,6 +16,9 @@ class Dwarf(Character):
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
         self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 5, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
+        self.sound3_path = "../resources/music/sleeping.wav"
+        self.sound2_path = "../resources/music/braid_choke.wav"
+        self.sound1_path = "../resources/music/axe_hit.wav"
 
     # printing the attack onto the screen
     def attack(self, screen, npcs):
@@ -37,10 +41,14 @@ class Dwarf(Character):
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.axe_attack
+                pygame.mixer.Sound.play(self.sound1)
             elif option == 2:
                 self.attack_type = self.braids_attack
+                pygame.mixer.Sound.play(self.sound2)
             elif option == 3:
                 self.attack_type = self.sleep
+                pygame.mixer.Sound.play(self.sound3)
+
             # aqui - potentially TODO printing the attack from right, not left
             if self.direction == 'U':
                 self.attack_direction = 0

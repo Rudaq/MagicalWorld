@@ -25,3 +25,4 @@ class Elf(Npc):
         elf_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
         self.npc_attack = AttackClass(elf_attack, 20, 10, 'elf attack')
+        self.context = Path("../NLP/context/ElfContext.txt").read_text()

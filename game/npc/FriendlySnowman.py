@@ -23,6 +23,8 @@ class FriendlySnowman(Npc):
         self.blood = Artifact(blood_image, 10, 'Friendly Snowman Blood', None)
         self.artifacts.add(self.blood)
         self.npc_attack = None
+        self.context = Path("../NLP/context/FriendlySnowmanContext.txt").read_text()
+
 
     def take_gift(self, hero, artifact, npcs, screen):
         self.artifacts.add(artifact)

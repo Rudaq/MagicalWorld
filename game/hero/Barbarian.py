@@ -14,6 +14,9 @@ class Barbarian(Character):
         self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 50, 10, 'sword_attack')
         self.fury = AttackClass(BARBARIAN_ACTIONS['fury'], 15, 5, 'fury_attack')
         self.resistance = AttackClass(BARBARIAN_ACTIONS['resistance'], 0, 10, 'resistance_to_damage')
+        self.sound3_path = "../resources/music/arrow.wav"
+        self.sound2_path = "../resources/music/fury.wav"
+        self.sound1_path = "../resources/music/sword-hit.wav"
 
     def resistant_to_damage(self, screen):
         half_live = self.life / 2
@@ -24,10 +27,13 @@ class Barbarian(Character):
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.sword_attack
+                pygame.mixer.Sound.play(self.sound1)
             elif option == 2:
                 self.attack_type = self.fury
+                pygame.mixer.Sound.play(self.sound2)
             else:
                 self.attack_type = self.resistance
+                pygame.mixer.Sound.play(self.sound3)
 
             if self.direction == 'U':
                 self.attack_type.rect.x = self.rect.x

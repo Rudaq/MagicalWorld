@@ -29,4 +29,5 @@ class Orc(Npc):
         self.gifts.add(self.potion)
         mud_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mud.PNG"))
         self.npc_attack = AttackClass(mud_image, 20, 10, 'orc attack')
+        self.context = Path("../NLP/context/OrcContext.txt").read_text()
 

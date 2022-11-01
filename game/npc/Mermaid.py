@@ -28,6 +28,7 @@ class Mermaid(Npc):
         self.artifacts.add(self.blood, self.necklace, self.hair)
         mermaid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mermaid_attack.PNG"))
         self.npc_attack = AttackClass(mermaid_attack, 20, 10, 'mermaid attack')
+        self.context = Path("../NLP/context/MermaidContext.txt").read_text()
 
     # Method move to stop mermaid from moving (not moving; on the beach)
     def move(self, direction="R", dx=0, dy=0):

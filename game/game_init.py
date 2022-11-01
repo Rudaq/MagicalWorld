@@ -48,6 +48,8 @@ def game(hero):
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
+    hero.initialize_music(hero.sound1_path, hero.sound2_path, hero.sound3_path)
+
     npcs = []
     sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()

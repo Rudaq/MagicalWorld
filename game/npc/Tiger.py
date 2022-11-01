@@ -30,6 +30,7 @@ class Tiger(Npc):
         tiger_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "tiger_attack.PNG"))
         self.npc_attack = AttackClass(tiger_attack, 20, 10, 'tiger attack')
+        self.context = Path("../NLP/context/TigerContext.txt").read_text()
 
     def take_gift(self, hero, artifact, npcs, screen):
         self.gifts.add(artifact)
