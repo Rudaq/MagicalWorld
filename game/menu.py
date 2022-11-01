@@ -17,27 +17,44 @@ pygame.init()
 pygame.display.set_caption("Menu")
 screen = pygame.display.set_mode((MENU_WIDTH, MENU_HEIGHT))
 clock = pygame.time.Clock()
+
 background = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/menu_background.png')).convert_alpha()
+tutorial_background = pygame.image.load(os.path.join(path, 'resources/GUI/tutorial.png')).convert_alpha()
 
 '''
 Menu for choosing character race and other characteristics and starting the game
 '''
 
+options = False
+menu_state = 'main'
+running = True
+
 
 # Method displaying the start menu with options "Start" and "Quit"
 def menu():
     # Loop displaying the screen
+    global options
+    global menu_state
+    global running
+    options = False
+    menu_state = 'main'
+    running = True
+
     while True:
-        # screen.fill(BLUE)
         screen.blit(background, (0, 0))
 
         # Creating buttons - rectangles, texts
         button_start = pygame.Rect(250, 320, 300, 50)
-        button_quit = pygame.Rect(250, 420, 300, 50)
+        button_how_to = pygame.Rect(250, 420, 300, 50)
+        button_quit = pygame.Rect(250, 520, 300, 50)
+
         pygame.draw.rect(screen, BLACK, button_start, 0, 3)
+        pygame.draw.rect(screen, BLACK, button_how_to, 0, 3)
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
+
         screen.blit(GUI_IMAGES['start'], (101, 202))
-        screen.blit(GUI_IMAGES['quit'], (103, 297))
+        screen.blit(GUI_IMAGES['how_to'], (250, 395))
+        screen.blit(GUI_IMAGES['quit'], (103, 392))
         screen.blit(GUI_IMAGES['title'], (115, 20))
 
         # Getting the state of mouse buttons - pressed or not
@@ -51,8 +68,18 @@ def menu():
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if left:
                     # "Start" clicked, loop ended, another menu function is called
-                    break
+                    running = False
+                    return running
+                    # break
+            # How to play button
             elif 420 < y < 470:
+                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                if left:
+                    options = True
+                    menu_state = 'options'
+                    break
+
+            elif 520 < y < 570:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if left:
                     # "Quit" clicked, program ended
@@ -72,6 +99,63 @@ def menu():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
+
+
+def how_to_play():
+    global options
+    global menu_state
+
+    screen.blit(background, (0, 0))
+    screen.blit(tutorial_background, (0, 0))
+
+    while True:
+        button_back = pygame.Rect(560, 520, 200, 50)
+        pygame.draw.rect(screen, BLACK, button_back, 0, 3)
+        screen.blit(GUI_IMAGES['back_to'], (560, 520))
+
+        draw_text_on_menu("1. To move the hero use:", 70, 100, 15, BLACK, screen)
+        draw_text_on_menu("- W, A, S, D or up, left, down, right arrow", 70, 125, 15, BLACK, screen)
+        draw_text_on_menu("2. To open the inventory with artifacts, click on the chests in the upper right corner", 70, 150, 15, BLACK, screen)
+        draw_text_on_menu("3. To check where you are, open the minimap in the lower left corner by clicking on it,", 70, 175, 15, BLACK, screen)
+        draw_text_on_menu(" when you hover the mouse over the land, its name will be displayed", 70, 200, 15, BLACK, screen)
+        draw_text_on_menu("4. To check your current task, click on the scroll icon in the top right corner.", 70, 225, 15, BLACK, screen)
+        draw_text_on_menu("5. To interact with an NPC, click on a character and then:", 70, 250, 15, BLACK, screen)
+        draw_text_on_menu("- choose TALK if you want to enter dialogue with NPC", 70, 275, 15, BLACK, screen)
+        draw_text_on_menu("- select FIGHT if you want to fight an NPC and obtain some artifact", 70, 300, 15, BLACK, screen)
+        draw_text_on_menu("6. Artifacts:", 70, 325, 15, BLACK, screen)
+        draw_text_on_menu("- by acquiring artefacts and handing them over to NPCs, you complete tasks", 70, 350, 15, BLACK, screen)
+        draw_text_on_menu("- you can also receive an artefact as part of a task, which may be useful to you later on", 70, 375, 15, BLACK, screen)
+        draw_text_on_menu("- to give an artefact to an NPC, enter the inventory,", 70, 400, 15, BLACK, screen)
+        draw_text_on_menu(" click on the artefact you wish to give and select the NPC and select the NPC", 70, 425, 15, BLACK, screen)
+        draw_text_on_menu(" (note that you must be close enough to the NPC to perform these interactions)", 70, 450, 15, BLACK, screen)
+
+        # Getting the state of mouse buttons - pressed or not
+        left, middle, right = pygame.mouse.get_pressed()
+        # Position of the mouse
+        x, y = pygame.mouse.get_pos()
+
+        # Checking if the mouse position is within the buttons
+        if 560 < x < 760:
+            if 520 < y < 570:
+                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                if left:
+                    # "Start" clicked, loop ended, another menu function is called
+                    options = False
+                    menu_state = 'main'
+                    return menu_state
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
         pygame.display.update()
         clock.tick(60)
 
@@ -110,7 +194,7 @@ def choose_character():
         # screen.blit(eligible_characters_images[index], (400, 150))
         screen.blit(eligible_characters_images[index][0], (250, 0))
 
-        #draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
+        # draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
         screen.blit(GUI_IMAGES['selection'], (105, 30))
 
         # Drawing arrows for character selection
@@ -185,6 +269,7 @@ def choose_character():
 
                     return final_name, final_type, final_side, eligible_characters_images[index][0], \
                            eligible_characters_images[index][1]
+
             elif 250 < y < 350 and 650 < x <= 700:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if pressed:
@@ -228,7 +313,6 @@ def choose_character():
                     # Deleting last letter
                     elif event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                         char_name = char_name[:-1]
-
 
         prev = left
         pygame.display.update()
@@ -290,8 +374,15 @@ def character_info(name, ch_type, side, image):
 
 
 # Calling menus in the right order
-menu()
+while running:
+    menu()
+    if menu_state == 'options':
+        state = how_to_play()
+        if state == 'main':
+            continue
+
 chosen_name, chosen_type, chosen_side, image, image_small = choose_character()
+
 character_info(chosen_name, chosen_type, chosen_side, image)
 main_character = create_character(chosen_name, chosen_type, chosen_side)
 

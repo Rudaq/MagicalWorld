@@ -5,8 +5,8 @@ import pygame
 
 
 # Method to draw text on the screen given its position, color and size
-def draw_text_on_menu(text, x, w, size, color, screen):
-    font = pygame.font.SysFont('Verdana', size)
+def draw_text_on_menu(text, x, w, size, color, screen, font_type='Verdana'):
+    font = pygame.font.SysFont(font_type, size)
     img = font.render(text, True, color)
     screen.blit(img, (x, w))
 

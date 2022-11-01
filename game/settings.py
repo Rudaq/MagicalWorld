@@ -17,7 +17,6 @@ TILES_SIZE = 64
 SCALE = 700/12928
 
 HERO_SPEED = 25
-SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -118,6 +117,8 @@ GUI_IMAGES = {
     'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png")),
     'title': pygame.image.load(os.path.join(path, "resources/GUI", "AdventuresInTheRealm.png")),
     'start': pygame.image.load(os.path.join(path, "resources/GUI", "Start.png")),
+    'how_to': pygame.image.load(os.path.join(path, "resources/GUI", "how_to_play.png")),
+    'back_to': pygame.image.load(os.path.join(path, "resources/GUI", "back_white.png")),
     'quit': pygame.image.load(os.path.join(path, "resources/GUI", "Quit.png")),
     'next': pygame.image.load(os.path.join(path, "resources/GUI", "Next.png")),
     'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),

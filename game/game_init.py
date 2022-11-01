@@ -44,9 +44,9 @@ def game(hero):
     HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
-    pygame.mixer.music.load('C:\\Inżynierka\\MagicalWorld\\resources\\music\\background_sound.wav')
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.2)
+    # pygame.mixer.music.load('C:\\Inżynierka\\MagicalWorld\\resources\\music\\background_sound.wav')
+    # pygame.mixer.music.play(-1)
+    # pygame.mixer.music.set_volume(0.2)
 
     npcs = []
     sprites_to_move_opposite = []
@@ -283,7 +283,8 @@ def game(hero):
         # Random movement of npcs if not in dialog
         for npc in npcs:
             if not npc.is_talking and not npc.in_fight_mode:
-                npc.move(all_sprites_group)
+                if npc.race != 'Snake' and npc.race != 'Mermaid':
+                    npc.move(all_sprites_group)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()

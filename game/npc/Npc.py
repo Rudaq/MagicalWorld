@@ -1,7 +1,14 @@
+import os
 import random
+from pathlib import Path
+
 import pandas as pd
 import pygame
 from hero.Character import Character
+
+
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 
 
 # Class with characteristics common to all npcs, from which npc classes inherit
@@ -411,8 +418,10 @@ class Npc(Character):
 
 
     def load_greetings(self):
+        greetings_file = os.path.join(path, "NLP/sentiment_analysis/Greetings.csv")
+
         dataset = pd.read_csv(
-                "C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\Greetings.csv",
+                greetings_file,
                 names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
 
         for key, text in dataset.iterrows():
