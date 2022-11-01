@@ -14,8 +14,8 @@ class Faerie(Character):
         self.race = "Faerie"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, 20, "fire_spell")
-        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, 10, "thrown_spell")
+        self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, 10, "fire_spell")
+        self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 15, 10, "thrown_spell")
         self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, 20, "flower_spell")
 
     # load images
@@ -71,21 +71,21 @@ class Faerie(Character):
 
     def fire_spell_attack(self, npc):
         if self.direction == 'D':
-            expected_y = npc.rect.y + 200
+            expected_y = npc.rect.y + 100
             while npc.rect.y < expected_y:
                 npc.rect.y += 2
 
         elif self.direction == 'U':
-            expected_y = npc.rect.y - 200
+            expected_y = npc.rect.y - 100
             while npc.rect.y > expected_y:
                 npc.rect.y -= 2
 
         elif self.direction == 'L':
-            expected_x = npc.rect.x - 200
+            expected_x = npc.rect.x - 100
             while npc.rect.x > expected_x:
                 npc.rect.x -= 2
         else:
-            expected_x = npc.rect.x + 200
+            expected_x = npc.rect.x + 100
             while npc.rect.x < expected_x:
                 npc.rect.x += 2
 
