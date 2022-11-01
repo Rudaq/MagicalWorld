@@ -154,7 +154,7 @@ def game(hero):
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
-    create_map(collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
+    create_map(all_sprites_group, collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -163,8 +163,6 @@ def game(hero):
     create_quests(hero)
 
     while True:
-
-        screen.blit(SEA, (0, 0))
         all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
