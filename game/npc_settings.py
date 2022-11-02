@@ -122,10 +122,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "earth_elemental_right.png"))
     },
     'image_faerie': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "faeries_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Faeries.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "faeries_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "faeries_right.png"))
     },
     'image_farmer': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "farmer_back.png")),
@@ -152,16 +152,16 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "leprechaun_right.png"))
     },
     'image_panda': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "panda_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Panda.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "panda_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "panda_right.png"))
     },
     'image_snake': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snake_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snake_front.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Snake.png"))
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "snake_right.png"))
     },
     'image_spider': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Spider.png")),
@@ -182,10 +182,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "treant_right2.png"))
     },
     'image_unicorn': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "unicorn_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "unicorn_front.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Unicorn.png"))
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "unicorn_right.png"))
     },
     'image_vampire': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "vampire_back.png")),

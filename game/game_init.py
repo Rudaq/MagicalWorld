@@ -408,6 +408,23 @@ def game(hero):
                 remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
                            screen)
 
+        if hero.life == 0 or hero.life < 0:
+            npc_clicked = False
+            # remove NPC's life from hud
+            chosen_npc.add_npc_to_hud = False
+            # Stop talking or fighting
+            if chosen_npc.is_talking:
+                stop_talk(hero, chosen_npc)
+
+            if chosen_npc.in_fight_mode:
+                stop_fight(hero, chosen_npc)
+
+            update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                       restore_mana,
+                       restore_mana_time_passed,
+                       restore_life_time_passed, chosen_npc, chest_opened)
+            all_sprites_group.update()
+
         if chosen_npc is not None:
             if chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
@@ -416,7 +433,7 @@ def game(hero):
                            restore_life_time_passed, chosen_npc, chest_opened)
                 all_sprites_group.update()
 
-        if hero.in_attack:
+        if hero.in_attack and hero.mana > 0:
             hero.fight(screen, option, npcs)
             all_sprites_group.update()
 

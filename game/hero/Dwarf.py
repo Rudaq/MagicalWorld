@@ -18,7 +18,8 @@ class Dwarf(Character):
 
     # printing the attack onto the screen
     def attack(self, screen, npcs):
-        if self.in_attack:
+        if self.in_attack and self.mana - self.attack_type.mana >= 0:
+            self.mana -= self.attack_type.mana
             self.attack_type.move_attack()
             if self.attack_type.size < 150:
                 if self.attack_type.image == self.attack_type.image_up or self.attack_type.image == self.attack_type.image_down:
@@ -28,9 +29,6 @@ class Dwarf(Character):
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             self.attack_type.check_attack_npc_collision(self, npcs)
-
-        if self.mana - self.attack_type.mana >= 0:
-            self.mana -= self.attack_type.mana
             self.in_attack = False
 
     def fight(self, screen, option, npcs):
