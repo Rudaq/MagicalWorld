@@ -133,6 +133,7 @@ def game(hero):
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites_npc)
 
     for npc in npcs:
+        npc.initialize_music(npc.sound_path)
         npc.start_centerx = npc.rect.centerx
         npc.start_centery = npc.rect.centery
         npc.set_start_centerx = False

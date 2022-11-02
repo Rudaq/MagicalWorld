@@ -78,6 +78,9 @@ class Character(pygame.sprite.Sprite):
         self.sound1 = None
         self.sound2 = None
         self.sound3 = None
+        self.sound_life = None
+        self.path_life = "../resources/music/life_loss.wav"
+
 
     # method to return active quest
     def set_active_quest(self):
@@ -346,7 +349,9 @@ class Character(pygame.sprite.Sprite):
         if self.mana <= 100 - value:
             self.mana += value
 
-    def initialize_music(self, path1, path2, path3):
+    def initialize_music(self, path1, path2='', path3=''):
         self.sound1 = pygame.mixer.Sound(path1)
-        self.sound2 = pygame.mixer.Sound(path2)
-        self.sound3 = pygame.mixer.Sound(path3)
+        self.sound_life = pygame.mixer.Sound(self.path_life)
+        if path2 != '' and path3 != '':
+            self.sound2 = pygame.mixer.Sound(path2)
+            self.sound3 = pygame.mixer.Sound(path3)

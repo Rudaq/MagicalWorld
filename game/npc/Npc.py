@@ -30,6 +30,9 @@ class Npc(Character):
         self.rude_greetings = []
         self.load_greetings()
 
+        self.sound_path = "../resources/music/npc_attack.wav"
+
+
     # Placeholder. Method to talk? May be useful
     def talk(self):
         print("I'm NPC")
@@ -130,6 +133,9 @@ class Npc(Character):
     def attack(self, screen, hero, counter, npcs):
         if counter == 4 and self.life > 0:
             self.attack_type.move_attack()
+            pygame.mixer.Sound.play(self.sound1)
+            self.sound1.set_volume(1)
+
             if self.attack_type.size < 200:
                 # move particles to the down
                 if self.attack_type.image == self.attack_type.image_down:
