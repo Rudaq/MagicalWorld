@@ -185,6 +185,18 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     rainbow.rect.x = 900
     rainbow.rect.y = 5500
 
+    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'], 20, 'Enchanted Stick', MAP_IMAGES['stick'])
+    enchanted_tree.rect.x = 480
+    enchanted_tree.rect.y = 4050
+
+    mud = Artifact(MAP_IMAGES['mud'], 20, 'Mud', MAP_IMAGES['mud'])
+    mud.rect.x = 8300
+    mud.rect.y = 950
+
+    web = Artifact(MAP_IMAGES['spider_web'], 20, 'Spider web', MAP_IMAGES['spider_web'])
+    web.rect.x = 4400
+    web.rect.y = 5700
+
     ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
     bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
     bamboo_tree.rect.x = 11970
@@ -200,6 +212,11 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     dig_ground.rect.x = big_tree.rect.x + 250
     dig_ground.rect.y = big_tree.rect.y + 150
 
+    leaf = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "leaf.PNG"))
+    leaves = Artifact(MAP_IMAGES['leaves'], 30, 'Leaves', leaf)
+    leaves.rect.x = 3750
+    leaves.rect.y = 2700
+
     snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
     paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
     paper.rect.x = 350
@@ -214,9 +231,9 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
-    all_artifacts.add(paper, pot, water)
+    all_artifacts.add(paper, pot, water, leaves, mud, web)
 
-    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
+    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground, enchanted_tree)
 
 
 def check_map_artifact(map_artifact):

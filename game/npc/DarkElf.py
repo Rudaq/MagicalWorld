@@ -25,6 +25,9 @@ class DarkElf(Npc):
         magic_blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_blood.PNG"))
         self.magic_blood = Artifact(magic_blood_image, 10, 'Magic Blood', None)
         self.gifts.add(self.magic_blood)
+        stone_donkey_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "stoneDonkey.PNG"))
+        self.stone_donkey = Artifact(stone_donkey_image, 10, 'Travel Companion', None)
+        self.gifts.add(self.stone_donkey)
         dark_elf_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
         self.npc_attack = AttackClass(dark_elf_attack, 20, 10, 'dark elf attack')

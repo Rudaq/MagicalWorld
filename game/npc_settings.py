@@ -429,7 +429,7 @@ ELVES = {
 TREANTS = {
     'Oak': ["good", None, None, 280, 4550],
     'Sequoia': ["good", None, None, 1770, 3900],
-    'Bambus': ["good", None, None, 1170, 3520],
+    'Bamboos': ["good", None, None, 1170, 3520],
     'Maple': ["good", None, None, 2500, 2910]
 }
 # desolation of abdomination:
@@ -504,13 +504,16 @@ BLIND_RATS = {
 # X: 8400 - 11050
 # Y: 2250 - 4350
 SMITHS = {
-    'Gavin': ["good", None, None, 8800, 2600]
+   # 'Gavin': ["good", None, None, 8800, 2600]
+    'Gavin': ["good", None, None, 250, 200]
 }
 FARMERS = {
-    'Harwin': ["good", None, None, 9700, 3500]
+    #'Harwin': ["good", None, None, 9700, 3500]
+    'Harwin': ["good", None, None, 200, 200]
 }
 BIG_RAVENS = {
-    'Feather': ["evil", None, None, 10200, 3600],
+    #'Feather': ["evil", None, None, 10200, 3600],
+    'Feather': ["evil", None, None, 220, 200],
     'Crow': ["evil", None, None, 8850, 2920],
     'Nights': ["evil", None, None, 8900, 3180],
 }
@@ -521,7 +524,8 @@ ESCAPING_VEGETABLES = {
     'Thyme': ["evil", None, None, 10200, 3100]
 }
 WHEAT_MONSTERS = {
-    'Wheater': ["evil", None, None, 9150, 2750],
+   # 'Wheater': ["evil", None, None, 9150, 2750],
+    'Wheater': ["evil", None, None, 240, 200],
     'Skipper': ["evil", None, None, 9250, 3700],
     'Daphne': ["evil", None, None, 9400, 2950]
 }

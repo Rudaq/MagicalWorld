@@ -19,6 +19,9 @@ class Crab(Npc):
         self.race = "Crab"
         self.collision_sprites = collision_sprites
         self.can_talk = True
+        corpse_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "CrabsCorpse.PNG"))
+        self.corpse = Artifact(corpse_image, 10, 'Crabs corpse', None)
+        self.artifacts.add(self.corpse)
         blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
         self.blood = Artifact(blood_image, 10, 'Crab Blood', None)
         self.artifacts.add(self.blood)

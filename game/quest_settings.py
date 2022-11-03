@@ -313,7 +313,7 @@ QUESTS = {
                         'artefact': 'Hammer',
                         'points': 15,
                         'npc_give_task': 'Smith',
-                        'npc_take_artifact': None,
+                        'npc_take_artifact': 'Smith',
                         'next_npc': 'Farmer',
                         'gift': None
                     },
@@ -332,7 +332,7 @@ QUESTS = {
                         'name': 'nutritious_food',
                         'description': 'Smith: Fine, now that you own a hammer, we need a lot of energy. Kill wheat '
                                        'monster so that we have something to eat.You will get something what may be '
-                                       'helpfull in the future..',
+                                       'helpful in the future..',
                         'artefact': 'Wheat',
                         'points': 15,
                         'npc_give_task': 'Smith',
@@ -341,16 +341,16 @@ QUESTS = {
                         'gift': 'Banana'
                     }
                 ]
-                # outcome: Learning for 30 seconds, improved attack
             },
             # Quest 2
             'primaeval_help': {
                 'name': 'primaeval_help',
-                'description': 'Now that you learnt how to craft, it’s time to make yourself useful. Help the amazons.',
+                'description': 'Now that you learnt how to craft, it’s time to make yourself useful. Take a moment and '
+                               'help the amazons.',
                 'points': 50,
                 'tasks': [
                     {
-                        'name': 'gold',
+                        'name': 'ordinary_help',
                         'description': 'Amazon: We want to improve our weapons with the fangs of our greatest enemies '
                                        'killing animals from our bush. Kill vampires and bring their fangs back. ',
                         'artefact': 'Vampire Fang',
@@ -365,7 +365,8 @@ QUESTS = {
             # Quest 3
             'home_sweet_home': {
                 'name': 'home_sweet_home',
-                'description': 'Time to go home, you dwarf! The Frozen Empire is waiting for you to make it safe '
+                'description': 'Amazons: Thank you! We will take it from here. Time to go home, you dwarf! The Frozen '
+                               'Empire is waiting for you to make it safe '
                                'again! See the Snowman',
                 'points': 60,
                 'tasks': [
@@ -376,8 +377,8 @@ QUESTS = {
                                        'it and bring its skin as a prove.',
                         'artefact': 'Ice Monster Skin',
                         'points': 20,
-                        'npc_give_task': 'Snowman',
-                        'npc_take_artifact': 'Snowman',
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
                         'next_npc': None,
                         'gift': None
                     },
@@ -387,8 +388,8 @@ QUESTS = {
                                        'wolves here!',
                         'artefact': 'Wolves Blood',
                         'points': 20,
-                        'npc_give_task': 'Snowman',
-                        'npc_take_artifact': 'Snowman',
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
                         'next_npc': None,
                         'gift': None
                     }
@@ -397,7 +398,8 @@ QUESTS = {
             # Quest 4
             'brace_yourself': {
                 'name': 'brace_yourself',
-                'description': 'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
+                'description': 'Snowman: Thank you! '
+                               'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
                                'friends with magic itself. Find a Dark Wizard.',
                 'points': 70,
                 'tasks': [
@@ -434,7 +436,7 @@ QUESTS = {
                         'gift': None
                     },
                     {
-                        'name': 'vampire_goods',
+                        'name': 'mermaid_goods',
                         'description': 'Dark Wizard: And the last thing we need is hair of a Mermaid. Kill it and '
                                        'bring what we need.',
                         'artefact': 'Mermaid Hair',
@@ -459,8 +461,8 @@ QUESTS = {
                                        'vegetables so I can get a carrot. Then go to Big Monke..',
                         'artefact': 'Carrot',
                         'points': 20,
-                        'npc_give_task': 'Snowman',
-                        'npc_take_artifact': 'Snowman',
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
                         'next_npc': None,
                         'gift': None
                     },
@@ -469,7 +471,7 @@ QUESTS = {
                         'description': 'Big Monke: Come find me! You can kill me, but so that you know - I am not a '
                                        'thief. '
                                        'I am just a keeper. You wanna know who is the thief? Give me something that I '
-                                       'sense you have.',
+                                       'sense you have... It is something to eat...',
                         'artefact': 'Banana',
                         'points': 20,
                         'npc_give_task': 'Big Monke',
@@ -502,7 +504,8 @@ QUESTS = {
                 'tasks': [
                     {
                         'name': 'kill_tigers',
-                        'description': 'Kill the tigers so that you have their fur. Then go to Dark Wizard for another hint.',
+                        'description': 'Kill the tigers so that you have their fur. Then go to Dark Wizard for '
+                                       'another hint.',
                         'artefact': 'Tiger Fur',
                         'points': 15,
                         'npc_give_task': 'Dark Elf',
@@ -512,7 +515,8 @@ QUESTS = {
                     },
                     {
                         'name': 'kill_snakes',
-                        'description': 'Kill the snakes so that you have their skin. Then go to Vampire, he knows your last enemy.',
+                        'description': 'Kill the snakes so that you have their skin. Then go to Vampire, he knows '
+                                       'your last enemy.',
                         'artefact': 'Snake Skin',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
@@ -576,7 +580,7 @@ QUESTS = {
                         'description': 'Orcs: You want what? Regain your life? Ha ha ha... Fine, but you have to do '
                                        'couple '
                                        'of things first. For example... Clean my feet! Take water from Specular Lake.',
-                        'artefact': 'Water', #TODO check Milena if jest tak jak ma być - nba brzegu jezioroa jest kawałek wody na który się klika xd sprawdz to, nie miała fantazji na to
+                        'artefact': 'Water',
                         'points': 15,
                         'npc_give_task': 'Orc',
                         'npc_take_artifact': 'Orc',
@@ -588,19 +592,22 @@ QUESTS = {
             # Quest 4
             'steal_treasure': {
                 'name': 'steal_treasure',
-                'description': 'There we are. It’s time to solve the greatest mistery of the dwarves. Find the thief '
-                               'of the Greatest Gem of the Dwarven Empire. See Snowman for clues.',
+                'description': 'Orc: Ehh, my legs are clean... Thanks... '
+                               'Speaking of your next adventure - It’s time to solve the greatest mistery of the '
+                               'dwarves. Find the thief '
+                               'of the Greatest Gem of the Dwarven Empire. See Druid for clues.',
                 'points': 100,
                 'tasks': [
                     {
                         'name': 'find_witness',
                         'description': 'Druid: The only one, who survived... is hidden on the mountain of the Frozen '
-                                       'Empire. You had better find him. If you are looking for clues, find the ice ball first.',
+                                       'Empire. You had better find him. If you are looking for clues, find the ice '
+                                       'ball first, collect it and snowman is somewhere there...',
                         'artefact': 'Ice ball',
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': None,
-                        'next_npc': None,
+                        'next_npc': 'FriendlySnowman',
                         'gift': None
                     },
                     {
@@ -609,20 +616,21 @@ QUESTS = {
                                        'vegetables so I can get a carrot.',
                         'artefact': 'Carrot',
                         'points': 20,
-                        'npc_give_task': 'Snowman',
-                        'npc_take_artifact': 'Snowman',
+                        'npc_give_task': 'Friendly Snowman',
+                        'npc_take_artifact': 'Friendly Snowman',
                         'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'bring_fire',
-                        'description': 'Big Monke: You want the treasure? It wont be easy for you little one.', #TODO tu to nie wiem o co kaman XD w sensie on ma zabić Big Bonk? or what
-                        'artefact': 'Dwarven Gem', # nie wiem, obojetnie co no
+                        'description': 'Big Monke: You want the treasure? It will not be easy for you little one. You '
+                                       'have to kill me!',
+                        'artefact': 'Dwarven Gem',
                         'points': 20,
                         'npc_give_task': 'Big Monke',
                         'npc_take_artifact': None,
                         'next_npc': None,
-                        'gift': 'Dwarven Gem'
+                        'gift': None
                     }
                 ]
             }
@@ -640,23 +648,24 @@ QUESTS = {
                     {
                         'name': 'find_a_tree',
                         'description': 'Druid: First you need to gain materials. Find a tree in Enchanted Forest and '
-                                       'take a stick from it..', #TODO narysowac drzewo w enchanted forest i żeby bo klinięciu w niego patyk sie dodawał do equipment
-                        'artefact': 'Stick',
+                                       'take a stick from it..',
+                        'artefact': 'Enchanted Stick',
                         'points': 15,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
-                        'next_npc': None, #Druid?
+                        'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'kill_mermaid',
-                        'description': 'Druid: I know you do not kill the innocent but we may have no other choice. '
+                        'description': 'Druid: Fine, now that you have a stick... I know you do not kill the innocent '
+                                       'but we may have no other choice. '
                                        'Bring mermaids blood so that we can put magic into your wand.',
                         'artefact': 'Mermaid Blood',
                         'points': 15,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
-                        'next_npc': None, #Druid?
+                        'next_npc': None,
                         'gift': None
                     },
                     {
@@ -671,7 +680,6 @@ QUESTS = {
                         'gift': 'wand'
                     }
                 ]
-                # outcome: More mana?
             },
             # Quest 2
             'make_a_companion': {
@@ -694,14 +702,14 @@ QUESTS = {
                     {
                         'name': 'get mud',
                         'description': 'Dark Elf: Ohh... I know a solution to that. You have to give donkey so much '
-                                       'mud that he will turn into stone. Mud? Oh thats orcs water. Find their land '
-                                       'and you will find mud..',
-                        'artefact': 'Mud', #TODO mud laying in the swamp to collect it
+                                       'mud that he will turn into stone. Mud? Oh that is orcs water. Find their land '
+                                       'and you will find mud which you should throw at the donkey!..',
+                        'artefact': 'Mud',
                         'points': 20,
                         'npc_give_task': 'Dark Elf',
                         'npc_take_artifact': 'Donkey',
-                        'next_npc': 'Donkey', #?
-                        'gift': 'Stone donkey' #TODO NARYSOWAC TO
+                        'next_npc': None,
+                        'gift': 'Travel Companion'
                     }
 
                 ]
@@ -724,29 +732,8 @@ QUESTS = {
                     },
                     {
                         'name': 'obtain_earth',
-                        'description': 'Faerie: Great! Now please kill an earth elemental.',
-                        'artefact': 'Earth', #TODO NARYSOWAĆ EARTH
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'powder_of_faeries',
-                        'description': 'Faerie: Great! Now the trickiest one. Ask little faeries for their magic '
-                                       'powder.', #TODO FAERIE KARZE ISC DO FAERIE? CHYBA TRZEBA ZMIENIC
-                        'artefact': 'Magic Dust',
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': 'Little faeries',
-                        'gift': 'Healing Potion'
-                    },
-                    { # tutaj chodzi o to, zeby byl dialog, po prostu prosisz i dostajesz powder i masz healing potion #TODO chyba, zeby dostać cos trzeba najpierw dac coś NPC
-                        'name': 'little_faeries',
-                        'description': 'Little faerie: What do you want? I sense you are a good person.',
-                        'artefact': 'Magic powder',
+                        'description': 'Faerie: Great! Now please kill an earth elemental and bring me rocks.',
+                        'artefact': 'rocks',
                         'points': 20,
                         'npc_give_task': 'Faerie',
                         'npc_take_artifact': 'Faerie',
@@ -758,7 +745,8 @@ QUESTS = {
             # Quest 4
             'beat_dark_wizards': {
                 'name': 'beat_dark_wizards',
-                'description': 'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
+                'description': 'Fearies: You are a good person! Here is our magic powder for you! For the next quest '
+                               'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
                                'friends with magic itself. Find a Druid.',
                 'points': 70,
                 'tasks': [
@@ -771,36 +759,38 @@ QUESTS = {
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
-                        'next_npc': 'Leprechaun',
-                        'gift': None
-                    },
-                    {  # dialog ?
-                        'name': 'leprechaun_gold',
-                        'description': 'Leprechaun: I will give you gold if you ask me nicely...', #TODO chyba było ustalane że NPC daje gift w zamian za coś innego a nie tak po prosru
-                        'artefact': 'Gold Bar',
-                        'points': 20,
-                        'npc_give_task': 'Leprechaun', #?
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Druid',
+                        'next_npc': None,
                         'gift': None
                     },
                     {
                         'name': 'bring_fire',
                         'description': 'Druid: Thank you for the gold. You have druids providence. Now lets find '
-                                       'those bloody bastards. You should follow the spiders...',
-                        'artefact': 'spiders web', #TODO narysować
+                                       'those bloody bastards. You should follow the spiders and bring me back their '
+                                       'web...',
+                        'artefact': 'spiders web',
                         'points': 20,
                         'npc_give_task': 'Druid',
                         'npc_take_artifact': 'Druid',
                         'next_npc': 'Spider',
                         'gift': None
                     },
-                    { # dialog
+                    {
                         'name': 'follow_the_web',
-                        'description': 'Spider: You want to find dark wizards? Follow our web and kill them.', #TOD0 kill them czyli kogo?
-                        'artefact': 'wand',
+                        'description': 'Spider: You want to fin our web? Good luck... It is hidden in the dreary '
+                                       'forest or you can kill us to gain it!. ',
+                        'artefact': 'spider web',
                         'points': 20,
                         'npc_give_task': 'Spider',
+                        'npc_take_artifact': None,
+                        'next_npc': None,
+                        'gift': None
+                    },
+                    {
+                        'name': 'follow_the_web',
+                        'description': 'Druid: Okay! You are ready now! Kill the dark wizards! ',
+                        'artefact': 'wand',
+                        'points': 20,
+                        'npc_give_task': 'Druid',
                         'npc_take_artifact': None,
                         'next_npc': None,
                         'gift': None
@@ -840,7 +830,7 @@ QUESTS = {
                         'name': 'kill_crabs',
                         'description': 'Last ones! The crabs! Kill the crabs and specular lakes will be completely '
                                        'under your surveillance. ',
-                        'artefact': 'crabs corpse', #TODO narysować
+                        'artefact': 'Crabs corpse',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',
@@ -858,8 +848,8 @@ QUESTS = {
                     {
                         'name': 'thief_gorilla',
                         'description': 'Dragon: Dragons love to be wealthy. You know what do do. First -  gorillas '
-                                       'stolen gem.',
-                        'artefact': 'Dwarven Gem', #TODO czyli gorilla ma ten gem i tzreba go zabić?
+                                       'stolen gem, kill it and bring the gem to me.',
+                        'artefact': 'Dwarven Gem',
                         'points': 10,
                         'npc_give_task': 'Dragon',
                         'npc_take_artifact': 'Dragon',
@@ -867,18 +857,17 @@ QUESTS = {
                         'gift': None
                     },
                     {
-                        'description': 'Dragon: Thank you for the gem. Next step -  mermaid.'
-                                       'stolen gem.', #TODO coś chyba ze skladania nie tka albo ja nie potrafie czytac xd ale nie wiem na co zmmienic
+                        'description': 'Dragon: Thank you for the gem. Next step -  kill mermaid and bring her '
+                                       'necklace back to me.',
                         'artefact': 'Mermaid Necklace',
                         'points': 10,
                         'npc_give_task': 'Dragon',
                         'npc_take_artifact': 'Dragon',
                         'next_npc': None,
                         'gift': None
-
                     },
                     {
-                        'description': 'Dragon: Lastly... gold... lots of gold. Leprechaun!',
+                        'description': 'Dragon: Lastly... gold... lots of gold. Leprechaun! You know what to do!',
                         'artefact': 'Pot of Gold',
                         'points': 10,
                         'npc_give_task': 'Dragon',
@@ -891,342 +880,22 @@ QUESTS = {
             # Quest 3
             'trick_orcs': {
                 'name': 'stinky_orcs',
-                'description': 'Now your task is to trick orcs into giving you more power. See them for the clues.',
+                'description': 'Good job! You obtained a flame. Something you may use later of course... Now your '
+                               'task is to trick orcs into giving you more power. See them for the clues.',
                 'points': 60,
                 'tasks': [
                     {
                         'name': 'clean_feet',
                         'description': 'Orcs: You want what? Regain your life? Ha ha ha... Fine, but you have to do '
                                        'couple '
-                                       'of things first. For example... Clean my feet! Take water from Specular Lake.',
+                                       'of things first. For example... Clean my feet! Take water from Specular Lake '
+                                       'and bring it back to me.',
                         'artefact': 'Water',
                         'points': 15,
                         'npc_give_task': 'Orc',
                         'npc_take_artifact': 'Orc',
                         'next_npc': None,
                         'gift': 'Life Potion'
-                    }
-                ]
-            },
-            # Quest 4
-            'prove_your_worth': {
-                'name': 'prove_your_worth',
-                'description': 'Dark Wizard: There we are. It’s time to prove that you are worthy to join us. ',
-                'points': 100,
-                'tasks': [
-                    {
-                        'name': 'find_leaves',
-                        'description': 'Dark Wizard: Find the amazons. Next to them, there are leaves sealed '
-                                       'with dark magic. Kill the amazons, find the leaves and bring them to us.', #TODO narysowac liście i umieścić na mapie?
-                        'artefact': 'Leaf',
-                        'points': 20,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'bravery',
-                        'description': 'Dark Wizard: Now bring as much raven meet as possible. We have to eat.',
-                        'artefact': 'Raven Meat',
-                        'points': 15,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'tools',
-                        'description': 'Dark Wizard: There is one more thing that we need. We require you to bring '
-                                       'skin of a dead snake.',
-                        'artefact': 'Snake Skin',
-                        'points': 15,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': None
-                    }
-                ]
-            }
-        }
-    },
-    'Wizard': {
-        'good': {
-            # Quest 1
-            'make_wand': {
-                'name': 'make_wand',
-                'description': 'You are a wizard! You are the one to know best what wizards have... A wand! Make '
-                               'yourself one. Find Druid in Enchanted Forest.',
-                'points': 20,
-                'tasks': [
-                    {
-                        'name': 'find_a_tree',
-                        'description': 'Druid: First you need to gain materials. Find a tree in Enchanted Forest and '
-                                       'take a stick from it..',
-                        'artefact': 'Stick',
-                        'points': 15,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': None, #Druid?
-                        'gift': None
-                    },
-                    {
-                        'name': 'kill_mermaid',
-                        'description': 'Druid: I know you do not kill the innocent but we may have no other choice. '
-                                       'Bring mermaids blood so that we can put magic into your wand.',
-                        'artefact': 'Mermaids blood',
-                        'points': 15,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': None, #Druid?
-                        'gift': None
-                    },
-                    {
-                        'name': 'kill_vampire',
-                        'description': 'Druid: There is one more thing we need. Do not get scared... Vampires fang. '
-                                       'Kill the vampire and bring its venomous fang back.',
-                        'artefact': 'Vampires fang',
-                        'points': 15,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': None,
-                        'gift': 'wand'
-                    }
-                ]
-                # outcome: More mana?
-            },
-            # Quest 2
-            'make_a_companion': {
-                'name': 'make_a_companion',
-                'description': 'Good wizards do not tend to travel the realm solo. Make a donkey your companion.',
-                'points': 50,
-                'tasks': [
-                    {
-                        'name': 'gold',
-                        'description': 'Donkey: I am so lonely! I want to travel the world with you! But you have to '
-                                       'find a way to put me in your backpack! I think you should ask the Dark Elves '
-                                       'to help you... ',
-                        'artefact': 'Mud',
-                        'points': 15,
-                        'npc_give_task': 'Donkey',
-                        'npc_take_artifact': None,
-                        'next_npc': 'Dark Elf',
-                        'gift': None
-                    },
-                    {
-                        'name': 'get mud',
-                        'description': 'Dark Elf: Ohh... I know a solution to that. You have to give donkey so much '
-                                       'mud that he will turn into stone. Mud? Oh thats orcs water. Find their land '
-                                       'and you will find mud..',
-                        'artefact': 'Mud', # mud laying in the swamp to collect it
-                        'points': 20,
-                        'npc_give_task': 'Dark Elf',
-                        'npc_take_artifact': 'Donkey',
-                        'next_npc': 'Donkey', #?
-                        'gift': 'stone donkey'
-                    }
-
-                ]
-            },
-            # Quest 3
-            'make_healing_potion': {
-                'name': 'make_healing_potion',
-                'description': 'You are a wizard. You can make potions. Try it.',
-                'points': 60,
-                'tasks': [
-                    {
-                        'name': 'obtain_flame',
-                        'description': 'Faerie: Kill the fire elemental so that you have a flame.',
-                        'artefact': 'Flame',
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'obtain_earth',
-                        'description': 'Faerie: Great! Now please kill an earth elemental.',
-                        'artefact': 'Earth',
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'powder_of_faeries',
-                        'description': 'Faerie: Great! Now the trickiest one. Ask little faeries for their magic '
-                                       'powder.',
-                        'artefact': 'Magic powder',
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': 'Little faeries',
-                        'gift': 'Healing potion'
-                    },
-                    { # tutaj chodzi o to, zeby byl dialog, po prostu prosisz i dostajesz powder i masz healing potion
-                        'name': 'little_faeries',
-                        'description': 'Little faerie: What do you want? I sense you are a good person.',
-                        'artefact': 'Magic powder',
-                        'points': 20,
-                        'npc_give_task': 'Faerie',
-                        'npc_take_artifact': 'Faerie',
-                        'next_npc': None,
-                        'gift': 'Magic powder'
-                    }
-                ]
-            },
-            # Quest 4
-            'beat_dark_wizards': {
-                'name': 'beat_dark_wizards',
-                'description': 'You’d better prepare for the ultimate adventure of yours. How to do that? Better make '
-                               'friends with magic itself. Find a Druid.',
-                'points': 70,
-                'tasks': [
-                    {
-                        'name': 'gold_for_druid',
-                        'description': 'Druid: Well, well, well. You want our help in beating dark wizards? As they '
-                                       'say - Nothing comes for free fellow wizard. '
-                                       'Bring me some gold which you will probably obtain by dealing with Leprechaun...',
-                        'artefact': 'Gold Bar',
-                        'points': 20,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Leprechaun',
-                        'gift': None
-                    },
-                    {  # dialog ?
-                        'name': 'leprechaun_gold',
-                        'description': 'Leprechaun: I will give you gold if you ask me nicely...',
-                        'artefact': 'Gold Bar',
-                        'points': 20,
-                        'npc_give_task': 'Leprechaun', #?
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Druid',
-                        'gift': None
-                    },
-                    {
-                        'name': 'bring_fire',
-                        'description': 'Druid: Thank you for the gold. You have druids providence. Now lets find '
-                                       'those bloody bastards. You should follow the spiders...',
-                        'artefact': 'spiders web',
-                        'points': 20,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Druid',
-                        'next_npc': 'Spider',
-                        'gift': None
-                    },
-                    { # dialog
-                        'name': 'follow_the_web',
-                        'description': 'Spider: You want to find dark wizards? Follow our web and kill them.',
-                        'artefact': 'wand',
-                        'points': 20,
-                        'npc_give_task': 'Spider',
-                        'npc_take_artifact': None,
-                        'next_npc': None,
-                        'gift': None
-                    }
-                ]
-            }
-        },
-        'evil': {
-            # Quest 1
-            'destroy_specular_lake': {
-                'name': 'destroy_primeval_bush',
-                'description': 'Your journey here will focus on doing bad, bad things... Lets start with eliminating '
-                               'some of the innocent. Go kill the mermaid first.',
-                'points': 20,
-                'tasks': [
-                    {
-                        'name': 'kill_mermaid',
-                        'description': 'Dark Wizard: Kill the mermaid so that you have their fur.',
-                        'artefact': 'Mermaid necklace',
-                        'points': 15,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'kill_big_fishes',
-                        'description': 'Kill the big fish so that you have something to eat.',
-                        'artefact': 'fish',
-                        'points': 15,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'kill_crabs',
-                        'description': 'Last ones! The crabs! Kill the crabs and specular lakes will be completely '
-                                       'under your surveillance. ',
-                        'artefact': 'crabs corpse',
-                        'points': 15,
-                        'npc_give_task': 'Dark Wizard',
-                        'npc_take_artifact': 'Dark Wizard',
-                        'next_npc': None,
-                        'gift': 'healing potion'
-                    }
-                ]
-            },
-            # Quest 2
-            'steal_the_gold': {
-                'name': 'the_thief',
-                'description': 'As you are evil, your task will be to become a thief. See the Dragon.',
-                'points': 50,
-                'tasks': [
-                    {
-                        'name': 'thief_gorilla',
-                        'description': 'Dragon: Dragons love to be wealthy. You know what do do. First -  gorillas '
-                                       'stolen gem.',
-                        'artefact': 'The Greatest Gem of Dwarven Empire',
-                        'points': 10,
-                        'npc_give_task': 'Dragon',
-                        'npc_take_artifact': 'Dragon',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'description': 'Dragon: Thank you for the gem. Next step -  mermaid.'
-                                       'stolen gem.',
-                        'artefact': 'mermaid necklace',
-                        'points': 10,
-                        'npc_give_task': 'Dragon',
-                        'npc_take_artifact': 'Dragon',
-                        'next_npc': None,
-                        'gift': None
-
-                    },
-                    {
-                        'description': 'Dragon: Lastly... gold... lots of gold. Leprechaun!',
-                        'artefact': 'pot of gold',
-                        'points': 10,
-                        'npc_give_task': 'Dragon',
-                        'npc_take_artifact': 'Dragon',
-                        'next_npc': None,
-                        'gift': 'flame'
-                    }
-                ]
-            },
-            # Quest 3
-            'trick_orcs': {
-                'name': 'stinky_orcs',
-                'description': 'Now your task is to trick orcs into giving you more power. See them for the clues.',
-                'points': 60,
-                'tasks': [
-                    {
-                        'name': 'clean_feet',
-                        'description': 'Orcs: You want what? Regain your life? Ha ha ha... Fine, but you have to do '
-                                       'couple '
-                                       'of things first. For example... Clean my feet! Take water from Specular Lake.',
-                        'artefact': 'Water',
-                        'points': 15,
-                        'npc_give_task': 'Orc',
-                        'npc_take_artifact': 'Orc',
-                        'next_npc': None,
-                        'gift': 'Life potion'
                     }
                 ]
             },
@@ -1249,8 +918,8 @@ QUESTS = {
                     },
                     {
                         'name': 'bravery',
-                        'description': 'Dark Wizard: Now bring as much tigers meet as possible. We have to eat.',
-                        'artefact': 'Tigers Meat',
+                        'description': 'Dark Wizard: Now bring as much raven meet as possible. We have to eat.',
+                        'artefact': 'Raven Meat',
                         'points': 15,
                         'npc_give_task': 'Dark Wizard',
                         'npc_take_artifact': 'Dark Wizard',

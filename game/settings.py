@@ -18,7 +18,7 @@ SCALE = 700/12928
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 20
+HERO_SPEED = 50
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -116,8 +116,6 @@ GUI_IMAGES = {
     'small_chest_opened': pygame.image.load(os.path.join(path, "resources/GUI", "small_chest_opened.png")),
     'big_chest': pygame.image.load(os.path.join(path, "resources/GUI", "chest_big.png")),
     'table': pygame.image.load(os.path.join(path, "resources/GUI", "table.png")),
-    'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
-    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png")),
     'map2': pygame.image.load(os.path.join(path, "resources/GUI", "map2.png")),
     'title': pygame.image.load(os.path.join(path, "resources/GUI", "AdventuresInTheRealm.png")),
     'start': pygame.image.load(os.path.join(path, "resources/GUI", "Start.png")),
@@ -139,6 +137,10 @@ MAP_IMAGES = {
     'big_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree.png")),
     'big_tree_flower': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "big_tree_flower.png")),
     'dig_ground': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "ground.png")),
-    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.png"))
-
+    'pot': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.png")),
+    'leaves': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "leaf.png")),
+    'stick': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "Stick.png")),
+    'enchanted_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "EnchantedTree.png")),
+    'mud': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "Mud.png")),
+    'spider_web': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "spiderweb.png"))
 }
