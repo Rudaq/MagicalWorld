@@ -504,16 +504,13 @@ BLIND_RATS = {
 # X: 8400 - 11050
 # Y: 2250 - 4350
 SMITHS = {
-   # 'Gavin': ["good", None, None, 8800, 2600]
-    'Gavin': ["good", None, None, 250, 200]
+    'Gavin': ["good", None, None, 8800, 2600]
 }
 FARMERS = {
-    #'Harwin': ["good", None, None, 9700, 3500]
-    'Harwin': ["good", None, None, 200, 200]
+    'Harwin': ["good", None, None, 9700, 3500]
 }
 BIG_RAVENS = {
-    #'Feather': ["evil", None, None, 10200, 3600],
-    'Feather': ["evil", None, None, 220, 200],
+    'Feather': ["evil", None, None, 10200, 3600],
     'Crow': ["evil", None, None, 8850, 2920],
     'Nights': ["evil", None, None, 8900, 3180],
 }
@@ -524,8 +521,7 @@ ESCAPING_VEGETABLES = {
     'Thyme': ["evil", None, None, 10200, 3100]
 }
 WHEAT_MONSTERS = {
-   # 'Wheater': ["evil", None, None, 9150, 2750],
-    'Wheater': ["evil", None, None, 240, 200],
+    'Wheater': ["evil", None, None, 9150, 2750],
     'Skipper': ["evil", None, None, 9250, 3700],
     'Daphne': ["evil", None, None, 9400, 2950]
 }
