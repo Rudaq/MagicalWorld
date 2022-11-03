@@ -20,6 +20,7 @@ clock = pygame.time.Clock()
 
 background = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/menu_background.png')).convert_alpha()
 tutorial_background = pygame.image.load(os.path.join(path, 'resources/GUI/tutorial.png')).convert_alpha()
+character_view = pygame.image.load(os.path.join(path, 'resources/graphics/tilemap/character_background.png')).convert_alpha()
 
 '''
 Menu for choosing character race and other characteristics and starting the game
@@ -190,7 +191,8 @@ def choose_character():
 
     # Menu displaying loop
     while True:
-        screen.fill(BLACK)
+        # screen.fill(BLACK)
+        screen.blit(character_view, (0, 0))
         # screen.blit(eligible_characters_images[index], (400, 150))
         screen.blit(eligible_characters_images[index][0], (250, 0))
 

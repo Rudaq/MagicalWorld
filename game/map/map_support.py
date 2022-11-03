@@ -12,7 +12,7 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
     }
 
     # for testing
-    bound = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
+    bound = pygame.image.load("../resources/graphics/tilemap/npc_blocker.png")
 
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
@@ -25,6 +25,4 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
                         Tile((x, y), [sprites_to_move_opposite], [collision_sprites], 'invisible')
 
                     if style == 'boundary_npc':
-                        Tile((x, y), [sprites_to_move_opposite], [npc_boundaries], 'invisible')
-
-
+                        Tile((x, y), [sprites_to_move_opposite], [all_sprites_group, npc_boundaries], 'invisible', bound)

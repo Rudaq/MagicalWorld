@@ -29,7 +29,7 @@ class Character(pygame.sprite.Sprite):
 
         self.collision_sprites = collision_sprites
         self.groups = groups
-        self.speed = 5
+        # self.speed = 5
 
         self.name = name
         self.side = side

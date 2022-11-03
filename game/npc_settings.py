@@ -300,7 +300,7 @@ BIG_WOLVES = {
 }
 FRIENDLY_SNOWMEN = {
     'Olaf': ["good", None, None, 1100, 280],
-    'Bodak': ["good", None, None, 2300, 990],
+    'Bodak': ["good", None, None, 2300, 1150],
     'Benjamin': ["good", None, None, 250, 1480],
     'Dinerdo': ["good", None, None, 1200, 1880]
 }

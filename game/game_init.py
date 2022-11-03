@@ -54,10 +54,12 @@ def game(hero):
     sprites_to_move_opposite = []
     all_sprites_group = CameraGroup()
     collision_sprites_hero = pygame.sprite.Group()
+
     collision_sprites_npc = pygame.sprite.Group()
+    npc_boundaries = pygame.sprite.Group()
+
     all_artifacts = pygame.sprite.Group()
     all_sprites_group.add(all_artifacts)
-    npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
     hero.collision_sprites = collision_sprites_hero
@@ -114,9 +116,11 @@ def game(hero):
     sprites_to_move_opposite.extend(all_artifacts)
     all_sprites_group.add(map_artifacts)
     collision_sprites_hero.add(map_artifacts)
+
     collision_sprites_npc.add(map_artifacts)
     collision_sprites_npc.add(npc_boundaries)
     collision_sprites_npc.add(hero)
+    all_sprites_group.add(collision_sprites_npc)
 
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
@@ -126,7 +130,7 @@ def game(hero):
     mock_npcs_to_choose = pygame.sprite.Group()
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
-    all_sprites_group.add(collision_sprites_npc)
+
 
     # Creating npcs
     for npc_entity in NPCs:
@@ -151,7 +155,7 @@ def game(hero):
 
         all_sprites_group.add(npc_collision_with_npcs)
         npc.collision_sprites = collision_sprites_npc
-        npc.collision_sprites_npc = npc_collision_with_npcs
+        # npc.collision_sprites_npc = npc_collision_with_npcs
         npc.groups = all_sprites_group
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
