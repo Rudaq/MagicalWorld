@@ -1,7 +1,13 @@
+import os
+from pathlib import Path
+
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import WIZARD_SPELLS
 import pygame
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
+
 
 
 # Class for a hero of race Wizard, inherits from Character class
@@ -14,9 +20,10 @@ class Wizard(Character):
         self.wind_spell = AttackClass(WIZARD_SPELLS['wind'], 10, 10, 'wind_spell')
         self.magic_ball_spell = AttackClass(WIZARD_SPELLS['magic_ball'], 20, 30, 'magic_ball_spell')
         self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 20, 'powerful_sparks')
-        self.sound3_path = "../resources/music/fairy_heal.wav"
-        self.sound2_path = "../resources/music/fire-magic.wav"
-        self.sound1_path = "../resources/music/healing_spell.wav"
+        self.sound3_path = os.path.join(path, "resources/music/fairy_heal.wav")
+        self.sound2_path = os.path.join(path, "resources/music/fire-magic.wav")
+        self.sound1_path = os.path.join(path, "resources/music/healing_spell.wav")
+
 
     def attack(self, screen, npcs):
         if self.in_attack:

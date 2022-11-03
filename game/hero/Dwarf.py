@@ -1,7 +1,12 @@
+import os
+from pathlib import Path
+
 from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import DWARVES_ACTIONS
 import pygame
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 
 
 # Class for a hero of race Dwarf, inherits from Character class
@@ -16,9 +21,9 @@ class Dwarf(Character):
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
         self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 5, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
-        self.sound3_path = "../resources/music/sleeping.wav"
-        self.sound2_path = "../resources/music/braid_choke.wav"
-        self.sound1_path = "../resources/music/axe_hit.wav"
+        self.sound3_path = os.path.join(path, "resources/music/sleeping.wav")
+        self.sound2_path = os.path.join(path, "resources/music/braid_choke.wav")
+        self.sound1_path = os.path.join(path, "resources/music/axe_hit.wav")
 
     # printing the attack onto the screen
     def attack(self, screen, npcs):

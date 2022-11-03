@@ -1,8 +1,15 @@
+import os
+from pathlib import Path
+
 from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import FAERIE_SPELLS
 from artifacts.Artifact import Artifact
 import pygame
+
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
+
 '''
 Class for a hero of race Elf, inherits from Character class
 '''
@@ -17,9 +24,10 @@ class Faerie(Character):
         self.fire_spell = AttackClass(FAERIE_SPELLS['fire'], 20, 20, "fire_spell")
         self.thrown_spell = AttackClass(FAERIE_SPELLS['thrown'], 40, 10, "thrown_spell")
         self.flower_spell = AttackClass(FAERIE_SPELLS['flower'], 0, 20, "flower_spell")
-        self.sound3_path = "../resources/music/fairy_heal.wav"
-        self.sound2_path = "../resources/music/pushing.wav"
-        self.sound1_path = "../resources/music/fire-magic.wav"
+        self.sound3_path = os.path.join(path, "resources/music/fairy_heal.wav")
+        self.sound2_path = os.path.join(path, "resources/music/pushing.wav")
+        self.sound1_path = os.path.join(path, "resources/music/fire-magic.wav")
+
 
     # load images
     # create class to manage spell objects
