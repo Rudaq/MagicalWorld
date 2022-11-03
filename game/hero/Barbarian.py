@@ -1,7 +1,13 @@
+import os
+from pathlib import Path
+
 import pygame
 from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import BARBARIAN_ACTIONS, HERO_ANIMATIONS
+
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 
 
 # Class for a hero of race Barbarian, inherits from Character class
@@ -14,9 +20,9 @@ class Barbarian(Character):
         self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 50, 10, 'sword_attack')
         self.fury = AttackClass(BARBARIAN_ACTIONS['fury'], 15, 5, 'fury_attack')
         self.resistance = AttackClass(BARBARIAN_ACTIONS['resistance'], 0, 10, 'resistance_to_damage')
-        self.sound3_path = "../resources/music/arrow.wav"
-        self.sound2_path = "../resources/music/fury.wav"
-        self.sound1_path = "../resources/music/sword-hit.wav"
+        self.sound3_path = os.path.join(path, "resources/music/arrow.wav")
+        self.sound2_path = os.path.join(path, "resources/music/fury.wav")
+        self.sound1_path = os.path.join(path, "resources/music/sword-hit.wav")
 
     def resistant_to_damage(self, screen):
         half_live = self.life / 2

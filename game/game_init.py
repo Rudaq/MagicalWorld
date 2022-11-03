@@ -44,7 +44,11 @@ def game(hero):
     HEIGHT_GAME = screen.get_size()[1]
     clock = pygame.time.Clock()
 
-    pygame.mixer.music.load('C:\\Inżynierka\\MagicalWorld\\resources\\music\\background_sound.wav')
+    # pygame.mixer.music.load('C:\\Inżynierka\\MagicalWorld\\resources\\music\\background_sound.wav')
+    # pygame.mixer.music.play(-1)
+    # pygame.mixer.music.set_volume(0.2)
+    music_path = os.path.join(path, "resources/music/background_sound.wav")
+    pygame.mixer.music.load(music_path)
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 

@@ -79,7 +79,7 @@ class Character(pygame.sprite.Sprite):
         self.sound2 = None
         self.sound3 = None
         self.sound_life = None
-        self.path_life = "../resources/music/life_loss.wav"
+        self.path_life = os.path.join(path, "resources/music/life_loss.wav")
 
 
     # method to return active quest
