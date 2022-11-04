@@ -8,6 +8,7 @@ from artifacts.AttackClass import AttackClass
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
+# Scale the image to your needed size
 
 # Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class Amazon(Npc):

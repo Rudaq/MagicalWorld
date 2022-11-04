@@ -18,15 +18,15 @@ class Vampire(Npc):
         self.race = "Vampire"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Vampire Blood', None)
-        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "fang.PNG"))
+        fang_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "fang.PNG")).convert_alpha()
         self.fang = Artifact(fang_image, 5, 'Vampire Fang', None)
         self.artifacts.add(self.blood, self.fang)
-        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "immortality_potion.PNG"))
+        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "immortality_potion.PNG")).convert_alpha()
         self.potion = Artifact(potion_image, 50, 'Immortality Potion', None)
         self.gifts.add(self.potion)
         vampire_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "vampire_attack.PNG"))
+            os.path.join(path, "resources/graphics/particles", "vampire_attack.PNG")).convert_alpha()
         self.npc_attack = AttackClass(vampire_attack, 20, 10, 'vampire attack')
         self.context = Path("../NLP/context/VampireContext.txt").read_text()

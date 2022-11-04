@@ -19,9 +19,9 @@ class BigFish(Npc):
         self.race = "Big Fish"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        dead_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "dead_fish.PNG"))
+        dead_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "dead_fish.PNG")).convert_alpha()
         self.dead = Artifact(dead_image, 10, 'Dead Fish', None)
         self.artifacts.add(self.dead)
         big_fish_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "bubble.PNG"))
+            os.path.join(path, "resources/graphics/particles", "bubble.PNG")).convert_alpha()
         self.npc_attack = AttackClass(big_fish_attack, 20, 10, 'big fish attack')

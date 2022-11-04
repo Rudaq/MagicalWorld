@@ -9,6 +9,7 @@ MENU_WIDTH = 800
 MENU_HEIGHT = 600
 
 TILE_SIZE = 64
+DEFAULT_IMAGE_SIZE = (50, 50)
 
 WIDTH_GAME = 1500
 HEIGHT_GAME = 800
@@ -16,7 +17,7 @@ DIALOG_START = 100
 TILES_SIZE = 64
 SCALE = 700/12928
 
-HERO_SPEED = 25
+HERO_SPEED = 4
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
 BLACK = (0, 0, 0)

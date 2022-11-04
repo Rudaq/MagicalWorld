@@ -1,3 +1,5 @@
+from NLP.dialog_generation.HeroMoveThread import HeroMoveThread
+from NLP.dialog_generation.NpcMoveThread import NpcMoveThread
 from game.game_support import create_npc, import_csv_layout, import_folder, show_map_to_hero
 
 import sys
@@ -64,11 +66,9 @@ def game(hero):
     npc_boundaries = pygame.sprite.Group()
 
     # Adding created characters to group with all sprites
-    hero.collision_sprites = collision_sprites_hero
+    # hero.collision_sprites = collision_sprites_hero
     hero.groups = all_sprites_group
     all_sprites_group.add(hero)
-
-    moving = False
 
     dir_opposite = 'R'
     mov_x = 0
@@ -81,6 +81,8 @@ def game(hero):
     npc_dialog_thread = None
     npc_dialog_thread = NpcDialogThread(hero, screen, npcs)
     npc_dialog_thread.start()
+
+
     show_quest = False
     show_chest = False
     show_map = False
@@ -93,8 +95,6 @@ def game(hero):
     restore_mana_time_passed = None
     restore = None
     option = 1
-    npc_clicked = False
-    chosen_npc = None
     counter = 0
     first_iteration = True
 
@@ -108,8 +108,8 @@ def game(hero):
     talk_button = ButtonClass(80, 40, 'talk_button')
 
     equipment_buttons = pygame.sprite.Group()
-    equipment_buttons.update()
-    equipment_buttons.draw(screen)
+    # equipment_buttons.update()
+    # equipment_buttons.draw(screen)
 
     # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
     map_artifacts = pygame.sprite.Group()
@@ -118,7 +118,7 @@ def game(hero):
     sprites_to_move_opposite.extend(all_artifacts)
     all_sprites_group.add(map_artifacts)
     collision_sprites_hero.add(map_artifacts)
-    collision_sprites_npc.add(map_artifacts)
+    # collision_sprites_npc.add(map_artifacts)
     collision_sprites_npc.add(npc_boundaries)
     collision_sprites_npc.add(hero)
 
@@ -149,19 +149,40 @@ def game(hero):
         sprites_to_move_opposite.extend(npc.artifacts)
         collision_sprites_hero.add(npc.artifacts)
         collision_sprites_npc.add(npc.artifacts)
-        npc_collision_with_npcs = pygame.sprite.Group()
-        for n in npcs:
-            if npc != n:
-                npc_collision_with_npcs.add(n)
 
-        all_sprites_group.add(npc_collision_with_npcs)
-        npc.collision_sprites = collision_sprites_npc
-        npc.collision_sprites_npc = npc_collision_with_npcs
-        npc.groups = all_sprites_group
+        # npc_collision_with_npcs = pygame.sprite.Group()
+        # for n in npcs:
+        #     if npc != n:
+        #         npc_collision_with_npcs.add(n)
+
+        # all_sprites_group.add(npc_collision_with_npcs)
+        # npc.collision_sprites = collision_sprites_npc
+        # npc.collision_sprites_npc = npc_collision_with_npcs
+        # npc.groups = all_sprites_group
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
-    create_map(collision_sprites_hero, collision_sprites_npc, sprites_to_move_opposite)
+    #HERE sth
+    create_map(collision_sprites_hero, npc_boundaries, sprites_to_move_opposite)
+    hero.collision_sprites = collision_sprites_hero
+
+    print("Number of collision sprites: ", collision_sprites_npc)
+    print("NPC boundaries no: ", npc_boundaries)
+    print("Hero boundaries no: ", collision_sprites_hero)
+    # collision_sprites_npc.add(npc_boundaries)
+
+    for col_npc in collision_sprites_npc:
+        npc_boundaries.add(col_npc)
+
+    for npc in npcs:
+        npc.collision_sprites = npc_boundaries
+        npc.collision_sprites.remove(npc)
+
+    npc_movement_thread = NpcMoveThread(hero, screen, npcs, all_sprites_group, all_artifacts, npcs_to_choose)
+    npc_movement_thread.start()
+
+    hero_movement_thread = HeroMoveThread(hero, screen, npcs, all_sprites_group, sprites_to_move_opposite)
+    hero_movement_thread.start()
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -169,14 +190,14 @@ def game(hero):
     all_sprites_group.offset.y = 0
     create_quests(hero)
 
-    while True:
+    while(1):
 
         screen.blit(SEA, (0, 0))
         all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
-                   restore_life_time_passed, chosen_npc, chest_opened)
+                   restore_life_time_passed, hero.chosen_npc, chest_opened)
 
         all_artifacts.update()
         all_artifacts.draw(screen)
@@ -195,7 +216,7 @@ def game(hero):
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a or event.key == pygame.K_RIGHT \
                         or event.key == pygame.K_d or event.key == pygame.K_DOWN or event.key == pygame.K_s \
                         or event.key == pygame.K_UP or event.key == pygame.K_w:
-                    moving = False
+                    hero.moving = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -203,37 +224,37 @@ def game(hero):
 
                 elif event.key == pygame.K_UP or event.key == pygame.K_w:
                     hero.direction = 'U'
-                    movement = 'vertical'
-                    moving = True
-                    dir_opposite = 'D'
-                    mov_x = 0
-                    mov_y = HERO_SPEED
-                    sign = (-1)
+                    hero.movement = 'vertical'
+                    hero.moving = True
+                    hero.dir_opposite = 'D'
+                    hero. mov_x = 0
+                    hero.mov_y = HERO_SPEED
+                    hero.sign = (-1)
 
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     hero.direction = 'D'
-                    movement = 'vertical'
-                    moving = True
-                    dir_opposite = 'U'
-                    mov_x = 0
-                    mov_y = HERO_SPEED
-                    sign = 1
+                    hero.movement = 'vertical'
+                    hero.moving = True
+                    hero.dir_opposite = 'U'
+                    hero.mov_x = 0
+                    hero.mov_y = HERO_SPEED
+                    hero.sign = 1
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     hero.direction = 'R'
-                    movement = 'horizontal'
-                    moving = True
-                    dir_opposite = 'L'
-                    mov_x = HERO_SPEED
-                    mov_y = 0
-                    sign = 1
+                    hero.movement = 'horizontal'
+                    hero.moving = True
+                    hero.dir_opposite = 'L'
+                    hero.mov_x = HERO_SPEED
+                    hero.mov_y = 0
+                    hero.sign = 1
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     hero.direction = 'L'
-                    movement = 'horizontal'
-                    moving = True
-                    dir_opposite = 'R'
-                    mov_x = HERO_SPEED
-                    mov_y = 0
-                    sign = (-1)
+                    hero.movement = 'horizontal'
+                    hero.moving = True
+                    hero.dir_opposite = 'R'
+                    hero.mov_x = HERO_SPEED
+                    hero.mov_y = 0
+                    hero.sign = (-1)
                 elif event.key == pygame.K_1 and hero.in_fight_mode:
                     option = 1
                     set_fight_parameters(hero)
@@ -246,7 +267,7 @@ def game(hero):
 
                 # Event support for dialog
                 if hero.in_dialog:
-                    moving = False
+                    hero.moving = False
                     # Checking if hero is now talking - possibility of keyboard interaction
                     # letters, digits, signs and space accepted (lists at the top)
                     if hero.hero_turn:
@@ -282,15 +303,11 @@ def game(hero):
                             hero.hero_turn = False
                             update_positions_and_transparency(hero.text_history)
 
-        if moving:
-            hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
-                      sprites_to_move_opposite)
+        # if hero.moving:
+        #     hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
+        #               sprites_to_move_opposite)
 
         # -----------------------------------------------------------------------------------------------
-        # Random movement of npcs if not in dialog
-        for npc in npcs:
-            if not npc.is_talking and not npc.in_fight_mode:
-                npc.move(all_sprites_group)
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -313,7 +330,7 @@ def game(hero):
 
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
-                               restore_life_time_passed, chosen_npc, chest_opened)
+                               restore_life_time_passed, hero.chosen_npc, chest_opened)
 
                     # remove the artifact from the surface
                     if hero.collect_artifact(artifact, npcs):
@@ -324,51 +341,62 @@ def game(hero):
                         # time to chest icon to be opened
                         restore = datetime.now()
 
+                    break
+
             for map_artifact in map_artifacts:
                 if map_artifact.rect.collidepoint(mouse_point):
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
-                               restore_life_time_passed, chosen_npc, chest_opened)
+                               restore_life_time_passed,hero.chosen_npc, chest_opened)
                     if hero.collect_map_artifact(map_artifact, equipment_buttons):
                         chest_opened = True
                         restore = datetime.now()
                         check_map_artifact(map_artifact)
+                    break
 
             for npc in npcs:
+                # if npc.to_kill:
+                #     npc_clicked = False
+                #     if npc ==hero.chosen_npc:
+                #         hero.chosen_npc = None
+
                 # Checking mouse point collision with npc
                 if npc.rect.collidepoint(mouse_point):
                     # checking if hero is in npc's range in order to interact
                     if npc_in_interaction_range(npc, hero):
-                        counter += 1
+                        # counter += 1
                         # check if NPC is clicked or / unclicked
-                        if counter % 2 == 1:
-                            chosen_npc = npc
-                            npc_clicked = True
+                        # what??
+                        # if counter % 2 == 1:
+                        if not hero.npc_clicked:
+                            hero.chosen_npc = npc
+                            hero.npc_clicked = True
                             # show NPC's life on hud
-                            chosen_npc.add_npc_to_hud = True
-                            if hero.active_quest is None:
-                                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
-                                           restore_mana,
-                                           restore_mana_time_passed,
-                                           restore_life_time_passed, chosen_npc, chest_opened)
-                                all_sprites_group.update()
+                            hero.chosen_npc.add_npc_to_hud = True
+                            # if hero.active_quest is None:
+                            #     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                            #                restore_mana,
+                            #                restore_mana_time_passed,
+                            #                restore_life_time_passed, hero.chosen_npc, chest_opened)
+                            #     all_sprites_group.update()
 
                         else:
-                            npc_clicked = False
+                            hero.npc_clicked = False
                             # remove NPC's life from hud
-                            chosen_npc.add_npc_to_hud = False
+                            hero.chosen_npc.add_npc_to_hud = False
                             # Stop talking or fighting
-                            if chosen_npc.is_talking:
-                                stop_talk(hero, chosen_npc)
+                            if hero.chosen_npc.is_talking:
+                                stop_talk(hero, hero.chosen_npc)
 
-                            if chosen_npc.in_fight_mode:
-                                stop_fight(hero, chosen_npc)
+                            if hero.chosen_npc.in_fight_mode:
+                                stop_fight(hero, hero.chosen_npc)
 
-                            update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
-                                       restore_mana,
-                                       restore_mana_time_passed,
-                                       restore_life_time_passed, chosen_npc, chest_opened)
-                            all_sprites_group.update()
+                            # update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                            #            restore_mana,
+                            #            restore_mana_time_passed,
+                            #            restore_life_time_passed, hero.chosen_npc, chest_opened)
+                            # all_sprites_group.update()
+                    break
 
             if arrow_up.rect.collidepoint(mouse_point):
                 move_dialog_up(hero.text_history)
@@ -383,16 +411,16 @@ def game(hero):
             elif map_button.rect.collidepoint(mouse_point):
                 show_map = not show_map
             elif fight_button.rect.collidepoint(mouse_point):
-                fight(hero, chosen_npc)
+                fight(hero, hero.chosen_npc)
             elif talk_button.rect.collidepoint(mouse_point):
-                talk(hero, chosen_npc)
+                talk(hero, hero.chosen_npc)
 
             if show_chest:
                 for equipment in equipment_buttons:
                     if equipment.rect.collidepoint(mouse_point):
                         show_table = not show_table
                         if show_table:
-                            chosen_artifact = equipment
+                            hero.chosen_artifact = equipment
             # for mock_npc in mock_npcs_to_choose:
             #     if mock_npc.rect.collidepoint(mouse_point):
             #         if give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen):
@@ -412,7 +440,7 @@ def game(hero):
                 update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                            restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened)
+                           restore_life_time_passed, hero.chosen_npc, chest_opened)
 
         if hero.restore_new_task is not None:
             if time_measure(hero.restore_new_task, 5):
@@ -420,18 +448,33 @@ def game(hero):
                 update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                            restore_mana,
                            restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened)
+                           restore_life_time_passed, hero.chosen_npc, chest_opened)
 
         # check if NPC is still alive
-        for npc in npcs:
-            if npc.life == 0 or npc.life < 0:
-                if npc == chosen_npc:
-                    stop_fight(hero, npc)
-                    stop_talk(hero, npc)
-                    npc_clicked = False
-                npc.kill_npc(all_artifacts, screen)
-                remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
-                           screen)
+        # for npc in npcs:
+        #     if npc.life == 0 or npc.life < 0:
+        #         if npc == chosen_npc:
+        #             stop_fight(hero, npc)
+        #             stop_talk(hero, npc)
+        #             npc_clicked = False
+        #         npc.kill_npc(all_artifacts, screen)
+        #         remove_npc(npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
+        #                    screen)
+
+        # if chosen_npc is not None:
+        #     if chosen_npc.life == 0 or chosen_npc.life < 0:
+        #         stop_fight(hero, chosen_npc)
+        #         stop_talk(hero, chosen_npc)
+        #         npc_clicked = False
+        #         chosen_npc.kill_npc(all_artifacts, screen)
+        #         remove_npc(chosen_npc, npcs, all_sprites_group, npcs_to_choose, collision_sprites_hero, collision_sprites_npc,
+        #                    screen)
+        #         all_sprites_group.update()
+        #         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+        #                    restore_mana,
+        #                    restore_mana_time_passed,
+        #                    restore_life_time_passed, chosen_npc, chest_opened)
+
 
         if first_iteration:
             hero.new_task = True
@@ -439,38 +482,48 @@ def game(hero):
             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                        restore_mana,
                        restore_mana_time_passed,
-                       restore_life_time_passed, chosen_npc, chest_opened)
+                       restore_life_time_passed, hero.chosen_npc, chest_opened)
             first_iteration = False
 
-        if chosen_npc is not None:
-            if chosen_npc.add_npc_to_hud:
-                update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
-                           restore_mana,
-                           restore_mana_time_passed,
-                           restore_life_time_passed, chosen_npc, chest_opened)
-                all_sprites_group.update()
+        # if hero.chosen_npc is not None:
+            # print("CHOSEN")
+            # if hero.chosen_npc.add_npc_to_hud:
+                # update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
+                #            restore_mana,
+                #            restore_mana_time_passed,
+                #            restore_life_time_passed, hero.chosen_npc, chest_opened)
+                # all_sprites_group.update()
 
         if hero.in_attack:
             hero.fight(screen, option, npcs)
-            all_sprites_group.update()
+            # all_sprites_group.update()
 
-        if chosen_npc is not None:
-            if chosen_npc.in_fight_mode:
-                chosen_npc.move_in_fight(hero, all_sprites_group)
-                chosen_npc.attack_type = None
-                chosen_npc.fight_npc(screen, hero, npcs)
-                all_sprites_group.update()
+        # if chosen_npc is not None:
+        #     if chosen_npc.in_fight_mode:
+        #         chosen_npc.move_in_fight(hero, all_sprites_group)
+        #         chosen_npc.attack_type = None
+        #         chosen_npc.fight_npc(screen, hero, npcs)
+        #         all_sprites_group.update()
 
+        if hero.killed_npc is not None:
+            stop_fight(hero, hero.killed_npc)
+            stop_talk(hero, hero.killed_npc)
+            hero.npc_clicked = False
+            hero.chosen_npc = None
+            hero.killed_npc.kill_npc(all_artifacts, screen)
+            hero.killed_npc.kill()
+            hero.killed_npc = None
 
-        if npc_clicked:
-            if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
+        if hero.npc_clicked:
+            # print("CLICKED")
+            if not hero.chosen_npc.is_talking and not hero.chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
-                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
-                all_sprites_group.update()
+                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, hero.chosen_npc, hero)
+                # all_sprites_group.update()
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)
-            all_sprites_group.update()
+            # all_sprites_group.update()
 
         if show_quest:
             if hero.active_quest.active_task is None and not hero.active_quest.is_opened:
@@ -494,7 +547,7 @@ def game(hero):
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
             for mock_npc in mock_npcs_to_choose:
                 if mock_npc.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, mock_npc, chosen_artifact, equipment_buttons, npcs, screen)
+                    give_artifact_to_npc(hero, mock_npc, hero.chosen_artifact, equipment_buttons, npcs, screen)
                     show_table = False
 
         if hero.mana < 50 and not restore_mana:

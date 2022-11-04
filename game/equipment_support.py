@@ -18,8 +18,8 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     x = pos + 40
     y = 220
     counter = 0
-    equipment_buttons.update()
-    equipment_buttons.draw(screen)
+    # equipment_buttons.update()
+    # equipment_buttons.draw(screen)
     for eq in hero.equipment:
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
@@ -116,11 +116,11 @@ def remove_artifact(all_sprites_group, collision_sprites_hero, collision_sprites
     collision_sprites_hero.remove(artifact)
     collision_sprites_npc.remove(artifact)
     all_artifacts.remove(artifact)
-    all_artifacts.update()
-    all_sprites_group.update()
-    collision_sprites_hero.update()
-    collision_sprites_npc.update()
-    all_artifacts.draw(screen)
+    # all_artifacts.update()
+    # all_sprites_group.update()
+    # collision_sprites_hero.update()
+    # collision_sprites_npc.update()
+    # all_artifacts.draw(screen)
 
 
 def collect_map_artifact(hero, map_artifact, npcs):

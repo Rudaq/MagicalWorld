@@ -12,7 +12,7 @@ def create_map(collision_sprites, npc_boundaries, sprites_to_move_opposite):
     }
 
     # for testing
-    bound = pygame.image.load("../resources/graphics/tilemap/player_blocker.png")
+    bound = pygame.image.load("../resources/graphics/tilemap/player_blocker.png").convert_alpha()
 
     for style, layout in layouts.items():
         for row_index, row in enumerate(layout):
