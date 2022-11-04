@@ -5,17 +5,17 @@ from pathlib import Path
 import pygame
 # Generating dialog text for NPC side and formatting it
 from transformers import DistilBertTokenizerFast, pipeline, Conversation
-#
-# model_name = "distilbert-base-uncased-finetuned-sst-2-english"
-# tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
-#
-# # conv_model_name="facebook/blenderbot-400M-distill"
-# conv_model = "microsoft/DialoGPT-medium"
-# conv_output = pipeline('conversational', model=conv_model)
-# # sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
-#
-# model_name_qa = "deepset/roberta-base-squad2"
-# qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_name_qa)
+
+model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
+
+# conv_model_name="facebook/blenderbot-400M-distill"
+conv_model = "microsoft/DialoGPT-medium"
+conv_output = pipeline('conversational', model=conv_model)
+# sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
+
+model_name_qa = "deepset/roberta-base-squad2"
+qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_name_qa)
 
 
 def check_if_question(sentence):

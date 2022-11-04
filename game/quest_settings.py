@@ -78,7 +78,7 @@ QUESTS = {
                         'gift': None
                     },
                     {
-                        'name': 'rainbow',
+                        'name': 'panda_ball',
                         'description': 'Mermaid: Oh no, poor Panda. Her ball got stuck on a bamboo tree. Find the '
                                        'ball and give it to the Panda so she can play again.',
                         'artefact': 'Ball',
@@ -209,19 +209,19 @@ QUESTS = {
             # Quest 3
             'prove_bravery': {
                 'name': 'prove_bravery',
-                'description': 'Well done, the Dark Elf spreads the word about your strength. Apparently, Big Ravens '
+                'description': 'Well done, the Dark Elf spreads the word about your strength. Apparently, Ice Monster '
                                'know how you can prove your bravery, go to him for details',
                 'points': 60,
                 'tasks': [
                     {
-                        'name': 'feed_ravens',
-                        'description': 'Big Ravens: We will tell you how you can prove your bravery, but first bring '
-                                       'us food. We feed on the skin of a snake, I think you know what to do..',
+                        'name': 'feed_ice_monster',
+                        'description': 'Ice Monster: I will tell you how you can prove your bravery, but first bring '
+                                       'me food. I feed on the skin of a snake, I think you know what to do..',
                         'artefact': 'Snake Skin',
                         'points': 15,
-                        'npc_give_task': 'Big Raven',
-                        'npc_take_artifact': 'Big Raven',
-                        'next_npc': 'Big Ravens',
+                        'npc_give_task': 'Ice Monster',
+                        'npc_take_artifact': 'Ice Monster',
+                        'next_npc': None,
                         'gift': None
                     },
                     {
@@ -231,7 +231,7 @@ QUESTS = {
                                        ' your bravery',
                         'artefact': 'Mermaid Blood',
                         'points': 15,
-                        'npc_give_task': 'Big Raven',
+                        'npc_give_task': 'Ice Monster',
                         'npc_take_artifact': 'Vampire',
                         'next_npc': None,
                         'gift': None,

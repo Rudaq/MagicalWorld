@@ -2,7 +2,14 @@ from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import DWARVES_ACTIONS
 
+import pygame
+from artifacts.Artifact import Artifact
+import os
+from pathlib import Path
+from artifacts.AttackClass import AttackClass
 
+current = os.path.dirname(os.path.realpath(__file__))
+path = Path(__file__).resolve().parent.parent.parent
 # Class for a hero of race Dwarf, inherits from Character class
 # images = entries from HERO_ANIMATIONS['Dwarf'] dict
 class Dwarf(Character):
@@ -15,6 +22,9 @@ class Dwarf(Character):
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
         self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 25, 15, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
+        feather_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_feather.PNG"))
+        self.feather = Artifact(feather_image, 10, 'Raven Feathers', None)
+        self.equipment.append(self.feather)
 
     # printing the attack onto the screen
     def attack(self, screen, npcs):
