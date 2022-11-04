@@ -7,7 +7,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk, talk
-from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact, go_to_island
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
 from game.game_support import create_npc, add_map_artifacts
 from game.hud_component import update_hud
@@ -38,7 +38,7 @@ def game(hero):
     pygame.init()
     pygame.display.set_caption("Adventures in the Realm")
     # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((1500, 800))
+    screen = pygame.display.set_mode((1200, 600))
     print("Screen size", screen.get_size()[0])
     WIDTH_GAME = screen.get_size()[0]
     HEIGHT_GAME = screen.get_size()[1]
@@ -89,7 +89,7 @@ def game(hero):
     npc_clicked = False
     chosen_npc = None
     counter = 0
-
+    boat = None
     s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
     arrow_down = ButtonClass(25, 25, 'arrow_down')
@@ -98,6 +98,7 @@ def game(hero):
     map_button = ButtonClass(230, 240, 'map_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
+    boat_button = ButtonClass(100, 50, 'boat_button')
 
     equipment_buttons = pygame.sprite.Group()
     equipment_buttons.update()
@@ -162,7 +163,7 @@ def game(hero):
 
     while True:
 
-        #screen.blit(SEA, (0, 0))
+        # screen.blit(SEA, (0, 0))
         all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
@@ -277,6 +278,7 @@ def game(hero):
             hero.move(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
                       sprites_to_move_opposite)
 
+
         # -----------------------------------------------------------------------------------------------
         # Random movement of npcs if not in dialog
         for npc in npcs:
@@ -320,10 +322,20 @@ def game(hero):
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
-                    if hero.collect_map_artifact(map_artifact, equipment_buttons):
-                        chest_opened = True
-                        restore = datetime.now()
-                        check_map_artifact(map_artifact)
+                    if map_artifact.name != 'Boat':
+                        if hero.collect_map_artifact(map_artifact, equipment_buttons):
+                            chest_opened = True
+                            restore = datetime.now()
+                            check_map_artifact(map_artifact)
+                    else:
+                        buttons = pygame.sprite.Group()
+                        boat_button.image = pygame.transform.scale(GUI_IMAGES['boat_button'], (150, 50))
+                        boat_button.rect.x = 1200
+                        boat_button.rect.y = 600
+                        boat = map_artifact
+                        buttons.add(boat_button)
+                        buttons.update()
+                        buttons.draw(screen)
 
             for npc in npcs:
                 # Checking mouse point collision with npc
@@ -377,6 +389,8 @@ def game(hero):
                 fight(hero, chosen_npc)
             elif talk_button.rect.collidepoint(mouse_point):
                 talk(hero, chosen_npc)
+            elif boat_button.rect.collidepoint(mouse_point):
+                go_to_island(hero, boat)
 
             if show_chest:
                 for equipment in equipment_buttons:
@@ -384,8 +398,6 @@ def game(hero):
                         show_table = not show_table
                         if show_table:
                             chosen_artifact = equipment
-
-
 
         # Set previous state of left mouse button
         prev = left
@@ -443,7 +455,6 @@ def game(hero):
                 chosen_npc.attack_type = None
                 chosen_npc.fight_npc(screen, hero, npcs)
                 all_sprites_group.update()
-
 
         if npc_clicked:
             if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:

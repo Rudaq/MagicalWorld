@@ -115,6 +115,7 @@ class Character(pygame.sprite.Sprite):
                     sprite.rect.centery += mov_y * sign * (-1)
                 sprite.direction = dir_opposite
 
+
     def collision(self, all_sprites_group):
         is_collision = False
         collision_occurred = False

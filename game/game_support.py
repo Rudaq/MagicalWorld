@@ -213,9 +213,15 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
+
+    boat_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "boat.PNG"))
+    boat = Artifact(boat_image, 20, 'Boat', None)
+    boat.rect.x = 9200
+    boat.rect.y = 4950
+
     all_artifacts.add(paper, pot, water)
 
-    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
+    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground, boat)
 
 
 def check_map_artifact(map_artifact):
@@ -228,3 +234,10 @@ def check_map_artifact(map_artifact):
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
+
+def go_to_island(hero, boat):
+    hero.rect.x = 12500
+    hero.rect.y = 5000
+    boat.rect.x = 12500
+    boat.rect.y = 5000
+    print("hey")

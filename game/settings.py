@@ -122,7 +122,8 @@ GUI_IMAGES = {
     'next': pygame.image.load(os.path.join(path, "resources/GUI", "Next.png")),
     'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
-    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
+    'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png")),
+    'boat_button': pygame.image.load(os.path.join(path, "resources/GUI", "boat_button.png"))
 
 }
 
