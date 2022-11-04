@@ -13,7 +13,7 @@ model = GPT2LMHeadModel.from_pretrained("gpt2")
 text_list = []
 
 # Using data gathered in the csv file (change to the merged file)
-with open("descriptions.csv", "r") as my_input_file:
+with open("descriptions_new.csv", "r") as my_input_file:
     for line in my_input_file:
         line = line.split(" ")
         text_list.append(" ".join(line))
