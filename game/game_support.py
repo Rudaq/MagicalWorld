@@ -46,7 +46,8 @@ def create_npc(npc_race, sprite_arrays, sprite_groups, collision_sprites, name=N
             entity = npc_dict_entry['class_name'](name=name, side=parameters[0], mana=npc_dict_entry['mana'],
                                                   life=npc_dict_entry['life'], images=npc_dict_entry['images'],
                                                   artifacts=parameters[1], quests=parameters[2], x=parameters[3],
-                                                  y=parameters[4], pos=(parameters[3], parameters[4]), groups=sprite_groups,
+                                                  y=parameters[4], pos=(parameters[3], parameters[4]),
+                                                  groups=sprite_groups,
                                                   collision_sprites=collision_sprites)
 
             for array in sprite_arrays:
@@ -208,20 +209,16 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
-    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
+    water_on_map_image = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
     water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
 
-    boat_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "boat.PNG"))
-    boat = Artifact(boat_image, 20, 'Boat', None)
-    boat.rect.x = 9200
-    boat.rect.y = 4950
-
     all_artifacts.add(paper, pot, water)
 
-    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground, boat)
+    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
 
 
 def check_map_artifact(map_artifact):
@@ -235,9 +232,68 @@ def check_map_artifact(map_artifact):
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
 
-def go_to_island(hero, boat):
-    hero.rect.x = 12500
-    hero.rect.y = 5000
-    boat.rect.x = 12500
-    boat.rect.y = 5000
-    print("hey")
+#TODO
+#  funckja do przemieszczania hero na wyspe lub z powrotrm
+def go_to_island(hero, boat, boat_button, all_sprites_group, sprites_to_move_opposite):
+    x = hero.rect.x
+    y = hero.rect.y
+    # FINALNA DESTYNACJA DO KTÓREJ HERO MA DOPŁYNĄĆ
+    destination_x = 12300
+    destination_y = 1500
+    start_x = 11695
+    # destination_x = 1000
+    # start_x = 500
+    if check_boat_button(boat_button) == 0:
+        hero.direction = 'R'
+        movement = 'horizontal'
+        dir_opposite = 'L'
+        mov_x = destination_x + 5 - x
+        # nie jestem pewna, czy przy tej funkcji, któa była 'move' hero może poruszać się po skos? czy tylko jego x może się zmienić np
+        mov_y = y - destination_y + 5
+        sign = 1
+        boat.rect.x = destination_x
+        boat.rect.y = destination_y
+        print("go to island")
+        # UŻYWAM TEJ fukncji, zeby zachowac offset dobry dla kamery, mam nadzieję, ze tak git jest
+        # (to funkcja move z hero, tylko usunięte jest sprawdzanie kolizji, zeby hero mógł przez morze przepłynąć
+        hero.move_to_island(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
+                            sprites_to_move_opposite)
+    else:
+        # tutaj powrót hero
+        hero.direction = 'L'
+        movement = 'horizontal'
+        dir_opposite = 'R'
+        mov_x = x - start_x - 5
+        mov_y = 0
+        sign = (-1)
+        boat.rect.x = start_x
+        print("GO BACK")
+        print("hero", hero.rect.x)
+        hero.move_to_island(movement, dir_opposite, mov_x, mov_y, sign, all_sprites_group,
+                            sprites_to_move_opposite)
+
+
+#TODO
+# wyświetlanie przycisków 'swim to island' albo 'go back'
+def show_boat_button(boat, boat_button, screen):
+    buttons = pygame.sprite.Group()
+    if check_boat_button(boat_button) == 1:
+        print(boat.rect.x)
+        boat_button.image = pygame.transform.scale(GUI_IMAGES['boat_button'], (150, 50))
+    else:
+        boat_button.image = pygame.transform.scale(GUI_IMAGES['go_back_button'], (150, 50))
+        print("boat ", boat.rect.x)
+    boat_button.rect.x = boat.rect.x
+    boat_button.rect.y = boat.rect.y - 50
+
+    buttons.add(boat_button)
+    buttons.update()
+    buttons.draw(screen)
+
+#TODO
+# sprawdzanie czy hero jest na wyspie czy dopiero chce się tam dostać
+def check_boat_button(boat_button):
+    if boat_button.counter % 2 == 1:
+        return 0
+    else:
+        return 1

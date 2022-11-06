@@ -7,7 +7,7 @@ from NLP.dialog_generation.ButtonClass import ButtonClass
 from NLP.dialog_generation.NpcDialogThread import NpcDialogThread
 from game.dialog_support import hero_in_dialog, update_positions_and_transparency, move_dialog_up, move_dialog_down, \
     stop_talk, talk
-from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact, go_to_island
+from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact, go_to_island, show_boat_button
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
 from game.game_support import create_npc, add_map_artifacts
 from game.hud_component import update_hud
@@ -23,6 +23,7 @@ import os
 from pathlib import Path
 from artifacts.MockNpc import MockNpc
 from quest_support import create_quests
+from artifacts.Artifact import Artifact
 
 '''
 Main game loop
@@ -86,10 +87,11 @@ def game(hero):
     restore_mana_time_passed = None
     restore = None
     option = 1
+    boat_clicked = False
     npc_clicked = False
     chosen_npc = None
     counter = 0
-    boat = None
+    boat_counter = 0
     s = pygame.Surface((screen.get_size()[0], 150), pygame.SRCALPHA)
     arrow_up = ButtonClass(25, 25, 'arrow_up')
     arrow_down = ButtonClass(25, 25, 'arrow_down')
@@ -107,6 +109,24 @@ def game(hero):
     # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
     map_artifacts = pygame.sprite.Group()
     add_map_artifacts(map_artifacts, all_artifacts)
+    # TODO tworzenie łódki (jest tutaj tworzona a nie, w funkcji 'add_map_artifacts' bo jest potem podawana jako parametr w funkji
+    boat_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "boat.PNG"))
+    boat = Artifact(boat_image, 20, 'Boat', None)
+
+# tu prawidłowe koordynaty na których łódka powinna być, ale jak łódka jest ustawiona w tym miejscu to dzieją się dziwne rzeczy i się nie teleportuje hero
+# a przy koorydantach [500, 500] działa to normanlnie
+
+    # boat.rect.x = 11695
+    # boat.rect.y = 1960
+
+# inicjalne koorydnaty dla łodki, tutaj takie dla testów, żeby nie przechodzić przez całą mapę, zeby sprawdzać czy teleportacja działa
+    boat.rect.x = 500
+    boat.rect.y = 500
+    map_artifacts.add(boat)
+    map_artifacts.update()
+    map_artifacts.draw(screen)
+
+
     sprites_to_move_opposite.extend(map_artifacts)
     sprites_to_move_opposite.extend(all_artifacts)
     all_sprites_group.add(map_artifacts)
@@ -114,6 +134,8 @@ def game(hero):
     collision_sprites_npc.add(map_artifacts)
     collision_sprites_npc.add(npc_boundaries)
     collision_sprites_npc.add(hero)
+
+
 
     # list of NPC's from which hero can select to who give an artifact
     npcs_to_choose = pygame.sprite.Group()
@@ -322,20 +344,22 @@ def game(hero):
                     update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                                restore_mana_time_passed,
                                restore_life_time_passed, chosen_npc, chest_opened)
+                    # TODO
+                    # Sprawdzanie, czy kliknięty map artifact to nie łodka ( wszystkie inne hero zbiera)
                     if map_artifact.name != 'Boat':
                         if hero.collect_map_artifact(map_artifact, equipment_buttons):
                             chest_opened = True
                             restore = datetime.now()
                             check_map_artifact(map_artifact)
                     else:
-                        buttons = pygame.sprite.Group()
-                        boat_button.image = pygame.transform.scale(GUI_IMAGES['boat_button'], (150, 50))
-                        boat_button.rect.x = 1200
-                        boat_button.rect.y = 600
-                        boat = map_artifact
-                        buttons.add(boat_button)
-                        buttons.update()
-                        buttons.draw(screen)
+
+                        boat_counter += 1
+                        # sprawdzanie, czy użytkownik klika na łódkę czy ją 'odklikuje' (żeby znikły przyciski)
+                        if boat_counter % 2 == 1:
+                            boat_clicked = True
+                        else:
+                            boat_clicked = False
+
 
             for npc in npcs:
                 # Checking mouse point collision with npc
@@ -390,7 +414,14 @@ def game(hero):
             elif talk_button.rect.collidepoint(mouse_point):
                 talk(hero, chosen_npc)
             elif boat_button.rect.collidepoint(mouse_point):
-                go_to_island(hero, boat)
+                # TODO
+                # Jeśli przycisk nad łódką klikniętym to wywołujemy funkcje do teleportacji
+                boat_button.counter += 1
+                go_to_island(hero, boat, boat_button, all_sprites_group, sprites_to_move_opposite)
+                # 'odklikujemy' łódkę, zeby przycisk zniknął po teleportacji
+                boat_clicked = False
+                boat_counter += 1
+                print("gooo")
 
             if show_chest:
                 for equipment in equipment_buttons:
@@ -461,6 +492,10 @@ def game(hero):
                 # checking if talk or fight button are clicked
                 hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
                 all_sprites_group.update()
+# TODO po tym jak łódka jest kliknięta, wywołujemy funkcję któa wyświetla przyciski
+        if boat_clicked:
+            show_boat_button(boat, boat_button, screen)
+            print("boat clicked")
 
         if hero.in_dialog:
             hero_in_dialog(s, screen, arrow_up, arrow_down, hero)

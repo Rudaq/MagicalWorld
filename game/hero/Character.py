@@ -72,7 +72,6 @@ class Character(pygame.sprite.Sprite):
         self.active_quest = None
         self.skipped_quests = []
 
-
     # method to return active quest
     def set_active_quest(self):
         if len(self.quests) > 0:
@@ -101,12 +100,14 @@ class Character(pygame.sprite.Sprite):
         else:
             self.image = self.images['down']
 
-
         if not is_collision:
             if direction == 'horizontal':
                 all_sprites_group.offset.x += mov_x * sign
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
+
+            print(all_sprites_group.offset.x + self.rect.centerx)
+            print(all_sprites_group.offset.y + self.rect.centery)
 
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':
@@ -115,6 +116,35 @@ class Character(pygame.sprite.Sprite):
                     sprite.rect.centery += mov_y * sign * (-1)
                 sprite.direction = dir_opposite
 
+        # Method to move - changes direction, adds or subtracts value on the x or y coordinates
+
+    def move_to_island(self, direction, dir_opposite, mov_x, mov_y, sign, all_sprites_group, sprites_to_move_opposite):
+
+
+        if self.direction == 'R':
+            self.image = self.images['right']
+        elif self.direction == 'L':
+            self.image = self.images['left']
+        elif self.direction == 'U':
+            self.image = self.images['up']
+        else:
+            self.image = self.images['down']
+
+
+        if direction == 'horizontal':
+                all_sprites_group.offset.x += mov_x * sign
+        elif direction == 'vertical':
+                all_sprites_group.offset.y += mov_y * sign
+
+        print(all_sprites_group.offset.x + self.rect.centerx)
+        print(all_sprites_group.offset.y + self.rect.centery)
+
+        for sprite in sprites_to_move_opposite:
+            if direction == 'horizontal':
+                sprite.rect.centerx += mov_x * sign * (-1)
+            elif direction == 'vertical':
+                sprite.rect.centery += mov_y * sign * (-1)
+            sprite.direction = dir_opposite
 
     def collision(self, all_sprites_group):
         is_collision = False

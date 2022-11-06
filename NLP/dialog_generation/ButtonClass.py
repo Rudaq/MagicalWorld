@@ -11,3 +11,5 @@ class ButtonClass(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.name = name
+        self.counter = 0
+
