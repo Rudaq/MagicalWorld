@@ -7,7 +7,7 @@ from game_support import create_character
 from menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
-from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS, GUI_IMAGES
+from settings import BLACK, WHITE, BLUE, RED, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS, GUI_IMAGES
 import os
 from pathlib import Path
 
@@ -107,7 +107,7 @@ def choose_character():
         # screen.blit(eligible_characters_images[index], (400, 150))
         screen.blit(eligible_characters_images[index][0], (250, 0))
 
-        #draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
+        # draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
         screen.blit(GUI_IMAGES['selection'], (105, 30))
 
         # Drawing arrows for character selection
@@ -182,6 +182,13 @@ def choose_character():
 
                     return final_name, final_type, final_side, eligible_characters_images[index][0], \
                            eligible_characters_images[index][1]
+                elif len(char_name) == 0:
+                    pygame.draw.rect(screen, RED, ((MENU_WIDTH-400)/2, (MENU_HEIGHT-80)/2, 400, 80), 0, 3)
+                    pygame.draw.rect(screen, BLACK, ((MENU_WIDTH - 400) / 2, (MENU_HEIGHT - 80) / 2, 400, 80), 1, 5)
+                    draw_text_on_menu("Do not forget to insert the name", (MENU_WIDTH - 330) / 2,
+                                      (MENU_HEIGHT - 50) / 2, 20, BLACK, screen)
+                    draw_text_on_menu("of your character!", (MENU_WIDTH - 190) / 2,
+                                      MENU_HEIGHT / 2, 20, BLACK, screen)
             elif 250 < y < 350 and 650 < x <= 700:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if pressed:
@@ -225,7 +232,6 @@ def choose_character():
                     # Deleting last letter
                     elif event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                         char_name = char_name[:-1]
-
 
         prev = left
         pygame.display.update()

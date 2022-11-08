@@ -12,7 +12,9 @@ from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE
+from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE, WHITE, WIDTH_GAME, HEIGHT_GAME, \
+    FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularWatersSurface, DrearyForestSurface, \
+    MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface
 from npc_settings import NPCs
 from settings import BLACK
 from menu_support import draw_text_on_menu
@@ -153,8 +155,6 @@ def show_map_to_hero(screen, hero, all_sprites_group):
 
     # Position of the mouse
     x, y = pygame.mouse.get_pos()
-    print(x)
-    print(y)
 
     # Hover over the realm biomes
     if 27 < x < 190:
@@ -173,11 +173,43 @@ def show_map_to_hero(screen, hero, all_sprites_group):
     elif 405 < x < 557 and 113 < y < 179:
         draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
     elif 403 < x < 650 and 361 < y < 415:
-        draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Specular Waters", x, y, 15, BLACK, screen)
     elif (233 < x < 373 and 343 < y < 394) or (373 < x < 397 and 394 < y < 452):
         draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
     elif 626 < x < 713 and 109 < y < 294:
         draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
+
+
+def check_biome(coords):
+    image = GUI_IMAGES['frozen_empire']
+
+    if FrozenEmpireSurface.contains(coords):
+        image = GUI_IMAGES['frozen_empire']
+    elif EnchantedSurface.contains(coords):
+        image = GUI_IMAGES['enchanted_forest']
+    elif LoveyDoveySurface.contains(coords):
+        image = GUI_IMAGES['lovey_dovey_land']
+    elif BushSurface.contains(coords):
+        image = GUI_IMAGES['primeval_bush']
+    elif SpecularWatersSurface.contains(coords):
+        image = GUI_IMAGES['specular_waters']
+    elif DrearyForestSurface.contains(coords):
+        image = GUI_IMAGES['dreary_forest']
+    elif MedievilleSurface.contains(coords):
+        image = GUI_IMAGES['medieville']
+    elif CoastSurface.contains(coords):
+        image = GUI_IMAGES['stormy_pier']
+    elif DesolationSurface.contains(coords):
+        image = GUI_IMAGES['desolation_of_abomination']
+    elif SwampSurface.contains(coords):
+        image = GUI_IMAGES['misty_swamp']
+
+    return image
+
+
+def show_current_biome(screen, image):
+    coordinates = (WIDTH_GAME - 350, 9 / 10 * HEIGHT_GAME)
+    screen.blit(image, coordinates)
 
 
 def add_map_artifacts(map_artifacts, all_artifacts):
@@ -226,7 +258,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
-    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
+    water_on_map_image = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
     water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200

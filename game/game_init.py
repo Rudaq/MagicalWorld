@@ -1,5 +1,3 @@
-from game.game_support import create_npc, import_csv_layout, import_folder, show_map_to_hero
-
 import sys
 import os
 from datetime import datetime
@@ -10,7 +8,8 @@ from game.dialog_support import hero_in_dialog, update_positions_and_transparenc
     stop_talk, talk
 from game.game_support import hero_in_dialog_or_talk, npc_in_interaction_range, check_map_artifact
 from game.fight_support import set_fight_parameters, stop_fight, remove_npc, fight
-from game.game_support import create_npc, add_map_artifacts
+from game.game_support import create_npc, add_map_artifacts, show_map_to_hero, show_current_biome, \
+    check_biome
 from game.hud_component import update_hud
 from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
@@ -20,7 +19,7 @@ from game.equipment_support import show_chest_to_hero, show_equipment_name, time
 from settings import *
 from npc_settings import *
 import pygame
-import os
+from shapely.geometry import Point
 from pathlib import Path
 from artifacts.MockNpc import MockNpc
 from quest_support import create_quests
@@ -178,6 +177,10 @@ def game(hero):
         all_artifacts.draw(screen)
         map_artifacts.update()
         map_artifacts.draw(screen)
+
+        # showing name of the biome
+        actual_coordinates = Point(hero.rect.centerx + all_sprites_group.offset.x, hero.rect.centery + all_sprites_group.offset.y)
+        show_current_biome(screen, check_biome(actual_coordinates))
 
         # Getting the list of all pressed keys
         keys_pressed = pygame.key.get_pressed()

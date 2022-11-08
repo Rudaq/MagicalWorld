@@ -149,7 +149,7 @@ class Npc(Character):
 
         else:
             if self.life > 0:
-                counter == 4
+                counter = 4
 
     # function for NPC' movement while fighting
     def move_in_fight(self, hero, all_sprites_group):
