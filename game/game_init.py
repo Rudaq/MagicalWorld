@@ -13,7 +13,7 @@ from game.game_support import create_npc, add_map_artifacts, show_map_to_hero, s
 from game.hud_component import update_hud
 from game.map.CameraGroup import CameraGroup
 from game.map.map_support import create_map
-from game.quest_support import show_quest_to_hero
+from game.quest_support import show_quest_to_hero, display_end_text
 from game.equipment_support import show_chest_to_hero, show_equipment_name, time_measure, remove_artifact, \
     show_table_to_hero, give_artifact_to_npc
 from settings import *
@@ -347,6 +347,7 @@ def game(hero):
                                            restore_mana_time_passed,
                                            restore_life_time_passed, chosen_npc, chest_opened, new_task)
                                 all_sprites_group.update()
+                                display_end_text(screen, hero)
 
                         else:
                             npc_clicked = False
@@ -499,3 +500,4 @@ def game(hero):
         all_sprites_group.update()
         pygame.display.update()
         clock.tick(60)
+

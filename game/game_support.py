@@ -6,6 +6,7 @@ from os import walk
 import math
 import os
 from pathlib import Path
+from shapely.geometry import Point
 
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
@@ -13,8 +14,10 @@ from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
 from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE, WHITE, WIDTH_GAME, HEIGHT_GAME, \
-    FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularWatersSurface, DrearyForestSurface, \
-    MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface
+    FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularLakesSurface, DrearyForestSurface, \
+    MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface, MiniFrozenEmpire, MiniEnchantedForest, \
+    MiniLoveyDoveyLand, MiniPrimevalBush, MiniSpecularLakes, MiniDrearyForest, MiniMedieville, MiniStormyPier, \
+    MiniDesolationOfAbomination, MiniMistySwamp
 from npc_settings import NPCs
 from settings import BLACK
 from menu_support import draw_text_on_menu
@@ -155,33 +158,33 @@ def show_map_to_hero(screen, hero, all_sprites_group):
 
     # Position of the mouse
     x, y = pygame.mouse.get_pos()
+    coords = Point(x, y)
 
     # Hover over the realm biomes
-    if 27 < x < 190:
-        if 111 < y < 205:
-            draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
-        elif 233 < y < 330:
-            draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
-        elif 348 < y < 473:
-            draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
-    elif 208 < x < 379 and 112 < y < 198:
-        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
-    elif 208 < x < 420 and 234 < y < 303:
+    if MiniFrozenEmpire.contains(coords):
+        draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
+    elif MiniEnchantedForest.contains(coords):
+        draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
+    elif MiniLoveyDoveyLand.contains(coords):
+        draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
+    elif MiniPrimevalBush.contains(coords):
         draw_text_on_menu("Primeval Bush", x, y, 15, BLACK, screen)
-    elif 478 < x < 634 and 221 < y < 320:
-        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
-    elif 405 < x < 557 and 113 < y < 179:
-        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
-    elif 403 < x < 650 and 361 < y < 415:
-        draw_text_on_menu("Specular Waters", x, y, 15, BLACK, screen)
-    elif (233 < x < 373 and 343 < y < 394) or (373 < x < 397 and 394 < y < 452):
+    elif MiniSpecularLakes.contains(coords):
+        draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
+    elif MiniDrearyForest.contains(coords):
         draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
-    elif 626 < x < 713 and 109 < y < 294:
+    elif MiniMedieville.contains(coords):
+        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
+    elif MiniStormyPier.contains(coords):
         draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
+    elif MiniDesolationOfAbomination.contains(coords):
+        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
+    elif MiniMistySwamp.contains(coords):
+        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
 
 
 def check_biome(coords):
-    image = GUI_IMAGES['frozen_empire']
+    global image
 
     if FrozenEmpireSurface.contains(coords):
         image = GUI_IMAGES['frozen_empire']
@@ -191,8 +194,8 @@ def check_biome(coords):
         image = GUI_IMAGES['lovey_dovey_land']
     elif BushSurface.contains(coords):
         image = GUI_IMAGES['primeval_bush']
-    elif SpecularWatersSurface.contains(coords):
-        image = GUI_IMAGES['specular_waters']
+    elif SpecularLakesSurface.contains(coords):
+        image = GUI_IMAGES['specular_lakes']
     elif DrearyForestSurface.contains(coords):
         image = GUI_IMAGES['dreary_forest']
     elif MedievilleSurface.contains(coords):
@@ -279,3 +282,4 @@ def check_map_artifact(map_artifact):
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
+

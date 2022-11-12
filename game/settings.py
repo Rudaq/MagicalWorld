@@ -32,6 +32,7 @@ HUD_YELLOW = (245, 245, 220)
 ALMOND = (234, 221, 202)
 CORAL = (248, 131, 121)
 
+# Biomes surfaces
 FrozenEmpireSurface = Polygon([(50, 200), (150, 1900), (800, 2100), (1500, 2250), (3250, 2250),
                                (3350, 1800), (3450, 1300), (3300, 850), (3400, 200)])
 EnchantedSurface = Polygon([(750, 2000), (750, 2100), (1000, 2350), (1450, 2350), (1750, 2450),
@@ -70,10 +71,10 @@ DrearyForestSurface = Polygon([(3500, 4400), (3650, 4750), (3770, 5200), (3800, 
                                (7300, 3950), (6950, 3900), (6450, 3900), (6300, 3950), (6000, 4050),
                                (5500, 4350), (5200, 4400), (4850, 4400), (4850, 4350),
                                (4400, 4350), (4350, 4400), (4150, 4400), (3800, 4400)])
-SpecularWatersSurface = Polygon([(7400, 4100), (7350, 4450), (7250, 4500), (7150, 4600), (6100, 5100),
-                                 (5800, 5950), (5500, 5950), (5500, 6450), (6000, 5800), (6000, 6600), (7800, 6600),
-                                 (11350, 5900), (12100, 5000), (11700, 4650), (11500, 4500), (11350, 4200),
-                                 (10900, 4500), (9850, 4650), (8950, 4650), (7950, 4400), (7700, 4350)])
+SpecularLakesSurface = Polygon([(7400, 4100), (7350, 4450), (7250, 4500), (7150, 4600), (6100, 5100),
+                                (5800, 5950), (5500, 5950), (5500, 6450), (6000, 5800), (6000, 6600), (7800, 6600),
+                                (11350, 5900), (12100, 5000), (11700, 4650), (11500, 4500), (11350, 4200),
+                                (10900, 4500), (9850, 4650), (8950, 4650), (7950, 4400), (7700, 4350)])
 CoastSurface = Polygon([(10350, 200), (10400, 450), (10450, 500), (10450, 500), (10450, 500), (10450, 800),
                         (10500, 1350), (10750, 1800), (10950, 2400), (11000, 2600), (11050, 2800),
                         (11150, 2850), (11150, 3050), (11300, 3100), (11650, 3650), (11700, 3850),
@@ -85,6 +86,25 @@ SwampSurface = Polygon([(7100, 200), (6870, 650), (6870, 1150), (6800, 1650), (6
                         (8850, 1950), (9000, 1950), (9200, 1900), (9600, 1750), (9800, 1600), (9850, 1550),
                         (9900, 1550), (9950, 1500), (10000, 1450), (10500, 1200), (10450, 850), (10400, 800),
                         (10400, 500), (10250, 450), (10250, 200)])
+
+# mini map biomes surfaces
+MiniFrozenEmpire = Polygon([(24, 111), (24, 200), (82, 219), (191, 223), (201, 111)])
+MiniEnchantedForest = Polygon([(23, 208), (25, 342), (110, 358), (198, 332), (194, 235), (26, 207)])
+MiniLoveyDoveyLand = Polygon([(29, 361), (26, 524), (141, 493), (231, 450), (201, 337), (158, 366), (28, 352)])
+MiniDrearyForest = Polygon([(218, 346), (242, 445), (307, 445), (409, 322), (341, 324), (290, 343), (214, 342)])
+MiniPrimevalBush = Polygon([(204, 234), (206, 327), (304, 330), (362, 309), (416, 303), (450, 232), (385, 207),
+                            (278, 213), (239, 216), (227, 211)])
+MiniDesolationOfAbomination = Polygon(
+    [(206, 114), (208, 186), (201, 225), (227, 201), (331, 195), (377, 196), (389, 112)])
+MiniMistySwamp = Polygon([(404, 114), (395, 137), (387, 195), (451, 220), (585, 164), (570, 112)])
+MiniMedieville = Polygon(
+    [(461, 233), (451, 277), (428, 314), (488, 346), (617, 332), (644, 305), (583, 176), (529, 208)])
+MiniStormyPier = Polygon([(586, 114), (653, 302), (646, 338), (682, 362), (715, 330), (715, 116)])
+MiniSpecularLakes = Polygon([(427, 336), (325, 447), (504, 439), (671, 372), (636, 336), (532, 357), (459, 348)])
+
+# buttons for ending the game
+continue_button = Polygon([(558, 539), (557, 609), (722, 609), (722, 539)])
+quit_button = Polygon([(769, 539), (769, 609), (931, 609), (931, 539)])
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
            'w', 'x', 'y', 'z']
@@ -186,9 +206,10 @@ GUI_IMAGES = {
     'desolation_of_abomination': pygame.image.load(os.path.join(path, "resources/GUI", "DesolationOfAbomination.png")),
     'dreary_forest': pygame.image.load(os.path.join(path, "resources/GUI", "DrearyForest.png")),
     'stormy_pier': pygame.image.load(os.path.join(path, "resources/GUI", "StormyPier.png")),
-    'specular_waters': pygame.image.load(os.path.join(path, "resources/GUI", "SpecularWaters.png")),
+    'specular_lakes': pygame.image.load(os.path.join(path, "resources/GUI", "SpecularLakes.png")),
     'medieville': pygame.image.load(os.path.join(path, "resources/GUI", "Medieville.png")),
-    'misty_swamp': pygame.image.load(os.path.join(path, "resources/GUI", "MistySwamp.png"))
+    'misty_swamp': pygame.image.load(os.path.join(path, "resources/GUI", "MistySwamp.png")),
+    'end_frame': pygame.image.load(os.path.join(path, "resources/GUI", "endFrame.png"))
 }
 
 MAP_IMAGES = {
@@ -207,4 +228,27 @@ MAP_IMAGES = {
     'enchanted_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "EnchantedTree.png")),
     'mud': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "Mud.png")),
     'spider_web': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "spiderweb.png"))
+}
+
+END_TEXT = {
+    'Barbarian': 'Congratulations +name+! Your eagerness to complete all of the tasks that were a part of your trial '
+                 'was outstanding. The adrenaline running through your veins could have been sensed throughout the '
+                 'whole game. Your adventures in the Realm may be coming to an end but do not worry... You can still '
+                 'wander through the lands and explore! What do you think?',
+    'Dwarf': 'Congratulations +name+! You have solved one of the greatest mysteries in our Realm and your axe is '
+             'dripping blood of your dead enemies! You are one, proud dwarf... Your adventures in the Realm may be '
+             'coming to an end but do not worry... You can still wander through the lands and explore! What do you '
+             'think?',
+    'Elf': 'Congratulations +name+! It has been a pleasure seeing you saving the realm from being destroyed by the '
+           'gods and spirits. Runes, spirits, powers... Outstanding. Other elves would be proud. Your adventures '
+           'in the Realm may be coming to an end but do not worry... You can still wander through the lands and '
+           'explore! What do you think?',
+    'Faerie': 'Congratulations +name+! You have used the power of Magical Flower in the best possible way! Another '
+              'mystery of the Realm solved... A reason to certainly be proud of. Your adventures in the Realm may be '
+              'coming to an end but do not worry... You can still wander through the lands and explore! What do you '
+              'think?',
+    'Wizard': 'Congratulations +name+! What a scientific and magical ride it was. You have broadened wizards '
+              'knowledge and power, thus this grasp will be mentioned for a long time. The Realm will be way too '
+              'tranquil after you leave... Your adventures may be approaching the end but you can still explore and '
+              'wander through the lands. What do you think? '
 }

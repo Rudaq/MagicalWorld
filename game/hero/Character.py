@@ -1,6 +1,7 @@
 import pygame
 from artifacts.Artifact import Artifact
 
+
 SPRITE_SIZE = 50
 import os
 from pathlib import Path
@@ -93,8 +94,8 @@ class Character(pygame.sprite.Sprite):
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
 
-            print(all_sprites_group.offset.x + self.rect.centerx)
-            print(all_sprites_group.offset.y + self.rect.centery)
+          #  print(all_sprites_group.offset.x + self.rect.centerx)
+          #  print(all_sprites_group.offset.y + self.rect.centery)
 
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':
