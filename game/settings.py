@@ -19,7 +19,7 @@ SCALE = 700 / 12928
 
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
 
-HERO_SPEED = 30
+HERO_SPEED = 60
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)

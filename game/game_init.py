@@ -33,9 +33,6 @@ current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent
 
 
-# print(path)
-
-
 # Main game function
 def game(hero):
     # pygame initialization
@@ -80,6 +77,8 @@ def game(hero):
     show_map = False
     chest_opened = False
     show_table = False
+    show_message = False
+    hero_active = True
     chosen_artifact = None
     restore_life = False
     restore_mana = False
@@ -179,7 +178,8 @@ def game(hero):
         map_artifacts.draw(screen)
 
         # showing name of the biome
-        actual_coordinates = Point(hero.rect.centerx + all_sprites_group.offset.x, hero.rect.centery + all_sprites_group.offset.y)
+        actual_coordinates = Point(hero.rect.centerx + all_sprites_group.offset.x,
+                                   hero.rect.centery + all_sprites_group.offset.y)
         show_current_biome(screen, check_biome(actual_coordinates))
 
         # Getting the list of all pressed keys
@@ -290,6 +290,12 @@ def game(hero):
             if not npc.is_talking and not npc.in_fight_mode:
                 npc.move(all_sprites_group)
 
+        if hero_active:
+            if hero.active_quest is None:
+                pygame.time.wait(120)
+                hero_active = False
+                show_message = True
+
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
         # Position of the mouse
@@ -343,11 +349,11 @@ def game(hero):
                             # show NPC's life on hud
                             chosen_npc.add_npc_to_hud = True
                             if hero.active_quest is None:
+                                show_message = True
                                 update_hud(screen, hero, scroll_button, chest_button, restore_life, restore_mana,
                                            restore_mana_time_passed,
                                            restore_life_time_passed, chosen_npc, chest_opened, new_task)
                                 all_sprites_group.update()
-                                display_end_text(screen, hero)
 
                         else:
                             npc_clicked = False
@@ -485,6 +491,13 @@ def game(hero):
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
 
+        if show_message and (hero_active == False):
+            if display_end_text(screen, hero) == 'continue':
+                show_message = False
+            elif display_end_text(screen, hero) == 'quit':
+                pygame.quit()
+                sys.exit()
+
         if hero.mana < 50 and not restore_mana:
             restore_mana = True
             restore_mana_time_passed = datetime.now()
@@ -500,4 +513,3 @@ def game(hero):
         all_sprites_group.update()
         pygame.display.update()
         clock.tick(60)
-

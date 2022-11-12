@@ -45,7 +45,6 @@ def show_quest_to_hero(screen, hero):
     screen.blit(GUI_IMAGES['scroll'], (quest_top_right, 100))
     w = 150
     h = quest_top_right + 110
-    display_end_text(screen, hero)
     if hero.active_quest is not None:
         if hero.active_quest.active_task is not None:
             text = hero.active_quest.active_task.description
@@ -55,8 +54,7 @@ def show_quest_to_hero(screen, hero):
         else:
             text = hero.active_quest.description
     else:
-        display_end_text(screen, hero)
-        text = "Your missions are completed! Congratulations!"
+        text = "Your missions are completed!"
 
     text_list = wrap_text(text, 25, False)
     for text in text_list:
@@ -84,11 +82,11 @@ def display_end_text(screen, hero):
     x, y = pygame.mouse.get_pos()
     mouse_position = Point(x, y)
     left, middle, right = pygame.mouse.get_pressed()
-
+    value = ''
     if left:
         if quit_button.contains(mouse_position):
-            pygame.quit()
-            sys.exit()
+            value = 'quit'
         elif continue_button.contains(mouse_position):
-            print('continue')
-            return False
+            value = 'continue'
+
+    return value

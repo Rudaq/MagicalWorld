@@ -374,7 +374,7 @@ QUESTS = {
                         'name': 'kill_yeti',
                         'description': 'Snowman: You have to help me my friend! Since those of your kind are no longer '
                                        'here, the place is haunted by the Ice Monster... They call it Yeti. Please kill'
-                                       'it and bring its skin as a prove.',
+                                       ' it and bring its skin as a prove.',
                         'artefact': 'Ice Monster Skin',
                         'points': 20,
                         'npc_give_task': 'Friendly Snowman',

@@ -429,7 +429,7 @@ FRIENDLY_SNOWMEN = {
 # X: 7400 - 11600
 # Y: 4250 - 5600
 MERMAIDS = {
-    'Arielle': ["good", None, None, 10030, 9720]
+    'Arielle': ["good", None, None, 11190, 5440]
 }
 CRABS = {
     'Craberus': ["good", None, None, 10700, 10400],
@@ -437,9 +437,9 @@ CRABS = {
     'Craperus': ["good", None, None, 9100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 8930, 4860],
-    'Bul': ["evil", None, None, 9930, 4660],
-    'Dul': ["evil", None, None, 8230, 5160]
+    'Gul': ["evil", None, None, 9030, 5300],
+    'Bul': ["evil", None, None, 11070, 5380],
+    'Dul': ["evil", None, None, 11270, 5080]
 }
 # SWAMP:
 # X: 7100 - 10350

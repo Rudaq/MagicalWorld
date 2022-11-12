@@ -3,7 +3,6 @@ import random
 import pygame
 from _csv import reader
 from os import walk
-import math
 import os
 from pathlib import Path
 from shapely.geometry import Point
@@ -17,7 +16,7 @@ from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE, WHITE,
     FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularLakesSurface, DrearyForestSurface, \
     MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface, MiniFrozenEmpire, MiniEnchantedForest, \
     MiniLoveyDoveyLand, MiniPrimevalBush, MiniSpecularLakes, MiniDrearyForest, MiniMedieville, MiniStormyPier, \
-    MiniDesolationOfAbomination, MiniMistySwamp
+    MiniDesolationOfAbomination, MiniMistySwamp, END_TEXT, quit_button, continue_button
 from npc_settings import NPCs
 from settings import BLACK
 from menu_support import draw_text_on_menu
@@ -282,4 +281,5 @@ def check_map_artifact(map_artifact):
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
+
 
