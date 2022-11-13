@@ -467,7 +467,11 @@ def game(hero):
                            restore_life_time_passed, chosen_npc, chest_opened, new_task)
             if not chosen_npc.is_talking and not chosen_npc.in_fight_mode:
                 # checking if talk or fight button are clicked
-                hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero)
+                value = hero_in_dialog_or_talk(screen, chosen_npc)
+                if value == 'fight':
+                    fight(hero, chosen_npc)
+                elif value == 'talk':
+                    talk(hero, chosen_npc)
                 all_sprites_group.update()
 
         if hero.in_dialog:

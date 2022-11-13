@@ -36,7 +36,6 @@ from npc.Dragon import Dragon
 from npc.FireElemental import FireElemental
 from npc.EarthElemental import EarthElemental
 
-
 current = os.path.dirname(os.path.realpath(__file__))
 print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
@@ -486,17 +485,18 @@ WHEAT_MONSTERS = {
 # X: 10350 - 12600
 # Y: 250 - 4600
 PANDAS = {
-    'Wanda': ["good", None, None, 11400, 2550],
-    'Banda': ["good", None, None, 12400, 900],
-    'Bamboo': ["good", None, None, 10790, 1250]
+    'Wanda': ["good", None, None, 11535, 1960]  # panda next to the pier
+    # 'Banda': ["good", None, None, 12400, 900],
+    # 'Bamboo': ["good", None, None, 10790, 1250]
 }
+''' moved to primeval bush
 LEMURS = {
     'Julian': ["good", None, None, 11550, 4340],
     'Moris': ["good", None, None, 12010, 2000],
 }
 BIG_MONKES = {
     'Gorilla': ["evil", None, None, 12600, 1300]
-}
+}'''
 # LOVEY DOVEY:
 # X: 150 - 3900
 # Y: 4850 - 6400
@@ -524,6 +524,13 @@ SNAKES = {
 }
 TIGERS = {
     'Lionel': ["evil", None, None, 4300, 2800]
+}
+LEMURS = {
+    'Julian': ["good", None, None, 5070, 3520],
+    'Moris': ["good", None, None, 6000, 3000],
+}
+BIG_MONKES = {
+    'Gorilla': ["evil", None, None, 6990, 3160]
 }
 # DREARY:
 # X: 3600 - 5400 (im wyzej tym dalej)

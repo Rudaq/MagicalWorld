@@ -5,7 +5,7 @@ from _csv import reader
 from os import walk
 import os
 from pathlib import Path
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
 
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
@@ -116,25 +116,32 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
-    s.fill(BLACK)
-    s.set_alpha(192)
+def hero_in_dialog_or_talk(screen, chosen_npc):
 
-    # create buttons 'Fight' and 'Talk'
-    buttons = pygame.sprite.Group()
-    fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
-    fight_button.rect.x = chosen_npc.rect.x - 40
-    fight_button.rect.y = chosen_npc.rect.y - 50
+    fight_image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
+    talk_image = pygame.transform.scale(GUI_IMAGES['talk_button'], (80, 40))
+    screen.blit(fight_image.convert_alpha(), (chosen_npc.rect.x - 40, chosen_npc.rect.y - 50))
+    screen.blit(talk_image.convert_alpha(), (chosen_npc.rect.x + 40, chosen_npc.rect.y - 50))
 
-    talk_button.image = pygame.transform.scale(GUI_IMAGES['talk_button'], (80, 40))
-    talk_button.rect.x = chosen_npc.rect.x + 40
-    talk_button.rect.y = chosen_npc.rect.y - 50
+    fight_polygon = Polygon([(chosen_npc.rect.x - 40, chosen_npc.rect.y - 50), (
+        chosen_npc.rect.x - 40, chosen_npc.rect.y - 10), (chosen_npc.rect.x + 40, chosen_npc.rect.y - 10), (
+                                 chosen_npc.rect.x + 40, chosen_npc.rect.y - 50)])
+    talk_polygon = Polygon([(chosen_npc.rect.x + 40, chosen_npc.rect.y - 50), (
+        chosen_npc.rect.x + 40, chosen_npc.rect.y - 10), (chosen_npc.rect.x + 120, chosen_npc.rect.y - 10), (
+                                 chosen_npc.rect.x + 120, chosen_npc.rect.y - 50)])
 
-    buttons.add(fight_button)
-    buttons.add(talk_button)
+    x, y = pygame.mouse.get_pos()
+    mouse_position = Point(x, y)
+    left, middle, right = pygame.mouse.get_pressed()
+    value = ''
 
-    buttons.update()
-    buttons.draw(screen)
+    if left:
+        if fight_polygon.contains(mouse_position):
+            value = 'fight'
+        elif talk_polygon.contains(mouse_position):
+            value = 'talk'
+
+    return value
 
 
 # checking the distance between hero and chosen npc
@@ -215,11 +222,13 @@ def show_current_biome(screen, image):
 
 
 def add_map_artifacts(map_artifacts, all_artifacts):
-    rainbow = Artifact(MAP_IMAGES['rainbow'].convert_alpha(), 20, 'Rainbow', MAP_IMAGES['rainbow_small'].convert_alpha())
+    rainbow = Artifact(MAP_IMAGES['rainbow'].convert_alpha(), 20, 'Rainbow',
+                       MAP_IMAGES['rainbow_small'].convert_alpha())
     rainbow.rect.x = 900
     rainbow.rect.y = 5500
 
-    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'].convert_alpha(), 20, 'Enchanted Stick', MAP_IMAGES['stick'].convert_alpha())
+    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'].convert_alpha(), 20, 'Enchanted Stick',
+                              MAP_IMAGES['stick'].convert_alpha())
     enchanted_tree.rect.x = 480
     enchanted_tree.rect.y = 4050
 
@@ -251,7 +260,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
     leaves.rect.x = 3750
     leaves.rect.y = 2700
 
-    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG")).convert_alpha()
+    snow_paper = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG")).convert_alpha()
     paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'].convert_alpha())
     paper.rect.x = 350
     paper.rect.y = 1200
@@ -262,7 +272,8 @@ def add_map_artifacts(map_artifacts, all_artifacts):
 
     water_on_map_image = pygame.image.load(
         os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG")).convert_alpha()
-    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG")).convert_alpha()
+    water_image = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "water.PNG")).convert_alpha()
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
@@ -281,5 +292,3 @@ def check_map_artifact(map_artifact):
 
 def change_image(npc):
     npc.images = NPC_IMAGES['image_snowman_nose']
-
-

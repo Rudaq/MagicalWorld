@@ -209,7 +209,8 @@ GUI_IMAGES = {
     'specular_lakes': pygame.image.load(os.path.join(path, "resources/GUI", "SpecularLakes.png")),
     'medieville': pygame.image.load(os.path.join(path, "resources/GUI", "Medieville.png")),
     'misty_swamp': pygame.image.load(os.path.join(path, "resources/GUI", "MistySwamp.png")),
-    'end_frame': pygame.image.load(os.path.join(path, "resources/GUI", "endFrame.png"))
+    'end_frame': pygame.image.load(os.path.join(path, "resources/GUI", "endFrame.png")),
+    # 'cross': pygame.image.load(os.path.join(path, "resources/GUI", "crossButton.png"))
 }
 
 MAP_IMAGES = {

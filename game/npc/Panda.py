@@ -23,3 +23,9 @@ class Panda(Npc):
         self.blood = Artifact(blood_image, 10, 'Panda Blood', None)
         self.artifacts.add(self.blood)
         self.npc_attack = None
+
+    def move(self, direction="R", dx=0, dy=0):
+        pass
+
+    def move_in_fight(self, hero, all_sprites_group):
+        pass
