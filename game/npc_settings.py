@@ -7,7 +7,7 @@ from npc.Druid import Druid
 from npc.IceMonster import IceMonster
 from npc.Mermaid import Mermaid
 from npc.Orc import Orc
-from npc.Elf import Elf
+from npc.ForestElf import ForestElf
 from npc.Treant import Treant
 from npc.Donkey import Donkey
 from npc.BlindRat import BlindRat
@@ -24,7 +24,7 @@ from npc.Panda import Panda
 from npc.Lemur import Lemur
 from npc.BigMonke import BigMonke
 from npc.Unicorn import Unicorn
-from npc.Faerie import Faerie
+from npc.LittleFaeries import LittleFaeries
 from npc.Leprechaun import Leprechaun
 from npc.Amazon import Amazon
 from npc.Snake import Snake
@@ -475,7 +475,7 @@ NPCs = {
         'dict': ORCS
     },
     'elf': {
-        'class_name': Elf,
+        'class_name': ForestElf,
         'mana': 300,
         'life': 100,
         'inflate': (-10, -10),
@@ -603,7 +603,7 @@ NPCs = {
         'dict': UNICORNS
     },
     'faerie': {
-        'class_name': Faerie,
+        'class_name': LittleFaeries,
         'mana': 700,
         'life': 100,
         'inflate': (-10, -10),

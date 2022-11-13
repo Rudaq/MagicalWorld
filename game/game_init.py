@@ -159,6 +159,7 @@ def game(hero):
         # npc.collision_sprites = collision_sprites_npc
         # npc.collision_sprites_npc = npc_collision_with_npcs
         # npc.groups = all_sprites_group
+
         all_sprites_group.add(npc)
         collision_sprites_hero.add(npc)
 
@@ -191,8 +192,7 @@ def game(hero):
     create_quests(hero)
 
     while(1):
-
-        screen.blit(SEA, (0, 0))
+        # screen.blit(SEA, (0, 0))
         all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
@@ -201,6 +201,7 @@ def game(hero):
 
         all_artifacts.update()
         all_artifacts.draw(screen)
+
         map_artifacts.update()
         map_artifacts.draw(screen)
 
