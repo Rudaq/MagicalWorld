@@ -117,22 +117,6 @@ def how_to_play():
         pygame.draw.rect(screen, BLACK, button_back, 0, 3)
         screen.blit(GUI_IMAGES['back_to'], (560, 520))
 
-        draw_text_on_menu("1. To move the hero use:", 70, 100, 15, BLACK, screen)
-        draw_text_on_menu("- W, A, S, D or up, left, down, right arrow", 70, 125, 15, BLACK, screen)
-        draw_text_on_menu("2. To open the inventory with artifacts, click on the chest in the upper right corner", 70, 150, 15, BLACK, screen)
-        draw_text_on_menu("3. To check where you are, open the minimap in the lower left corner by clicking it.", 70, 175, 15, BLACK, screen)
-        draw_text_on_menu(" When you hover the mouse over the land, its name will be displayed", 70, 200, 15, BLACK, screen)
-        draw_text_on_menu("4. To check your current task, click on the scroll icon in the top right corner.", 70, 225, 15, BLACK, screen)
-        draw_text_on_menu("5. To interact with an NPC, click on a character and then:", 70, 250, 15, BLACK, screen)
-        draw_text_on_menu("- choose TALK if you want to enter into dialogue with NPC", 70, 275, 15, BLACK, screen)
-        draw_text_on_menu("- select FIGHT if you want to fight an NPC and obtain some artifact", 70, 300, 15, BLACK, screen)
-        draw_text_on_menu("6. Artifacts:", 70, 325, 15, BLACK, screen)
-        draw_text_on_menu("- by acquiring artefacts and handing them over to NPCs, you complete tasks", 70, 350, 15, BLACK, screen)
-        draw_text_on_menu("- you can also receive an artefact as part of a task, which may be useful to you later on", 70, 375, 15, BLACK, screen)
-        draw_text_on_menu("- to give an artefact to an NPC, enter the inventory,", 70, 400, 15, BLACK, screen)
-        draw_text_on_menu(" click on the artefact you wish to give and select the receiving NPC ", 70, 425, 15, BLACK, screen)
-        draw_text_on_menu(" (note that you must be close enough to the NPC to perform these interactions)", 70, 450, 15, BLACK, screen)
-
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
         # Position of the mouse
