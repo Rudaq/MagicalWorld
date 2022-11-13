@@ -19,9 +19,9 @@ class FireElemental(Npc):
         self.race = "Fire Elemental"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        fire_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "flame.PNG"))
+        fire_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "flame.PNG")).convert_alpha()
         self.fire = Artifact(fire_image, 20, 'Flame', None)
         self.artifacts.add(self.fire)
         fire_elemental_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "fire.png"))
+            os.path.join(path, "resources/graphics/particles", "fire.png")).convert_alpha()
         self.npc_attack = AttackClass(fire_elemental_attack, 20, 10, 'fire elemental attack')

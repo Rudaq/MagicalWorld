@@ -19,7 +19,7 @@ class FriendlySnowman(Npc):
         self.race = "Friendly Snowman"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Friendly Snowman Blood', None)
         self.artifacts.add(self.blood)
         self.npc_attack = None
@@ -41,10 +41,10 @@ class FriendlySnowman(Npc):
                     print(self.race + ": Thank you for your gift")
 
         if artifact.name == 'Snowman Nose' or artifact.name == 'Carrot':
-            image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png"))
-            image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png"))
-            image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png"))
-            image_right = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png"))
+            image_back = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_back.png")).convert_alpha()
+            image_front = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_nose.png")).convert_alpha()
+            image_left = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_left_nose.png")).convert_alpha()
+            image_right = pygame.image.load(os.path.join(path, "resources/graphics/npc", "snowman_right_nose.png")).convert_alpha()
             self.images['up'] = image_back
             self.images['down'] = image_front
             self.images['right'] = image_right

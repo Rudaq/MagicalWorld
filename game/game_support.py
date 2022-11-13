@@ -16,7 +16,7 @@ from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE, WHITE,
     FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularLakesSurface, DrearyForestSurface, \
     MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface, MiniFrozenEmpire, MiniEnchantedForest, \
     MiniLoveyDoveyLand, MiniPrimevalBush, MiniSpecularLakes, MiniDrearyForest, MiniMedieville, MiniStormyPier, \
-    MiniDesolationOfAbomination, MiniMistySwamp, END_TEXT, quit_button, continue_button
+    MiniDesolationOfAbomination, MiniMistySwamp
 from npc_settings import NPCs
 from settings import BLACK
 from menu_support import draw_text_on_menu
@@ -149,7 +149,7 @@ def npc_in_interaction_range(chosen_npc, hero):
 
 def show_map_to_hero(screen, hero, all_sprites_group):
     map_top_right = 20
-    screen.blit(GUI_IMAGES['map2'], (map_top_right, 100))
+    screen.blit(GUI_IMAGES['map2'].convert_alpha(), (map_top_right, 100))
 
     x_position_scaled = (hero.rect.centerx + all_sprites_group.offset.x) * SCALE
     y_position_scaled = (hero.rect.centery + all_sprites_group.offset.y) * SCALE
@@ -211,58 +211,58 @@ def check_biome(coords):
 
 def show_current_biome(screen, image):
     coordinates = (WIDTH_GAME - 350, 9 / 10 * HEIGHT_GAME)
-    screen.blit(image, coordinates)
+    screen.blit(image.convert_alpha(), coordinates)
 
 
 def add_map_artifacts(map_artifacts, all_artifacts):
-    rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
+    rainbow = Artifact(MAP_IMAGES['rainbow'].convert_alpha(), 20, 'Rainbow', MAP_IMAGES['rainbow_small'].convert_alpha())
     rainbow.rect.x = 900
     rainbow.rect.y = 5500
 
-    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'], 20, 'Enchanted Stick', MAP_IMAGES['stick'])
+    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'].convert_alpha(), 20, 'Enchanted Stick', MAP_IMAGES['stick'].convert_alpha())
     enchanted_tree.rect.x = 480
     enchanted_tree.rect.y = 4050
 
-    mud = Artifact(MAP_IMAGES['mud'], 20, 'Mud', MAP_IMAGES['mud'])
+    mud = Artifact(MAP_IMAGES['mud'].convert_alpha(), 20, 'Mud', MAP_IMAGES['mud'].convert_alpha())
     mud.rect.x = 8300
     mud.rect.y = 950
 
-    web = Artifact(MAP_IMAGES['spider_web'], 20, 'Spider web', MAP_IMAGES['spider_web'])
+    web = Artifact(MAP_IMAGES['spider_web'].convert_alpha(), 20, 'Spider web', MAP_IMAGES['spider_web'].convert_alpha())
     web.rect.x = 4400
     web.rect.y = 5700
 
-    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
-    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
+    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG")).convert_alpha()
+    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'].convert_alpha(), 20, 'Ball', ball)
     bamboo_tree.rect.x = 11970
     bamboo_tree.rect.y = 4180
 
-    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
-    big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
+    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG")).convert_alpha()
+    big_tree = Artifact(MAP_IMAGES['big_tree_flower'].convert_alpha(), 30, 'Immortality Flower', flower)
     big_tree.rect.x = 6050
     big_tree.rect.y = 4780
 
-    skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG"))
-    dig_ground = Artifact(MAP_IMAGES['dig_ground'], 30, 'Pandas Skull', skull)
+    skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG")).convert_alpha()
+    dig_ground = Artifact(MAP_IMAGES['dig_ground'].convert_alpha(), 30, 'Pandas Skull', skull)
     dig_ground.rect.x = big_tree.rect.x + 250
     dig_ground.rect.y = big_tree.rect.y + 150
 
-    leaf = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "leaf.PNG"))
-    leaves = Artifact(MAP_IMAGES['leaves'], 30, 'Leaves', leaf)
+    leaf = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "leaf.PNG")).convert_alpha()
+    leaves = Artifact(MAP_IMAGES['leaves'].convert_alpha(), 30, 'Leaves', leaf)
     leaves.rect.x = 3750
     leaves.rect.y = 2700
 
-    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
-    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
+    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG")).convert_alpha()
+    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'].convert_alpha())
     paper.rect.x = 350
     paper.rect.y = 1200
 
-    pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
+    pot = Artifact(MAP_IMAGES['pot'].convert_alpha(), 20, 'Pot', None)
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
     water_on_map_image = pygame.image.load(
-        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
-    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
+        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG")).convert_alpha()
+    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG")).convert_alpha()
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
@@ -273,9 +273,9 @@ def add_map_artifacts(map_artifacts, all_artifacts):
 
 def check_map_artifact(map_artifact):
     if map_artifact.name == 'Ball':
-        map_artifact.image = MAP_IMAGES['bamboo_tree']
+        map_artifact.image = MAP_IMAGES['bamboo_tree'].convert_alpha()
     elif map_artifact.name == 'Immortality Flower':
-        map_artifact.image = MAP_IMAGES['big_tree']
+        map_artifact.image = MAP_IMAGES['big_tree'].convert_alpha()
     map_artifact.small_image = None
 
 

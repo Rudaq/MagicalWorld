@@ -14,7 +14,7 @@ def show_equipment_name(screen, equipment):
 def show_chest_to_hero(screen, hero, equipment_buttons):
     distance = math.floor(screen.get_size()[0] / 5)
     pos = 2 * distance
-    screen.blit(GUI_IMAGES['big_chest'], (pos, 100))
+    screen.blit(GUI_IMAGES['big_chest'].convert_alpha(), (pos, 100))
     x = pos + 40
     y = 220
     counter = 0
@@ -25,7 +25,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
         eq.image = image
         eq.rect.x = x
         eq.rect.y = y
-        screen.blit(image, (eq.rect.x, eq.rect.y))
+        screen.blit(image.convert_alpha(), (eq.rect.x, eq.rect.y))
         equipment_buttons.add(eq)
         equipment_buttons.update()
         equipment_buttons.draw(screen)
@@ -47,7 +47,7 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
     y = 150
     counter = 0
     check = 0
-    image = GUI_IMAGES['table']
+    image = GUI_IMAGES['table'].convert_alpha()
 
     for npc in npcs_to_choose:
         if npc_in_interaction_range(npc.npc, hero):
@@ -63,7 +63,7 @@ def show_table_to_hero(screen, npcs_to_choose, mock_npc_to_choose, hero):
     if len(mock_npc_to_choose) > 0:
         for mock_npc in mock_npc_to_choose:
             image = pygame.transform.scale(image, (400, 150 + check * 60))
-            screen.blit(image, (pos, 100))
+            screen.blit(image.convert_alpha(), (pos, 100))
 
             text = 'Choose NPC to which you wanna give a gift:'
             draw_text(text, pos + 10, 110, 13, BLACK, screen)

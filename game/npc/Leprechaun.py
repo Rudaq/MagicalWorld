@@ -19,15 +19,15 @@ class Leprechaun(Npc):
         self.race = "Leprechaun"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        gold_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "gold.PNG"))
+        gold_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "gold.PNG")).convert_alpha()
         self.gold_bar = Artifact(gold_image, 10, 'Gold Bar', None)
         self.gifts.add(self.gold_bar)
 
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Leprechaun Blood', None)
-        pot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.PNG"))
+        pot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "pot_of_gold.PNG")).convert_alpha()
         self.pot = Artifact(pot_image, 10, 'Pot of Gold', None)
         self.artifacts.add(self.blood, self.gold_bar, self.pot)
         leprechaun_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "coin.PNG"))
+            os.path.join(path, "resources/graphics/particles", "coin.PNG")).convert_alpha()
         self.npc_attack = AttackClass(leprechaun_attack, 20, 10, 'leprechaun attack')

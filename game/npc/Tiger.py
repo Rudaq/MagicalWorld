@@ -19,16 +19,16 @@ class Tiger(Npc):
         self.race = "Tiger"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Tiger Blood', None)
-        fur_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tigers_fur.PNG"))
+        fur_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tigers_fur.PNG")).convert_alpha()
         self.fur = Artifact(fur_image, 20, 'Tiger Fur', None)
         self.artifacts.add(self.blood, self.fur)
-        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tiger_necklace.PNG"))
+        necklace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tiger_necklace.PNG")).convert_alpha()
         self.magic_necklace = Artifact(necklace_image, 20, 'Magic Necklace', None)
         self.gifts.add(self.magic_necklace)
         tiger_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "tiger_attack.PNG"))
+            os.path.join(path, "resources/graphics/particles", "tiger_attack.PNG")).convert_alpha()
         self.npc_attack = AttackClass(tiger_attack, 20, 10, 'tiger attack')
 
     def take_gift(self, hero, artifact, npcs, screen):

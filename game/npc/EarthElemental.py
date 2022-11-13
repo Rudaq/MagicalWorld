@@ -19,15 +19,15 @@ class EarthElemental(Npc):
         self.race = "Earth Elemental"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Earth Elemental Blood', None)
-        rocks_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rocks.PNG"))
+        rocks_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rocks.PNG")).convert_alpha()
         self.rocks = Artifact(rocks_image, 10, 'Stones', None)
         self.artifacts.add(self.blood, self.rocks)
         dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
+            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG")).convert_alpha()
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
         self.artifacts.add(self.blood)
         earth_elemental_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "mud.PNG"))
+            os.path.join(path, "resources/graphics/particles", "mud.PNG")).convert_alpha()
         self.npc_attack = AttackClass(earth_elemental_attack, 20, 10, 'earth elemental attack')

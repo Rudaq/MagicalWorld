@@ -19,14 +19,14 @@ class Amazon(Npc):
         self.race = "Amazon"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Amazon Blood', None)
-        spare_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "amazon_spare.PNG"))
+        spare_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "amazon_spare.PNG")).convert_alpha()
         self.spare = Artifact(spare_image, 10, 'Amazon Spare', None)
         self.artifacts.add(self.blood, self.spare)
-        sage_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sage.PNG"))
+        sage_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sage.PNG")).convert_alpha()
         self.sage = Artifact(sage_image, 10, 'Sage', None)
         self.gifts.add(self.sage)
         amazon_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "spear.PNG"))
+            os.path.join(path, "resources/graphics/particles", "spear.PNG")).convert_alpha()
         self.npc_attack = AttackClass(amazon_attack, 20, 10, 'amazon attack')

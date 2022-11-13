@@ -19,14 +19,14 @@ class Orc(Npc):
         self.race = "Orc"
         self.collision_sprites = collision_sprites
         self.can_talk = False
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Orc Blood', None)
-        mace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_mace.PNG"))
+        mace_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "orc_mace.PNG")).convert_alpha()
         self.mace = Artifact(mace_image, 10, 'Orc Mace', None)
         self.artifacts.add(self.blood, self.mace)
-        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_potion.PNG"))
+        potion_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_potion.PNG")).convert_alpha()
         self.potion = Artifact(potion_image, 10, 'Life Potion', None)
         self.gifts.add(self.potion)
-        mud_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mud.PNG"))
+        mud_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "mud.PNG")).convert_alpha()
         self.npc_attack = AttackClass(mud_image, 20, 10, 'orc attack')
 

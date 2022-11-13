@@ -19,9 +19,9 @@ class Elf(Npc):
         self.race = "Elf"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Elf Blood', None)
         self.artifacts.add(self.blood)
         elf_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
+            os.path.join(path, "resources/graphics/weapon", "arrow.PNG")).convert_alpha()
         self.npc_attack = AttackClass(elf_attack, 20, 10, 'elf attack')

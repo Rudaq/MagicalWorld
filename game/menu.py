@@ -33,9 +33,9 @@ def menu():
         button_quit = pygame.Rect(250, 420, 300, 50)
         pygame.draw.rect(screen, BLACK, button_start, 0, 3)
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
-        screen.blit(GUI_IMAGES['start'], (101, 202))
-        screen.blit(GUI_IMAGES['quit'], (103, 297))
-        screen.blit(GUI_IMAGES['title'], (115, 20))
+        screen.blit(GUI_IMAGES['start'].convert_alpha(), (101, 202))
+        screen.blit(GUI_IMAGES['quit'].convert_alpha(), (103, 297))
+        screen.blit(GUI_IMAGES['title'].convert_alpha(), (115, 20))
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -76,20 +76,20 @@ def menu():
 # Method displaying the menu for choosing the character race
 def choose_character():
     # images to be displayed in the menu - (big, small)
-    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian.png")),
+    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/barbarian_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")),
-                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard.png")),
+                                       os.path.join(path, "resources/graphics/characters/barbarian_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")).convert_alpha(),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/wizard_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/elf.png")),
+                                       os.path.join(path, "resources/graphics/characters/wizard_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/elf.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/elf_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie.png")),
+                                       os.path.join(path, "resources/graphics/characters/elf_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/faerie_small.png")))]
+                                       os.path.join(path, "resources/graphics/characters/faerie_small.png")).convert_alpha())]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0
@@ -108,7 +108,7 @@ def choose_character():
         screen.blit(eligible_characters_images[index][0], (250, 0))
 
         # draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
-        screen.blit(GUI_IMAGES['selection'], (105, 30))
+        screen.blit(GUI_IMAGES['selection'].convert_alpha(), (105, 30))
 
         # Drawing arrows for character selection
         pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)], 5)

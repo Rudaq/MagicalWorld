@@ -20,13 +20,13 @@ class Druid(Npc):
         self.race = "Druid"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Druid Blood', None)
         self.artifacts.add(self.blood)
-        fire_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sacred_fire.PNG"))
+        fire_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "sacred_fire.PNG")).convert_alpha()
         self.fire = Artifact(fire_image, 20, 'Sacred Fire', None)
         self.gifts.add(self.blood)
-        druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG"))
+        druid_attack = pygame.image.load(os.path.join(path, "resources/graphics/particles", "druid_attack.PNG")).convert_alpha()
         self.npc_attack = AttackClass(druid_attack, 20, 10, 'druid attack')
 
 

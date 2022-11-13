@@ -19,21 +19,21 @@ class Smith(Npc):
         self.race = "Smith"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Smith Blood', None)
         self.artifacts.add(self.blood)
-        tools_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tools.PNG"))
+        tools_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "tools.PNG")).convert_alpha()
         self.tools = Artifact(tools_image, 10, 'Tools', None)
-        shovel_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "shovel.PNG"))
+        shovel_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "shovel.PNG")).convert_alpha()
         self.shovel = Artifact(shovel_image, 10, 'Shovel', None)
-        sword_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "new_sword.PNG"))
+        sword_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "new_sword.PNG")).convert_alpha()
         self.new_sword = Artifact(sword_image, 10, 'New Sword', None)
-        gem_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "purple_gem.PNG"))
+        gem_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "purple_gem.PNG")).convert_alpha()
         self.gem = Artifact(gem_image, 10, 'Purple Gem', None)
-        banana_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "banana.PNG"))
+        banana_image = pygame.image.load(os.path.join(path, "resources/graphics/particles", "banana.PNG")).convert_alpha()
         self.banana = Artifact(banana_image, 10, 'Banana', None)
         self.gifts.add(self.tools, self.shovel, self.new_sword, self.gem, self.banana)
         smith_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/weapon", "axe.png"))
+            os.path.join(path, "resources/graphics/weapon", "axe.png")).convert_alpha()
         self.npc_attack = AttackClass(smith_attack, 20, 10, 'weapon attack')
 

@@ -19,9 +19,9 @@ class BlindRat(Npc):
         self.race = "Blind Rat"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Blind Rat Blood', None)
         self.artifacts.add(self.blood)
         blind_rat_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "laser.PNG"))
+            os.path.join(path, "resources/graphics/particles", "laser.PNG")).convert_alpha()
         self.npc_attack = AttackClass(blind_rat_attack, 20, 10, 'blind rat attack')

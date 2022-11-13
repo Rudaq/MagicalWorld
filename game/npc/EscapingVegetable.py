@@ -19,7 +19,7 @@ class EscapingVegetable(Npc):
         self.race = "Escaping Vegetable"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        carrot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "small_carrot.PNG"))
+        carrot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "small_carrot.PNG")).convert_alpha()
         self.carrot = Artifact(carrot_image, 10, 'Vegetables', None)
         self.artifacts.add(self.carrot)
         self.npc_attack = None
