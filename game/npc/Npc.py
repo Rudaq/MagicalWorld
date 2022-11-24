@@ -1,7 +1,6 @@
 import os
 import random
 from pathlib import Path
-
 import pandas as pd
 import pygame
 from hero.Character import Character
@@ -19,9 +18,8 @@ class Npc(Character):
         self.movement = [0, 0, 0]
         self.text = '>> '
         self.image = self.images['down']
-        self.collision_sprites = collision_sprites
         self.rect = self.image.get_rect(topleft=pos)
-        # self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
+
         self.is_talking = False
         self.add_npc_to_hud = False
         self.can_talk = None
@@ -31,6 +29,7 @@ class Npc(Character):
         self.quests_to_give = quests
         self.gifts = pygame.sprite.Group()
         self.artifacts = pygame.sprite.Group()
+
         self.context = ''
         self.nice_greetings = []
         self.rude_greetings = []
@@ -38,9 +37,6 @@ class Npc(Character):
 
         self.sound_path = os.path.join(path, "resources/music/npc_attack.wav")
 
-    # # Placeholder. Method to talk? May be useful
-    # def talk(self):
-    #     print("I'm NPC")
 
     # Method for randomly moving the npc
     def move(self, all_sprites_group):
@@ -118,7 +114,7 @@ class Npc(Character):
     # One common function for throwing out particles for all NPC's
     def fight_npc(self, screen, hero, npcs):
 
-        counter = random.randint(1, 25)
+        counter = random.randint(1, 15)
         if counter == 4 and self.npc_attack is not None:
             if self.attack_type is None:
                 self.attack_type = self.npc_attack

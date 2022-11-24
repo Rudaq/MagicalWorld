@@ -19,13 +19,16 @@ class DarkElf(Npc):
         self.race = "Dark Elf"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Dark Elf Blood', None)
         self.artifacts.add(self.blood)
-        magic_blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_blood.PNG"))
+        magic_blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "magic_blood.PNG")).convert_alpha()
         self.magic_blood = Artifact(magic_blood_image, 10, 'Magic Blood', None)
         self.gifts.add(self.magic_blood)
+        stone_donkey_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "stoneDonkey.PNG")).convert_alpha()
+        self.stone_donkey = Artifact(stone_donkey_image, 10, 'Travel Companion', None)
+        self.gifts.add(self.stone_donkey)
         dark_elf_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/weapon", "arrow.PNG"))
+            os.path.join(path, "resources/graphics/weapon", "arrow.PNG")).convert_alpha()
         self.npc_attack = AttackClass(dark_elf_attack, 20, 10, 'dark elf attack')
         self.context = Path("../NLP/context/DarkElfContext.txt").read_text()

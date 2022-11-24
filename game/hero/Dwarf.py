@@ -5,6 +5,7 @@ from artifacts.AttackClass import AttackClass
 from hero.Character import Character
 from settings import DWARVES_ACTIONS
 import pygame
+
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
@@ -19,16 +20,23 @@ class Dwarf(Character):
         self.collision_sprites = collision_sprites
         self.pos = pos
         self.braids_attack = AttackClass(DWARVES_ACTIONS['braids'], 20, 10, 'braids_attacks')
-        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 30, 5, 'axe_attack')
+        self.axe_attack = AttackClass(DWARVES_ACTIONS['axe'], 25, 15, 'axe_attack')
         self.sleep = AttackClass(DWARVES_ACTIONS['sleep'], 0, 15, 'sleep')
+
         self.sound3_path = os.path.join(path, "resources/music/sleeping.wav")
         self.sound2_path = os.path.join(path, "resources/music/braid_choke.wav")
         self.sound1_path = os.path.join(path, "resources/music/axe_hit.wav")
 
+        feather_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_feather.PNG"))
+        self.feather = Artifact(feather_image, 10, 'Raven Feathers', None)
+        self.equipment.append(self.feather)
+
     # printing the attack onto the screen
     def attack(self, screen, npcs):
-        if self.in_attack:
+        if self.in_attack and self.mana - self.attack_type.mana >= 0:
+            self.mana -= self.attack_type.mana
             self.attack_type.move_attack()
+
             if self.attack_type.size < 150:
                 if self.attack_type.image == self.attack_type.image_up or self.attack_type.image == self.attack_type.image_down:
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
@@ -37,9 +45,6 @@ class Dwarf(Character):
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             self.attack_type.check_attack_npc_collision(self, npcs)
-
-        if self.mana - self.attack_type.mana >= 0:
-            self.mana -= self.attack_type.mana
             self.in_attack = False
 
     def fight(self, screen, option, npcs):
@@ -53,6 +58,7 @@ class Dwarf(Character):
             elif option == 3:
                 self.attack_type = self.sleep
                 pygame.mixer.Sound.play(self.sound3)
+                self.add_life(20)
 
             # aqui - potentially TODO printing the attack from right, not left
             if self.direction == 'U':
@@ -98,6 +104,7 @@ class Dwarf(Character):
 
         self.attack(screen, npcs)
 
+
     def collect_artifact(self, artifact, npcs):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
@@ -110,21 +117,6 @@ class Dwarf(Character):
                 self.axe_attack.strength += 10
             self.equipment.append(artifact)
             self.points += artifact.points
-            return True
-
-        # Placeholder. Method to add the found or obtained weapon to the equipment.
-
-    def collect_artifact(self, artifact, npcs):
-        if len(self.equipment) == 6:
-            print("You can't collect more equipment! Your backpack is full!")
-            return False
-        else:
-            if artifact.small_image is not None:
-                artifact.image = artifact.small_image
-                artifact.small_image = None
-
-            self.equipment.append(artifact)
-            self.points += artifact.points
 
             if self.active_quest.active_task is not None \
                     and self.active_quest.active_task.npc_take_artifact is None \
@@ -132,3 +124,4 @@ class Dwarf(Character):
                 self.active_quest.task_completed(self, npcs)
 
             return True
+

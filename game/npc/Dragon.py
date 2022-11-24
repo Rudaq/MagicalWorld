@@ -19,12 +19,12 @@ class Dragon(Npc):
         self.race = "Dragon"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 30, 'Dragon Blood', None)
-        eyeball_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "dragon_eyeball.PNG"))
+        eyeball_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "dragon_eyeball.PNG")).convert_alpha()
         self.eyeball = Artifact(eyeball_image, 10, 'Dragon Eyeball', None)
         self.artifacts.add(self.blood, self.eyeball)
         dragon_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "fire.png"))
+            os.path.join(path, "resources/graphics/particles", "fire.png")).convert_alpha()
         self.npc_attack = AttackClass(dragon_attack, 20, 10, 'dragon attack')
         self.context = Path("../NLP/context/DragonContext.txt").read_text()

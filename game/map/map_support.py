@@ -26,3 +26,5 @@ def create_map(all_sprites_group, collision_sprites, npc_boundaries, sprites_to_
 
                     if style == 'boundary_npc':
                         Tile((x, y), [sprites_to_move_opposite], [npc_boundaries], 'invisible')
+
+

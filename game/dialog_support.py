@@ -1,7 +1,7 @@
 import pygame
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
 import random
-from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES
+from game.settings import BLACK, DIALOG_START, WIDTH_GAME, WHITE, GUI_IMAGES, RED
 from game.npc_settings import RANDOM_ANSWERS
 
 

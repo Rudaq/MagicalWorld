@@ -7,7 +7,7 @@ from game_support import create_character
 from menu_support import draw_text_on_menu, divide
 from game_init import game
 from NLP.description_generation.main import generate_text_about_character
-from settings import BLACK, WHITE, BLUE, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS, GUI_IMAGES
+from settings import BLACK, WHITE, BLUE, RED, MENU_WIDTH, MENU_HEIGHT, LETTERS_NUMBERS, GUI_IMAGES
 import os
 from pathlib import Path
 
@@ -53,10 +53,10 @@ def menu():
         pygame.draw.rect(screen, BLACK, button_how_to, 0, 3)
         pygame.draw.rect(screen, BLACK, button_quit, 0, 3)
 
-        screen.blit(GUI_IMAGES['start'], (101, 202))
-        screen.blit(GUI_IMAGES['how_to'], (250, 395))
-        screen.blit(GUI_IMAGES['quit'], (103, 392))
-        screen.blit(GUI_IMAGES['title'], (115, 20))
+        screen.blit(GUI_IMAGES['start'].convert_alpha(), (101, 202))
+        screen.blit(GUI_IMAGES['how_to'].convert_alpha(), (250, 395))
+        screen.blit(GUI_IMAGES['quit'].convert_alpha(), (103, 392))
+        screen.blit(GUI_IMAGES['title'].convert_alpha(), (115, 20))
 
         # Getting the state of mouse buttons - pressed or not
         left, middle, right = pygame.mouse.get_pressed()
@@ -148,20 +148,20 @@ def how_to_play():
 # Method displaying the menu for choosing the character race
 def choose_character():
     # images to be displayed in the menu - (big, small)
-    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian.png")),
+    eligible_characters_images = [(pygame.image.load(os.path.join(path, "resources/graphics/characters/Barbarian.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/barbarian_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")),
-                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard.png")),
+                                       os.path.join(path, "resources/graphics/characters/barbarian_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf2.png")).convert_alpha(),
+                                   pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/wizard_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/elf.png")),
+                                       os.path.join(path, "resources/graphics/characters/wizard_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/elf.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/elf_small.png"))),
-                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie.png")),
+                                       os.path.join(path, "resources/graphics/characters/elf_small.png")).convert_alpha()),
+                                  (pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie.png")).convert_alpha(),
                                    pygame.image.load(
-                                       os.path.join(path, "resources/graphics/characters/faerie_small.png")))]
+                                       os.path.join(path, "resources/graphics/characters/faerie_small.png")).convert_alpha())]
 
     names = ["Barbarian", "Dwarf", "Wizard", "Elf", "Faerie"]
     index = 0
@@ -175,13 +175,12 @@ def choose_character():
 
     # Menu displaying loop
     while True:
-        # screen.fill(BLACK)
         screen.blit(character_view, (0, 0))
         # screen.blit(eligible_characters_images[index], (400, 150))
         screen.blit(eligible_characters_images[index][0], (250, 0))
 
         # draw_text_on_menu("Character selection", 200, 50, 40, WHITE, screen)
-        screen.blit(GUI_IMAGES['selection'], (105, 30))
+        screen.blit(GUI_IMAGES['selection'].convert_alpha(), (105, 30))
 
         # Drawing arrows for character selection
         pygame.draw.polygon(screen, WHITE, [(350, 250), (350, 350), (300, 300)], 5)
@@ -189,19 +188,22 @@ def choose_character():
                             [(MENU_WIDTH - 150, 250), (MENU_WIDTH - 150, 350), (MENU_WIDTH - 100, 300)], 5)
 
         # Field for entering name
-        draw_text_on_menu("Name: ", 75, 175, 20, WHITE, screen)
+        #draw_text_on_menu("Name: ", 75, 175, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['name'].convert_alpha(), (135, 163))
         name = pygame.Rect(100, 200, 150, 40)
         pygame.draw.rect(screen, WHITE, name, 0, 3)
         draw_text_on_menu(char_name, 100, 200, 20, BLACK, screen)
 
         # Field for displaying race
-        draw_text_on_menu("Type: ", 75, 275, 20, WHITE, screen)
+        #draw_text_on_menu("Type: ", 75, 275, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['type'].convert_alpha(), (132, 263))
         c_type = pygame.Rect(100, 300, 150, 40)
         pygame.draw.rect(screen, WHITE, c_type, 0, 3)
         draw_text_on_menu(names[index], 100, 300, 20, BLACK, screen)
 
         # Field for choosing side - good or evil
-        draw_text_on_menu("Side: ", 75, 375, 20, WHITE, screen)
+        #draw_text_on_menu("Side: ", 75, 375, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['side'].convert_alpha(), (137, 363))
         side = pygame.Rect(100, 400, 150, 40)
         pygame.draw.rect(screen, WHITE, side, 0, 3)
         pygame.draw.polygon(screen, WHITE, [(90, 410), (90, 430), (70, 420)], 2)
@@ -255,7 +257,13 @@ def choose_character():
 
                     return final_name, final_type, final_side, eligible_characters_images[index][0], \
                            eligible_characters_images[index][1]
-
+                elif len(char_name) == 0:
+                    pygame.draw.rect(screen, RED, ((MENU_WIDTH-400)/2, (MENU_HEIGHT-80)/2, 400, 80), 0, 3)
+                    pygame.draw.rect(screen, BLACK, ((MENU_WIDTH - 400) / 2, (MENU_HEIGHT - 80) / 2, 400, 80), 1, 5)
+                    draw_text_on_menu("Do not forget to insert the name", (MENU_WIDTH - 330) / 2,
+                                      (MENU_HEIGHT - 50) / 2, 20, BLACK, screen)
+                    draw_text_on_menu("of your character!", (MENU_WIDTH - 190) / 2,
+                                      MENU_HEIGHT / 2, 20, BLACK, screen)
             elif 250 < y < 350 and 650 < x <= 700:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 if pressed:

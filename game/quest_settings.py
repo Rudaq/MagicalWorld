@@ -341,7 +341,7 @@ QUESTS = {
                     }
                 ]
             },
-            # Quest 2
+# Quest 2
             'primaeval_help': {
                 'name': 'primaeval_help',
                 'description': 'Now that you learnt how to craft, it’s time to make yourself useful. Take a moment and '
@@ -628,7 +628,7 @@ QUESTS = {
                         'npc_give_task': 'Big Monke',
                         'npc_take_artifact': None,
                         'next_npc': None,
-                        'gift': None
+                        'gift': 'Dwarven Gem'
                     }
                 ]
             }

@@ -1,5 +1,9 @@
+import sys
+
+import pygame
+from shapely.geometry import Point, Polygon
 from NLP.dialog_generation.GenerateNpcDialog import wrap_text, draw_text
-from game.settings import GUI_IMAGES, BLACK
+from game.settings import GUI_IMAGES, BLACK, HEIGHT_GAME, END_TEXT, continue_button, quit_button
 import math
 from quest_settings import QUESTS
 from settings import BLACK
@@ -50,7 +54,7 @@ def show_quest_to_hero(screen, hero):
         else:
             text = hero.active_quest.description
     else:
-        text = "You mission is completed! Congratulation!!! <3"
+        text = "Your missions are completed!"
 
     text_list = wrap_text(text, 25, False)
     for text in text_list:
@@ -60,3 +64,29 @@ def show_quest_to_hero(screen, hero):
             h += 5
         else:
             h -= 5
+
+
+def display_end_text(screen, hero):
+    screen_width = math.floor(screen.get_size()[0])
+    top_right = (screen_width - 500) / 2
+    screen.blit(GUI_IMAGES['end_frame'].convert_alpha(), (top_right, (HEIGHT_GAME - 480) / 2))
+    w = top_right - 230
+    h = HEIGHT_GAME / 2 + 140
+
+    text_list = wrap_text(END_TEXT[hero.race].replace("+name+", hero.name), 50, False)
+
+    for text in text_list:
+        draw_text(text, h, w, 16, BLACK, screen)
+        w += 27
+
+    x, y = pygame.mouse.get_pos()
+    mouse_position = Point(x, y)
+    left, middle, right = pygame.mouse.get_pressed()
+    value = ''
+    if left:
+        if quit_button.contains(mouse_position):
+            value = 'quit'
+        elif continue_button.contains(mouse_position):
+            value = 'continue'
+
+    return value

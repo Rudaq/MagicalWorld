@@ -6,13 +6,18 @@ from os import walk
 import math
 import os
 from pathlib import Path
+from shapely.geometry import Point, Polygon
 
 from hero.Barbarian import Barbarian
 from hero.Dwarf import Dwarf
 from hero.Elf import Elf
 from hero.Faerie import Faerie
 from hero.Wizard import Wizard
-from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE
+from settings import HERO_ANIMATIONS, GUI_IMAGES, TILES_SIZE, RED, SCALE, WHITE, WIDTH_GAME, HEIGHT_GAME, \
+    FrozenEmpireSurface, EnchantedSurface, LoveyDoveySurface, BushSurface, SpecularLakesSurface, DrearyForestSurface, \
+    MedievilleSurface, CoastSurface, DesolationSurface, SwampSurface, MiniFrozenEmpire, MiniEnchantedForest, \
+    MiniLoveyDoveyLand, MiniPrimevalBush, MiniSpecularLakes, MiniDrearyForest, MiniMedieville, MiniStormyPier, \
+    MiniDesolationOfAbomination, MiniMistySwamp
 from npc_settings import NPCs
 from settings import BLACK
 from menu_support import draw_text_on_menu
@@ -63,16 +68,13 @@ def create_character(chosen_name, chosen_type, chosen_side):
     if chosen_type == "Elf":
         hero = Elf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Elf'], None, (200, 200), (), [])
     elif chosen_type == "Faerie":
-        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (),
-                      [])
+        hero = Faerie(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Faerie'], None, (200, 200), (), [])
     elif chosen_type == "Wizard":
-        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (),
-                      [])
+        hero = Wizard(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Wizard'], None, (200, 200), (), [])
     elif chosen_type == "Dwarf":
         hero = Dwarf(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Dwarf'], None, (200, 200), (), [])
     else:
-        hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (),
-                         [])
+        hero = Barbarian(chosen_name, chosen_side, 100, 100, HERO_ANIMATIONS['Barbarian'], None, (200, 200), (), [])
 
     return hero
 
@@ -111,26 +113,32 @@ def import_folder(path):
 
 
 # Function for displaying buttons above these NPC's that can talk and fight
-def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
-    print("Chosen_npc: ", chosen_npc)
-    s.fill(BLACK)
-    s.set_alpha(192)
+def hero_in_dialog_or_talk(screen, chosen_npc):
 
-    # create buttons 'Fight' and 'Talk'
-    buttons = pygame.sprite.Group()
-    fight_button.image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
-    fight_button.rect.x = chosen_npc.rect.x - 40
-    fight_button.rect.y = chosen_npc.rect.y - 50
+    fight_image = pygame.transform.scale(GUI_IMAGES['fight_button'], (80, 40))
+    talk_image = pygame.transform.scale(GUI_IMAGES['talk_button'], (80, 40))
+    screen.blit(fight_image.convert_alpha(), (chosen_npc.rect.x - 40, chosen_npc.rect.y - 50))
+    screen.blit(talk_image.convert_alpha(), (chosen_npc.rect.x + 40, chosen_npc.rect.y - 50))
 
-    talk_button.image = pygame.transform.scale(GUI_IMAGES['talk_button'], (80, 40))
-    talk_button.rect.x = chosen_npc.rect.x + 40
-    talk_button.rect.y = chosen_npc.rect.y - 50
+    fight_polygon = Polygon([(chosen_npc.rect.x - 40, chosen_npc.rect.y - 50), (
+        chosen_npc.rect.x - 40, chosen_npc.rect.y - 10), (chosen_npc.rect.x + 40, chosen_npc.rect.y - 10), (
+                                 chosen_npc.rect.x + 40, chosen_npc.rect.y - 50)])
+    talk_polygon = Polygon([(chosen_npc.rect.x + 40, chosen_npc.rect.y - 50), (
+        chosen_npc.rect.x + 40, chosen_npc.rect.y - 10), (chosen_npc.rect.x + 120, chosen_npc.rect.y - 10), (
+                                 chosen_npc.rect.x + 120, chosen_npc.rect.y - 50)])
 
-    buttons.add(fight_button)
-    buttons.add(talk_button)
+    x, y = pygame.mouse.get_pos()
+    mouse_position = Point(x, y)
+    left, middle, right = pygame.mouse.get_pressed()
+    value = ''
 
-    buttons.update()
-    buttons.draw(screen)
+    if left:
+        if fight_polygon.contains(mouse_position):
+            value = 'fight'
+        elif talk_polygon.contains(mouse_position):
+            value = 'talk'
+
+    return value
 
 
 # checking the distance between hero and chosen npc
@@ -145,7 +153,7 @@ def npc_in_interaction_range(chosen_npc, hero):
 
 def show_map_to_hero(screen, hero, all_sprites_group):
     map_top_right = 20
-    screen.blit(GUI_IMAGES['map2'], (map_top_right, 100))
+    screen.blit(GUI_IMAGES['map2'].convert_alpha(), (map_top_right, 100))
 
     x_position_scaled = (hero.rect.centerx + all_sprites_group.offset.x) * SCALE
     y_position_scaled = (hero.rect.centery + all_sprites_group.offset.y) * SCALE
@@ -153,78 +161,127 @@ def show_map_to_hero(screen, hero, all_sprites_group):
 
     # Position of the mouse
     x, y = pygame.mouse.get_pos()
-    print(x)
-    print(y)
+    coords = Point(x, y)
 
     # Hover over the realm biomes
-    if 27 < x < 190:
-        if 111 < y < 205:
-            draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
-        elif 233 < y < 330:
-            draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
-        elif 348 < y < 473:
-            draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
-    elif 208 < x < 379 and 112 < y < 198:
-        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
-    elif 208 < x < 420 and 234 < y < 303:
+    if MiniFrozenEmpire.contains(coords):
+        draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
+    elif MiniEnchantedForest.contains(coords):
+        draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
+    elif MiniLoveyDoveyLand.contains(coords):
+        draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
+    elif MiniPrimevalBush.contains(coords):
         draw_text_on_menu("Primeval Bush", x, y, 15, BLACK, screen)
-    elif 478 < x < 634 and 221 < y < 320:
-        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
-    elif 405 < x < 557 and 113 < y < 179:
-        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
-    elif 403 < x < 650 and 361 < y < 415:
+    elif MiniSpecularLakes.contains(coords):
         draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
-    elif (233 < x < 373 and 343 < y < 394) or (373 < x < 397 and 394 < y < 452):
+    elif MiniDrearyForest.contains(coords):
         draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
-    elif 626 < x < 713 and 109 < y < 294:
+    elif MiniMedieville.contains(coords):
+        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
+    elif MiniStormyPier.contains(coords):
         draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
+    elif MiniDesolationOfAbomination.contains(coords):
+        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
+    elif MiniMistySwamp.contains(coords):
+        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
+
+
+def check_biome(coords):
+    global image
+
+    if FrozenEmpireSurface.contains(coords):
+        image = GUI_IMAGES['frozen_empire']
+    elif EnchantedSurface.contains(coords):
+        image = GUI_IMAGES['enchanted_forest']
+    elif LoveyDoveySurface.contains(coords):
+        image = GUI_IMAGES['lovey_dovey_land']
+    elif BushSurface.contains(coords):
+        image = GUI_IMAGES['primeval_bush']
+    elif SpecularLakesSurface.contains(coords):
+        image = GUI_IMAGES['specular_lakes']
+    elif DrearyForestSurface.contains(coords):
+        image = GUI_IMAGES['dreary_forest']
+    elif MedievilleSurface.contains(coords):
+        image = GUI_IMAGES['medieville']
+    elif CoastSurface.contains(coords):
+        image = GUI_IMAGES['stormy_pier']
+    elif DesolationSurface.contains(coords):
+        image = GUI_IMAGES['desolation_of_abomination']
+    elif SwampSurface.contains(coords):
+        image = GUI_IMAGES['misty_swamp']
+
+    return image
+
+
+def show_current_biome(screen, image):
+    coordinates = (WIDTH_GAME - 350, 9 / 10 * HEIGHT_GAME)
+    screen.blit(image.convert_alpha(), coordinates)
 
 
 def add_map_artifacts(map_artifacts, all_artifacts):
-    rainbow = Artifact(MAP_IMAGES['rainbow'], 20, 'Rainbow', MAP_IMAGES['rainbow_small'])
+    rainbow = Artifact(MAP_IMAGES['rainbow'].convert_alpha(), 20, 'Rainbow',
+                       MAP_IMAGES['rainbow_small'].convert_alpha())
     rainbow.rect.x = 900
     rainbow.rect.y = 5500
 
-    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG"))
-    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'], 20, 'Ball', ball)
+    enchanted_tree = Artifact(MAP_IMAGES['enchanted_tree'].convert_alpha(), 20, 'Enchanted Stick',
+                              MAP_IMAGES['stick'].convert_alpha())
+    enchanted_tree.rect.x = 480
+    enchanted_tree.rect.y = 4050
+
+    mud = Artifact(MAP_IMAGES['mud'].convert_alpha(), 20, 'Mud', MAP_IMAGES['mud'].convert_alpha())
+    mud.rect.x = 8300
+    mud.rect.y = 950
+
+    web = Artifact(MAP_IMAGES['spider_web'].convert_alpha(), 20, 'Spider web', MAP_IMAGES['spider_web'].convert_alpha())
+    web.rect.x = 4400
+    web.rect.y = 5700
+
+    ball = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "ball.PNG")).convert_alpha()
+    bamboo_tree = Artifact(MAP_IMAGES['bamboo_tree_ball'].convert_alpha(), 20, 'Ball', ball)
     bamboo_tree.rect.x = 11970
     bamboo_tree.rect.y = 4180
 
-    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG"))
-    big_tree = Artifact(MAP_IMAGES['big_tree_flower'], 30, 'Immortality Flower', flower)
+    flower = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "flower.PNG")).convert_alpha()
+    big_tree = Artifact(MAP_IMAGES['big_tree_flower'].convert_alpha(), 30, 'Immortality Flower', flower)
     big_tree.rect.x = 6050
     big_tree.rect.y = 4780
 
-    skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG"))
-    dig_ground = Artifact(MAP_IMAGES['dig_ground'], 30, 'Pandas Skull', skull)
+    skull = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "skull.PNG")).convert_alpha()
+    dig_ground = Artifact(MAP_IMAGES['dig_ground'].convert_alpha(), 30, 'Pandas Skull', skull)
     dig_ground.rect.x = big_tree.rect.x + 250
     dig_ground.rect.y = big_tree.rect.y + 150
 
-    snow_paper = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG"))
-    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'])
+    leaf = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "leaf.PNG")).convert_alpha()
+    leaves = Artifact(MAP_IMAGES['leaves'].convert_alpha(), 30, 'Leaves', leaf)
+    leaves.rect.x = 3750
+    leaves.rect.y = 2700
+
+    snow_paper = pygame.image.load(
+        os.path.join(current_path, "resources/graphics/artifacts", "snow_paper.PNG")).convert_alpha()
+    paper = Artifact(snow_paper, 20, 'Paper', MAP_IMAGES['paper'].convert_alpha())
     paper.rect.x = 350
     paper.rect.y = 1200
 
-    pot = Artifact(MAP_IMAGES['pot'], 20, 'Pot', None)
+    pot = Artifact(MAP_IMAGES['pot'].convert_alpha(), 20, 'Pot', None)
     pot.rect.x = rainbow.rect.x + 198
     pot.rect.y = rainbow.rect.y + 30
 
-    water_on_map_image = pygame.image.load(
-        os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG"))
-    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG"))
+    water_on_map_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water_on_map.PNG")).convert_alpha()
+    water_image = pygame.image.load(os.path.join(current_path, "resources/graphics/artifacts", "water.PNG")).convert_alpha()
     water = Artifact(water_on_map_image, 20, 'Water', water_image)
     water.rect.x = 9200
     water.rect.y = 4950
-    all_artifacts.add(paper, pot, water)
+    all_artifacts.add(paper, pot, water, leaves, mud, web)
 
-    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground)
+    map_artifacts.add(rainbow, bamboo_tree, big_tree, dig_ground, enchanted_tree)
 
 
 def check_map_artifact(map_artifact):
     if map_artifact.name == 'Ball':
-        map_artifact.image = MAP_IMAGES['bamboo_tree']
+        map_artifact.image = MAP_IMAGES['bamboo_tree'].convert_alpha()
     elif map_artifact.name == 'Immortality Flower':
-        map_artifact.image = MAP_IMAGES['big_tree']
+        map_artifact.image = MAP_IMAGES['big_tree'].convert_alpha()
     map_artifact.small_image = None
 
 

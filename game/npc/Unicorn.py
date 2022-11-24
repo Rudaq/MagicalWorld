@@ -19,13 +19,13 @@ class Unicorn(Npc):
         self.race = "Unicorn"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Unicorn Blood', None)
-        horn_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "horn.PNG"))
+        horn_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "horn.PNG")).convert_alpha()
         self.horn = Artifact(horn_image, 10, 'Unicorn Horn', None)
-        heart_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "unicorn_heart.PNG"))
+        heart_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "unicorn_heart.PNG")).convert_alpha()
         self.heart = Artifact(heart_image, 10, 'Unicorn Heart', None)
         self.artifacts.add(self.blood, self.horn, self.heart)
         unicorn_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "spell.PNG"))
+            os.path.join(path, "resources/graphics/particles", "spell.PNG")).convert_alpha()
         self.npc_attack = AttackClass(unicorn_attack, 20, 10, 'unicorn attack')

@@ -19,9 +19,9 @@ class BigWolf(Npc):
         self.race = "Big Wolf"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Wolves Blood', None)
         self.artifacts.add(self.blood)
         big_wolf_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "scratch.PNG"))
+            os.path.join(path, "resources/graphics/particles", "scratch.PNG")).convert_alpha()
         self.npc_attack = AttackClass(big_wolf_attack, 20, 10, 'big wolf attack')

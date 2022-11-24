@@ -8,9 +8,7 @@ from game.artifacts.AttackClass import AttackClass
 from game.hero.Character import Character
 from game.settings import ELF_SPELLS
 
-'''
-Class for a hero of race Elf, inherits from Character class
-'''
+
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
@@ -22,9 +20,11 @@ class Elf(Character):
         self.earth_spell = AttackClass(ELF_SPELLS['earth'], 25, 20, 'earth_spell')
         self.heal_spell = AttackClass(ELF_SPELLS['healing'], -15, 30, 'heal_spell')
         self.shoot_arrow = AttackClass(ELF_SPELLS['arrow'], 20, 10, 'shoot_arrow')
+
         self.race = "Elf"
         self.collision_sprites = collision_sprites
         self.pos = pos
+
         self.sound3_path = os.path.join(path, "resources/music/arrow.wav")
         self.sound2_path = os.path.join(path, "resources/music/healing_spell.wav")
         self.sound1_path = os.path.join(path, "resources/music/earth_spell.wav")
@@ -42,7 +42,6 @@ class Elf(Character):
             npc.life = 100 - int(npc.life % 100)
 
     def fight(self, screen, option, npcs):
-
         if self.attack_type is None:
             if option == 1:
                 self.attack_type = self.earth_spell

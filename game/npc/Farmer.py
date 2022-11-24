@@ -19,13 +19,13 @@ class Farmer(Npc):
         self.race = "Farmer"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Farmer Blood', None)
         self.artifacts.add(self.blood)
-        hemmer_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "hammer.PNG"))
-        self.hammer = Artifact(hemmer_image, 10, 'Hammer', None)
+        hammer_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "hammer.PNG")).convert_alpha()
+        self.hammer = Artifact(hammer_image, 10, 'Hammer', None)
         self.gifts.add(self.hammer)
         farmer_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "grabie.PNG"))
+            os.path.join(path, "resources/graphics/particles", "grabie.PNG")).convert_alpha()
         self.npc_attack = AttackClass(farmer_attack, 20, 10, 'farmer attack')
         self.context = Path("../NLP/context/FarmerContext.txt").read_text()

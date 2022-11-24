@@ -15,16 +15,17 @@ def set_fight_parameters(hero):
 
 # sey the settings of fight
 def fight(hero, chosen_npc):
-    chosen_npc.in_attack = False
-    chosen_npc.attack_type = None
-    chosen_npc.in_fight_mode = True
-    chosen_npc.performing_action = False
+    if hero.life > 0:
+        chosen_npc.in_attack = False
+        chosen_npc.attack_type = None
+        chosen_npc.in_fight_mode = True
+        chosen_npc.performing_action = False
 
-    hero.in_fight_mode = True
-    hero.performing_action = False
-    hero.in_attack = False
-    hero.attack_type = None
-    print("FIGHT")
+        hero.in_fight_mode = True
+        hero.performing_action = False
+        hero.in_attack = False
+        hero.attack_type = None
+        print("FIGHT")
 
 
 def stop_fight(hero, chosen_npc):

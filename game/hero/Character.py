@@ -30,7 +30,6 @@ class Character(pygame.sprite.Sprite):
 
         self.collision_sprites = collision_sprites
         self.groups = groups
-        # self.speed = 5
 
         self.name = name
         self.side = side
@@ -39,7 +38,7 @@ class Character(pygame.sprite.Sprite):
         self.equipment = []
         self.points = 0
 
-        self.direction = "D"
+        self.direction = "U"
         self.my_text = ''
         self.text_history = []
         self.last_position = 175
@@ -128,12 +127,15 @@ class Character(pygame.sprite.Sprite):
             elif direction == 'vertical':
                 all_sprites_group.offset.y += mov_y * sign
 
+          #  print(all_sprites_group.offset.x + self.rect.centerx)
+          #  print(all_sprites_group.offset.y + self.rect.centery)
+
             for sprite in sprites_to_move_opposite:
                 if direction == 'horizontal':
                     sprite.rect.centerx += mov_x * sign * (-1)
                 elif direction == 'vertical':
                     sprite.rect.centery += mov_y * sign * (-1)
-                # sprite.direction = dir_opposite
+                sprite.direction = dir_opposite
 
     def collision(self, all_sprites_group):
         is_collision = False

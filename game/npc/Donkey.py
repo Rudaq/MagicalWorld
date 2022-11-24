@@ -19,14 +19,14 @@ class Donkey(Npc):
         self.race = "Donkey"
         self.collision_sprites = collision_sprites
         self.can_talk = True
-        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG"))
+        blood_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "blood.PNG")).convert_alpha()
         self.blood = Artifact(blood_image, 10, 'Donkey Blood', None)
         self.artifacts.add(self.blood)
-        carrot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "small_carrot.PNG"))
+        carrot_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "small_carrot.PNG")).convert_alpha()
         self.carrot = Artifact(carrot_image, 15, 'Snowman Nose', None)
         self.gifts.add(self.carrot)
         dark_wizard_attack = pygame.image.load(
-            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG"))
+            os.path.join(path, "resources/graphics/particles", "dark_wizard_attack.PNG")).convert_alpha()
         self.npc_attack = AttackClass(dark_wizard_attack, 20, 10, 'dark wizard attack')
         self.npc_attack = None
         self.context = Path("../NLP/context/DonkeyContext.txt").read_text()
