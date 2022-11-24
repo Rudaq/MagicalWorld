@@ -19,6 +19,6 @@ class Artifact(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         all_artifacts.add(self)
-        all_artifacts.update()
-        all_artifacts.draw(screen)
+        # all_artifacts.update()
+        # all_artifacts.draw(screen)
 

@@ -112,6 +112,7 @@ def import_folder(path):
 
 # Function for displaying buttons above these NPC's that can talk and fight
 def hero_in_dialog_or_talk(s, screen, fight_button, talk_button, chosen_npc, hero):
+    print("Chosen_npc: ", chosen_npc)
     s.fill(BLACK)
     s.set_alpha(192)
 

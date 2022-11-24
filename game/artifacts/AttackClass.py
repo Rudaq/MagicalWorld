@@ -21,6 +21,7 @@ class AttackClass(pygame.sprite.Sprite):
         self.start_x = 0
         self.start_y = 0
 
+
     def move_attack(self):
         self.size += (self.speed * self.acceleration)
         self.acceleration += 0.05
@@ -88,6 +89,8 @@ class AttackClass(pygame.sprite.Sprite):
             # if (self.start_x + self.size) >= npc.rect.x:
             if self.check_if_correct_distance(npc, hero):
                 hero.life -= self.strength
+                pygame.mixer.Sound.play(hero.sound_life)
+                npc.sound1.set_volume(0)
                 if hero.life < 0:
                     hero.life = 0
 

@@ -9,6 +9,7 @@ MENU_WIDTH = 800
 MENU_HEIGHT = 600
 
 TILE_SIZE = 64
+DEFAULT_IMAGE_SIZE = (50, 50)
 
 WIDTH_GAME = 1500
 HEIGHT_GAME = 800
@@ -16,7 +17,7 @@ DIALOG_START = 100
 TILES_SIZE = 64
 SCALE = 700/12928
 
-HERO_SPEED = 30
+HERO_SPEED = 25
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -124,6 +125,7 @@ GUI_IMAGES = {
     'selection': pygame.image.load(os.path.join(path, "resources/GUI", "CharacterSelection.png")),
     'swords':  pygame.image.load(os.path.join(path, "resources/GUI", "swords.png")),
     'map_icon': pygame.image.load(os.path.join(path, "resources/GUI", "mapIcon.png"))
+
 }
 
 MAP_IMAGES = {

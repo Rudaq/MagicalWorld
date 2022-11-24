@@ -14,7 +14,8 @@ conv_model = "microsoft/DialoGPT-medium"
 conv_output = pipeline('conversational', model=conv_model)
 # sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
 
-model_name_qa = "deepset/roberta-base-squad2"
+# model_name_qa = "deepset/roberta-base-squad2"
+model_name_qa = "deepset/tinyroberta-squad2"
 qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_name_qa)
 
 
@@ -82,7 +83,7 @@ def produce_response(hero, npc):
         if not quest_request:
             if question and npc.context != '':
 
-                sentence = replace_in_text(sentence, 'I', 'hero.race')
+                sentence = replace_in_text(sentence, 'I', 'you')
                 sentence = replace_in_text(sentence, 'you', npc.race)
                 # final_text = sent_output(sentence)
                 # if final_text[0]["label"] == 'LABEL_1':
@@ -102,7 +103,10 @@ def produce_response(hero, npc):
                 print("RACE: ", npc.race)
                 final_result = replace_in_text(final_result, npc.race+'s', 'We')
                 final_result = replace_in_text(final_result, npc.race, 'I')
-                final_result = replace_in_text(final_result, 'hero.race', 'you')
+                final_result = replace_in_text(final_result, npc.race+' is ', 'I am ')
+                final_result = replace_in_text(final_result, 'npc.name', npc.name)
+                final_result = replace_in_text(final_result, 'his', 'my')
+                final_result = replace_in_text(final_result, 'him', 'me')
                 final_result = replace_in_text(final_result, 'them', 'us')
                 final_result = final_result[0].upper() + final_result[1:]
                 return final_result

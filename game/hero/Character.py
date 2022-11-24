@@ -1,5 +1,6 @@
 import pygame
-from artifacts.Artifact import Artifact
+from game.artifacts.Artifact import Artifact
+from game.settings import HERO_SPEED
 
 SPRITE_SIZE = 50
 import os
@@ -38,7 +39,7 @@ class Character(pygame.sprite.Sprite):
         self.equipment = []
         self.points = 0
 
-        self.direction = "U"
+        self.direction = "D"
         self.my_text = ''
         self.text_history = []
         self.last_position = 175
@@ -74,6 +75,23 @@ class Character(pygame.sprite.Sprite):
 
         self.restore_new_task = None
         self.new_task = None
+
+        self.sound1 = None
+        self.sound2 = None
+        self.sound3 = None
+        self.sound_life = None
+        self.path_life = os.path.join(path, "resources/music/life_loss.wav")
+        self.chosen_npc = None
+        self.npc_clicked = False
+
+        self.moving = False
+        self.movement = 'vertical'
+        self.dir_opposite = 'D'
+        self.mov_x = 0
+        self.mov_y = HERO_SPEED
+        self.sign = (-1)
+
+        self.killed_npc = None
 
     # method to return active quest
     def set_active_quest(self):
@@ -115,7 +133,7 @@ class Character(pygame.sprite.Sprite):
                     sprite.rect.centerx += mov_x * sign * (-1)
                 elif direction == 'vertical':
                     sprite.rect.centery += mov_y * sign * (-1)
-                sprite.direction = dir_opposite
+                # sprite.direction = dir_opposite
 
     def collision(self, all_sprites_group):
         is_collision = False
@@ -341,3 +359,10 @@ class Character(pygame.sprite.Sprite):
     def add_mana(self, value):
         if self.mana <= 100 - value:
             self.mana += value
+
+    def initialize_music(self, path1, path2='', path3=''):
+        self.sound1 = pygame.mixer.Sound(path1)
+        self.sound_life = pygame.mixer.Sound(self.path_life)
+        if path2 != '' and path3 != '':
+            self.sound2 = pygame.mixer.Sound(path2)
+            self.sound3 = pygame.mixer.Sound(path3)

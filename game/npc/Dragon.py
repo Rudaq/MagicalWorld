@@ -27,3 +27,4 @@ class Dragon(Npc):
         dragon_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "fire.png"))
         self.npc_attack = AttackClass(dragon_attack, 20, 10, 'dragon attack')
+        self.context = Path("../NLP/context/DragonContext.txt").read_text()

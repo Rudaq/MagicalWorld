@@ -6,7 +6,6 @@ import pandas as pd
 import pygame
 from hero.Character import Character
 
-
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
 
@@ -20,6 +19,7 @@ class Npc(Character):
         self.movement = [0, 0, 0]
         self.text = '>> '
         self.image = self.images['down']
+        self.collision_sprites = collision_sprites
         self.rect = self.image.get_rect(topleft=pos)
         # self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
         self.is_talking = False
@@ -27,7 +27,7 @@ class Npc(Character):
         self.can_talk = None
         self.groups = groups
         self.collision_sprites = collision_sprites
-        # self.collision_sprites_npc = None
+        self.collision_sprites_npc = None
         self.quests_to_give = quests
         self.gifts = pygame.sprite.Group()
         self.artifacts = pygame.sprite.Group()
@@ -36,9 +36,11 @@ class Npc(Character):
         self.rude_greetings = []
         self.load_greetings()
 
-    # Placeholder. Method to talk? May be useful
-    def talk(self):
-        print("I'm NPC")
+        self.sound_path = os.path.join(path, "resources/music/npc_attack.wav")
+
+    # # Placeholder. Method to talk? May be useful
+    # def talk(self):
+    #     print("I'm NPC")
 
     # Method for randomly moving the npc
     def move(self, all_sprites_group):
@@ -52,47 +54,58 @@ class Npc(Character):
         else:
             self.image = self.images['down']
 
-        if not is_collision:
-            step = 2
+        step = 1
+        #
+        # # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
+        # # and time to wait between next movements (self.movement[2])
+        if self.movement[0] == 0 and self.movement[2] == 0:
+            distance = random.randint(-100, 100)
+            axis = random.randint(0, 1)
+            wait = random.randint(0, 30)
+            self.movement = [distance, axis, wait]
 
-            # Randomly selecting length of the movement (self.movement[0]), the axis of movement (self.movement[1),
-            # and time to wait between next movements (self.movement[2])
-            if self.movement[0] == 0 and self.movement[2] == 0:
-                distance = random.randint(-100, 100)
-                axis = random.randint(0, 1)
-                wait = random.randint(0, 30)
-                self.movement = [distance, axis, wait]
-
-            # Increasing/Decreasing the value of x or y coordinates,
-            # depending on the chosen axis of movement (up-down, left-right)
+        # Increasing/Decreasing the value of x or y coordinates,
+        # depending on the chosen axis of movement (up-down, left-right)
+        if self.movement[0] > 0:
+            self.movement[0] -= 1
+            # Moving right
+            if self.movement[1] == 0:
+                if 'R' not in self.directions_of_collisions:
+                    self.rect.x += step
+                else:
+                    self.movement[0] = 0
+                self.direction = 'R'
+                self.image = self.images['right']
+            # Moving down
             else:
-                if self.movement[0] > 0:
-                    self.movement[0] -= 1
-                    # Moving right
-                    if self.movement[1] == 0:
-                        self.rect.x += step
-                        self.direction = 'R'
-                        self.image = self.images['right']
-                    # Moving down
-                    else:
-                        self.rect.y += step
-                        self.direction = 'D'
-                        self.image = self.images['down']
-                elif self.movement[0] < 0:
-                    self.movement[0] += 1
-                    # Moving left
-                    if self.movement[1] == 0:
-                        self.rect.x -= step
-                        self.direction = 'L'
-                        self.image = self.images['left']
-                    # Moving right
-                    else:
-                        self.rect.y -= step
-                        self.direction = 'U'
-                        self.image = self.images['up']
-                # Waiting by a number of randomly selected iteration, before another random call
-                elif self.movement[0] == 0:
-                    self.movement[2] -= 1
+                if 'D' not in self.directions_of_collisions:
+                    self.rect.y += step
+                else:
+                    self.movement[0] = 0
+                self.direction = 'D'
+                self.image = self.images['down']
+
+        elif self.movement[0] < 0:
+            self.movement[0] += 1
+            # Moving left
+            if self.movement[1] == 0:
+                if 'L' not in self.directions_of_collisions:
+                    self.rect.x -= step
+                else:
+                    self.movement[0] = 0
+                self.direction = 'L'
+                self.image = self.images['left']
+            # Moving right
+            else:
+                if 'U' not in self.directions_of_collisions:
+                    self.rect.y -= step
+                else:
+                    self.movement[0] = 0
+                self.direction = 'U'
+                self.image = self.images['up']
+        # Waiting by a number of randomly selected iteration, before another random call
+        elif self.movement[0] == 0:
+            self.movement[2] -= 1
 
     def kill_npc(self, all_artifacts, screen):
         self.add_npc_to_hud = False
@@ -136,6 +149,9 @@ class Npc(Character):
     def attack(self, screen, hero, counter, npcs):
         if counter == 4 and self.life > 0:
             self.attack_type.move_attack()
+            pygame.mixer.Sound.play(self.sound1)
+            self.sound1.set_volume(1)
+
             if self.attack_type.size < 200:
                 # move particles to the down
                 if self.attack_type.image == self.attack_type.image_down:
@@ -169,7 +185,7 @@ class Npc(Character):
 
         else:
             if self.life > 0:
-                counter == 4
+                counter = 4
 
     # function for NPC' movement while fighting
     def move_in_fight(self, hero, all_sprites_group):
@@ -218,43 +234,6 @@ class Npc(Character):
                     self.rect.y += step
                     self.image = self.images['down']
 
-    def run(self, hero, all_sprites_group):
-        step = random.randint(1, 4)
-        is_collision, all_sprites_group = self.collision(all_sprites_group)
-
-        if not is_collision:
-            if hero.direction == 'L':
-                if hero.mana > 0:
-                    self.rect.x += step
-                    self.direction = 'R'
-                else:
-                    step *= 2
-                    self.rect.x -= step
-                    self.direction = 'L'
-            elif hero.direction == 'U':
-                if hero.mana > 0:
-                    self.rect.y += step
-                    self.direction = 'D'
-                else:
-                    step *= 2
-                    self.rect.y -= step
-                    self.direction = 'U'
-            elif hero.direction == 'R':
-                if hero.mana > 0:
-                    self.direction = 'L'
-                    self.rect.x -= step
-                else:
-                    step *= 2
-                    self.direction = 'R'
-                    self.rect.x += step
-            else:
-                if hero.mana > 0:
-                    self.direction = 'U'
-                    self.rect.y -= step
-                else:
-                    step *= 2
-                    self.direction = 'D'
-                    self.rect.y += step
 
     def take_gift(self, hero, artifact, npcs, screen):
         self.gifts.add(artifact)
@@ -286,97 +265,83 @@ class Npc(Character):
             return True  # idk
         return False
 
-    '''
-        def collision(self, all_sprites_group):
-            is_collision = False
-            collision_occurred = False
-    
-            for sprite in self.collision_sprites:
-                if sprite.rect.colliderect(self.rect):
-                    collision_occurred = True
-    
-                    if sprite not in self.sprite_colliding:
-    
-                        if len(self.sprite_colliding) > 0:
-                            self.sprite_colliding.append(sprite)
-    
-                            if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
-                                -2].rect.x == sprite.rect.x:
-                                if self.rect.left > sprite.rect.left:
-                                    self.collisions_left.append(sprite)
-                                    self.directions_of_collisions.append('L')
-                                elif self.rect.left < sprite.rect.left:
-                                    self.collisions_right.append(sprite)
-                                    self.directions_of_collisions.append('R')
-    
-                            elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[
-                                -2].rect.y == sprite.rect.y:
-                                if self.rect.top > sprite.rect.top:
-                                    self.collisions_up.append(sprite)
-                                    self.directions_of_collisions.append('U')
-                                elif self.rect.top < sprite.rect.top:
-                                    self.collisions_down.append(sprite)
-                                    self.directions_of_collisions.append('D')
-    
-                                    # case when the rectangles are in diagonal collision (e.g. trees)
-                            else:
-                                self.directions_of_collisions.append(self.direction)
-                                if self.direction == 'D':
-                                    self.collisions_down.append(sprite)
-                                elif self.direction == 'U':
-                                    self.collisions_up.append(sprite)
-                                elif self.direction == 'R':
-                                    self.collisions_right.append(sprite)
-                                else:
-                                    self.collisions_left.append(sprite)
-    
-                        else:
-                            self.sprite_colliding.append(sprite)
-                            self.directions_of_collisions.append(self.direction)
-                            if self.direction == 'L':
+
+    def collision(self, all_sprites_group):
+        is_collision = False
+        collision_occurred = False
+
+        for sprite in self.collision_sprites:
+            if sprite.rect.colliderect(self.rect):
+                collision_occurred = True
+
+                if sprite not in self.sprite_colliding:
+
+                    if len(self.sprite_colliding) > 0:
+                        self.sprite_colliding.append(sprite)
+                        if self.sprite_colliding[-2].rect.y != sprite.rect.y and self.sprite_colliding[
+                            -2].rect.x == sprite.rect.x:
+                            if self.rect.left > sprite.rect.left:
                                 self.collisions_left.append(sprite)
-                            elif self.direction == 'R':
+                                self.directions_of_collisions.append('L')
+                            elif self.rect.left < sprite.rect.left:
                                 self.collisions_right.append(sprite)
-                            elif self.direction == 'U':
+                                self.directions_of_collisions.append('R')
+
+                        elif self.sprite_colliding[-2].rect.x != sprite.rect.x and self.sprite_colliding[
+                            -2].rect.y == sprite.rect.y:
+                            if self.rect.top > sprite.rect.top:
                                 self.collisions_up.append(sprite)
-                            elif self.direction == 'D':
+                                self.directions_of_collisions.append('U')
+                            elif self.rect.top < sprite.rect.top:
                                 self.collisions_down.append(sprite)
-    
-                    if self.direction in self.directions_of_collisions:
-                        if self.direction == 'D' or self.direction == 'U':
-                            all_sprites_group.offset.y -= 0
-                        else:
-                            all_sprites_group.offset.x -= 0
-                        is_collision = True
-                else:
-                    if sprite in self.sprite_colliding:
-                        if sprite in self.collisions_left:
-                            self.collisions_left.remove(sprite)
-                            self.directions_of_collisions.remove('L')
-                        elif sprite in self.collisions_right:
-                            self.collisions_right.remove(sprite)
-                            self.directions_of_collisions.remove('R')
-                        elif sprite in self.collisions_up:
-                            self.collisions_up.remove(sprite)
-                            self.directions_of_collisions.remove('U')
-                        elif sprite in self.collisions_down:
-                            self.collisions_down.remove(sprite)
-                            self.directions_of_collisions.remove('D')
-                        self.sprite_colliding.remove(sprite)
-    
-            self.had_collision = collision_occurred
-            if not collision_occurred:
-                self.sprite_colliding = []
-                self.directions_of_collisions = []
-    
-            return is_collision, all_sprites_group
-    '''
+                                self.directions_of_collisions.append('D')
+                    else:
+                        self.sprite_colliding.append(sprite)
+                        self.directions_of_collisions.append(self.direction)
+                        if self.direction == 'L':
+                            self.collisions_left.append(sprite)
+                        elif self.direction == 'R':
+                            self.collisions_right.append(sprite)
+                        elif self.direction == 'U':
+                            self.collisions_up.append(sprite)
+                        elif self.direction == 'D':
+                            self.collisions_down.append(sprite)
+
+                if self.direction in self.directions_of_collisions:
+                    if self.direction == 'D' or self.direction == 'U':
+                        all_sprites_group.offset.y -= 0
+                    else:
+                        all_sprites_group.offset.x -= 0
+                    is_collision = True
+            else:
+                if sprite in self.sprite_colliding:
+                    if sprite in self.collisions_left:
+                        self.collisions_left.remove(sprite)
+                        self.directions_of_collisions.remove('L')
+                    elif sprite in self.collisions_right:
+                        self.collisions_right.remove(sprite)
+                        self.directions_of_collisions.remove('R')
+                    elif sprite in self.collisions_up:
+                        self.collisions_up.remove(sprite)
+                        self.directions_of_collisions.remove('U')
+                    elif sprite in self.collisions_down:
+                        self.collisions_down.remove(sprite)
+                        self.directions_of_collisions.remove('D')
+                    self.sprite_colliding.remove(sprite)
+
+        self.had_collision = collision_occurred
+        if not collision_occurred:
+            self.sprite_colliding = []
+            self.directions_of_collisions = []
+
+        return is_collision, all_sprites_group
+
 
     def load_greetings(self):
-        greetings_file = os.path.join(path, "NLP/sentiment_analysis/Greetings.csv")
+        dataset_path = os.path.join(path, "NLP/sentiment_analysis/Greetings.csv")
 
         dataset = pd.read_csv(
-                greetings_file,
+                dataset_path,
                 names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
 
         for key, text in dataset.iterrows():
