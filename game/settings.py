@@ -209,6 +209,9 @@ GUI_IMAGES = {
     'medieville': pygame.image.load(os.path.join(path, "resources/GUI", "Medieville.png")),
     'misty_swamp': pygame.image.load(os.path.join(path, "resources/GUI", "MistySwamp.png")),
     'end_frame': pygame.image.load(os.path.join(path, "resources/GUI", "endFrame.png")),
+    'name': pygame.image.load(os.path.join(path, "resources/GUI", "name.png")),
+    'side': pygame.image.load(os.path.join(path, "resources/GUI", "side.png")),
+    'type': pygame.image.load(os.path.join(path, "resources/GUI", "type.png"))
     # 'cross': pygame.image.load(os.path.join(path, "resources/GUI", "crossButton.png"))
 }
 

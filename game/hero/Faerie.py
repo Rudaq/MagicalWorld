@@ -91,7 +91,6 @@ class Faerie(Character):
 
         npc.life -= self.attack_type.strength
 
-
     def collect_map_artifact(self, map_artifact, equipment_buttons):
         if len(self.equipment) == 6:
             print("You can't collect more equipment! Your backpack is full!")
@@ -116,9 +115,3 @@ class Faerie(Character):
                     return True
             else:
                 return False
-
-
-
-
-
-

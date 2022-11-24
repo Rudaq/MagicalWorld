@@ -342,7 +342,7 @@ QUESTS = {
                     }
                 ]
             },
-            # Quest 2
+# Quest 2
             'primaeval_help': {
                 'name': 'primaeval_help',
                 'description': 'Now that you learnt how to craft, it’s time to make yourself useful. Take a moment and '
@@ -526,7 +526,7 @@ QUESTS = {
                     },
                     {
                         'name': 'kill_amazons',
-                        'description': 'The last thing you need to do to take over the primaeval bush is to... Kill '
+                        'description': 'The last thing you need to do to take over the primeval bush is to... Kill '
                                        'its keepers! Amazons! Kill them and take their weapon. You may need it '
                                        'later..',
                         'artefact': 'Amazon Spare',

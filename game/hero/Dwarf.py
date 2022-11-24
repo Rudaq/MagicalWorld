@@ -103,10 +103,15 @@ class Dwarf(Character):
             if artifact.small_image is not None:
                 artifact.image = artifact.small_image
                 artifact.small_image = None
-            if artifact.name == 'New Sword':
-                self.axe_attack.strength += 10
+
             self.equipment.append(artifact)
             self.points += artifact.points
+
+            if self.active_quest.active_task is not None \
+                    and self.active_quest.active_task.npc_take_artifact is None \
+                    and self.active_quest.active_task.artifact.name == artifact:
+                self.active_quest.task_completed(self, npcs)
+
             return True
 
         # Placeholder. Method to add the found or obtained weapon to the equipment.

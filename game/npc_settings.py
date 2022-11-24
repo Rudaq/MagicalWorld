@@ -227,7 +227,25 @@ NPC_IMAGES = {
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WolfFront.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WolfLeft.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WolfRight.png"))
-    }
+    },
+    'image_forest_elf': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png"))
+    },
+    'image_big_fish': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFishBack.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFishFront.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFish.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFishRight.png"))
+    },
+    'image_blind_rat': {
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRatBack.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRatFront.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRat.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BlindRatRight.png"))
+    },
 }
 
 NPC_FIGHTS = {
@@ -459,7 +477,7 @@ NPCs = {
         'mana': 300,
         'life': 100,
         'inflate': (-10, -10),
-        'images': NPC_IMAGES['image_elf'],
+        'images': NPC_IMAGES['image_forest_elf'],
         'dict': ELVES
     },
     'treant': {

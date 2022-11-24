@@ -119,19 +119,22 @@ def choose_character():
                             [(MENU_WIDTH - 150, 250), (MENU_WIDTH - 150, 350), (MENU_WIDTH - 100, 300)], 5)
 
         # Field for entering name
-        draw_text_on_menu("Name: ", 75, 175, 20, WHITE, screen)
+        #draw_text_on_menu("Name: ", 75, 175, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['name'].convert_alpha(), (135, 163))
         name = pygame.Rect(100, 200, 150, 40)
         pygame.draw.rect(screen, WHITE, name, 0, 3)
         draw_text_on_menu(char_name, 100, 200, 20, BLACK, screen)
 
         # Field for displaying race
-        draw_text_on_menu("Type: ", 75, 275, 20, WHITE, screen)
+        #draw_text_on_menu("Type: ", 75, 275, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['type'].convert_alpha(), (132, 263))
         c_type = pygame.Rect(100, 300, 150, 40)
         pygame.draw.rect(screen, WHITE, c_type, 0, 3)
         draw_text_on_menu(names[index], 100, 300, 20, BLACK, screen)
 
         # Field for choosing side - good or evil
-        draw_text_on_menu("Side: ", 75, 375, 20, WHITE, screen)
+        #draw_text_on_menu("Side: ", 75, 375, 20, WHITE, screen)
+        screen.blit(GUI_IMAGES['side'].convert_alpha(), (137, 363))
         side = pygame.Rect(100, 400, 150, 40)
         pygame.draw.rect(screen, WHITE, side, 0, 3)
         pygame.draw.polygon(screen, WHITE, [(90, 410), (90, 430), (70, 420)], 2)
