@@ -11,9 +11,9 @@ path = Path(__file__).resolve().parent.parent.parent
 
 # Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class DarkElf(Npc):
-    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation,
+    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups,
                  collision_sprites):
-        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites)
+        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, collision_sprites)
         self.rect.x = x
         self.rect.y = y
         self.race = "Dark Elf"
@@ -31,3 +31,4 @@ class DarkElf(Npc):
         dark_elf_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/weapon", "arrow.PNG")).convert_alpha()
         self.npc_attack = AttackClass(dark_elf_attack, 20, 10, 'dark elf attack')
+        self.context = Path("../NLP/context/DarkElfContext.txt").read_text()

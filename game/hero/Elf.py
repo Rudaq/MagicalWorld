@@ -10,10 +10,10 @@ from game.settings import ELF_SPELLS
 Class for a hero of race Elf, inherits from Character class
 '''
 
-
+# Class for a hero of race Elf, inherits from Character class
 class Elf(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.earth_spell = AttackClass(ELF_SPELLS['earth'], 25, 20, 'earth_spell')
         self.heal_spell = AttackClass(ELF_SPELLS['healing'], -15, 30, 'heal_spell')
         self.shoot_arrow = AttackClass(ELF_SPELLS['arrow'], 20, 10, 'shoot_arrow')
@@ -28,7 +28,7 @@ class Elf(Character):
     # move the spell
     # check collision with npcs or other objects
     def heal_spell_attack(self, npc):
-        npc.life += self.attack_type.strength
+        npc.life -= self.attack_type.strength
         if npc.life > 100:
             npc.life = 100 - int(npc.life % 100)
 
@@ -79,21 +79,3 @@ class Elf(Character):
             self.attack(screen, npcs)
         else:
             self.use_weapon(screen, npcs)
-
-    # Placeholder. Method to add the found or obtained weapon to the equipment.
-    def collect_artifact(self, artifact, npcs):
-        if len(self.equipment) == 6:
-            print("You can't collect more equipment! Your backpack is full!")
-            return False
-        else:
-            if artifact.small_image is not None:
-                artifact.image = artifact.small_image
-                artifact.small_image = None
-
-            self.equipment.append(artifact)
-            self.points += artifact.points
-
-            if self.active_quest.active_task.npc_take_artifact is None:
-                self.active_quest.task_completed(self, npcs)
-
-            return True

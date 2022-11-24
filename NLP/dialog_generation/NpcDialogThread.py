@@ -29,7 +29,7 @@ class NpcDialogThread(threading.Thread):
                     for npc in self.npcs:
                         if npc.is_talking:
                             if npc.can_talk:
-                                npc.text = ">> " + generate_text()
+                                npc.text = ">> " + generate_text(self.hero, npc)
                             else:
                                 npc.text = ">> " + generate_random_answer()
                             # npc.text_history.append(npc.text)

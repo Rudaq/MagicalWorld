@@ -17,9 +17,8 @@ DIALOG_START = 100
 TILES_SIZE = 64
 SCALE = 700 / 12928
 
+HERO_SPEED = 25
 SEA = pygame.image.load(os.path.join(path, "resources/graphics/tilemap/ocean.png"))
-
-HERO_SPEED = 60
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -122,28 +121,28 @@ HERO_ANIMATIONS = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/BarbarianRight.png"))
     },
     'Dwarf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_back.PNG")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_left.PNG")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/dwarf_right.PNG"))
     },
     'Wizard': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_back.PNG")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_left.PNG")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/wizard_right.PNG"))
     },
     'Elf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_back.PNG")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_left.PNG")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/elf_right.PNG"))
     },
     'Faerie': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_back.PNG")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_small.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_left.PNG")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/characters/faerie_right.PNG"))
     }
 }
 
@@ -214,7 +213,7 @@ GUI_IMAGES = {
 }
 
 MAP_IMAGES = {
-    'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
+    # 'ground_surf': pygame.image.load(os.path.join(path, "resources/graphics/tilemap", "floor.png")),
     'bamboo_tree': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree.png")),
     'bamboo_tree_ball': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "bamboo_tree_ball.png")),
     'rainbow': pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "rainbow.png")),

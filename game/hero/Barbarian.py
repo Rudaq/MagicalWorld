@@ -6,12 +6,12 @@ from settings import BARBARIAN_ACTIONS, HERO_ANIMATIONS
 
 # Class for a hero of race Barbarian, inherits from Character class
 class Barbarian(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.race = "Barbarian"
         self.collision_sprites = collision_sprites
         self.pos = pos
-        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 50, 10, 'sword_attack')
+        self.sword_attack = AttackClass(BARBARIAN_ACTIONS['sword'], 20, 10, 'sword_attack')
         self.fury = AttackClass(BARBARIAN_ACTIONS['fury'], 15, 5, 'fury_attack')
         self.resistance = AttackClass(BARBARIAN_ACTIONS['resistance'], 0, 10, 'resistance_to_damage')
 

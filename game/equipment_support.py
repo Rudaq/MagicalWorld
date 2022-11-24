@@ -111,9 +111,15 @@ def time_measure(restore_time_passed, seconds):
         return False
 
 
-def remove_artifact(all_artifacts, artifact, screen):
+def remove_artifact(all_sprites_group, collision_sprites_hero, collision_sprites_npc, all_artifacts, artifact, screen):
+    all_sprites_group.remove(artifact)
+    collision_sprites_hero.remove(artifact)
+    collision_sprites_npc.remove(artifact)
     all_artifacts.remove(artifact)
     all_artifacts.update()
+    all_sprites_group.update()
+    collision_sprites_hero.update()
+    collision_sprites_npc.update()
     all_artifacts.draw(screen)
 
 

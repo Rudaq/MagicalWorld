@@ -11,9 +11,9 @@ path = Path(__file__).resolve().parent.parent.parent
 
 # Class for a npc of type Dark Wizard, inherits from Npc class inheriting from Character class
 class Amazon(Npc):
-    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups, inflation,
+    def __init__(self, name, side, mana, life, images, artifacts, quests, x, y, pos, groups,
                  collision_sprites):
-        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites)
+        super().__init__(name, side, mana, life, images, artifacts, quests, pos, groups, collision_sprites)
         self.rect.x = x
         self.rect.y = y
         self.race = "Amazon"
@@ -30,3 +30,4 @@ class Amazon(Npc):
         amazon_attack = pygame.image.load(
             os.path.join(path, "resources/graphics/particles", "spear.PNG")).convert_alpha()
         self.npc_attack = AttackClass(amazon_attack, 20, 10, 'amazon attack')
+        self.context = Path("../NLP/context/AmazonContext.txt").read_text()

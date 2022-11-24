@@ -1,28 +1,34 @@
 import random
+import pandas as pd
 import pygame
 from hero.Character import Character
 
 
 # Class with characteristics common to all npcs, from which npc classes inherit
 class Npc(Character):
-    def __init__(self, name, side, mana, life, images, artifacts, quests, pos, groups, inflation, collision_sprites):
-        super().__init__(name, side, mana, life, images, None, pos, groups, inflation, collision_sprites)
-        self.artifacts = pygame.sprite.Group()
-        self.is_talking = False
-        self.quests_to_give = quests
+    def __init__(self, name, side, mana, life, images, artifacts, quests, pos, groups, collision_sprites):
+        super().__init__(name, side, mana, life, images, None, pos, groups, collision_sprites)
+        self.sprite_type = 'npc'
+        self.race = 'npc'
         self.movement = [0, 0, 0]
-        self.text = '> '
+        self.text = '>> '
         self.image = self.images['down']
         self.collision_sprites = collision_sprites
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
+        # self.hitbox = self.rect.inflate(self.inflation[0], self.inflation[1])
+        self.is_talking = False
         self.add_npc_to_hud = False
         self.can_talk = None
-        self.sprite_type = 'npc'
         self.groups = groups
-        self.race = 'npc'
-        self.gifts = pygame.sprite.Group()
+        self.collision_sprites = collision_sprites
         self.collision_sprites_npc = None
+        self.quests_to_give = quests
+        self.gifts = pygame.sprite.Group()
+        self.artifacts = pygame.sprite.Group()
+        self.context = ''
+        self.nice_greetings = []
+        self.rude_greetings = []
+        #self.load_greetings()
 
     # Placeholder. Method to talk? May be useful
     def talk(self):
@@ -31,6 +37,14 @@ class Npc(Character):
     # Method for randomly moving the npc
     def move(self, all_sprites_group):
         is_collision, all_sprites_group = self.collision(all_sprites_group)
+        if self.direction == 'R':
+            self.image = self.images['right']
+        elif self.direction == 'L':
+            self.image = self.images['left']
+        elif self.direction == 'U':
+            self.image = self.images['up']
+        else:
+            self.image = self.images['down']
 
         if not is_collision:
             step = 2
@@ -85,7 +99,7 @@ class Npc(Character):
     # One common function for throwing out particles for all NPC's
     def fight_npc(self, screen, hero, npcs):
 
-        counter = random.randint(1, 25)
+        counter = random.randint(1, 10)
         if counter == 4 and self.npc_attack is not None:
             if self.attack_type is None:
                 self.attack_type = self.npc_attack
@@ -263,7 +277,7 @@ class Npc(Character):
                 and hero.active_quest.active_task.next_npc == self.race:
             hero.active_quest.is_started = True
             hero.active_quest.set_next_active_task()
-            return True # idk
+            return True  # idk
         return False
 
     def collision(self, all_sprites_group):
@@ -395,3 +409,14 @@ class Npc(Character):
 
         return is_collision, all_sprites_group
 
+
+    def load_greetings(self):
+        dataset = pd.read_csv(
+                "C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\Greetings.csv",
+                names=["greetings", "sentiment"], encoding="utf-8", header=None, sep='\t')
+
+        for key, text in dataset.iterrows():
+            if text["sentiment"] == 1:
+                self.nice_greetings.append(str(text["greetings"]))
+            else:
+                self.rude_greetings.append(str(text["greetings"]))

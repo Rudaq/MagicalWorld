@@ -3,9 +3,10 @@ from game.hero.Character import Character
 from game.settings import WIZARD_SPELLS
 
 
+# Class for a hero of race Wizard, inherits from Character class
 class Wizard(Character):
-    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites=None):
-        super().__init__(name, side, mana, life, images, active_quest, pos, groups, inflation, collision_sprites)
+    def __init__(self, name, side, mana, life, images, active_quest, pos, groups, collision_sprites=None):
+        super().__init__(name, side, mana, life, images, active_quest, pos, groups, collision_sprites)
         self.race = "Wizard"
         self.collision_sprites = collision_sprites
         self.pos = pos
@@ -14,7 +15,8 @@ class Wizard(Character):
         self.powerful_sparks = AttackClass(WIZARD_SPELLS['sparks'], 35, 20, 'powerful_sparks')
 
     def attack(self, screen, npcs):
-        if self.in_attack:
+        if self.in_attack and self.mana - self.attack_type.mana >= 0:
+            self.mana -= self.attack_type.mana
             self.attack_type.move_attack()
             if self.attack_type.size < 150:
                 if self.attack_type.image == self.attack_type.image_up or self.attack_type.image == self.attack_type.image_down:
@@ -24,8 +26,6 @@ class Wizard(Character):
                     screen.blit(self.attack_type.image, (self.attack_type.rect.x, self.attack_type.rect.y),
                                 (0, 0, self.attack_type.size, 50))
             self.attack_type.check_attack_npc_collision(self, npcs)
-        if self.mana - self.attack_type.mana >= 0:
-            self.mana -= self.attack_type.mana
             self.in_attack = False
 
     def fight(self, screen, option, npcs):
@@ -64,3 +64,24 @@ class Wizard(Character):
             self.attack_type.start_y = self.attack_type.rect.y
 
         self.attack(screen, npcs)
+
+    # Placeholder. Method to add the found or obtained weapon to the equipment.
+    def collect_artifact(self, artifact, npcs):
+        if len(self.equipment) == 6:
+            print("You can't collect more equipment! Your backpack is full!")
+            return False
+        else:
+            if artifact.small_image is not None:
+                artifact.image = artifact.small_image
+                artifact.small_image = None
+
+            self.equipment.append(artifact)
+            self.points += artifact.points
+
+            if self.active_quest.active_task is not None \
+                    and self.active_quest.active_task.npc_take_artifact is None \
+                    and self.active_quest.active_task.artifact.name == artifact:
+
+                self.active_quest.task_completed(self, npcs)
+
+            return True
