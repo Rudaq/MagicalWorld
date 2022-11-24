@@ -39,8 +39,8 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Adventures in the Realm")
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    # screen = pygame.display.set_mode((WIDTH_GAME, HEIGHT_GAME))
+    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1500, 800))
     print("Screen size", screen.get_size()[0])
     # WIDTH_GAME = screen.get_size()[0]
     # HEIGHT_GAME = screen.get_size()[1]
@@ -196,7 +196,7 @@ def game(hero):
 
     while True:
         # screen.blit(SEA, (0, 0))
-        all_sprites_group.custom_draw(hero, npcs, screen)
+        all_sprites_group.custom_draw(hero)
         all_sprites_group.update()
         update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life, restore_mana,
                    restore_mana_time_passed,
