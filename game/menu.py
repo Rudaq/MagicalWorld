@@ -377,7 +377,7 @@ while running:
 
 chosen_name, chosen_type, chosen_side, image, image_small = choose_character()
 
-character_info(chosen_name, chosen_type, chosen_side, image)
+#character_info(chosen_name, chosen_type, chosen_side, image)
 main_character = create_character(chosen_name, chosen_type, chosen_side)
 
 # Calling main game function with hero parameter

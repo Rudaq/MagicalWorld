@@ -4,92 +4,92 @@ QUESTS = {
     'Faerie': {
         'good': {
             # Quest 1
-            'save_snowman': {
-                'name': 'save_snowman',
-                'description': 'You have to prove that you have a good heart. There is someone in trouble.. '
-                               'Go to the Forest Elf to get to know how to save the life of poor Snowman.',
-                'points': 20,
-                'tasks': [
-                    {
-                        'name': 'yeti_horn',
-                        'description': 'Forest Elf: Poor Snowman is in trouble.. The Ice Monster is haunting on him! Kill '
-                                       'the Ice '
-                                       'Monster and give his tusk to a Snowman to prove that his life is safe.',
-                        'artefact': 'Ice Monster Tusk',
-                        'points': 15,
-                        'npc_give_task': 'Forest Elf',
-                        'npc_take_artifact': 'Friendly Snowman',
-                        'next_npc': None,
-                        'gift': None
-                    }
-                ]
-            },
-            # Quest 2
-            'gain_recognition': {
-                'name': 'gain_recognition',
-                'description': 'You are a great hero! You gain more and more fame. To gain even greater recognition, '
-                               'go to the Smith, he will have a task for you!',
-                'points': 50,
-                'tasks': [
-                    {
-                        'name': 'gold',
-                        'description': 'Smith: I need some gold for my work... Please go to the Leprechaun and '
-                                       'convince him to give you a gold bar and bring it back to me.',
-                        'artefact': 'Gold Bar',
-                        'points': 15,
-                        'npc_give_task': 'Smith',
-                        'npc_take_artifact': 'Smith',
-                        'next_npc': 'Leprechaun',
-                        'gift': None
-                    },
-                    {
-                        'name': 'rainbow',
-                        'description': 'Leprechaun: Find a rainbow and bring it back to the me! Little tip - you can '
-                                       'find rainbows in the land where the Little Faeries live',
-                        'artefact': 'Rainbow',
-                        'points': 20,
-                        'npc_give_task': 'Leprechaun',
-                        'npc_take_artifact': 'Leprechaun',
-                        'next_npc': None,
-                        'gift': 'Gold Bar'
-                    }
-
-                ]
-            },
+            # 'save_snowman': {
+            #     'name': 'save_snowman',
+            #     'description': 'You have to prove that you have a good heart. There is someone in trouble.. '
+            #                    'Go to the Forest Elf to get to know how to save the life of poor Snowman.',
+            #     'points': 20,
+            #     'tasks': [
+            #         {
+            #             'name': 'yeti_horn',
+            #             'description': 'Forest Elf: Poor Snowman is in trouble.. The Ice Monster is haunting on him! Kill '
+            #                            'the Ice '
+            #                            'Monster and give his tusk to a Snowman to prove that his life is safe.',
+            #             'artefact': 'Ice Monster Tusk',
+            #             'points': 15,
+            #             'npc_give_task': 'Forest Elf',
+            #             'npc_take_artifact': 'Friendly Snowman',
+            #             'next_npc': None,
+            #             'gift': None
+            #         }
+            #     ]
+            # },
+            # # Quest 2
+            # 'gain_recognition': {
+            #     'name': 'gain_recognition',
+            #     'description': 'You are a great hero! You gain more and more fame. To gain even greater recognition, '
+            #                    'go to the Smith, he will have a task for you!',
+            #     'points': 50,
+            #     'tasks': [
+            #         {
+            #             'name': 'gold',
+            #             'description': 'Smith: I need some gold for my work... Please go to the Leprechaun and '
+            #                            'convince him to give you a gold bar and bring it back to me.',
+            #             'artefact': 'Gold Bar',
+            #             'points': 15,
+            #             'npc_give_task': 'Smith',
+            #             'npc_take_artifact': 'Smith',
+            #             'next_npc': 'Leprechaun',
+            #             'gift': None
+            #         },
+            #         {
+            #             'name': 'rainbow',
+            #             'description': 'Leprechaun: Find a rainbow and bring it back to the me! Little tip - you can '
+            #                            'find rainbows in the land where the Little Faeries live',
+            #             'artefact': 'Rainbow',
+            #             'points': 20,
+            #             'npc_give_task': 'Leprechaun',
+            #             'npc_take_artifact': 'Leprechaun',
+            #             'next_npc': None,
+            #             'gift': 'Gold Bar'
+            #         }
+            #
+            #     ]
+            # },
             # Quest 3
-            'mermaid_voice': {
-                'name': 'mermaid_voice',
-                'description': 'The Smith is an influential man, thanks to the fact that you helped him, '
-                               'your fame spread across all lands. Mermaid came for help. There is one problem .. The '
-                               'Dark Wizard has stolen the mermaids voice. Go to Druid, he will tell you '
-                               'how you can get a task from Mermaid.',
-                'points': 60,
-                'tasks': [
-                    {
-                        'name': 'kill_dark_wizard',
-                        'description': 'The Dark Wizard has stolen the Mermaids necklace, without it she cannot talk. '
-                                       'In order for her to assign a task for you, you must first kill the Dark '
-                                       'Wizard and bring her voice back!',
-                        'artefact': 'Mermaid Necklace',
-                        'points': 20,
-                        'npc_give_task': 'Druid',
-                        'npc_take_artifact': 'Mermaid',
-                        'next_npc': None,
-                        'gift': None
-                    },
-                    {
-                        'name': 'panda_ball',
-                        'description': 'Mermaid: Oh no, poor Panda. Her ball got stuck on a bamboo tree. Find the '
-                                       'ball and give it to the Panda so she can play again.',
-                        'artefact': 'Ball',
-                        'points': 20,
-                        'npc_give_task': 'Mermaid',
-                        'npc_take_artifact': 'Panda',
-                        'next_npc': None,
-                        'gift': None
-                    }
-                ]
-            },
+            # 'mermaid_voice': {
+            #     'name': 'mermaid_voice',
+            #     'description': 'The Smith is an influential man, thanks to the fact that you helped him, '
+            #                    'your fame spread across all lands. Mermaid came for help. There is one problem .. The '
+            #                    'Dark Wizard has stolen the mermaids voice. Go to Druid, he will tell you '
+            #                    'how you can get a task from Mermaid.',
+            #     'points': 60,
+            #     'tasks': [
+            #         {
+            #             'name': 'kill_dark_wizard',
+            #             'description': 'The Dark Wizard has stolen the Mermaids necklace, without it she cannot talk. '
+            #                            'In order for her to assign a task for you, you must first kill the Dark '
+            #                            'Wizard and bring her voice back!',
+            #             'artefact': 'Mermaid Necklace',
+            #             'points': 20,
+            #             'npc_give_task': 'Druid',
+            #             'npc_take_artifact': 'Mermaid',
+            #             'next_npc': None,
+            #             'gift': None
+            #         },
+            #         {
+            #             'name': 'panda_ball',
+            #             'description': 'Mermaid: Oh no, poor Panda. Her ball got stuck on a bamboo tree. Find the '
+            #                            'ball and give it to the Panda so she can play again.',
+            #             'artefact': 'Ball',
+            #             'points': 20,
+            #             'npc_give_task': 'Mermaid',
+            #             'npc_take_artifact': 'Panda',
+            #             'next_npc': None,
+            #             'gift': None
+            #         }
+            #     ]
+            # },
             # Quest 4
             'immortality_flower': {
                 'name': 'immortality_flower',
@@ -97,43 +97,43 @@ QUESTS = {
                                'immortality back. Go to the Little Fairies for more details',
                 'points': 70,
                 'tasks': [
-                    {
-                        'name': 'lost_piece_of_paper',
-                        'description': 'Little Faeries: Find the lost Flower of Immortality, which was stolen by the '
-                                       'Dwarf years ago .. Friendly Snowman wrote down on a piece of '
-                                       'paper where the flower is, but he has lost this paper '
-                                       'somewhere in his Land.. Find this paper and give it to him and ask for '
-                                       'reading of its content!',
-                        'artefact': 'Paper',
-                        'points': 20,
-                        'npc_give_task': 'Little Faeries',
-                        'npc_take_artifact': 'Friendly Snowman',
-                        'next_npc': 'Friendly Snowman',
-                        'gift': None
-                    },
-                    {
-                        'name': 'snowman_nose',
-                        'description': 'Friendly Snowman: I will read the content of this paper for you, but first '
-                                       'you have to help me .. The Donkey took my carrot nose and wants to eat it .. '
-                                       'Please go to him, get my nose back and bring it back to me',
-                        'artefact': 'Snowman Nose',
-                        'points': 15,
-                        'npc_give_task': 'Friendly Snowman',
-                        'npc_take_artifact': 'Friendly Snowman',
-                        'next_npc': 'Donkey',
-                        'gift': None
-                    },
-                    {
-                        'name': 'orc_blood',
-                        'description': 'The Orc keeps attacking me and the poor rats, kill him and bring his blood '
-                                       'as an evidence and you will get the carrot back.',
-                        'artefact': 'Orc Blood',
-                        'points': 15,
-                        'npc_give_task': 'Donkey',
-                        'npc_take_artifact': 'Donkey',
-                        'next_npc': None,
-                        'gift': 'Snowman Nose'
-                    },
+                    #{
+                    #     'name': 'lost_piece_of_paper',
+                    #     'description': 'Little Faeries: Find the lost Flower of Immortality, which was stolen by the '
+                    #                    'Dwarf years ago .. Friendly Snowman wrote down on a piece of '
+                    #                    'paper where the flower is, but he has lost this paper '
+                    #                    'somewhere in his Land.. Find this paper and give it to him and ask for '
+                    #                    'reading of its content!',
+                    #     'artefact': 'Paper',
+                    #     'points': 20,
+                    #     'npc_give_task': 'Little Faeries',
+                    #     'npc_take_artifact': 'Friendly Snowman',
+                    #     'next_npc': 'Friendly Snowman',
+                    #     'gift': None
+                    # },
+                    # {
+                    #     'name': 'snowman_nose',
+                    #     'description': 'Friendly Snowman: I will read the content of this paper for you, but first '
+                    #                    'you have to help me .. The Donkey took my carrot nose and wants to eat it .. '
+                    #                    'Please go to him, get my nose back and bring it back to me',
+                    #     'artefact': 'Snowman Nose',
+                    #     'points': 15,
+                    #     'npc_give_task': 'Friendly Snowman',
+                    #     'npc_take_artifact': 'Friendly Snowman',
+                    #     'next_npc': 'Donkey',
+                    #     'gift': None
+                    # },
+                    # {
+                    #     'name': 'orc_blood',
+                    #     'description': 'The Orc keeps attacking me and the poor rats, kill him and bring his blood '
+                    #                    'as an evidence and you will get the carrot back.',
+                    #     'artefact': 'Orc Blood',
+                    #     'points': 15,
+                    #     'npc_give_task': 'Donkey',
+                    #     'npc_take_artifact': 'Donkey',
+                    #     'next_npc': None,
+                    #     'gift': 'Snowman Nose'
+                    # },
                     {
                         'name': 'flower',
                         'description': 'Content of the Paper: "The Immortality Flower is hidden in the Great Tree in '

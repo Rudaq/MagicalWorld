@@ -229,10 +229,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WolfRight.png"))
     },
     'image_forest_elf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png"))
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_right.png"))
     },
     'image_big_fish': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFishBack.png")),
@@ -367,11 +367,19 @@ PANDAS = {
     # 'Banda': ["good", None, None, 12400, 900],
     # 'Bamboo': ["good", None, None, 10790, 1250]
 }
+
+LEMURS = {
+    'Julian': ["good", None, None, 11500, 3520],
+    'Moris': ["good", None, None, 11000, 3000],
+}
+BIG_MONKES = {
+    'Gorilla': ["evil", None, None, 11300, 3160]
+}
 # LOVEY DOVEY:
 # X: 150 - 3900
 # Y: 4850 - 6400
 UNICORNS = {
-    'Pony': ["good", None, None, 400, 8600]
+    'Pony': ["good", None, None, 600, 8600]
 }
 FAERIES = {
     'Lovely': ["good", None, None, 800, 6050],
@@ -395,13 +403,7 @@ SNAKES = {
 TIGERS = {
     'Lionel': ["evil", None, None, 4300, 2800]
 }
-LEMURS = {
-    'Julian': ["good", None, None, 5070, 3520],
-    'Moris': ["good", None, None, 6000, 3000],
-}
-BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 6990, 3160]
-}
+
 # DREARY:
 # X: 3600 - 5400 (im wyzej tym dalej)
 # Y: 4500 - 6450

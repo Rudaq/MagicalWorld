@@ -145,7 +145,7 @@ def hero_in_dialog_or_talk(screen, chosen_npc):
 def npc_in_interaction_range(chosen_npc, hero):
     distance = dist((chosen_npc.rect.x, chosen_npc.rect.y), (hero.rect.centerx, hero.rect.centery))
     # if the distance in straight line is smaller than 120 px then the interaction is possible
-    if distance > 3 * TILES_SIZE:
+    if distance > 4 * TILES_SIZE:
         return False
     else:
         return True

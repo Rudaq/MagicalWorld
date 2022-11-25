@@ -44,10 +44,12 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
-    if 'quest' in sentence:
+    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are', 'Here you are!']
+    if 'quest' in sentence or 'task' in sentence:
         # if statement for sentiment analysis
         if check_if_question(sentence) and len(sentence) > 10:
-            text = 'Here you go'
+            index = random.randint(0, 3)
+            text = answers[index]
 
             if npc.give_quest(hero):
                 hero.new_task = True
@@ -55,7 +57,7 @@ def asking_for_quest(sentence, npc, hero):
 
             return True, text
         else:
-            text = "I won't give you the quest. You're impolite."
+            text = "I won't give you the task. You're impolite."
             return True, text
 
     return False, ''

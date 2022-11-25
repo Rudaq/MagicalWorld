@@ -106,9 +106,12 @@ def update_hud(screen, hero, scroll_button, chest_button, map_button, restore_li
     multiplicator += 1
 
     draw_text("Quest ", multiplicator * distance + 50, 25, 12, BLACK, screen)
-    if (hero.active_quest.active_task is not None
+    if (hero.active_quest is not None
+           and hero.active_quest.active_task is not None
         and not hero.active_quest.active_task.is_opened) or \
-            (hero.active_quest.active_task is None and not hero.active_quest.is_opened):
+            (hero.active_quest is not None and
+             hero.active_quest.active_task is None and
+             not hero.active_quest.is_opened):
         screen.blit(GUI_IMAGES['new_task_scroll'], (multiplicator * distance + 100, 50))
         scroll_button.image = GUI_IMAGES['new_task_scroll']
     else:
