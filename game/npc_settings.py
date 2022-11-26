@@ -367,14 +367,6 @@ PANDAS = {
     # 'Banda': ["good", None, None, 12400, 900],
     # 'Bamboo': ["good", None, None, 10790, 1250]
 }
-
-LEMURS = {
-    'Julian': ["good", None, None, 11500, 3520],
-    'Moris': ["good", None, None, 11000, 3000],
-}
-BIG_MONKES = {
-    'Gorilla': ["evil", None, None, 11300, 3160]
-}
 # LOVEY DOVEY:
 # X: 150 - 3900
 # Y: 4850 - 6400
@@ -403,7 +395,13 @@ SNAKES = {
 TIGERS = {
     'Lionel': ["evil", None, None, 4300, 2800]
 }
-
+LEMURS = {
+    'Julian': ["good", None, None, 5070, 3520],
+    'Moris': ["good", None, None, 6000, 3000],
+}
+BIG_MONKES = {
+    'Gorilla': ["evil", None, None, 6990, 3160]
+}
 # DREARY:
 # X: 3600 - 5400 (im wyzej tym dalej)
 # Y: 4500 - 6450
