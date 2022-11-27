@@ -305,9 +305,6 @@ FRIENDLY_SNOWMEN = {
 # LAKE
 # X: 7400 - 11600
 # Y: 4250 - 5600
-MERMAIDS = {
-    'Arielle': ["good", None, None, 11190, 5440]
-}
 CRABS = {
     'Craberus': ["good", None, None, 10700, 10400],
     'Crabemus': ["good", None, None, 8900, 10400],
@@ -366,6 +363,9 @@ PANDAS = {
     'Wanda': ["good", None, None, 11535, 1960]  # panda next to the pier
     # 'Banda': ["good", None, None, 12400, 900],
     # 'Bamboo': ["good", None, None, 10790, 1250]
+}
+MERMAIDS = {
+    'Arielle': ["good", None, None, 12540, 4010]
 }
 # LOVEY DOVEY:
 # X: 150 - 3900
