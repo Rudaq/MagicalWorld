@@ -114,7 +114,7 @@ class Npc(Character):
     # One common function for throwing out particles for all NPC's
     def fight_npc(self, screen, hero, npcs):
 
-        counter = random.randint(1, 15)
+        counter = random.randint(1, 60)
         if counter == 4 and self.npc_attack is not None:
             if self.attack_type is None:
                 self.attack_type = self.npc_attack

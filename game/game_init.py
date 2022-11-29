@@ -1,3 +1,5 @@
+from NLP.dialog_generation.HeroMoveThread import HeroMoveThread
+from NLP.dialog_generation.NpcFightThread import NpcFightThread
 from game.game_support import create_npc, import_csv_layout, import_folder
 
 import sys
@@ -187,6 +189,12 @@ def game(hero):
     for npc in npcs:
         npc.collision_sprites = npc_boundaries
         npc.collision_sprites.remove(npc)
+
+    npc_fight_thread = NpcFightThread(hero, screen, npcs, all_sprites_group)
+    npc_fight_thread.start()
+    #
+    # hero_move_thread = HeroMoveThread(hero, screen, npcs, all_sprites_group, sprites_to_move_opposite)
+    # hero_move_thread.start()
 
     hero.rect.centerx = screen.get_size()[0] / 2
     hero.rect.centery = screen.get_size()[1] / 2
@@ -459,22 +467,22 @@ def game(hero):
         if hero.life == 0 or hero.life < 0:
             npc_clicked = False
             # remove NPC's life from hud
-            chosen_npc.add_npc_to_hud = False
+            hero.chosen_npc.add_npc_to_hud = False
             # Stop talking or fighting
-            if chosen_npc.is_talking:
-                stop_talk(hero, chosen_npc)
+            if hero.chosen_npc.is_talking:
+                stop_talk(hero, hero.chosen_npc)
 
-            if chosen_npc.in_fight_mode:
-                stop_fight(hero, chosen_npc)
+            if hero.chosen_npc.in_fight_mode:
+                stop_fight(hero, hero.chosen_npc)
 
             update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                        restore_mana,
                        restore_mana_time_passed,
-                       restore_life_time_passed, chosen_npc, chest_opened)
+                       restore_life_time_passed, hero.chosen_npc, chest_opened)
             all_sprites_group.update()
 
-        if chosen_npc is not None:
-            if chosen_npc.add_npc_to_hud:
+        if hero.chosen_npc is not None:
+            if hero.chosen_npc.add_npc_to_hud:
                 update_hud(screen, hero, scroll_button, chest_button, map_button, restore_life,
                            restore_mana,
                            restore_mana_time_passed,
@@ -485,12 +493,12 @@ def game(hero):
             hero.fight(screen, option, npcs)
             # all_sprites_group.update()
 
-        if hero.chosen_npc is not None:
-            if hero.chosen_npc.in_fight_mode:
-                hero.chosen_npc.move_in_fight(hero, all_sprites_group)
-                hero.chosen_npc.attack_type = None
-                hero.chosen_npc.fight_npc(screen, hero, npcs)
-                all_sprites_group.update()
+        # if hero.chosen_npc is not None:
+        #     if hero.chosen_npc.in_fight_mode:
+        #         hero.chosen_npc.move_in_fight(hero, all_sprites_group)
+        #         hero.chosen_npc.attack_type = None
+        #         hero.chosen_npc.fight_npc(screen, hero, npcs)
+        #         all_sprites_group.update()
 
         if hero.npc_clicked:
             if not hero.chosen_npc.is_talking and not hero.chosen_npc.in_fight_mode:
