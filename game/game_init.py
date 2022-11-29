@@ -39,8 +39,8 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Adventures in the Realm")
-    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((1500, 800))
+    #screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1200, 600))
     print("Screen size", screen.get_size()[0])
     # WIDTH_GAME = screen.get_size()[0]
     # HEIGHT_GAME = screen.get_size()[1]

@@ -371,7 +371,7 @@ PANDAS = {
 # X: 150 - 3900
 # Y: 4850 - 6400
 UNICORNS = {
-    'Pony': ["good", None, None, 600, 8600]
+    'Pony': ["good", None, None, 800, 5600]
 }
 FAERIES = {
     'Lovely': ["good", None, None, 800, 6050],
