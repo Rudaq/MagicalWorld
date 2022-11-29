@@ -13,7 +13,7 @@ model = GPT2LMHeadModel.from_pretrained("gpt2")
 text_list = []
 
 # Using data gathered in the csv file (change to the merged file)
-with open("descriptions_new.csv", "r") as my_input_file:
+with open("descriptions.csv", "r") as my_input_file:
     for line in my_input_file:
         line = line.split(" ")
         text_list.append(" ".join(line))
@@ -64,9 +64,11 @@ train_dataset, test_dataset, data_collator = load_data(train_path, test_path, to
 
 
 training_args = TrainingArguments(
-    output_dir="./my_gpt2",
+    output_dir="./my1_gpt2",
     overwrite_output_dir=True,
     num_train_epochs=12,
+    # learning_rate=1e-03,
+    # weight_decay=0.05,
     per_device_train_batch_size=32,
     per_device_eval_batch_size=64,
     eval_steps=400,
@@ -86,6 +88,8 @@ trainer = Trainer(
 
 trainer.train()
 trainer.save_model()
+tokenizer.save_pretrained("./my1_gpt2")
+
 
 sequence = "You are Orindell. A good elf"
 # output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')

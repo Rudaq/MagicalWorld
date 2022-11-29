@@ -18,6 +18,9 @@ conv_output = pipeline('conversational', model=conv_model)
 model_name_qa = "deepset/tinyroberta-squad2"
 qa_output = pipeline('question-answering', model=model_name_qa, tokenizer=model_name_qa)
 
+model_name_sent = "cardiffnlp/twitter-roberta-base-sentiment"
+sentiment_analysis = pipeline("sentiment-analysis", model=model_name_sent)
+
 
 def check_if_question(sentence):
     question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where", "when", "are", "were", "is", "was", "have", "had", "how"]
@@ -49,9 +52,11 @@ def asking_for_quest(sentence, npc, hero):
              or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence)\
             or (hero.active_quest is not None and hero.active_quest.name == 'smiths_tools' and 'tools' in sentence):
         # if statement for sentiment analysis
-        if check_if_question(sentence) and len(sentence) > 10:
-            index = random.randint(0, 3)
-            text = answers[index]
+        sentence_cropped = sentence[3:]
+        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
+            # text = 'Here you go'
+            text = 'Check your scroll. If I have a quest for you, it\'ll be there'
+
 
             if npc.give_quest(hero):
                 hero.new_task = True
@@ -86,9 +91,8 @@ def produce_response(hero, npc):
         # quest_request = False
         if not quest_request:
             if question and npc.context != '':
-
-                sentence = replace_in_text(sentence, 'I', 'you')
                 sentence = replace_in_text(sentence, 'you', npc.race)
+                sentence = replace_in_text(sentence, 'I', 'you')
                 # final_text = sent_output(sentence)
                 # if final_text[0]["label"] == 'LABEL_1':
                 # context = Path("C:\\Inżynierka\\MagicalWorld\\NLP\\dialog_generation\\DarkWizardContext.txt").read_text()
