@@ -1,3 +1,4 @@
+import csv
 import sys
 
 import pygame
@@ -312,12 +313,19 @@ def choose_character():
         pygame.display.update()
         clock.tick(60)
 
-
+from csv import writer
 # Method for last menu screen, displaying the final generated text and character image
 def character_info(name, ch_type, side, image):
     sequence = "Welcome to our world " + name + ". You are a " + side + " " + ch_type + " that"
     final_text = generate_text_about_character(sequence)
     array_text = divide(final_text)
+    # if len(final_text.split(' a ', 1))>0:
+    #     final_text_to_write = '"'+final_text.split(' a ', 1)[1]+'"'
+    #     print(final_text_to_write)
+    #     with open('C:\\Inżynierka\\MagicalWorld\\NLP\\description_generation\\descriptions_new.csv', 'a') as f:
+    #         write = csv.writer(f)
+    #         write.writerow([final_text_to_write])
+
     # Main loop for this menu
     while True:
         screen.fill(BLACK)
