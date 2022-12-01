@@ -217,8 +217,8 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "SpiderRight.png"))
     },
     'image_wheat_monster': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterBack.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterBack.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterLeft.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterRight.png"))
     },
