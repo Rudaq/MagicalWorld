@@ -927,15 +927,15 @@ QUESTS = {
                 'name': 'true_barbarian',
                 'description': 'You have just become a newly trained Barbarian. You are young and strong, but you are '
                                'missing a certain thing that will make you a true barbarian. It is time for you to '
-                               'get your own '
-                               'powerful weapon that will accompany you to the end of your days. To find out more, '
+                               'get your '
+                               'weapon upgraded so it will accompany you to the end of your days. To find out more, '
                                'find a Smith in the village and ask him for details.',
                 'points': 20,
                 'tasks': [
                     {
                         'name': 'new_weapon',
                         'description': 'A brave and mighty warrior like you needs a powerful weapon. But for that, '
-                                       'you will need a magical crystal that is guarded by fairies. Head to their '
+                                       'you will need a magical crystal that is guarded by Little Faeries. Head to their '
                                        'land, where various magical creatures lurk, and find a magic crystal to '
                                        'upgrade your sword, some of the faeries can be helpful. Give it to me and show patience.',
                         'artefact': 'Magical Crystal',

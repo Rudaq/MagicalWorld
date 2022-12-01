@@ -8,11 +8,12 @@ from transformers import DistilBertTokenizerFast, pipeline, Conversation
 
 model_name = "distilbert-base-uncased-finetuned-sst-2-english"
 tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
+# sent_output = pipeline('sentiment-analysis', model=model_name, tokenizer=tokenizer)
+
 
 # conv_model_name="facebook/blenderbot-400M-distill"
 conv_model = "microsoft/DialoGPT-medium"
 conv_output = pipeline('conversational', model=conv_model)
-# sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
 
 # model_name_qa = "deepset/roberta-base-squad2"
 model_name_qa = "deepset/tinyroberta-squad2"
@@ -47,11 +48,16 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
-    if 'quest' in sentence:
+    if 'quest' in sentence.lower():
         # if statement for sentiment analysis
         sentence_cropped = sentence[3:]
-        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
+        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or \
+                (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and
+                    sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
             # text = 'Here you go'
+            print("label:  ", sentiment_analysis(sentence_cropped)[0]['label'])
+            print("score:  ", sentiment_analysis(sentence_cropped)[0]['score'])
+
             text = 'Check your scroll. If I have a quest for you, it\'ll be there'
 
             if npc.give_quest(hero):
@@ -60,6 +66,9 @@ def asking_for_quest(sentence, npc, hero):
 
             return True, text
         else:
+            print("label:  ", sentiment_analysis(sentence_cropped)[0]['label'])
+            print("score:  ", sentiment_analysis(sentence_cropped)[0]['score'])
+
             text = "I won't give you the quest. You're impolite."
             return True, text
 
