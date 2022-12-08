@@ -23,7 +23,8 @@ sentiment_analysis = pipeline("sentiment-analysis", model=model_name_sent)
 
 
 def check_if_question(sentence):
-    question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where", "when", "are", "were", "is", "was", "have", "had", "how"]
+    question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where",
+                         "when", "are", "were", "is", "was", "have", "had", "how"]
 
     is_question = False
     splitted = sentence.split(' ', 1)[1]
@@ -47,24 +48,22 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
-    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are', 'Here you are!']
     if 'quest' in sentence or 'task' in sentence \
-             or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence)\
+            or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence) \
             or (hero.active_quest is not None and hero.active_quest.name == 'smiths_tools' and 'tools' in sentence):
         # if statement for sentiment analysis
         sentence_cropped = sentence[3:]
-        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
-            # text = 'Here you go'
+        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (
+                sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and
+                sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
             text = 'Check your scroll. If I have a quest for you, it\'ll be there'
-
-
             if npc.give_quest(hero):
                 hero.new_task = True
                 hero.restore_new_task = datetime.now()
 
             return True, text
         else:
-            text = "I won't give you the task. You're impolite."
+            text = "I won't give you the quest. You're impolite."
             return True, text
 
     return False, ''
@@ -75,11 +74,11 @@ def produce_response(hero, npc):
     if hero.my_text == '>> ':
         if hero.side == npc.side:
             max = len(npc.nice_greetings)
-            greeting_no = random.randint(0, max-1)
+            greeting_no = random.randint(0, max - 1)
             final_result = npc.nice_greetings[greeting_no]
         else:
             max = len(npc.rude_greetings)
-            greeting_no = random.randint(0, max-1)
+            greeting_no = random.randint(0, max - 1)
             final_result = npc.rude_greetings[greeting_no]
 
         return final_result
@@ -99,7 +98,7 @@ def produce_response(hero, npc):
 
                 QA_input = {
                     'question': sentence,
-                    'context':  npc.context
+                    'context': npc.context
                 }
                 result = qa_output(QA_input)
 
@@ -109,9 +108,9 @@ def produce_response(hero, npc):
                 #     final_result = "You're impolite, I won't help you."
                 #     print("Negative")
                 print("RACE: ", npc.race)
-                final_result = replace_in_text(final_result, npc.race+'s', 'We')
+                final_result = replace_in_text(final_result, npc.race + 's', 'We')
                 final_result = replace_in_text(final_result, npc.race, 'I')
-                final_result = replace_in_text(final_result, npc.race+' is ', 'I am ')
+                final_result = replace_in_text(final_result, npc.race + ' is ', 'I am ')
                 final_result = replace_in_text(final_result, 'npc.name', npc.name)
                 final_result = replace_in_text(final_result, 'his', 'my')
                 final_result = replace_in_text(final_result, 'him', 'me')
@@ -125,6 +124,7 @@ def produce_response(hero, npc):
                 return (str(final_text).split('>>'))[-1][:-1]
         else:
             return final_result
+
 
 # Method to draw text on the screen on the given height, width, size and in a specified color.
 def draw_text(text, x, w, size, color, screen):
