@@ -38,9 +38,9 @@ class Mermaid(Npc):
         pass
 
     # make that mermaid can talk only if she has a mermaid necklace in her equipment
-    def take_gift(self, hero, artifact, npcs):
+    def take_gift(self, hero, artifact, npcs, screen):
         self.artifacts.add(artifact)
-        if artifact.name.equals('Mermaid Necklace'):
+        if artifact.name == 'Mermaid Necklace':
             self.can_talk = True
         if hero.active_quest is not None \
                 and hero.active_quest.active_task is not None \

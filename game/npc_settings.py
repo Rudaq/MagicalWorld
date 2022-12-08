@@ -217,8 +217,8 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "SpiderRight.png"))
     },
     'image_wheat_monster': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterBack.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterBack.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonster.png")),
         'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterLeft.png")),
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WheatMonsterRight.png"))
     },
@@ -229,10 +229,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "WolfRight.png"))
     },
     'image_forest_elf': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Elf.png"))
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_back.png")),
+        'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf.png")),
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "forest_elf_right.png"))
     },
     'image_big_fish': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "BigFishBack.png")),
@@ -371,7 +371,7 @@ MERMAIDS = {
 # X: 150 - 3900
 # Y: 4850 - 6400
 UNICORNS = {
-    'Pony': ["good", None, None, 400, 8600]
+    'Pony': ["good", None, None, 800, 5600]
 }
 FAERIES = {
     'Lovely': ["good", None, None, 800, 6050],

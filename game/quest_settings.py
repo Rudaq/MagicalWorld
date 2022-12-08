@@ -93,8 +93,8 @@ QUESTS = {
             # Quest 4
             'immortality_flower': {
                 'name': 'immortality_flower',
-                'description': 'Now you are ready for the greatest mission .. You have to help the Little Fairies regain '
-                               'immortality back. Go to the Little Fairies for more details',
+                'description': 'Now you are ready for the greatest mission .. You have to help the Little Fairies '
+                               'regain immortality back. Go to the Little Fairies for more details',
                 'points': 70,
                 'tasks': [
                     {
@@ -151,11 +151,12 @@ QUESTS = {
 
         },
         'evil': {
-            # # Quest 1
+            # Quest 1
             'kill_unicorn': {
                 'name': 'kill_unicorn',
-                'description': 'You have to prove on which side you are ... go to the Dark Wizard for tips on how to '
-                               'do it.',
+                'description': 'You must prove that you are on our side and that there is darkness in your heart. '
+                               'Your path will not be easy, but do not give up! Go to your ally on the dark side - '
+                               'the Dark Wizard, he has a task for you!',
                 'points': 20,
                 'tasks': [
                     {
@@ -243,7 +244,7 @@ QUESTS = {
             'bamboo_island': {
                 'name': 'bamboo_island',
                 'description': 'Great, everyone has heard about you now. Even the Big Monkey from Bamboo Island. He '
-                               'has a task fot you, go to the Bamboo Island and ask for the details.',
+                               'has a task fot you, go to the Primeval Bush and ask for the details.',
                 'points': 60,
                 'tasks': [
                     {

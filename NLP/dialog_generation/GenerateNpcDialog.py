@@ -47,12 +47,16 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
-    if 'quest' in sentence:
+    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are', 'Here you are!']
+    if 'quest' in sentence or 'task' in sentence \
+             or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence)\
+            or (hero.active_quest is not None and hero.active_quest.name == 'smiths_tools' and 'tools' in sentence):
         # if statement for sentiment analysis
         sentence_cropped = sentence[3:]
         if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
             # text = 'Here you go'
             text = 'Check your scroll. If I have a quest for you, it\'ll be there'
+
 
             if npc.give_quest(hero):
                 hero.new_task = True
@@ -60,7 +64,7 @@ def asking_for_quest(sentence, npc, hero):
 
             return True, text
         else:
-            text = "I won't give you the quest. You're impolite."
+            text = "I won't give you the task. You're impolite."
             return True, text
 
     return False, ''

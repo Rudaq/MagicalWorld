@@ -41,8 +41,8 @@ def game(hero):
     # pygame initialization
     pygame.init()
     pygame.display.set_caption("Adventures in the Realm")
-    # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((1500, 800))
+    #screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1200, 600))
     print("Screen size", screen.get_size()[0])
     # WIDTH_GAME = screen.get_size()[0]
     # HEIGHT_GAME = screen.get_size()[1]
@@ -441,7 +441,11 @@ def game(hero):
                         show_table = not show_table
                         if show_table:
                             hero.chosen_artifact = equipment
-
+            if show_table:
+                for mock_npc in mock_npcs_to_choose:
+                    if mock_npc.rect.collidepoint(mouse_point):
+                        give_artifact_to_npc(hero, mock_npc, hero.chosen_artifact, equipment_buttons, npcs, screen)
+                        show_table = False
 
         # Set previous state of left mouse button
         prev = left
@@ -534,10 +538,6 @@ def game(hero):
         # show the table with NPC's from which hero can choose while giving a gift
         if show_table:
             show_table_to_hero(screen, npcs_to_choose, mock_npcs_to_choose, hero)
-            for mock_npc in mock_npcs_to_choose:
-                if mock_npc.rect.collidepoint(mouse_point):
-                    give_artifact_to_npc(hero, mock_npc, hero.chosen_artifact, equipment_buttons, npcs, screen)
-                    show_table = False
 
         if show_message and (hero_active == False):
             if display_end_text(screen, hero) == 'continue':
