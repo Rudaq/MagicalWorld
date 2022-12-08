@@ -49,10 +49,10 @@ NPC_IMAGES = {
         'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "druid_right.png"))
     },
     'image_dark_wizard': {
-        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wizard_dark.png")),
+        'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "dark_wizard_back.png")),
         'down': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wizard_dark.png")),
-        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wizard_dark.png")),
-        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Wizard_dark.png"))
+        'left': pygame.image.load(os.path.join(path, "resources/graphics/npc", "dark_wizard_left.png")),
+        'right': pygame.image.load(os.path.join(path, "resources/graphics/npc", "dark_wizard_right.png"))
     },
     'image_mermaid': {
         'up': pygame.image.load(os.path.join(path, "resources/graphics/npc", "Mermaid.PNG")),
