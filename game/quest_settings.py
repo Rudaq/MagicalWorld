@@ -249,7 +249,7 @@ QUESTS = {
                 'tasks': [
                     {
                         'name': 'pandas_skull',
-                        'description': 'Big Monke: Someone like you can help me! I lost a panda skull somewhere .. '
+                        'description': 'Big Monke: Someone like you can help me! I lost a Panda skull somewhere .. '
                                        'Someone buried it. It is said to be buried 5 meters on the right from the Big '
                                        'Tree in the Dreary Forest. You will need a shovel to dig it. First, '
                                        'go to the Smith '
