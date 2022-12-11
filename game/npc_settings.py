@@ -309,7 +309,7 @@ CRABS = {
     'Craperus': ["good", None, None, 9100, 10400]
 }
 BIG_FISHES = {
-    'Gul': ["evil", None, None, 9030, 5300],
+    # 'Gul': ["evil", None, None, 8990, 5200],
     'Bul': ["evil", None, None, 11070, 5380],
     'Dul': ["evil", None, None, 11270, 5080]
 }
