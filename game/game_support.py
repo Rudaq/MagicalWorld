@@ -162,28 +162,30 @@ def show_map_to_hero(screen, hero, all_sprites_group):
     # Position of the mouse
     x, y = pygame.mouse.get_pos()
     coords = Point(x, y)
+    x_show = x + 5
+    y_show = y - 15
 
     # Hover over the realm biomes
     if MiniFrozenEmpire.contains(coords):
-        draw_text_on_menu("Frozen Empire", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Frozen Empire", x_show, y_show, 15, BLACK, screen)
     elif MiniEnchantedForest.contains(coords):
-        draw_text_on_menu("Enchanted Forest", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Enchanted Forest", x_show, y_show, 15, BLACK, screen)
     elif MiniLoveyDoveyLand.contains(coords):
-        draw_text_on_menu("Lovey Dovey Land", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Lovey Dovey Land", x_show, y_show, 15, BLACK, screen)
     elif MiniPrimevalBush.contains(coords):
-        draw_text_on_menu("Primeval Bush", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Primeval Bush", x_show, y_show, 15, BLACK, screen)
     elif MiniSpecularLakes.contains(coords):
-        draw_text_on_menu("Specular Lakes", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Specular Lakes", x_show, y_show, 15, BLACK, screen)
     elif MiniDrearyForest.contains(coords):
-        draw_text_on_menu("Dreary Forest", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Dreary Forest", x_show, y_show, 15, BLACK, screen)
     elif MiniMedieville.contains(coords):
-        draw_text_on_menu("Medieville", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Medieville", x_show, y_show, 15, BLACK, screen)
     elif MiniStormyPier.contains(coords):
-        draw_text_on_menu("Coastline with Stormy Pier", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Coastline with Stormy Pier", x_show, y_show, 15, BLACK, screen)
     elif MiniDesolationOfAbomination.contains(coords):
-        draw_text_on_menu("Desolation of Abomination", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Desolation of Abomination", x_show, y_show, 15, BLACK, screen)
     elif MiniMistySwamp.contains(coords):
-        draw_text_on_menu("Misty Swamp", x, y, 15, BLACK, screen)
+        draw_text_on_menu("Misty Swamp", x_show, y_show, 15, BLACK, screen)
 
 
 def check_biome(coords):
@@ -214,7 +216,9 @@ def check_biome(coords):
 
 
 def show_current_biome(screen, image):
-    coordinates = (WIDTH_GAME - 350, 9 / 10 * HEIGHT_GAME)
+    WIDTH_GAME_TMP = screen.get_size()[0]
+    HEIGHT_GAME_TMP = screen.get_size()[1]
+    coordinates = (WIDTH_GAME_TMP - 350, HEIGHT_GAME_TMP - 50)
     screen.blit(image.convert_alpha(), coordinates)
 
 
