@@ -5,8 +5,6 @@ import pygame
 
 current = os.path.dirname(os.path.realpath(__file__))
 path = Path(__file__).resolve().parent.parent.parent
-# print("Current Directory", current)
-# print(path)
 
 
 class CameraGroup(pygame.sprite.Group):

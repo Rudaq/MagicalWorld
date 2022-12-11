@@ -37,9 +37,7 @@ from npc.FireElemental import FireElemental
 from npc.EarthElemental import EarthElemental
 
 current = os.path.dirname(os.path.realpath(__file__))
-# print("Current Directory", current)
 path = Path(__file__).resolve().parent.parent
-# print(path)
 
 NPC_IMAGES = {
     'image_druid': {

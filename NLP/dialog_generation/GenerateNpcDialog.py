@@ -12,7 +12,6 @@ tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
 # conv_model_name="facebook/blenderbot-400M-distill"
 conv_model = "microsoft/DialoGPT-medium"
 conv_output = pipeline('conversational', model=conv_model)
-# sent_output = pipeline('sentiment-analysis', model="C:\\Inżynierka\\MagicalWorld\\NLP\\sentiment_analysis\\sent", tokenizer=tokenizer)
 
 # model_name_qa = "deepset/roberta-base-squad2"
 model_name_qa = "deepset/tinyroberta-squad2"
@@ -23,7 +22,8 @@ sentiment_analysis = pipeline("sentiment-analysis", model=model_name_sent)
 
 
 def check_if_question(sentence):
-    question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where", "when", "are", "were", "is", "was", "have", "had", "how"]
+    question_starters = ["what", "who", "can", "why", "could", "would", "will", "did", "do", "does", "shall", "where",
+                         "when", "are", "were", "is", "was", "have", "had", "how"]
 
     is_question = False
     splitted = sentence.split(' ', 1)[1]
@@ -47,21 +47,20 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
-    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are', 'Here you are!']
+    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are',
+               'Here you are!']
     if 'quest' in sentence or 'task' in sentence \
-             or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence)\
+            or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence) \
             or (hero.active_quest is not None and hero.active_quest.name == 'smiths_tools' and 'tools' in sentence):
         # if statement for sentiment analysis
         sentence_cropped = sentence[3:]
-        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
-            # text = 'Here you go'
+        if sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_2" or (
+                sentiment_analysis(sentence_cropped)[0]['label'] == "LABEL_1" and
+                sentiment_analysis(sentence_cropped)[0]['score'] > 0.80):
             text = 'Check your scroll. If I have a quest for you, it\'ll be there'
-
-
             if npc.give_quest(hero):
                 hero.new_task = True
                 hero.restore_new_task = datetime.now()
-
             return True, text
         else:
             text = "I won't give you the task. You're impolite."
@@ -71,15 +70,14 @@ def asking_for_quest(sentence, npc, hero):
 
 
 def produce_response(hero, npc):
-    final_result = ''
     if hero.my_text == '>> ':
         if hero.side == npc.side:
             max = len(npc.nice_greetings)
-            greeting_no = random.randint(0, max-1)
+            greeting_no = random.randint(0, max - 1)
             final_result = npc.nice_greetings[greeting_no]
         else:
             max = len(npc.rude_greetings)
-            greeting_no = random.randint(0, max-1)
+            greeting_no = random.randint(0, max - 1)
             final_result = npc.rude_greetings[greeting_no]
 
         return final_result
@@ -93,25 +91,20 @@ def produce_response(hero, npc):
             if question and npc.context != '':
                 sentence = replace_in_text(sentence, 'you', npc.race)
                 sentence = replace_in_text(sentence, 'I', 'you')
-                # final_text = sent_output(sentence)
-                # if final_text[0]["label"] == 'LABEL_1':
-                # context = Path("C:\\Inżynierka\\MagicalWorld\\NLP\\dialog_generation\\DarkWizardContext.txt").read_text()
 
                 QA_input = {
                     'question': sentence,
-                    'context':  npc.context
+                    'context': npc.context
                 }
                 result = qa_output(QA_input)
 
                 print(result['answer'])
                 final_result = result['answer']
-                # else:
-                #     final_result = "You're impolite, I won't help you."
-                #     print("Negative")
+
                 print("RACE: ", npc.race)
-                final_result = replace_in_text(final_result, npc.race+'s', 'We')
+                final_result = replace_in_text(final_result, npc.race + 's', 'We')
                 final_result = replace_in_text(final_result, npc.race, 'I')
-                final_result = replace_in_text(final_result, npc.race+' is ', 'I am ')
+                final_result = replace_in_text(final_result, npc.race + ' is ', 'I am ')
                 final_result = replace_in_text(final_result, 'npc.name', npc.name)
                 final_result = replace_in_text(final_result, 'his', 'my')
                 final_result = replace_in_text(final_result, 'him', 'me')
@@ -126,6 +119,7 @@ def produce_response(hero, npc):
         else:
             return final_result
 
+
 # Method to draw text on the screen on the given height, width, size and in a specified color.
 def draw_text(text, x, w, size, color, screen):
     font = pygame.font.SysFont('Verdana', size)
@@ -135,10 +129,8 @@ def draw_text(text, x, w, size, color, screen):
 
 # Placeholder for the future function generating text from npc side (chatbox model)
 def generate_text(hero, npc):
-    # text = "Hello!"
     response = produce_response(hero, npc)
     print("Generating text")
-    text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
     return response
 
 

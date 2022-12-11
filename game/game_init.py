@@ -112,11 +112,8 @@ def game(hero):
     map_button = ButtonClass(230, 240, 'map_button')
     fight_button = ButtonClass(80, 40, 'fight_button')
     talk_button = ButtonClass(80, 40, 'talk_button')
-    buttons = pygame.sprite.Group()
 
     equipment_buttons = pygame.sprite.Group()
-    # equipment_buttons.update()
-    # equipment_buttons.draw(screen)
 
     # artifacts that are placed on map and are needed for the quests (hero can collect them while clicking)
     map_artifacts = pygame.sprite.Group()
@@ -140,7 +137,6 @@ def game(hero):
     mock_npcs_to_choose.update()
     mock_npcs_to_choose.draw(screen)
 
-
     # Creating npcs
     for npc_entity in NPCs:
         create_npc(npc_entity, [npcs, sprites_to_move_opposite], [all_sprites_group], collision_sprites_npc)
@@ -158,7 +154,6 @@ def game(hero):
         sprites_to_move_opposite.extend(npc.artifacts)
         collision_sprites_hero.add(npc.artifacts)
         collision_sprites_npc.add(npc.artifacts)
-
 
         # npc_collision_with_npcs = pygame.sprite.Group()
         # for n in npcs:
@@ -178,9 +173,9 @@ def game(hero):
 
     hero.collision_sprites = collision_sprites_hero
 
-    print("Number of collision sprites: ", collision_sprites_npc)
-    print("NPC boundaries no: ", npc_boundaries)
-    print("Hero boundaries no: ", collision_sprites_hero)
+    # print("Number of collision sprites: ", collision_sprites_npc)
+    # print("NPC boundaries no: ", npc_boundaries)
+    # print("Hero boundaries no: ", collision_sprites_hero)
     # collision_sprites_npc.add(npc_boundaries)
 
     for col_npc in collision_sprites_npc:

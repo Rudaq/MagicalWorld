@@ -18,7 +18,6 @@ with open("descriptions.csv", "r") as my_input_file:
         line = line.split(" ")
         text_list.append(" ".join(line))
 
-
 train, test = train_test_split(text_list, test_size=0.2)
 
 
@@ -58,10 +57,10 @@ def load_data(train_path, test_path, tokenizer):
 
     return train_dataset, test_dataset, data_collator
 
+
 train_dataset, test_dataset, data_collator = load_data(train_path, test_path, tokenizer)
 
 # model = AutoModelWithLMHead.from_pretrained("anonymous-german-nlp/german-gpt2")
-
 
 training_args = TrainingArguments(
     output_dir="./my1_gpt2",
@@ -75,8 +74,7 @@ training_args = TrainingArguments(
     save_steps=800,
     warmup_steps=500,
     prediction_loss_only=True,
-    )
-
+)
 
 trainer = Trainer(
     model=model,
@@ -90,7 +88,6 @@ trainer.train()
 trainer.save_model()
 tokenizer.save_pretrained("./my1_gpt2")
 
-
-sequence = "You are Orindell. A good elf"
+# sequence = "You are Orindell. A good elf"
 # output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')
 # final_text = output(sequence)[0]['generated_text']

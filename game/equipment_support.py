@@ -18,8 +18,7 @@ def show_chest_to_hero(screen, hero, equipment_buttons):
     x = pos + 40
     y = 220
     counter = 0
-    # equipment_buttons.update()
-    # equipment_buttons.draw(screen)
+
     for eq in hero.equipment:
         image = pygame.transform.scale(eq.image, (60, 60))
         eq.image = image
