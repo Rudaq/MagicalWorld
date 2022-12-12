@@ -48,6 +48,8 @@ def replace_in_text(sentence, replaced, new_word):
 
 
 def asking_for_quest(sentence, npc, hero):
+    answers = ['Here you go', 'Go do the task!', 'It looks like you got a new task to do! Here you are',
+               'Here you are!']
     if 'quest' in sentence or 'task' in sentence \
             or (hero.active_quest is not None and hero.active_quest.name == 'immortality_flower' and 'read' in sentence) \
             or (hero.active_quest is not None and hero.active_quest.name == 'smiths_tools' and 'tools' in sentence):
