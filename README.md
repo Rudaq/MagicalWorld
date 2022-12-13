@@ -59,6 +59,9 @@ In order to run this project you need to have a python compiler installed (e.g. 
 
 ## 🔗 Collaborators
 [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/Rudaq) Paulina Puchalska
+
 [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/KrzeminskaWeronika) Weronika Krzemińska
+
 [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/AleksandraRuminska)  Aleksandra Rumińska
+
 [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/milenzaml)  Milena Zamłyńska
