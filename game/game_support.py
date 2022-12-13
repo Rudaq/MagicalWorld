@@ -218,7 +218,7 @@ def check_biome(coords):
 def show_current_biome(screen, image):
     WIDTH_GAME_TMP = screen.get_size()[0]
     HEIGHT_GAME_TMP = screen.get_size()[1]
-    coordinates = (WIDTH_GAME_TMP - 350, HEIGHT_GAME_TMP - 50)
+    coordinates = (WIDTH_GAME_TMP - 350, HEIGHT_GAME_TMP - 100)
     screen.blit(image.convert_alpha(), coordinates)
 
 
