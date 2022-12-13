@@ -63,7 +63,7 @@ train_dataset, test_dataset, data_collator = load_data(train_path, test_path, to
 # model = AutoModelWithLMHead.from_pretrained("anonymous-german-nlp/german-gpt2")
 
 training_args = TrainingArguments(
-    output_dir="./my1_gpt2",
+    output_dir="./my_gpt2",
     overwrite_output_dir=True,
     num_train_epochs=12,
     # learning_rate=1e-03,
@@ -86,7 +86,7 @@ trainer = Trainer(
 
 trainer.train()
 trainer.save_model()
-tokenizer.save_pretrained("./my1_gpt2")
+tokenizer.save_pretrained("./my_gpt2")
 
 # sequence = "You are Orindell. A good elf"
 # output = pipeline('text-generation', model='./my_gpt2', tokenizer='gpt2')
