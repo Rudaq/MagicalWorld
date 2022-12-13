@@ -68,10 +68,11 @@ def show_quest_to_hero(screen, hero):
 
 def display_end_text(screen, hero):
     screen_width = math.floor(screen.get_size()[0])
+    scren_height = screen.get_size()[1]
     top_right = (screen_width - 500) / 2
-    screen.blit(GUI_IMAGES['end_frame'].convert_alpha(), (top_right, (HEIGHT_GAME - 480) / 2))
+    screen.blit(GUI_IMAGES['end_frame'].convert_alpha(), (top_right, (screen_height - 480) / 2))
     w = top_right - 230
-    h = HEIGHT_GAME / 2 + 140
+    h = screen_height / 2 + 140
 
     text_list = wrap_text(END_TEXT[hero.race].replace("+name+", hero.name), 50, False)
 
