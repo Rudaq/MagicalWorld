@@ -42,7 +42,7 @@ In order to run this project you need to have a python compiler installed (e.g. 
   pip install -r requirements.txt
 ```
 
-4. Create the GPT-2 model, if you run this project for the first time
+4. If you run this project for the first time, create the GPT-2 model
     -  Full path to the model.py file is *MagicalWorld/NLP/description_generation*
 ```
   cd NLP/description_generation
