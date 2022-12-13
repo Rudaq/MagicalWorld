@@ -243,7 +243,7 @@ QUESTS = {
             # Quest 4
             'bamboo_island': {
                 'name': 'bamboo_island',
-                'description': 'Great, everyone has heard about you now. Even the Big Monkey from Bamboo Island. He '
+                'description': 'Great, everyone has heard about you now. Even the Big Monkey from Primeval Bush. He '
                                'has a task fot you, go to the Primeval Bush and ask for the details.',
                 'points': 60,
                 'tasks': [

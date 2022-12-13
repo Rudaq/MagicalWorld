@@ -63,7 +63,7 @@ def asking_for_quest(sentence, npc, hero):
                 hero.restore_new_task = datetime.now()
             return True, text
         else:
-            text = "I won't give you the task. You're impolite."
+            text = "I won't give you the quest. You're impolite."
             return True, text
 
     return False, ''
