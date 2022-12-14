@@ -41,15 +41,14 @@ In order to run this project you need to have a python compiler installed (e.g. 
 ![Alt text](resources/readme/interpreter.png?raw=true "Python Intepreter")
 
 4. If you run this project for the first time, create the GPT-2 model
-    -  Full path to the model.py file is *MagicalWorld/NLP/description_generation*
-    - click run button on the `model.py` file
+    - Full path to the model.py file is *MagicalWorld/NLP/description_generation*
+    - Click **run** button on the `model.py` file
   
 ![Alt text](resources/readme/model.png?raw=true "Run model.py")
 
 5. Start the game 
     - Full path to the menu.py file is *MagicalWorld/game* 
-    - click run button on the `menu.py` file in the same way as for `model.py`
-
+    - Click **run** button on the `menu.py` file in the same way as for `model.py`
 
 
 ## :star: Collaborators :star:
