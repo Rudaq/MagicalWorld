@@ -27,9 +27,7 @@ class Dwarf(Character):
         self.sound2_path = os.path.join(path, "resources/music/braid_choke.wav")
         self.sound1_path = os.path.join(path, "resources/music/axe_hit.wav")
 
-        feather_image = pygame.image.load(os.path.join(path, "resources/graphics/artifacts", "raven_feather.PNG"))
-        self.feather = Artifact(feather_image, 10, 'Raven Feathers', None)
-        self.equipment.append(self.feather)
+  
 
     # printing the attack onto the screen
     def attack(self, screen, npcs):
