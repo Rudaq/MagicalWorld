@@ -30,7 +30,7 @@ In order to run this project you need to have a python compiler installed (e.g. 
   git clone https://github.com/Rudaq/MagicalWorld.git
 ```
 
-2. Install Requirements with pip or your compiler may offer to install them for you
+2. Install Requirements with pip or let your compiler install them for you
 
 ```
   pip install -r requirements.txt
