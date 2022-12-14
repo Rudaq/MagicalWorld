@@ -30,32 +30,26 @@ In order to run this project you need to have a python compiler installed (e.g. 
   git clone https://github.com/Rudaq/MagicalWorld.git
 ```
 
-2. Install Requirements
+2. Install Requirements with pip or your compiler may offer to install them for you
 
 ```
   pip install -r requirements.txt
 ```
-or your compiler will offer to install them for you
 
 3. Create a new virtual environment (venv) in *Add Python Interpreter*
 
-![Alt text](resources/readme/interpreter.png?raw=true "Optional Title")
+![Alt text](resources/readme/interpreter.png?raw=true "Python Intepreter")
 
 4. If you run this project for the first time, create the GPT-2 model
     -  Full path to the model.py file is *MagicalWorld/NLP/description_generation*
-    - click run button on the model.py file
-```
-  cd NLP/description_generation
-  python model.py
-```
+    - click run button on the `model.py` file
+  
+![Alt text](resources/readme/model.png?raw=true "Run model.py")
 
 5. Start the game 
     - Full path to the menu.py file is *MagicalWorld/game* 
-    - click run button on the menu.py file
-```
-  cd ../../game 
-  python menu.py
-```
+    - click run button on the `menu.py` file in the same way as for `model.py`
+
 
 
 ## :star: Collaborators :star:
