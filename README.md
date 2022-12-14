@@ -36,7 +36,7 @@ In order to run this project you need to have a python compiler installed (e.g. 
   pip install -r requirements.txt
 ```
 
-3. Create a new virtual environment (venv) in *Add Python Interpreter*
+3. Create a new virtual environment (venv) in *Add Python Interpreter* and choose it for your project Intepreter
 
 ![Alt text](resources/readme/interpreter.png?raw=true "Python Intepreter")
 
