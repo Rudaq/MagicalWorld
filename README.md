@@ -3,7 +3,7 @@
 
 :fairy_woman: Engineering Thesis - RPG game based on natural language processing for text generation
 
-
+![start_screen](https://user-images.githubusercontent.com/83085295/209990356-98c7111b-0209-4035-a401-733983a89822.png)
 
 ## Abstract 
 The aim of the thesis is to apply Natural Language Processing mechanisms to a real, interactive Role
